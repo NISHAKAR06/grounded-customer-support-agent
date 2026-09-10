@@ -1,0 +1,178 @@
+{
+  "dataset_metadata": {
+    "source_path": "C:\\Users\\NISHAKART\\.cache\\kagglehub\\datasets\\thoughtvector\\customer-support-on-twitter\\versions\\10\\twcs\\twcs.csv",
+    "file_size_mb": 492.58,
+    "analyzed_at": "2026-09-09T22:25:30.404464",
+    "total_rows": 2811774,
+    "columns": [
+      "tweet_id",
+      "author_id",
+      "inbound",
+      "created_at",
+      "text",
+      "response_tweet_id",
+      "in_response_to_tweet_id"
+    ]
+  },
+  "volume_breakdown": {
+    "total_records": 2811774,
+    "inbound_records": 1537843,
+    "inbound_percentage": 54.69,
+    "outbound_records": 1273931,
+    "outbound_percentage": 45.31,
+    "unique_customers": 702669,
+    "unique_brands": 108
+  },
+  "temporal_range": {
+    "min_date": "2008-05-08 20:13:59+00:00",
+    "max_date": "2017-12-03 23:14:01+00:00",
+    "span_days": 3496
+  },
+  "schema_missingness": {
+    "tweet_id": {
+      "null_count": 0,
+      "null_percentage": 0.0
+    },
+    "author_id": {
+      "null_count": 0,
+      "null_percentage": 0.0
+    },
+    "inbound": {
+      "null_count": 0,
+      "null_percentage": 0.0
+    },
+    "created_at": {
+      "null_count": 0,
+      "null_percentage": 0.0
+    },
+    "text": {
+      "null_count": 0,
+      "null_percentage": 0.0
+    },
+    "response_tweet_id": {
+      "null_count": 1040629,
+      "null_percentage": 37.01
+    },
+    "in_response_to_tweet_id": {
+      "null_count": 794335,
+      "null_percentage": 28.25
+    }
+  },
+  "conversation_topology": {
+    "root_customer_inquiries": 787346,
+    "root_customer_percentage": 51.2,
+    "follow_up_customer_turns": 750497,
+    "brand_in_reply_turns": 1266942,
+    "brand_standalone_turns": 6989,
+    "multi_reply_parents": 222426
+  },
+  "behavioral_and_resolution_signals": {
+    "brand_dm_referrals": 336310,
+    "brand_dm_percentage": 26.4,
+    "brand_link_referrals": 416589,
+    "brand_link_percentage": 32.7,
+    "customer_gratitude_signals": 157151
+  },
+  "top_25_brands_by_outbound": [
+    {
+      "brand": "AmazonHelp",
+      "outbound_replies": 169840
+    },
+    {
+      "brand": "AppleSupport",
+      "outbound_replies": 106860
+    },
+    {
+      "brand": "Uber_Support",
+      "outbound_replies": 56270
+    },
+    {
+      "brand": "SpotifyCares",
+      "outbound_replies": 43265
+    },
+    {
+      "brand": "Delta",
+      "outbound_replies": 42253
+    },
+    {
+      "brand": "Tesco",
+      "outbound_replies": 38573
+    },
+    {
+      "brand": "AmericanAir",
+      "outbound_replies": 36764
+    },
+    {
+      "brand": "TMobileHelp",
+      "outbound_replies": 34317
+    },
+    {
+      "brand": "comcastcares",
+      "outbound_replies": 33031
+    },
+    {
+      "brand": "British_Airways",
+      "outbound_replies": 29361
+    },
+    {
+      "brand": "SouthwestAir",
+      "outbound_replies": 28977
+    },
+    {
+      "brand": "VirginTrains",
+      "outbound_replies": 27817
+    },
+    {
+      "brand": "Ask_Spectrum",
+      "outbound_replies": 25860
+    },
+    {
+      "brand": "XboxSupport",
+      "outbound_replies": 24557
+    },
+    {
+      "brand": "sprintcare",
+      "outbound_replies": 22381
+    },
+    {
+      "brand": "hulu_support",
+      "outbound_replies": 21872
+    },
+    {
+      "brand": "sainsburys",
+      "outbound_replies": 19466
+    },
+    {
+      "brand": "GWRHelp",
+      "outbound_replies": 19364
+    },
+    {
+      "brand": "AskPlayStation",
+      "outbound_replies": 19098
+    },
+    {
+      "brand": "ChipotleTweets",
+      "outbound_replies": 18749
+    },
+    {
+      "brand": "VerizonSupport",
+      "outbound_replies": 17966
+    },
+    {
+      "brand": "UPSHelp",
+      "outbound_replies": 17817
+    },
+    {
+      "brand": "ATVIAssist",
+      "outbound_replies": 17650
+    },
+    {
+      "brand": "O2",
+      "outbound_replies": 16212
+    },
+    {
+      "brand": "Safaricom_Care",
+      "outbound_replies": 16077
+    }
+  ]
+}

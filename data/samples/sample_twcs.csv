@@ -1,0 +1,540 @@
+tweet_id,author_id,inbound,created_at,text,response_tweet_id,in_response_to_tweet_id
+1,sprintcare,False,Tue Oct 31 22:10:47 +0000 2017,@115712 I understand. I would like to assist you. We would need to get you into a private secured link to further assist.,2,3.0
+2,115712,True,Tue Oct 31 22:11:45 +0000 2017,@sprintcare and how do you propose we do that,,1.0
+3,115712,True,Tue Oct 31 22:08:27 +0000 2017,@sprintcare I have sent several private messages and no one is responding as usual,1,4.0
+4,sprintcare,False,Tue Oct 31 21:54:49 +0000 2017,@115712 Please send us a Private Message so that we can further assist you. Just click ‘Message’ at the top of your profile.,3,5.0
+5,115712,True,Tue Oct 31 21:49:35 +0000 2017,@sprintcare I did.,4,6.0
+6,sprintcare,False,Tue Oct 31 21:46:24 +0000 2017,"@115712 Can you please send us a private message, so that I can gain further details about your account?","5,7",8.0
+8,115712,True,Tue Oct 31 21:45:10 +0000 2017,@sprintcare is the worst customer service,"9,6,10",
+11,sprintcare,False,Tue Oct 31 22:10:35 +0000 2017,"@115713 This is saddening to hear. Please shoot us a DM, so that we can look into this for you. -KC",,12.0
+12,115713,True,Tue Oct 31 22:04:47 +0000 2017,@sprintcare You gonna magically change your connectivity for me and my whole family ? 🤥 💯,"11,13,14",15.0
+15,sprintcare,False,Tue Oct 31 20:03:31 +0000 2017,"@115713 We understand your concerns and we'd like for you to please send us a Direct Message, so that we can further assist you. -AA",12,16.0
+16,115713,True,Tue Oct 31 20:00:43 +0000 2017,@sprintcare Since I signed up with you....Since day 1,15,17.0
+17,sprintcare,False,Tue Oct 31 19:59:13 +0000 2017,"@115713 H there! We'd definitely like to work with you on this, how long have you been experiencing this issue? -AA",16,18.0
+18,115713,True,Tue Oct 31 19:56:01 +0000 2017,"@115714 y’all lie about your “great” connection. 5 bars LTE, still won’t load something. Smh.",17,
+19,sprintcare,False,Tue Oct 31 22:10:10 +0000 2017,@115715 Please send me a private message so that I can send you the link to access your account. -FR,,20.0
+20,115715,True,Tue Oct 31 22:03:34 +0000 2017,"@115714 whenever I contact customer support, they tell me I have shortcode enabled on my account, but I have never in the 4 years I've tried https://t.co/0G98RtNxPK",19,
+21,Ask_Spectrum,False,Tue Oct 31 22:14:37 +0000 2017,@115716 What information is incorrect? ^JK,"22,23",24.0
+22,115716,True,Tue Oct 31 22:16:48 +0000 2017,@Ask_Spectrum Would you like me to email you a copy of one since Spectrum is not updating your training?,25,21.0
+25,Ask_Spectrum,False,Tue Oct 31 22:18:28 +0000 2017,"@115716 Our department is part of the corporate office.  If you're particular area has gone to this format, we were unawa... https://t.co/P7XCmTzPQj",26,22.0
+26,115716,True,Tue Oct 31 22:19:56 +0000 2017,@Ask_Spectrum I received this from your corporate office would you like a copy?,27,25.0
+27,Ask_Spectrum,False,Tue Oct 31 22:21:26 +0000 2017,@115716 No thank you. ^JK,,26.0
+23,115716,True,Tue Oct 31 22:16:05 +0000 2017,@Ask_Spectrum The correct way to do it is via an OCS Account Takeover and email Consent Form it does not need to be done in a local office,,21.0
+24,115716,True,Tue Oct 31 22:13:02 +0000 2017,@Ask_Spectrum That is INCORRECT information I have the form in front of me that is faxed over-maybe you need to maintain up to date information,21,28.0
+28,Ask_Spectrum,False,Tue Oct 31 22:05:37 +0000 2017,@115716 The information pertaining to the account assumption is correct.  This does need to be done at a local outlet wit... https://t.co/P7XCmTzPQj,24,29.0
+29,115716,True,Tue Oct 31 22:01:35 +0000 2017,actually that's a broken link you sent me and incorrect information https://t.co/V4yfrHR8VI,28,
+30,Ask_Spectrum,False,Tue Oct 31 22:12:09 +0000 2017,"@115717 Hello, My apologies for any frustrations or inconvenience. I’d be happy to look into this for you? ^MG",,31.0
+31,115717,True,Tue Oct 31 22:06:54 +0000 2017,"Yo @Ask_Spectrum, your customer service reps are super nice— but imma start trippin if y’all don’t get my service going!",30,
+32,Ask_Spectrum,False,Tue Oct 31 22:10:08 +0000 2017,@115718 I apologize for the inconvenience. I will be glad to assist you. Can you DM me your Name and acct # or phone #? -JB,,33.0
+33,115718,True,Tue Oct 31 22:06:56 +0000 2017,My picture on @Ask_Spectrum pretty much every day. Why should I pay $171 per month? https://t.co/U6ptkQa5Ik,32,
+34,VerizonSupport,False,Tue Oct 31 22:13:33 +0000 2017,"@115719 Help has arrived! We are sorry to see that you are having trouble. How can we help?
+^HSB",35,36.0
+35,115719,True,Tue Oct 31 22:49:16 +0000 2017,"@VerizonSupport I finally got someone that helped me, thanks!",37,34.0
+37,VerizonSupport,False,Tue Oct 31 22:52:00 +0000 2017,"@115719 Awesome! If you ever need us we are just a tweet away.
+^HSB",,35.0
+36,115719,True,Tue Oct 31 22:10:46 +0000 2017,somebody from @VerizonSupport please help meeeeee 😩😩😩😩 I'm having the worst luck with your customer service,34,
+38,VerizonSupport,False,Tue Oct 31 22:13:30 +0000 2017,"@115720 Have your friend message us.
+^ACM",,39.0
+39,115720,True,Tue Oct 31 22:12:16 +0000 2017,@VerizonSupport My friend is without internet we need to play videogames together please our skills diminish every moment without internetz,38,
+40,VerizonSupport,False,Tue Oct 31 22:12:00 +0000 2017,"@115721 Please follow and DM us so that we can look into this order. 
+^HSB",41,42.0
+41,115721,True,Tue Oct 31 22:24:55 +0000 2017,@VerizonSupport What else can I provide? They refuse to help me because they cannot validate the account...,43,40.0
+43,VerizonSupport,False,Tue Oct 31 22:29:00 +0000 2017,"@115721 We would not be able to verify anything without authenticating your account.
+^JAY",44,41.0
+44,115721,True,Tue Oct 31 22:32:06 +0000 2017,"@VerizonSupport How? I have my phone number and email, that's it. How did I get equipment and service? I'm literally trying to pay and nobody can find me?",45,43.0
+45,VerizonSupport,False,Tue Oct 31 22:36:29 +0000 2017,"@115721 We can use the order number to locate the account but will need to do so in our secure one on one chat. Please follow and DM us. 
+^HSB",,44.0
+42,115721,True,Tue Oct 31 22:06:21 +0000 2017,@115722 MD. And this was sent to the wrong address https://t.co/dMQ1WZXJOk,40,46.0
+46,115722,True,Tue Oct 31 22:04:29 +0000 2017,"@115721 Hello Duke, Do you have a copy of your bill? What state are your services located in?
+^NHP",42,47.0
+47,115721,True,Tue Oct 31 22:01:42 +0000 2017,@115722 Nobody can find my account or number. I walked out of a store with this. I've explained that they can find my acct via my devices serial #..,46,48.0
+48,115722,True,Tue Oct 31 21:49:31 +0000 2017,"@115721 Are you referring to wireless or residential service?
+^JAY",47,49.0
+49,115721,True,Tue Oct 31 21:42:09 +0000 2017,"@115722 tried to pay a bill for 60 days. No service, rude CS, and several transfers. Look up my equipment # and give me an acct #!",48,
+50,VerizonSupport,False,Tue Oct 31 22:07:30 +0000 2017,"@115723 Is the light on top red?
+^JAY",,51.0
+51,115723,True,Tue Oct 31 22:04:57 +0000 2017,"@VerizonSupport Don’t know, router is downstairs. But it’s just the WiFi Nothing connected to Ethernet",50,52.0
+52,VerizonSupport,False,Tue Oct 31 22:03:57 +0000 2017,"@115723 Did the lights change on the router when this happened?
+^JAY",51,53.0
+53,115723,True,Tue Oct 31 21:58:39 +0000 2017,@VerizonSupport Just randomly boots me offline there it goes again,52,54.0
+54,VerizonSupport,False,Tue Oct 31 20:11:54 +0000 2017,"@115723 Do you have our Fios service?  When services go out, does the internet light on the router change color? ^BCW",53,55.0
+55,115723,True,Tue Oct 31 20:09:13 +0000 2017,@VerizonSupport Yep,54,56.0
+56,VerizonSupport,False,Tue Oct 31 20:02:25 +0000 2017,"@115723 Are all your services cutting out?
+^ACM",55,57.0
+57,115723,True,Tue Oct 31 19:58:22 +0000 2017,@VerizonSupport Cuts out every 20 minutes this is ridiculous,56,58.0
+58,VerizonSupport,False,Tue Oct 31 19:57:30 +0000 2017,@115723 What did we do to make you feel this way and how can we fix things between us? ^KMG,57,59.0
+59,115723,True,Tue Oct 31 19:54:51 +0000 2017,@115722 is the worst ISP I’ve ever had,58,
+60,VerizonSupport,False,Tue Oct 31 22:04:29 +0000 2017,"@115724 In what area are you located? All of your services are down at this time?
+^HSB",,61.0
+61,115724,True,Tue Oct 31 22:00:36 +0000 2017,".@VerizonSupport @115725 @115726                                                 &gt;All of VERIZON IS DOWN&lt;
+When can we expect a fix ?",60,
+62,VerizonSupport,False,Tue Oct 31 22:00:29 +0000 2017,"@115727 Which app are you referring too? 
+^ACM",,63.0
+63,115727,True,Tue Oct 31 21:56:55 +0000 2017,@115725 fix your app it won't even open,62,
+64,ChipotleTweets,False,Tue Oct 31 22:14:28 +0000 2017,@115728 I still think you look great! -Becky,65,66.0
+65,115728,True,Tue Oct 31 22:15:30 +0000 2017,@ChipotleTweets @ChipotleTweets Becky is very nice,,64.0
+66,115728,True,Tue Oct 31 22:03:38 +0000 2017,"@ChipotleTweets @28 
+I don't fit in my Veggie Burrito costume #Halloween https://t.co/7tJDVpzLWn","64,67",
+68,ChipotleTweets,False,Tue Oct 31 22:14:00 +0000 2017,@115729 I'm so sorry about that. Please tell us more so we can help: https://t.co/Ax7W1Dx3Y9 -Becky,,69.0
+69,115729,True,Tue Oct 31 22:03:32 +0000 2017,@ChipotleTweets messed up today and didn’t give me my $3 burrito although I was dressed up 😭,68,
+70,ChipotleTweets,False,Tue Oct 31 22:13:29 +0000 2017,@115730 Hopefully we'll get there at some point! -Becky,,71.0
+71,115730,True,Tue Oct 31 22:03:06 +0000 2017,hey @ChipotleTweets wanna come to Mammoth. I'll at least eat there once a week i promise,"70,72",
+73,ChipotleTweets,False,Tue Oct 31 22:12:39 +0000 2017,@115731 Guac on! I'm happy it was such a great experience. -Becky,,74.0
+74,115731,True,Tue Oct 31 22:01:57 +0000 2017,"@ChipotleTweets I had excellent service tonight too! Plenty of people on the line, went very fast, everyone was kind!",73,75.0
+75,ChipotleTweets,False,Tue Oct 31 20:37:31 +0000 2017,@115731 It's because you're smart. -Tara,74,76.0
+76,115731,True,Tue Oct 31 20:21:10 +0000 2017,When you're the only one in costume #boorito @ChipotleTweets,75,
+77,ChipotleTweets,False,Tue Oct 31 22:11:38 +0000 2017,@115732 That's incredibly concerning. Please tell us more here: https://t.co/Ax7W1Dx3Y9 -Becky,,78.0
+78,115732,True,Tue Oct 31 22:01:40 +0000 2017,@ChipotleTweets no Diet Coke and a literal bone this Boorito was extra spooky! https://t.co/C4oCCtdUct,77,
+79,ChipotleTweets,False,Tue Oct 31 22:11:12 +0000 2017,@115733 Nope! Still just the $3. -Becky,,80.0
+80,115733,True,Tue Oct 31 22:01:32 +0000 2017,"@ChipotleTweets If you get queso or quac on you're bowl, its extra?",79,81.0
+81,ChipotleTweets,False,Mon Oct 30 15:00:02 +0000 2017,Just stop by in costume 10/31 3pm-close. Official rules: https://t.co/1HmW7QxwEh https://t.co/Wn0xErxC2z,"80,82,83,84,85,86,87,88,89,90,91,92,93,94,95,96,97,98,99,100,101,102,103,104,105,106,107,108,109,110,111,112,113,114,115,116,117,118,119,120,121,122,123,124,125,126,127,128,129,130,131,132,133,134,135,136,137,138,139,140,141,142,143,144,145,146,147,148,149,150,151",
+152,ChipotleTweets,False,Tue Oct 31 22:10:33 +0000 2017,"@115734 I mean, Boorito is basically the adult version of Halloween... -Becky",,153.0
+153,115734,True,Tue Oct 31 22:01:03 +0000 2017,"Happy Halloween! Since I'm too old to trick or treat I now look forward to $3 booritos at @ChipotleTweets 👻 I got mine earlier, did you?",152,
+154,ChipotleTweets,False,Tue Oct 31 22:09:00 +0000 2017,@115735 I'm so glad we could help. Who did you work with? I'd like to share the praise. -Becky,,155.0
+155,115735,True,Tue Oct 31 22:00:46 +0000 2017,@ChipotleTweets Thank you @ChipotleTweets for resolving my issue so quickly!! Y’all are the best ☺️ #fanforlife,154,156.0
+156,115735,True,Mon Oct 23 03:19:06 +0000 2017,So frustrated with @ChipotleTweets 😡 Ordered dinner on Saturday using their app. Order was wrong AND they charged my credit card twice,"155,157",
+158,ChipotleTweets,False,Tue Oct 31 22:08:00 +0000 2017,@115736 All of our U.S. locations are participating! -Becky,,159.0
+159,115736,True,Tue Oct 31 22:00:10 +0000 2017,"Btw @ChipotleTweets giving out $3 burritos if you dress up for Halloween 🎃 Call your Chipotle to make sure, they’re doing it @ select ones",158,
+160,ChipotleTweets,False,Tue Oct 31 22:06:55 +0000 2017,@115737 My apologies for that. Just sent you a DM to help. -Becky,,161.0
+161,115737,True,Tue Oct 31 21:59:25 +0000 2017,"@ChipotleTweets Tried, didn't work. How rude :/",160,162.0
+162,ChipotleTweets,False,Tue Oct 31 19:51:00 +0000 2017,@115737 Give it a try. -Tara,161,163.0
+163,115737,True,Tue Oct 31 19:43:47 +0000 2017,@ChipotleTweets can I dress up as myself and still qualify for a BOORITO?,162,
+164,ChipotleTweets,False,Tue Oct 31 22:03:32 +0000 2017,"@115738 That's the best kind of trick-or-treating. All treats, my friend. -Becky",,165.0
+165,115738,True,Tue Oct 31 21:58:28 +0000 2017,"Every year, my trick-or-treating routine is walking to Chipotle, spending 3 dollars and walking back home. @ChipotleTweets",164,
+166,ChipotleTweets,False,Tue Oct 31 22:02:25 +0000 2017,@115739 That's incredibly concerning. Please provide more details so we can investigate: https://t.co/Ax7W1Dx3Y9 -Becky,,167.0
+167,115739,True,Tue Oct 31 21:57:58 +0000 2017,@ChipotleTweets this is nasty. A used napkin in someone's food https://t.co/EkWiD9vhnr,166,
+168,ChipotleTweets,False,Tue Oct 31 22:01:39 +0000 2017,@115740 Bummer. I'm so sorry. How far away is the closest location? -Becky,,169.0
+169,115740,True,Tue Oct 31 21:57:23 +0000 2017,$3 burritos and I’m nowhere near a @ChipotleTweets 🤦🏾‍♂️,168,
+170,ChipotleTweets,False,Tue Oct 31 22:01:00 +0000 2017,@115741 Noted 😊 -Becky,,171.0
+171,115741,True,Tue Oct 31 21:57:23 +0000 2017,@ChipotleTweets Also I got the onesie at target. So cozy,170,172.0
+172,115741,True,Tue Oct 31 21:57:08 +0000 2017,@ChipotleTweets Thanks Becky! Just feeling sorry for myself because my fiancé is driving from D.C. To Mississippi tonight,"173,171",174.0
+174,ChipotleTweets,False,Tue Oct 31 21:56:06 +0000 2017,"@115741 You won't be alone – we'll be there with you. Also, I want that llama onesie. -Becky",172,175.0
+175,115741,True,Tue Oct 31 21:54:13 +0000 2017,Considering walking to @ChipotleTweets in my llama onesie alone happy Halloween 😭,174,
+176,ChipotleTweets,False,Tue Oct 31 22:01:00 +0000 2017,@115742 I love it! Thanks so much for stopping by. -Becky,,177.0
+177,115742,True,Tue Oct 31 21:57:19 +0000 2017,@ChipotleTweets name a better halloween duo #speedwaybrick #UTtranscript https://t.co/5ShDRMlC1T,176,
+178,AskPlayStation,False,Tue Oct 31 22:14:49 +0000 2017,@115743 There is no info to share at the moment. Feel free to keep an eye on the PS Blog for news and updates: https://t.co/aLtfBAztyC,179,180.0
+179,115744,True,Tue Oct 31 22:17:05 +0000 2017,@AskPlayStation @115743 Can I get help already??,,178.0
+180,115743,True,Tue Oct 31 08:17:37 +0000 2017,"@AskPlayStation So, what's the november ps plus free game?","178,181",
+182,AskPlayStation,False,Tue Oct 31 22:09:50 +0000 2017,"@115745  Glad to know that is downloading, please feel free to contact us if you have further concerns.",,183.0
+183,115745,True,Tue Oct 31 22:06:44 +0000 2017,@AskPlayStation It was when I would go to download it. I just waited a few hours till after I bought it and it downloaded now.,182,184.0
+184,AskPlayStation,False,Tue Oct 31 22:05:06 +0000 2017,@115745 Sorry for the inconvenience. Do you see the data corrupted message when you try to open the game or download it?,183,185.0
+185,115745,True,Tue Oct 31 08:14:24 +0000 2017,@AskPlayStation I bought Lego Star Wars in the PlayStation store but it won't let me download it because the data is corrupted..,"184,186",
+187,AskPlayStation,False,Tue Oct 31 22:06:34 +0000 2017,@115746  Glad to help.  Please share the details of this issue in our Community forum for further investigation: https://t.co/F3J4l2vJHb,,188.0
+188,115746,True,Tue Oct 31 07:58:24 +0000 2017,@AskPlayStation can i block a community from sending me invites to something i dont want to join,"187,189",
+190,marksandspencer,False,Tue Oct 31 21:54:47 +0000 2017,"@115747 Glad you had fun, Sarah! We heard Count Collin can really suck the life out of the party  . . . :P",,191.0
+191,115747,True,Tue Oct 31 18:29:42 +0000 2017,We had to have a Count Colin 💛 @marksandspencer xx... https://t.co/HVWkevFsKB,190,
+192,marksandspencer,False,Tue Oct 31 21:48:52 +0000 2017,"@115748 We've let our team know we can do better, Joel. Thanks for sharing :)",,193.0
+193,115748,True,Tue Oct 31 17:58:45 +0000 2017,"‘Ere @marksandspencer, never mind avocado 🥑 - How’s about ‘ave a word?
+Is it really necessary? 
+
+The pair of ‘em were suffocating. https://t.co/ff2bmOVido",192,
+194,marksandspencer,False,Tue Oct 31 21:46:06 +0000 2017,"@115749 We're only obligated to provide bags for un-packaged meat. As ours is prepackaged, a charge will be applied","195,196,197",198.0
+195,115749,True,Tue Oct 31 23:40:34 +0000 2017,@marksandspencer Raw meat!!!! It’s does not say unwrapped raw meat!!! Sainsbury’s don’t charge nor do Waitrose so y do you?!,199,194.0
+199,marksandspencer,False,Wed Nov 01 13:42:19 +0000 2017,"@115749 As our packaging is sufficient, any extra wrappings or bags does require an extra 5p charge as per legislation. Thanks",200,195.0
+200,115749,True,Wed Nov 01 15:54:37 +0000 2017,@marksandspencer I check with the Gov office and legal. They stated you are not right. But it’s funny how the other stores don’t but you do. No wonder Lidl and the rest are beating you.,,199.0
+196,115749,True,Tue Oct 31 23:35:13 +0000 2017,"@marksandspencer ou must charge at least 5p a bag (including VAT) for carrier bags that are all of the following:
+
+unused - it’s new and hasn’t already been used for sold goods to be taken away or delivered
+plastic and 70 microns thick or less
+it has handles, an opening and isn’t sealed",,194.0
+197,115749,True,Tue Oct 31 23:38:53 +0000 2017,"@marksandspencer aren’t require charge 4 a bag:
+paper bags
+shops in airports, or on board trains, aeroplanes or ships
+bags which only contain certain items, such as unwrapped food, raw meat and fish where there is a food safety risk, prescription medicines, uncovered blades, seeds, bulbs &amp; 🌷s",,194.0
+198,115749,True,Tue Oct 31 17:56:34 +0000 2017,@marksandspencer y do they charge you for a meat bag at colliers woods branch. If you buy meat you r required to supply customers a free bag. Poor service.,194,
+201,marksandspencer,False,Tue Oct 31 21:45:28 +0000 2017,@115750 Love the aesthetic of your Colin the 'Creeperpillar' and someday.... 🐛🦋👻 https://t.co/LFubix5E4y,,202.0
+202,115750,True,Tue Oct 31 20:20:57 +0000 2017,Excellent Halloweening @marksandspencer 👌🏼 #countcolin #halloween #food https://t.co/lq1cSooHdj,201,
+203,MicrosoftHelps,False,Tue Oct 31 22:08:00 +0000 2017,"@115751 Hello, Josh! To get better assistance and support, we suggest that you post a tweet or DM our friends from @XboxSupport.",204,205.0
+204,115751,True,Tue Oct 31 22:09:13 +0000 2017,"@MicrosoftHelps @XboxSupport Brilliant, thank you!",,203.0
+205,115751,True,Tue Oct 31 22:04:20 +0000 2017,"@MicrosoftHelps hi, having trouble making purchases on Xbox one store for fifa points, can you help?","203,206",
+207,MicrosoftHelps,False,Tue Oct 31 22:04:21 +0000 2017,@115752 Help is here. To assist you in recovering your account we recommend that you contact our Answer desk team: https://t.co/7zSM1QXPMD.,,208.0
+208,115752,True,Tue Oct 31 20:28:11 +0000 2017,@MicrosoftHelps I need assistance recovering 2 hotmail accounts. I have  filled the recovery forms but am told am not providing enough info,207,
+209,ATVIAssist,False,Tue Oct 31 22:14:22 +0000 2017,@115753 It appears this has been removed. Thanks for letting me know :) ^MB,,210.0
+210,115753,True,Tue Oct 31 19:54:00 +0000 2017,@ATVIAssist @115754 umm someone is streaming WWII with 500+ viewers https://t.co/AhBT7AZZSz,209,
+211,ATVIAssist,False,Tue Oct 31 22:09:50 +0000 2017,"@115755  No problem, let us know if you come across any other issues or questions in the future. We are happy to help. ^RK",212,213.0
+212,115756,True,Thu Nov 02 04:03:21 +0000 2017,@ATVIAssist @115755 I'm trying to buy the digital deluxe edition on the ps store but I keep receiving an error message,214,211.0
+214,ATVIAssist,False,Thu Nov 02 12:42:05 +0000 2017,@115756  Hello there. Sorry for the late response. I am just checking if you still in need assistance. Please let me know. ^RN,,212.0
+213,115755,True,Tue Oct 31 22:05:44 +0000 2017,@ATVIAssist Thanks,211,215.0
+215,ATVIAssist,False,Tue Oct 31 22:01:51 +0000 2017,@115755 Yes you can pre order the game on the console store. For more information please contact your console store. ^RK,213,216.0
+216,115755,True,Tue Oct 31 19:17:18 +0000 2017,@ATVIAssist can you still pre oder ww2 on the playstation store,215,
+217,ATVIAssist,False,Tue Oct 31 22:03:57 +0000 2017,"@115757 Good afternoon William, unfortunately this app is no longer supported. Sincerest apologies. ^JP",,218.0
+218,115757,True,Tue Oct 31 19:19:16 +0000 2017,@115758 @ATVIAssist Are yous going to update COD Zombies on IOS for IOS 11.,217,
+219,ATVIAssist,False,Tue Oct 31 22:02:32 +0000 2017,"@115759 Good afternoon Jayden, sadly we don't have information on that. Sincerest apologies. ^JP",,220.0
+220,115759,True,Tue Oct 31 19:15:05 +0000 2017,@115758 Why was there a half gig update for world at war?,219,
+221,ATVIAssist,False,Tue Oct 31 21:57:23 +0000 2017,@115760 This is awesome! Thank you so much for the support! Love the costumes! ^TV,,222.0
+222,115760,True,Tue Oct 31 19:05:30 +0000 2017,@108162 @115761 @ATVIAssist tried that there was people so i came back,221,223.0
+224,ATVIAssist,False,Tue Oct 31 21:57:03 +0000 2017,@115762 Hey there! You can check out this link for more information in regards to this - https://t.co/OZIlONCLtF ^KO,225,226.0
+225,115762,True,Tue Oct 31 21:59:50 +0000 2017,"@ATVIAssist So, when I go get the game on friday my 2xp code will be on the receipt?",227,224.0
+227,ATVIAssist,False,Tue Oct 31 22:09:32 +0000 2017,@115762 Did gamestop give you a code with your pre order down payment that you needed to redeem? ^KO,228,225.0
+228,115762,True,Tue Oct 31 22:09:58 +0000 2017,"@ATVIAssist Yes, the beta code",229,227.0
+229,ATVIAssist,False,Tue Oct 31 22:29:34 +0000 2017,"@115762 Have you redeemed that on your https://t.co/4YBn633EOk account? Even tho it says beta code, your pre order bonus are linked. ^KO",230,228.0
+230,115762,True,Tue Oct 31 23:04:49 +0000 2017,"@ATVIAssist Yes I have, so my code is on their?",,229.0
+226,115762,True,Tue Oct 31 20:10:09 +0000 2017,@ATVIAssist I pre ordered my game at game stop,224,231.0
+231,ATVIAssist,False,Tue Oct 31 14:41:36 +0000 2017,"@115762 Hello there, I apologize for the delay. Can you clarify where you pre-ordered the game? Please be sure you keep us updated. ^RN",226,232.0
+232,115762,True,Tue Oct 31 05:55:34 +0000 2017,@ATVIAssist For double xp^,"233,231",234.0
+234,115762,True,Tue Oct 31 05:55:08 +0000 2017,@ATVIAssist i pre ordered wwii but how do i get the code?,232,
+235,ATVIAssist,False,Tue Oct 31 21:53:44 +0000 2017,@115763 Can you please give me your gamertag / platform you're playing on so I can pull up your account information. ^CB,236,237.0
+236,115763,True,Tue Oct 31 21:54:17 +0000 2017,@ATVIAssist Seth_tubbs and I am on PS4,,235.0
+237,115763,True,Tue Oct 31 21:05:07 +0000 2017,@ATVIAssist I got all of my stats reset on MWR and I don't know why. please help!!!,235,
+238,ATVIAssist,False,Tue Oct 31 21:45:23 +0000 2017,"@115764
+
+Unfortunately we don't have any information on this. Please stay tuned for more updates. ^JW",,239.0
+239,115764,True,Tue Oct 31 18:45:59 +0000 2017,"@115754 @115765 @ATVIAssist @115766 
+
+Will non season pass holders get the bobus man Carentan at any point? Or not at all?",238,
+240,AdobeCare,False,Tue Oct 31 22:14:17 +0000 2017,@115767 Sorry that this isn't more simple... let us know if the steps in the video work out or if you need further help ^Madison,241,242.0
+241,115767,True,Wed Nov 01 00:29:55 +0000 2017,"@AdobeCare Didn't work. Tried it on another computer, fresh install, same thing...",243,240.0
+243,AdobeCare,False,Wed Nov 01 00:53:51 +0000 2017,@115767 Would you please DM the Adobe Product &amp; your purchase details that you have so that we can ask our experts to follow up. ^Raj https://t.co/iuwZCjz4Or,244,241.0
+244,115767,True,Wed Nov 01 01:30:43 +0000 2017,@AdobeCare sure thing,,243.0
+242,115767,True,Tue Oct 31 22:11:01 +0000 2017,@AdobeCare the ctrl+alt+shift on load method didn't work. (2/2),240,245.0
+245,AdobeCare,False,Tue Oct 31 21:09:19 +0000 2017,"@115767 Hi Jason, could you please try resetting the preferences of Photoshop &amp; let us know if it helps with the issue https://t.co/j3Dj2HDknM   ^SC","242,246",247.0
+247,115767,True,Tue Oct 31 20:54:13 +0000 2017,@AdobeCare Pretty much explained my issue in the quoted tweet... dragging an image onto a canvas no longer center snaps it...,"245,248",249.0
+249,AdobeCare,False,Tue Oct 31 20:52:11 +0000 2017,"@115767 Hi Jason, please let us know if there is anything we can do to help. Thanks! ^AJ https://t.co/iuwZCjz4Or",247,250.0
+250,115767,True,Tue Oct 31 20:49:12 +0000 2017,Any help here @AdobeCare? https://t.co/x50e57UG4E,249,
+251,AdobeCare,False,Tue Oct 31 22:12:21 +0000 2017,"@115768 Hi Jeffrey, were you able to update to Lightroom Classic CC?   ^Tanuj",252,253.0
+252,115768,True,Tue Oct 31 22:13:01 +0000 2017,@AdobeCare nope still down.,254,251.0
+254,AdobeCare,False,Tue Oct 31 22:19:30 +0000 2017,@115768 Have you tried signing out/back in or reinstalling the CC desktop app? https://t.co/Ne2f7tDTM0 Let us know! ^Madison,255,252.0
+255,115768,True,Tue Oct 31 22:20:19 +0000 2017,@AdobeCare yes ive done that multiple times. its happened on previous versions as well.,256,254.0
+256,AdobeCare,False,Tue Oct 31 22:24:18 +0000 2017,@115768 Thanks for confirming. We're looping in an expert who can help you out here. They will reply as soon as they're available. ^Madison,"257,258",255.0
+257,115768,True,Tue Oct 31 22:24:47 +0000 2017,@AdobeCare ok,,256.0
+258,115768,True,Fri Nov 03 00:39:32 +0000 2017,@AdobeCare so..when are they available?,259,256.0
+259,AdobeCare,False,Fri Nov 03 01:35:31 +0000 2017,@115768 Sorry for this. Let me request the expert to look into this ASAP as he is in office. ^Raj,260,258.0
+260,115768,True,Fri Nov 03 05:29:47 +0000 2017,@AdobeCare ok. its been very frustrating. i have multiple jobs that i need finished and your application isnt helping.,261,259.0
+261,AdobeCare,False,Mon Nov 06 16:22:30 +0000 2017,"@115768 Hi Jeffrey, we wanted to check if you had managed to install Lightroom Classic CC. Please let us know if you need further assistance. ^NR https://t.co/iuwZCjz4Or",262,260.0
+262,115768,True,Mon Nov 06 16:23:56 +0000 2017,@AdobeCare no its still broken. i deleted it and will probably be getting rid of my membership and return when its working properly. thanks,"263,264",261.0
+263,AdobeCare,False,Mon Nov 06 17:02:22 +0000 2017,@115768 Jeffrey did you use the process listed in https://t.co/ccvXXUvXuT to delete Lightroom Classic CC? ^Jeff,"265,266",262.0
+265,115768,True,Mon Nov 06 17:04:37 +0000 2017,@AdobeCare ill just wait for the next big update. ive wasted my time and patience with adobe products,267,263.0
+267,AdobeCare,False,Mon Nov 06 17:13:59 +0000 2017,@115768 Jeffrey I am sorry to hear that. If you face future errors please review the installation logs. https://t.co/okPwBIqSxR ^Jeff,,265.0
+266,115768,True,Mon Nov 06 17:04:00 +0000 2017,@AdobeCare yea ive done everything you guys told me to do. i know its not my mac either as i have the retina imac which is fairly new.,,263.0
+264,AdobeCare,False,Mon Nov 06 16:46:26 +0000 2017,"@115768 Hi there, I am looping our expert team to help answer your question. Thanks! ^MC",268,262.0
+268,115768,True,Mon Nov 06 16:54:02 +0000 2017,@AdobeCare you guys have been saying that for weeks now. your product went from being great to now unable to work and terrible. very disappointed.,,264.0
+253,115768,True,Sun Oct 29 21:02:31 +0000 2017,@115769 whats going on with your app. its totally stuck here for 1 hour and prior to updating froze and didnt work since updating. https://t.co/UpoCzPNqFb,251,
+269,AmazonHelp,False,Wed Nov 22 09:23:01 +0000 2017,@115770 こんにちは、アマゾン公式です。Fire TV Stickが見れないというのは、どのような状況でしょうか。一般的なトラブルシューティングを記載したヘルプがございますので、ご参照ください。https://t.co/2pbG55qJ7h ET,"270,271",272.0
+270,115770,True,Wed Nov 22 09:24:30 +0000 2017,"@AmazonHelp ありがとうございます。
+今、電話で主人が対応していただいてます。",,269.0
+271,115770,True,Wed Nov 22 09:30:36 +0000 2017,"@AmazonHelp 電話で対応してもらいましたが改良されませんでした。
+保証期間も過ぎてるので買い直しになるんでしょうね。",273,269.0
+273,AmazonHelp,False,Wed Nov 22 09:40:27 +0000 2017,@115770 カスタマーサービスにてお問い合わせ済みとのことで、お手数をおかけいたしました。リプライいただきありがとうございました。ET,274,271.0
+274,115770,True,Wed Nov 22 09:44:04 +0000 2017,@AmazonHelp こちらこそありがとうございました。,275,273.0
+275,AmazonHelp,False,Wed Nov 22 10:06:26 +0000 2017,@115770 恐れ入ります。至らない点も多々あるかとは存じますが、今後ともどうぞよろしくお願いします。ET,,274.0
+272,115770,True,Wed Nov 22 09:14:39 +0000 2017,amazonのfireTVstickが見れない😢,269,
+276,XboxSupport,False,Sat Dec 02 18:06:03 +0000 2017,"@115771 Hi, you can change your Microsoft account email through the steps here: https://t.co/DkEhOHbOYy . If the email your son wants to change to is already associated with a Microsoft account, you'll need to follow those steps to switch the email address on that account too. ^ZM",,277.0
+277,115771,True,Sat Dec 02 09:17:57 +0000 2017,"@XboxSupport can I change me sons Xbox live account to his Hotmail account, currently linked to my Hotmail account",276,
+278,AdobeCare,False,Tue Oct 31 22:01:52 +0000 2017,"@115772 Hi there, Lightroom 7.0.1 update was launched recently, please update the app to the latest version.  ^TS",,279.0
+279,115772,True,Sat Oct 28 19:29:38 +0000 2017,@115769 Did u release an update today for Lightroom Classic CC?,278,
+280,AdobeCare,False,Tue Oct 31 22:03:13 +0000 2017,"@115773 Hi there, please DM us you Adobe id so that we may have a quick look at your account details.   ^Tanuj https://t.co/iuwZCjz4Or",,281.0
+281,115773,True,Sat Oct 28 23:11:01 +0000 2017,"Please tell me why my @115769 has expired, but I’m still being charged????",280,
+282,AdobeCare,False,Tue Oct 31 22:00:12 +0000 2017,"@115774 Hi there, you may suggest it as a feature request at: https://t.co/SE1u3g161W .  ^Tanuj",,283.0
+283,115774,True,Sat Oct 28 13:37:52 +0000 2017,@115769 are there any plans to add a fast crop mode for the iPad version of LR? It takes too many taps and slows down workflow.,282,
+284,AdobeCare,False,Tue Oct 31 21:54:16 +0000 2017,"@115775 Thanks for sharing the file, we'll get back to you with updates as we investigate. ^Wren",,285.0
+285,115775,True,Tue Oct 31 20:16:08 +0000 2017,"@AdobeCare @115776 It’s intermittent for me. This file fails reliably: https://t.co/6m5a1RQEV9
+
+The “Create subfolder” option just makes an empty “svg” folder","284,286",287.0
+287,AdobeCare,False,Thu Oct 26 19:03:22 +0000 2017,"@115776 Unfortunately, we are not able to reproduce it at our end. I'll still be checking with the development team to find out more on this. ^OM https://t.co/3giRhN4vNJ",285,288.0
+288,115776,True,Thu Oct 26 18:13:19 +0000 2017,"@AdobeCare Seems pretty widespread: https://t.co/ImomzTHO5j
+
+Don't mean to be a jerk, but it's frustrating when an update breaks core functionality.",287,289.0
+289,AdobeCare,False,Thu Oct 26 18:00:35 +0000 2017,"@115776 Hi Keelin,
+Sorry for the inconvenience. I am able to export SVG in AI CC 2018. Would you mind sharing your workflow, sample file/screenshot? https://t.co/iuwZCjz4Or",288,290.0
+290,115776,True,Thu Oct 26 17:20:44 +0000 2017,So apparently the new version of @115777 @115778 has this cool feature where you can't export SVGs. Sick update guys.,289,
+291,AdobeCare,False,Tue Oct 31 21:53:11 +0000 2017,"@115779 Hi Duncan, please update Lightroom to 6.13 from the following link: https://t.co/9vaI2tzHd6 .  ^Tanuj",,292.0
+292,115779,True,Fri Oct 27 13:53:45 +0000 2017,@115769 I'm worried as if I update my LR6 standalone programme I could lose it due to the new online version....is this true and if so is this fair!,291,293.0
+293,115769,True,Wed Oct 18 14:07:45 +0000 2017,"Whoa! Come along with Lightroom’s own Ben Warde to get the lowdown: https://t.co/f1FGfdJaNk
+https://t.co/6fsIV6WLRV",292,
+294,AdobeCare,False,Tue Oct 31 21:52:49 +0000 2017,"@115780 Hi Lauren, can you try changing your forum screen name at https://t.co/gF69gbjWAQ? That should do the trick! ^Madison",,295.0
+295,115780,True,Tue Oct 31 17:01:38 +0000 2017,@115777 your online forum is always broken even when I clear my cookies. https://t.co/dDwRPWnm3t,294,
+296,AdobeCare,False,Tue Oct 31 21:46:19 +0000 2017,"@115781 Hi Jake, any screenshots you can share? What are you export settings? Is this happening on all files with links? ^Wren",297,298.0
+297,115781,True,Thu Nov 02 19:11:14 +0000 2017,"@AdobeCare Here is an example of an export before and after. Export settings are unchanged from default. No, only some files. https://t.co/YbCX6dmddc","299,300",296.0
+299,AdobeCare,False,Tue Nov 07 20:42:55 +0000 2017,"@115781 Hi Jack, is there any way you could send me a file to try exporting on my end to try and replicate? ^Wren https://t.co/iuwZCjz4Or",,297.0
+300,AdobeCare,False,Thu Nov 02 19:14:22 +0000 2017,"@115781 Hi Jack, we're looping the expert back into this conversation. Thanks! ^AJ",301,297.0
+301,115781,True,Fri Nov 03 15:01:38 +0000 2017,@AdobeCare Solved this via phone support,,300.0
+298,115781,True,Tue Oct 31 18:07:49 +0000 2017,"@AdobeCare InDesign 13.0 is exporting all PDFs with blurry links, but links are not missing in INDD file. JPG export is not blurry. Help!","296,302",
+303,AirbnbHelp,False,Tue Oct 31 22:09:51 +0000 2017,@115782 Thank you for that. We have responded to your DM with more information.,,304.0
+304,115782,True,Tue Oct 31 22:04:54 +0000 2017,@AirbnbHelp I've just sent you a message with details. Thanks for your help,303,305.0
+305,AirbnbHelp,False,Tue Oct 31 21:46:05 +0000 2017,"@115782 Hi there, we would like to help. Please DM us your account's email and reservation code so we can further assist. Thank you.",304,306.0
+306,115782,True,Tue Oct 31 21:43:40 +0000 2017,"Quand ton @115783 ne ressemble pas à celui que tu as réservé, &amp; qu'en + d'être sale et en sous-sol, tu te retrouves à 10 dans 1 #logement ! https://t.co/BcEIHe38tq",305,
+307,AirbnbHelp,False,Tue Oct 31 21:49:58 +0000 2017,@115784 We are sorry to hear this. Please DM your email address and reservation code so we can look into this for you. Thank you.,,308.0
+308,115784,True,Tue Oct 31 21:48:16 +0000 2017,@115783 Misrepresentation by host. Asked them to cancel my reservation and refund me over AUD1700 - strict policy. No response. Please help.,307,
+309,XboxSupport,False,Tue Oct 31 22:13:28 +0000 2017,@115785 Hi there! We'd recommend reaching out to the chat team here: https://t.co/UrUi80i54l ^JA,310,311.0
+310,115785,True,Tue Oct 31 22:14:11 +0000 2017,@XboxSupport They have no info either..,312,309.0
+312,XboxSupport,False,Tue Oct 31 22:52:52 +0000 2017,@115785 We'd recommend keeping an eye out on your email that is associated with your account for further info.  ^JA,313,310.0
+313,115785,True,Wed Nov 01 00:50:56 +0000 2017,@XboxSupport Lol so there's no one @115786 who can say when they're going to be shipped...? That's kinda weird,"314,315",312.0
+314,115785,True,Wed Nov 01 00:59:24 +0000 2017,@XboxSupport @115786 When someone @115786 or @15913 @115787 @115788 knows when the xbox one x ships let us know.  Lol shouldn't b a mystery..,,313.0
+315,XboxSupport,False,Wed Nov 01 01:09:18 +0000 2017,"@115785 @115786 Did you pre-order this console via the Microsoft store? If so, then let's have you reach out here: https://t.co/jY7fDjTzLd ^JA","316,317",313.0
+316,115785,True,Wed Nov 01 01:13:10 +0000 2017,"@XboxSupport @115786 Kinda need to make sure I have 680$ cdn in my bank, so would be nice to know.. I dun just have cash laying around ya know #RealLifeStruggles",,315.0
+317,115785,True,Wed Nov 01 01:11:28 +0000 2017,@XboxSupport @115786 Already did they had me call and no one can answer the question.  I'm not trying to be a jerk but it's nuts no one has a answer..,,315.0
+311,115785,True,Tue Oct 31 20:04:15 +0000 2017,@XboxSupport @115786 @115787 @15913 Would like to know so I can make sure I have enough money for it...,309,318.0
+318,115785,True,Tue Oct 31 20:03:55 +0000 2017,@XboxSupport @115786 @115787 @15913 can anyone let me know when our pre orders are going to be shipped for xbox one x??,311,
+319,XboxSupport,False,Tue Oct 31 22:12:17 +0000 2017,@115789 Hello! Would you mind following us and sending a DM with your gamertag and the code you redeemed?  ^RR,,320.0
+320,115789,True,Tue Oct 31 21:17:16 +0000 2017,@115790 @XboxSupport redeemed a code for fifa points this afternoon and still haven't got it. Why is this?,319,
+321,XboxSupport,False,Tue Oct 31 22:03:03 +0000 2017,@115791 Can you show us what is appearing on your screen? ^RM,322,323.0
+322,115791,True,Wed Nov 01 01:47:45 +0000 2017,@XboxSupport This is what's on my screen? Not sure if it's Xbox side or my5 side that's broken? Last time it was my5 as had to call head office about it! https://t.co/jnMIVOlNbS,,321.0
+323,115791,True,Tue Oct 31 19:39:09 +0000 2017,"@1520 @XboxSupport  the 5 app on Xboxes not working error code 200, done a power cycle and still the same? Please fix app",321,
+324,AmazonHelp,False,Wed Nov 22 09:06:00 +0000 2017,@115792 ご不便をおかけしております。アプリをご利用でしょうか。強制停止&gt;端末の再起動にて改善する場合がございますので、お試しください。改善しない場合は、状況を確認しご案内させていただきますのでこちらからカスタマーサービスまでご連絡ください。https://t.co/NtNAX2Qh2u ET,,325.0
+325,115792,True,Wed Nov 22 08:55:35 +0000 2017,amazonプライムビデオ、再生エラーが多いです,324,
+326,nationalrailenq,False,Tue Oct 31 22:14:15 +0000 2017,"@115793 @115794 Hi. Emergency services are dealing with an incident, info here: https://t.co/XSpQ4dhtvk",,327.0
+327,115793,True,Tue Oct 31 22:03:04 +0000 2017,"@115794 @115795 my colleagues @nationalrailenq for more info on how this is affecting services, thanks. 2/2 ^JP",326,328.0
+328,115794,True,Tue Oct 31 21:57:43 +0000 2017,@115795 @115796 Ah maybe @115793 could help on this one,327,329.0
+329,115795,True,Tue Oct 31 21:56:54 +0000 2017,"@115794 @115796 Nothing, partner was on a train to Preston had to get a Taxi rest of way as was told no trains into Preston for a few hours",328,330.0
+330,115794,True,Tue Oct 31 21:55:35 +0000 2017,@115795 @115796 What have you seen?,329,331.0
+331,115795,True,Tue Oct 31 21:48:40 +0000 2017,Something going on at Preston train station ? @115796,330,
+332,AirAsiaSupport,False,Tue Oct 31 22:12:55 +0000 2017,"@115797 Hi Loreen,kindly DM us your booking number and attach guest passport copy, we'll fix it for you, see you there!- Anwar",333,334.0
+333,115797,True,Tue Oct 31 23:44:59 +0000 2017,@AirAsiaSupport Hi! I have DM u my booking # and passport picture thanks so much for quick action,335,332.0
+335,AirAsiaSupport,False,Tue Oct 31 23:57:53 +0000 2017,"@115797 Hi Loreen,correction done! :) See you on board! Cheers!- Anwar","336,337",333.0
+336,115797,True,Wed Nov 01 00:01:49 +0000 2017,@AirAsiaSupport thank you very much..,,335.0
+337,115797,True,Thu Nov 09 20:15:48 +0000 2017,@AirAsiaSupport Hi! i would like to know on my itenerary on how the birthday can be seen. i would like to double check if i can key in our birthdays right 🙂,338,335.0
+338,AirAsiaSupport,False,Fri Nov 10 06:43:03 +0000 2017,"@115797 Hi Loreen, you may check the passenger's date of birth via AirAsia member account under manage booking. Thanks-Sha",339,337.0
+339,115797,True,Fri Nov 10 18:03:05 +0000 2017,@AirAsiaSupport but i cant see it. i only see itenerary.. no birthday,340,338.0
+340,AirAsiaSupport,False,Sat Nov 11 13:06:21 +0000 2017,@115797 As you may check it under manage my booking online or during web check in. Date of birth will be shown accordingly.- Ed,341,339.0
+341,115797,True,Thu Nov 16 19:21:34 +0000 2017,@AirAsiaSupport Hi Airasia. i want to rebook my return flight. but when i try rebooking my inbond also is rebooking. please help me. thanks,342,340.0
+342,AirAsiaSupport,False,Fri Nov 17 07:48:10 +0000 2017,@115797 Hi Loreen :) Kindly DM us the booking number that you wish to do change flight for us to assist you further-Thanks-Anwar,,341.0
+334,115797,True,Tue Oct 31 14:31:46 +0000 2017,@AirAsiaSupport hi!  I have booked my ticket and when i see my itenary has been redundant i call ur customer service to assist but out of line.,332,343.0
+343,AirAsiaSupport,False,Tue Oct 31 05:28:49 +0000 2017,@115797 Sorry as we checked booking has already expired due to no payment made. Kindly please proceed with new booking - Ed,"344,334,345,346",347.0
+347,115797,True,Tue Oct 31 01:57:03 +0000 2017,@AirAsiaSupport lost my booking # chua loreen lee flight z2 129.128 12/22-01/8 taipei-manila. __email__,343,348.0
+348,115798,True,Mon Aug 29 03:20:05 +0000 2011,"Lost your booking number? No worries, just drop me the passenger's name, flight details and email. I'll trace it and email u in no time :)","349,350,351,352,347,353,354,355,356,357,358,359,360,361",
+362,AirAsiaSupport,False,Tue Oct 31 22:07:28 +0000 2017,"@115799 Hi Emma, Could you please follow us so we can DM you again with the email reply sent to you  =) Yana",363,364.0
+363,115799,True,Wed Nov 01 01:12:02 +0000 2017,"@AirAsiaSupport Hi Yana, followed!",365,362.0
+365,AirAsiaSupport,False,Wed Nov 01 01:27:03 +0000 2017,"@115799 Hi Emma, We have replied to you via DM. please check again, Thank you- Mariya",,363.0
+364,115799,True,Tue Oct 31 21:35:17 +0000 2017,@AirAsiaSupport Hi Yana I don’t have any DMs from you. Did you mean email?,362,366.0
+366,AirAsiaSupport,False,Tue Oct 31 13:38:15 +0000 2017,@115799 We have replied to you via DM. Check it out =) Yana,364,367.0
+367,115799,True,Tue Oct 31 10:46:56 +0000 2017,@AirAsiaSupport CAS-19708536-CB92N2 CRM:0326600 Please check on this I haven't heard from my case officer in weeks and provided all docs.,366,
+368,AirAsiaSupport,False,Tue Oct 31 22:04:49 +0000 2017,@115800  notified if there should be any changes-Yana,,369.0
+369,115800,True,Tue Oct 31 14:25:55 +0000 2017,@115801 @115802 @AirAsiaSupport You'll be even happier to know that the restrictions around the volcano area have been lifted. Enjoy staying at home pal! 😂😂😂😂 #unlucky,"368,370",371.0
+371,115801,True,Wed Oct 25 16:02:42 +0000 2017,@115802 @AirAsiaSupport Why are you not refunding my trip to Bali for Volcano eruption!!! Urgently refund!!,"372,373,369",
+370,AirAsiaSupport,False,Tue Oct 31 22:04:41 +0000 2017,@115800 We are terribly sorry but we could not offer any options since all the flight are operating as per normal.Passengers will be,,369.0
+374,AirAsiaSupport,False,Tue Oct 31 22:01:20 +0000 2017,"@115797 Hi Looreen :) Kindly DM us the booking number and attach guest passport copy, we'll fix it for you, see you there! -Anwar",,344.0
+344,115797,True,Tue Oct 31 14:32:24 +0000 2017,@AirAsiaSupport my surname has been redundant where do i go to correct it?,"374,375",343.0
+375,AirAsiaSupport,False,Tue Oct 31 21:59:59 +0000 2017,@115797 H,,344.0
+376,Morrisons,False,Tue Oct 31 22:15:10 +0000 2017,@115803 Please don't tell me Carol!! I can't wait to go home &amp; find out!! - Chloe,377,378.0
+377,115803,True,Tue Oct 31 22:30:36 +0000 2017,@Morrisons My lips are sealed 😋,379,376.0
+379,Morrisons,False,Tue Oct 31 22:35:18 +0000 2017,@115803 Somebody else has told me!! I'm gutted :( - Chloe,380,377.0
+380,115803,True,Tue Oct 31 22:38:55 +0000 2017,"@Morrisons Aahhrrgh! Keep mum, I’m still watching 😄",381,379.0
+381,Morrisons,False,Tue Oct 31 22:52:17 +0000 2017,"@115803 Don't you worry Carol, my lips are shut!! - Chloe",382,380.0
+382,115803,True,Tue Oct 31 22:56:25 +0000 2017,"@Morrisons Aww, Sophie deserved winner 👏😄",,381.0
+378,115803,True,Tue Oct 31 21:49:51 +0000 2017,Fresh cream palmier @Morrisons bakery Bellshill gets my vote for #star baker 👨‍🍳😘😋💗just catching up on #gbbo17 don’t know who won yet 😄,376,
+383,Morrisons,False,Tue Oct 31 22:05:15 +0000 2017,"@115804 Hi there, sorry about that. Please DM me when you visited the store and I'll look into this. Thanks - Kirsty",384,385.0
+384,115804,True,Tue Oct 31 22:08:05 +0000 2017,"@Morrisons That's pointless as it's every day, all the time. No matter when I go in. I speak 2the management who r as fed up as I am. They've no staff.",386,383.0
+386,Morrisons,False,Wed Nov 01 14:19:47 +0000 2017,@115804 So sorry! Could you send me what store this is in so we can get this to the right people? - Janay,387,384.0
+387,Morrisons,False,Wed Nov 01 14:20:42 +0000 2017,"@115804 I can see you've sent the store, leave it with us and we'll get this sorted :) - Janay",,386.0
+385,115804,True,Tue Oct 31 21:28:45 +0000 2017,@Morrisons so fed up of this very familiar sight at Houghton Regis. Get more staff &amp; stock the place properly. This is just a small example https://t.co/CummsXx7jc,383,
+388,Morrisons,False,Tue Oct 31 22:03:19 +0000 2017,"@115805  store you bought it from, along with your address and More Card number and I'll get this sorted for you. Thanks - Kirsty",,389.0
+389,115805,True,Tue Oct 31 21:26:44 +0000 2017,"@Morrisons 3 for £6, unless one is reduced (hidden label on the side!) then it’s 3 for £6.14. Don’t care about the 14p but feel ripped off! https://t.co/jG0fTncMDr","388,390,391",
+390,Morrisons,False,Tue Oct 31 22:03:07 +0000 2017,"@115805 Hi Emma, sorry about that. If a product is reduced then the previous offer isn't applied. Please DM me the barcode and the",,389.0
+392,NikeSupport,False,Tue Oct 31 21:46:24 +0000 2017,"@115806 You're welcome, William. Give us a shout if you need assistance with anything else. Good luck with the NRC app.",,393.0
+393,115806,True,Tue Oct 31 21:42:32 +0000 2017,@NikeSupport Thank you nike,392,394.0
+394,NikeSupport,False,Tue Oct 31 21:41:33 +0000 2017,@115806 While the Coach plans can be weeks in time. It's up to you to decide what fits you best. (2/2),393,395.0
+395,115806,True,Tue Oct 31 21:29:39 +0000 2017,"@NikeSupport I'm new to nike+ run club app,  should i start with guided runs or my couch?","394,396",
+396,NikeSupport,False,Tue Oct 31 21:41:08 +0000 2017,@115806 We got this. Both are beneficial to starting the NRC app. The Audio Guided runs are one time runs. (1/2),,395.0
+397,AskAmex,False,Tue Oct 31 22:01:04 +0000 2017,@115807 What exactly is the issue you are having?,398,399.0
+398,115807,True,Wed Nov 01 05:25:43 +0000 2017,@AskAmex I’ve asked your sales rep about the payments and she wasn’t ready to listen to any issues that I had.,400,397.0
+400,AskAmex,False,Wed Nov 01 12:52:18 +0000 2017,"@115807 Apologies for all of the issues. If you have time to chat securely with me, I would be happy to review. ^Rachel",401,398.0
+401,115807,True,Wed Nov 01 14:27:35 +0000 2017,@AskAmex Sure. Please drop me a message now.,402,400.0
+402,AskAmex,False,Wed Nov 01 14:34:08 +0000 2017,@115807 Great. Please go to https://t.co/crJMnNwi0H log in and select code 10307  and we will continue our conversation there. ^RK,,401.0
+399,115807,True,Tue Oct 31 21:57:56 +0000 2017,@AskAmex Amex Platinum and Amex everyday card.,397,403.0
+403,AskAmex,False,Mon Oct 30 13:34:01 +0000 2017,@115807 I am so sorry to hear that. Which U.S. based card do you have? Pls do not share any personal info.,399,404.0
+404,115807,True,Sun Oct 29 23:07:07 +0000 2017,@AskAmex Nope. They weren’t ready to listen what I wanted to say and if I had any questions about anything else and hung up on me.,403,405.0
+405,AskAmex,False,Sun Oct 29 21:57:36 +0000 2017,"@115807 Hi there, I am so sorry to her that. what exactly is the issue you are having?",404,406.0
+406,115807,True,Sun Oct 29 21:48:00 +0000 2017,@AskAmex Thought Amex values their customers. But boy you got really bad reps on the customer service.,405,
+407,McDonalds,False,Tue Oct 31 22:14:00 +0000 2017,@115808 It’s getting all sorts of saucy over here this #Halloween. #TrickorTweet https://t.co/aNlYZYvL1U,,408.0
+408,115808,True,Tue Oct 31 21:04:52 +0000 2017,@McDonalds Treat!,407,409.0
+409,McDonalds,False,Tue Oct 31 16:02:50 +0000 2017,So what’ll it be this #Halloween: a trick or a treat? Let us know below. #TrickorTweet https://t.co/xwjAZp0C2v,"410,411,412,413,414,415,416,417,418,419,420,421,422,423,424,425,426,427,428,429,430,431,432,433,434,435,436,437,438,439,440,441,442,443,444,445,446,447,448,449,450,451,452,453,454,455,456,457,458,459,460,461,462,463,464,465,466,467,468,469,470,471,472,473,474,475,476,477,478,479,480,481,482,483,484,485,486,487,488,489,490,491,492,493,494,495,496,497,498,499,500,501,502,503,504,505,506,507,508,509,510,511,512,513,514,515,516,517,518,519,520,521,522,523,524,525,526,527,528,529,530,531,532,533,534,535,536,537,538,539,540,541,542,543,544,545,546,547,548,549,550,551,552,553,554,555,556,557,558,559,560,561,562,563,564,565,566,567,568,569,570,571,572,573,574,575,576,577,578,579,580,581,582,583,584,585,586,587,588,589,408,590,591,592,593,594,595,596,597",
+598,McDonalds,False,Tue Oct 31 22:13:45 +0000 2017,"@115809 Our heart’s beating faster over here, and it’s not from all the scares. #TrickorTweet https://t.co/Wte8FLiFJ7",,410.0
+410,115809,True,Tue Oct 31 20:49:10 +0000 2017,@McDonalds Treat me!,598,409.0
+599,McDonalds,False,Tue Oct 31 22:09:01 +0000 2017,@115810 Chocolate chip cookies + McFlurry = everything you’ve ever been missing. #TrickorTweet https://t.co/4YfWChLNKT,,487.0
+487,115810,True,Tue Oct 31 22:01:49 +0000 2017,@McDonalds Can I get uhhhhhhhhhh... treat?,599,409.0
+600,YahooCare,False,Tue Oct 31 20:08:58 +0000 2017,@115811 Hi - are you receiving an error message when trying to link the account?,,601.0
+601,115811,True,Tue Oct 31 16:13:35 +0000 2017,"@115812 I cant Connect my Interactive Broker ( Canada) with yahoo finance App in ios 11, Any suggestions.. ??",600,
+602,AskLyft,False,Tue Oct 31 22:12:06 +0000 2017,"@115813 Hi there, thanks for reaching out. Please send us a DM so we can continue our conversation. https://t.co/SXpdictw1A",,603.0
+603,115813,True,Tue Oct 31 21:58:49 +0000 2017,@AskLyft I have to be at work at 2pm tomorrow. My new phone is being overnighted but it may not be there until then. I have no other ride.,602,
+604,UPSHelp,False,Tue Oct 31 22:14:00 +0000 2017,@115814 Please let us know how we can help and DM your tracking # using this link. ^MC https://t.co/wKJHDXWGRQ,,605.0
+605,115814,True,Tue Oct 31 21:57:56 +0000 2017,whats wrong w/ amazon leavin shit outside like ups...🤔,604,
+606,UPSHelp,False,Tue Oct 31 22:03:29 +0000 2017,@115815 I'm sorry to hear that. Let us know what happened and if you have a tracking # please send that too. ^MC https://t.co/wKJHDXWGRQ,,607.0
+607,115815,True,Tue Oct 31 21:51:09 +0000 2017,@115816 that small biz tyrant a dime yo. nice @115817,606,608.0
+608,115816,True,Fri Oct 27 15:48:13 +0000 2017,"Worth the squeeze: when you’ve got us helping you along the way, owning your own #smallbiz can be quite fruitful! https://t.co/AgBM1TRAcD",607,
+609,Delta,False,Sat Aug 06 01:44:03 +0000 2016,"@115818 Glad to check. Pls, DM your confirmation number for assistance.  *QB https://t.co/6iDGBJAc2m",610,611.0
+610,115818,True,Tue Oct 31 22:11:33 +0000 2017,@Delta DM sent,,609.0
+611,115818,True,Sat Aug 06 01:31:50 +0000 2016,@DELTA i booked my flight using delta amex card. Checking in now &amp; was being charged for baggage,609,
+612,McDonalds,False,Fri Oct 20 19:04:47 +0000 2017,@115819 Don't forget - this Sunday is Bring Your Grandma to McDonald's Day. See you then!,613,614.0
+613,115819,True,Tue Oct 31 22:07:38 +0000 2017,@McDonalds My granny will be attending @ the McD’s in Heaven!  Would give anything to be able to bring her myself!,,612.0
+614,115819,True,Thu Oct 19 22:56:27 +0000 2017,My grandma's laying #Poolside thanks to @McDonalds delicious New #ButtermilkCrispyTenders https://t.co/4sy9hatKTi,612,
+615,AmazonHelp,False,Tue Oct 31 22:29:00 +0000 2017,"@115820 I'm sorry we've let you down! Without providing any personal information, will you describe the issue? We'd love to help. ^TN",616,617.0
+616,115820,True,Tue Oct 31 23:22:08 +0000 2017,"@AmazonHelp 3 different people have given 3 different answers and I still don't have my order. Says delivered Saturday, was not, I was home all day",618,615.0
+618,AmazonHelp,False,Tue Oct 31 23:28:00 +0000 2017,@115820 We'd like to take a further look into this with you! Please reach us by phone or chat here: https://t.co/hApLpMlfHN ^AG,619,616.0
+619,115820,True,Tue Oct 31 23:32:26 +0000 2017,"@AmazonHelp I frankly don't have the patience for another chat with your ""customer service"" people today.",,618.0
+617,115820,True,Tue Oct 31 22:16:32 +0000 2017,Way to drop the ball on customer service @115821 so pissed right now!,615,
+620,AmazonHelp,False,Tue Oct 31 22:28:34 +0000 2017,"@115822 I am unable to affect your account via Twitter. For real time support, phone or chat use this link: https://t.co/hApLpMlfHN ^CH",,621.0
+621,115822,True,Tue Oct 31 22:19:34 +0000 2017,@115823 I want my amazon payments account CLOSED.  dm me please.,620,
+622,AmazonHelp,False,Tue Oct 31 22:28:00 +0000 2017,"@115824 Hi, wir erhalten die Filme/Serien so vom jeweiligen Studio. Gebe ich aber direkt als Feedback dorthin weiter. Gruß ^JS",623,624.0
+623,115824,True,Tue Oct 31 22:32:07 +0000 2017,"@AmazonHelp Okay, danke für die Info",625,622.0
+625,AmazonHelp,False,Tue Oct 31 22:34:32 +0000 2017,@115824 Wir haben zu danken. Schönen Abend noch. ^JS,,623.0
+624,115824,True,Tue Oct 31 22:12:37 +0000 2017,"@115825 also, beim Addams Family-Film in Prime sind Bild und Ton nicht wirklich synchron. Wie kommt's?",622,
+626,AmazonHelp,False,Tue Oct 31 22:28:00 +0000 2017,@115826 I'm sorry for the wait. You'll receive an email as soon as we have an estimated delivery date. ^FJ,627,628.0
+627,115827,True,Wed Nov 01 12:50:18 +0000 2017,@AmazonHelp @115826 Yeah this is crazy we’re less than a week away and still no Shipping Information on something that we Pre-ordered back in August,629,626.0
+629,AmazonHelp,False,Wed Nov 01 12:53:34 +0000 2017,@115827 Thanks for your patience. ^KM,,627.0
+628,115826,True,Tue Oct 31 21:57:24 +0000 2017,@115828 How about you guys figure out my Xbox One X project Scorpio edition first. No expected delivery or shipping date and it’s only a week away,626,630.0
+630,115828,True,Tue Oct 31 21:27:49 +0000 2017,PLAYERUNKNOWN'S BATTLEGROUNDS is now available for preorder on Xbox One consoles - https://t.co/bqLHcBDqAb https://t.co/muLIqeHq0o,628,
+631,AmazonHelp,False,Tue Oct 31 22:27:00 +0000 2017,@115829 I'm sorry your order arrived in this condition! Please reach out to us for available options: https://t.co/JzP7hlA23B ^DG,,632.0
+632,115829,True,Tue Oct 31 21:34:58 +0000 2017,"@115830 my package was ‘accidentally’ opened.. 4 items missing worth £97.
+You need better delivery drivers!! https://t.co/f6SaVBSMqM",631,
+633,AmazonHelp,False,Tue Oct 31 22:26:37 +0000 2017,@115831 I'm sorry for the wait. Please reach out to us so we can take a closer look at this delivery: https://t.co/JzP7hlA23B ^SH,,634.0
+634,115831,True,Tue Oct 31 21:39:58 +0000 2017,@115821 @AmazonHelp why is my order at my local courier for the last 6 days and still hasn’t been delivered to me?? Over 1 week late 😡,633,
+635,AmazonHelp,False,Tue Oct 31 22:26:07 +0000 2017,@115832 Alexa says both styles are working for you! My vote goes to the Flamingo look! ^SE,,636.0
+636,115832,True,Tue Oct 31 22:05:36 +0000 2017,"Thanks for the style advice, @115833 look ...I think? #Halloween2017 #flamingo https://t.co/XvI54La043",635,
+637,AmazonHelp,False,Tue Oct 31 22:26:07 +0000 2017,@115834 Were you able to reach us at the link DW provided? ^TR,,638.0
+638,115834,True,Tue Oct 31 22:19:56 +0000 2017,@AmazonHelp Hi ready for some help,637,639.0
+639,AmazonHelp,False,Tue Oct 31 01:09:35 +0000 2017,"@115834 The Echo Show is supported, please reach us for some live troubleshooting at your convenience: https://t.co/hApLpMlfHN ^DW",638,640.0
+640,115834,True,Tue Oct 31 01:03:01 +0000 2017,@AmazonHelp Is the Echo Show no longer supported?,639,641.0
+641,115834,True,Tue Oct 31 01:02:39 +0000 2017,@AmazonHelp Nothing there helped me with the Echo Show,640,642.0
+642,AmazonHelp,False,Tue Oct 31 00:52:39 +0000 2017,"@115834 Oh no, I'm sorry for the issues! For troubleshooting, please check out our Echo Help pages here: https://t.co/a31c4ynHES ^SG",641,643.0
+643,115834,True,Mon Oct 30 23:44:45 +0000 2017,"Bought an @115821 Echo Show and it won’t recognize a single @AmazonHelp account in our household. WTF, guys?",642,
+644,AmazonHelp,False,Tue Oct 31 22:25:27 +0000 2017,@115835 I'm so sorry you didn't receive your parcel! We'd like a chance to look into this with you here: https://t.co/JzP7hlA23B ^SY,645,646.0
+645,115835,True,Wed Nov 01 08:04:52 +0000 2017,@AmazonHelp That page is useless - doesn’t allow me to state it hasn’t been delivered; only tells me it has! How can you sort this out?,647,644.0
+647,AmazonHelp,False,Wed Nov 01 08:11:34 +0000 2017,@115835 You can also request a call back here Martin https://t.co/zH8UlhTGcc ^KM,,645.0
+646,115835,True,Tue Oct 31 21:40:30 +0000 2017,.@AmazonHelp Item has not been delivered but tracking says it was handed to me over an hour ago... 2nd time this has happened. Sort it out https://t.co/42W82GcARk,644,
+648,AmazonHelp,False,Tue Oct 31 22:24:47 +0000 2017,@115836 Thanks for bringing this to our attention! Please also leave packing feedback here: https://t.co/PMiShxgPvp so we may improve.^KL,,649.0
+649,115836,True,Tue Oct 31 22:17:47 +0000 2017,"In response to your @115830 packing video, this packaging was for a 2ft washing line pole @115837 https://t.co/X21SQHgC0K",648,
+650,AmazonHelp,False,Tue Oct 31 22:24:47 +0000 2017,@115838 Oh no! We want to hear more about your experience with AMZL. Please provide your feedback here: https://t.co/hApLpMlfHN ^SH,651,652.0
+651,115838,True,Tue Oct 31 22:25:58 +0000 2017,"@AmazonHelp I don't want a form to fill out that logs a response no one reads. I want to prevent AMZL from touching my stuff. Possible, or no?",653,650.0
+653,AmazonHelp,False,Tue Oct 31 22:52:02 +0000 2017,"@115838 Is there a current order you're having difficulties with? Please let us know, we'd like to help! ^KL",654,651.0
+654,115838,True,Tue Oct 31 22:53:50 +0000 2017,@AmazonHelp Already started the return. UPS gets it from my doorstep tomorrow. Order 111-5014070-4118645,655,653.0
+655,AmazonHelp,False,Tue Oct 31 23:07:33 +0000 2017,@115838 Provide your details here: https://t.co/6f6cWZv7vm and my team will escalate the order to Amazon Logistics for feedback. ^EZ,,654.0
+652,115838,True,Tue Oct 31 22:11:15 +0000 2017,@AmazonHelp Is it possible to prevent AMZL from delivering my packages moving forward? Stuff is either lost/stolen/broken EVERY time.,650,
+656,AmazonHelp,False,Tue Oct 31 22:21:10 +0000 2017,@115839 Let us know if there’s anything else we can do for you! We're happy to help out any way we can! ^FR,,657.0
+657,115839,True,Tue Oct 31 22:18:42 +0000 2017,"@AmazonHelp Already handled, just venting. It was a pretty big bummer.",656,658.0
+658,AmazonHelp,False,Tue Oct 31 22:11:00 +0000 2017,@115839 I'm sorry your book arrived this way! You can find replacement/refund options here: https://t.co/zRrkpVcaDF ^VS,657,659.0
+659,115839,True,Tue Oct 31 22:02:14 +0000 2017,"@115821, it’d be nice if the book I waited 4 months for wasn’t damaged inside of an undented box. #twinpeaks #twin… https://t.co/Lac4K7iQzJ https://t.co/JroqJKrH9Q",658,
+660,AmazonHelp,False,Tue Oct 31 22:21:01 +0000 2017,@115840 ¡Que lindoooooooooo! 😍🐶🎃 ^JJ https://t.co/YSOVnjaPrO,,661.0
+661,115840,True,Tue Oct 31 22:13:37 +0000 2017,@115841 @115821 Feliz #Halloween2017 https://t.co/edHbRDnM8x,660,662.0
+662,115841,True,Fri Oct 27 10:58:09 +0000 2017,CONCURSO 👻🎃:Tarjetas regalo en @115821 por tu foto en la cama disfrazado y #ColchonMorfeoHalloween en los post promo:https://t.co/xAsY6KwLZa https://t.co/7yOZvlwBwN,661,
+663,AmazonHelp,False,Tue Oct 31 22:20:34 +0000 2017,"@115842 Oh no! Please contact us via phone/chat here: https://t.co/JzP7hlA23B
+We're unable to view order details via Twitter. ^KL",,664.0
+664,115842,True,Tue Oct 31 21:50:49 +0000 2017,"@AmazonHelp delivery I paid for today,didn’t arrive.why not?i paid enough for it.where is it??I’m unhappy.refund the delivery charge",663,
+665,AmazonHelp,False,Tue Oct 31 22:19:29 +0000 2017,@115843 You're not lion! She even shows witch way is up! That's quite the wardrobe! ^AC,666,667.0
+666,115843,True,Wed Nov 01 01:26:58 +0000 2017,@AmazonHelp Aww your reply made her night!,,665.0
+667,115843,True,Tue Oct 31 22:11:10 +0000 2017,"Anna Inspired in idea lab at school to be @115821 package being shipped to Narnia! ""Amazon can go anywhere"" according to Anna. https://t.co/TyvKhuu7su",665,
+668,AmazonHelp,False,Tue Oct 31 22:18:00 +0000 2017,@115844 Oh my! I'm sorry for the troubles! Contact us by Phone or Chat: https://t.co/JzP7hlA23B &amp; we'll be glad to help! ^FR,669,670.0
+669,115844,True,Tue Oct 31 22:21:12 +0000 2017,@AmazonHelp I just said it's been sorted! I've been refunded! I'm just not impressed with the service any more.,,668.0
+670,115844,True,Tue Oct 31 22:15:42 +0000 2017,@115845 They sent the feckin' order to Germany! Some dozy driver is looking for an address in the wrong country! I'm so done with Amazon!,668,671.0
+671,115845,True,Tue Oct 31 21:04:31 +0000 2017,@115844 WHAT IN THE WORLD?!,670,672.0
+672,115844,True,Tue Oct 31 20:59:45 +0000 2017,"I'm NEVER using Amazon again! After waiting in all day as item is ""out for delivery"", they've only gone and sent it to the WRONG COUNTRY!","671,673,674",
+675,AmazonHelp,False,Tue Oct 31 22:17:27 +0000 2017,@115846 That's okay! Thanks for checking! Please contact us by phone or chat and we can look into this: https://t.co/hApLpMlfHN ^BN,,676.0
+676,115846,True,Tue Oct 31 21:39:25 +0000 2017,@115847 @115821 Yeah idk the shipping company and it says “mike Ziemer” signed for it in the mail room at our building lol,675,677.0
+677,115847,True,Tue Oct 31 21:35:08 +0000 2017,@115846 @115821 Remember my head phones and they brought them within minutes,676,678.0
+678,115846,True,Tue Oct 31 20:06:57 +0000 2017,My package from @115821 with my Halloween costume was “delivered” Friday but I don’t have I so searching everywhere for a last minute idea.,"677,679",
+680,AmazonHelp,False,Tue Oct 31 22:17:00 +0000 2017,@115848 I'm sorry for the trouble this has caused you; please contact us so we may lend you a hand: https://t.co/hApLpMlfHN ^WM,,681.0
+681,115848,True,Tue Oct 31 22:11:34 +0000 2017,@115821  https://t.co/Gb0beuA3IN,680,682.0
+682,115848,True,Tue Oct 31 13:34:50 +0000 2017,How @115821 packages china https://t.co/fO9vbus18E,"681,683",
+684,AmazonHelp,False,Tue Oct 31 22:17:00 +0000 2017,@115849 Please share your details here:https://t.co/GIJyeYqKE0 and I'll get back to you. 2/2 ^HD,685,686.0
+685,115849,True,Wed Nov 01 05:26:45 +0000 2017,@AmazonHelp Details sent. Please check.,687,684.0
+687,AmazonHelp,False,Wed Nov 01 05:32:57 +0000 2017,@115849 Thanks for confirming that the details have been shared. Our team will give it a look and reach out shortly. ^AB,,685.0
+686,115849,True,Tue Oct 31 22:06:53 +0000 2017,@AmazonHelp Already contacted 3-4 times in the last month. But all I got was assurance that matter is escalated &amp; new status will be provided in 1 day!,"684,688",689.0
+689,AmazonHelp,False,Tue Oct 31 21:54:32 +0000 2017,@115849 Please report this to our support team here: https://t.co/TdDksLo6Mf and we'll look into this. 2/2 ^HD,686,690.0
+690,115849,True,Tue Oct 31 21:45:15 +0000 2017,@115850 @115821 @AmazonHelp @115851 Order# 3632693-6196346. You couldn't deliver EVEN AFTER A MONTH. You should be ashamed of yourself.,"689,691",
+692,AmazonHelp,False,Tue Oct 31 22:16:00 +0000 2017,@115852 We still offer discounts on eligible physical game pre-orders. For further details on Prime benefits: https://t.co/80y2YnlQGJ ^MB,,693.0
+693,115852,True,Tue Oct 31 22:10:21 +0000 2017,@AmazonHelp since when you stop giving 20% off videogame pre-orders (amazon prime members) im confused? why?,692,
+694,AmazonHelp,False,Tue Oct 31 22:15:28 +0000 2017,@115853 I'm sorry we let you down! We'd like to make sure this is addressed. Please provide some details here: https://t.co/z6evtFsZI5 ^BN,,695.0
+695,115853,True,Tue Oct 31 21:17:03 +0000 2017,Just pulled another #Amazon delivery out of the bushes since the #amzl people can’t walk the extra 2 ft to my door. So tired of this.,694,
+696,AppleSupport,False,Tue Oct 31 22:27:49 +0000 2017,@115854 We're here for you. Which version of the iOS are you running? Check from Settings &gt; General &gt; About.,697,698.0
+697,115854,True,Tue Oct 31 22:31:23 +0000 2017,@AppleSupport The newest update. I️ made sure to download it yesterday.,699,696.0
+699,AppleSupport,False,Tue Oct 31 22:36:27 +0000 2017,@115854 Lets take a closer look into this issue. Select the following link to join us in a DM and we'll go from there. https://t.co/GDrqU22YpT,,697.0
+698,115854,True,Tue Oct 31 22:17:40 +0000 2017,@AppleSupport  https://t.co/NV0yucs0lB,696,700.0
+700,115854,True,Tue Oct 31 22:16:56 +0000 2017,@AppleSupport why are my I️’s changing not showing up correctly on any of my social media platforms? https://t.co/GyRvpyVnkE,698,
+701,AppleSupport,False,Tue Oct 31 22:26:49 +0000 2017,@115855 Let's go to DM for the next steps. DM us here: https://t.co/GDrqU22YpT,,702.0
+702,115855,True,Tue Oct 31 22:11:31 +0000 2017,@AppleSupport Tried resetting my settings .. restarting my phone .. all that,701,703.0
+703,AppleSupport,False,Tue Oct 31 22:09:52 +0000 2017,@115855 Any steps tried since it started last night?,702,704.0
+704,115855,True,Tue Oct 31 21:59:17 +0000 2017,@AppleSupport This is what it looks like https://t.co/XCQU2l4xUB,703,705.0
+705,AppleSupport,False,Tue Oct 31 21:57:00 +0000 2017,@115855 That's great it has iOS 11.1 as we can rule out being outdated. Any steps tried since this started? Do you recall when it started?,"706,704",707.0
+707,115855,True,Tue Oct 31 21:48:51 +0000 2017,@AppleSupport I️ have an iPhone 7 Plus and yes I️ do,705,708.0
+708,AppleSupport,False,Tue Oct 31 21:43:15 +0000 2017,@115855 We'd like to look into this with you. Which model do you have and is iOS 11.1 installed? Any steps tried so far?,707,709.0
+709,115855,True,Tue Oct 31 21:34:45 +0000 2017,@AppleSupport I️ need answers because it’s annoying 🙃,708,710.0
+710,115855,True,Tue Oct 31 21:29:50 +0000 2017,Why are my I’s question marks ?,709,711.0
+711,115855,True,Tue Oct 31 21:29:22 +0000 2017,What is up with this “ I️ “,710,
+712,AppleSupport,False,Tue Oct 31 22:26:29 +0000 2017,"@115856 Hey, let's work together to figure out what's going on. Meet us in DM and we'll continue from there. https://t.co/GDrqU22YpT",713,714.0
+713,115856,True,Tue Oct 31 22:35:17 +0000 2017,@AppleSupport Just sent you all my DM,,712.0
+714,115856,True,Tue Oct 31 22:19:32 +0000 2017,"Hey @AppleSupport and anyone else who upgraded to ios11.1, are y’all having issues with capital “I️” in the Mail app? As it puts in “A”?","712,715",
+716,AppleSupport,False,Tue Oct 31 22:24:54 +0000 2017,@115857 We'd like to investigate further with you. Send us a DM and we can troubleshoot more from there. https://t.co/GDrqU22YpT,,717.0
+717,115857,True,Tue Oct 31 22:13:08 +0000 2017,@AppleSupport This is what is happening... https://t.co/X3SZSJXfAT,716,718.0
+718,AppleSupport,False,Tue Oct 31 22:05:00 +0000 2017,"@115857 Fill us in on what is happening, then we can help out from there.",717,719.0
+719,115857,True,Tue Oct 31 22:01:50 +0000 2017,Tf is wrong with my keyboard @115858,718,
+720,AppleSupport,False,Tue Oct 31 22:24:27 +0000 2017,@115859 We've received your DM and will continue there.,,721.0
+721,115859,True,Tue Oct 31 22:18:14 +0000 2017,@AppleSupport are the call centres closed for the night?,720,722.0
+722,AppleSupport,False,Tue Oct 31 22:17:30 +0000 2017,@115859 What's going on? We're hapy to help if we can. https://t.co/GDrqU22YpT,721,723.0
+723,115859,True,Tue Oct 31 22:11:16 +0000 2017,@115858 @AppleSupport hello are all the lines closed for tonight #help,722,
+724,AppleSupport,False,Tue Oct 31 22:22:31 +0000 2017,"@115860 Reach out to us via DM, and we can take a look at this with you. https://t.co/GDrqU22YpT",,725.0
+725,115860,True,Tue Oct 31 22:16:35 +0000 2017,@115861 @115862 @AppleSupport I️ upgraded. I️t didn’t work.,"724,726",727.0
+727,115861,True,Tue Oct 31 21:02:34 +0000 2017,@115862 @AppleSupport I will!,725,728.0
+728,115862,True,Tue Oct 31 20:57:26 +0000 2017,@AppleSupport @115861 We’re going to need you to share the answers Angela. I️ can’t stand this!,727,729.0
+729,AppleSupport,False,Tue Oct 31 20:55:34 +0000 2017,"@115861 You're in the right place; we'll do all we can to help. To start, let us know what iOS version is installed via DM: https://t.co/GDrqU22YpT",728,730.0
+730,115861,True,Tue Oct 31 20:46:35 +0000 2017,"Hello, internet. Can someone explain why this symbol keeps appearing on my phone and when I️ try to type the letter I️? Also @AppleSupport https://t.co/QKwvTLtiN7","729,731",
+732,AppleSupport,False,Tue Oct 31 22:22:31 +0000 2017,@115863 Go ahead and send us a DM please. Let us know the country you're in.,,733.0
+733,115863,True,Tue Oct 31 22:16:40 +0000 2017,@AppleSupport I’ve got a screenshot saying my #iPhoneX is reserved for the 3rd then an email saying it’s the 18th... what happened?,732,
+734,AppleSupport,False,Tue Oct 31 22:22:00 +0000 2017,"@115864 We'd like to help, but we'll need more details. What's happening on your device and which model is it? Do you have iOS 11.1?",735,736.0
+735,115864,True,Tue Oct 31 22:23:35 +0000 2017,@AppleSupport I have the iPhone 6s Plus and just did the most recent update.,737,734.0
+737,AppleSupport,False,Tue Oct 31 22:33:34 +0000 2017,"@115864 To make sure, is iOS 11.1 installed on it currently? Also, any steps tried so far? DM us here: https://t.co/GDrqU22YpT",,735.0
+736,115864,True,Tue Oct 31 22:17:57 +0000 2017,Thank you @AppleSupport I updated my phone and now it is even slower and barely works. Thank you for ruining my phone.😤,734,
+738,AppleSupport,False,Tue Oct 31 22:21:30 +0000 2017,@115865 Thanks! Which iOS version is currently showing in Settings &gt; General &gt; About?,739,740.0
+739,115865,True,Tue Oct 31 22:35:32 +0000 2017,@AppleSupport iOS 11.0.3,741,738.0
+741,AppleSupport,False,Tue Oct 31 22:46:26 +0000 2017,"@115865 Let's check Settings &gt; General &gt; Software Update. iOS 11.1 was released earlier today. If you see it, please backup &amp; update.",742,739.0
+742,115865,True,Tue Oct 31 22:59:53 +0000 2017,@AppleSupport Okey. Thank you! 🤗,743,741.0
+743,AppleSupport,False,Tue Oct 31 23:12:00 +0000 2017,"@115865 Our pleasure. If you're still having issues after a back up and update, contact us back. We're happy to help.",,742.0
+740,115865,True,Tue Oct 31 22:14:45 +0000 2017,@AppleSupport iPhone 7 Plus 😊,738,744.0
+744,AppleSupport,False,Tue Oct 31 22:06:27 +0000 2017,@115865 Hi there! What type of device are we working with?,740,745.0
+745,115865,True,Tue Oct 31 22:00:34 +0000 2017,@AppleSupport I need the software update urgently. The battery lasts literally half a day 🙍🏼🙁@AppleSupport,744,746.0
+746,AppleSupport,False,Tue Oct 31 18:17:00 +0000 2017,@115865 We offer support via Twitter in English. Get help in Spanish here: https://t.co/IBIY3vMgPj or join https://t.co/OczyRx7IOs,745,747.0
+747,115865,True,Tue Oct 31 18:08:04 +0000 2017,Hola @AppleSupport necesito urgente la actualización de software. La batería me dura literal medio día 🙍🏼🙇🏼‍♀️,746,
+748,AppleSupport,False,Tue Oct 31 22:18:28 +0000 2017,@115866 We want to help! DM us and let us know more about the issues you are having. https://t.co/GDrqU22YpT,,749.0
+749,115866,True,Tue Oct 31 22:06:44 +0000 2017,@AppleSupport Hi! What is going on? Has Youtube lost it? What can be done about it? Thanks for the support! https://t.co/T8ZZp4IH6t,748,
+750,AppleSupport,False,Tue Oct 31 22:18:00 +0000 2017,@115867 We'd like to get you speaking to our experts here: https://t.co/IBIY3vMgPj,,751.0
+751,115867,True,Tue Oct 31 22:08:39 +0000 2017,@AppleSupport ? hello,750,752.0
+752,115867,True,Thu Oct 12 10:11:50 +0000 2017,"@AppleSupport my Apple TV works fine with my phone, but when playing videos on Mac air it stutters so much &amp; sound is still on Mac not tv?",751,
+753,AppleSupport,False,Tue Oct 31 22:17:29 +0000 2017,"@115868 We've just released iOS 11.1. We suggest backing up &amp; updating. Then, test the issue again. Here's how: https://t.co/80YRnjDFDk",,754.0
+754,115868,True,Tue Oct 31 22:01:17 +0000 2017,"@AppleSupport Yes it did, 11.0.3",753,755.0
+755,AppleSupport,False,Tue Oct 31 20:54:35 +0000 2017,@115868 Let us help with your Home button. Did this issue start right after iOS 11? Which version of iOS 11 are you running?,754,756.0
+756,115868,True,Tue Oct 31 20:49:07 +0000 2017,MY HOME BUTTON DOESN’T WORK #IOS11 @AppleSupport,755,
+757,AppleSupport,False,Tue Oct 31 22:16:31 +0000 2017,@115869 We're here to help. Meet us in DM and we can check on available options. https://t.co/GDrqU22YpT,,758.0
+758,115869,True,Tue Oct 31 22:10:06 +0000 2017,Hey @115858! Last time I downloaded an update my freaking phone gave me hell. Any recommendations?,757,
+759,AppleSupport,False,Tue Oct 31 22:15:28 +0000 2017,@115870 DM us the specific iOS version you are running currently and we'll continue there. https://t.co/GDrqU22YpT,,760.0
+760,115870,True,Tue Oct 31 22:03:09 +0000 2017,@AppleSupport I can not find an option to get it there. It was just always there when playing.,759,761.0
+761,AppleSupport,False,Tue Oct 31 22:01:31 +0000 2017,"@115870 Just to confirm, this is only happening with Spotify, correct?","760,762",763.0
+763,115870,True,Tue Oct 31 21:56:55 +0000 2017,@AppleSupport The app is still there. But no longer able to control it from the lockscreen.,761,764.0
+764,AppleSupport,False,Tue Oct 31 18:33:00 +0000 2017,@115870 Thanks for reaching out to us. Are you experiencing the missing app after restating your device?,763,765.0
+765,115870,True,Tue Oct 31 18:20:46 +0000 2017,After update #ios1103 no spotify on my lock screen?@AppleSupport,764,
+766,AppleSupport,False,Tue Oct 31 22:15:00 +0000 2017,@115871 We want to help you get your battery life back on track. Please DM and we'll look at it together. https://t.co/GDrqU22YpT,,767.0
+767,115871,True,Tue Oct 31 22:08:32 +0000 2017,I just need @115858 to do something about the battery life because it sucks ass,766,
+768,Uber_Support,False,Tue Oct 31 22:28:17 +0000 2017,@115872 Happy to follow up! Contact us via https://t.co/1xM0TILvAI so we can connect.,"769,770",771.0
+769,115872,True,Tue Oct 31 22:30:07 +0000 2017,@Uber_Support Already did that was told we requested to dropped off somewhere different which is completely false.,,768.0
+770,Uber_Support,False,Tue Oct 31 22:31:08 +0000 2017,@115872 We apologize for the trouble! Send us a DM with your email address and we'll connect.,,768.0
+771,115872,True,Tue Oct 31 22:12:00 +0000 2017,@115873 you need to correct false charges from a trip in Lexington KY on Saturday. I want my $13 back #lyingdriver #theft,768,
+772,Uber_Support,False,Tue Oct 31 22:25:26 +0000 2017,"@115874 We're here to help! Send us a note here, https://t.co/WFtPA6RjWt and our team will be in touch.",,773.0
+773,115874,True,Tue Oct 31 22:01:07 +0000 2017,@115873 my driver just drove me to the department of air travel instead of the airport.......... rufkm,772,
+774,Uber_Support,False,Tue Oct 31 22:19:18 +0000 2017,"@115875 We’re here to help, Travis! Send us a note via https://t.co/dwDjAokZht and we'll be in touch.",,775.0
+775,115875,True,Tue Oct 31 21:59:51 +0000 2017,@Uber_Support I’m not getting your texts. https://t.co/GhefNjQTfg,774,
+776,Uber_Support,False,Tue Oct 31 22:17:58 +0000 2017,@115876 For more info about UberEats availability click here; https://t.co/3A9YFZQFaF,,777.0
+777,115876,True,Tue Oct 31 21:58:10 +0000 2017,@115877 got this threw my door today went to order... sorry we don't deliver to your area! What!!! Why did I get this then! https://t.co/BGzU59vYJS,776,
+778,Uber_Support,False,Tue Oct 31 22:17:41 +0000 2017,@115878 We have received your DM and will follow up with you there.,779,780.0
+779,115878,True,Tue Oct 31 22:18:07 +0000 2017,@Uber_Support @115879 wouldn't do this to me 😔,,778.0
+780,115878,True,Tue Oct 31 21:59:34 +0000 2017,@Uber_Support Why is there no phone number ?? I'm literally stranded and now I have to wait for an automated reply this is ridiculous,778,781.0
+781,Uber_Support,False,Tue Oct 31 21:49:36 +0000 2017,@115878 We're sorry to hear this was your experience. Can you send us a DM with your email address so we can connect?,780,782.0
+782,115878,True,Tue Oct 31 21:40:20 +0000 2017,Literally stranded because of @115873 and because there is no support phone number I have to wait from a message from @Uber_Support Smh 🤦🏾‍♂️,781,
+783,Uber_Support,False,Tue Oct 31 22:15:25 +0000 2017,"@115880 We're sorry to hear this was your experience, Ray. Please contact us via https://t.co/aBEgvdNWQN and we'll be in touch.",,784.0
+784,115880,True,Tue Oct 31 22:11:47 +0000 2017,"1 hour+ inside an old Altima that smells and has ripped stain seats, with an inexperienced miami driver @115873 standards down now 4 applying!",783,
+785,Tesco,False,Tue Oct 31 22:18:58 +0000 2017,"@115881 Hi Cade, thanks so much for sending that over. I have sent an email to the Store Manager to look into this for you. 1/2",,786.0
+786,115881,True,Tue Oct 31 20:29:25 +0000 2017,"@Tesco Tall lady 6ft, slim, was on the till about 15:10, think she had blonde hair. She served the guy after knowing he didn’t queue up like others","785,787",788.0
+788,Tesco,False,Tue Oct 31 19:47:00 +0000 2017,"@115881 Hi Cade, what was my colleagues name? Can you give a description? When were you in our store? - Nick",786,789.0
+789,115881,True,Tue Oct 31 18:02:11 +0000 2017,@Tesco 3/3 on the wrong which I really don’t appreciate. This needs to be investigate and I was simply queuing to pay and the guy pushed in😡,788,
+790,Delta,False,Tue Oct 31 22:27:38 +0000 2017,@115882 I'm sorry. The earlier flight may not have been available at the time of your scheduled change. *TMT,791,792.0
+791,115882,True,Tue Oct 31 22:33:11 +0000 2017,@Delta I checked daily and flight 1403 was never offered as an option as I most certainly would have made the adjust on my trip.,793,790.0
+793,Delta,False,Tue Oct 31 22:52:37 +0000 2017,"@115882 My apologies. If that flight never showed up on your search, that would mean it was full.  *TMT",,791.0
+792,115882,True,Tue Oct 31 21:33:48 +0000 2017,"@Delta why wasn't earlier flight offered when I tried to rebook, not cool at all. Just happened to look at moniter after deplaning.",790,
+794,Delta,False,Tue Oct 31 22:25:31 +0000 2017,@115883 Please share additional details about the nature of this technical issue.  *AFC,795,796.0
+795,115883,True,Tue Oct 31 22:28:50 +0000 2017,@Delta Via DM?,797,794.0
+797,Delta,False,Tue Oct 31 23:07:41 +0000 2017,@115883 Please do.  *AFC https://t.co/6iDGBJAc2m,798,795.0
+798,115883,True,Wed Nov 01 15:10:21 +0000 2017,@Delta Just DM'd you with a screenshot and explanation.  😊,,797.0
+796,115883,True,Tue Oct 31 21:18:55 +0000 2017,@Delta It seems this technical issue still hasn't Ben fixed.   Can you look into it again?  🙆🏼‍♂️,794,799.0
+799,Delta,False,Sun Oct 29 16:56:47 +0000 2017,"@115883 I sincerely apologize, our IT team is diligently working on it, we should have it up and working very soon.  *TMC","800,796",801.0
+801,115883,True,Sun Oct 29 15:59:35 +0000 2017,"@Delta The ""change flight"" search option on your website is broken once again.  😑",799,
+802,Delta,False,Tue Oct 31 22:23:07 +0000 2017,"@115884 Oh, no! Please speak to a member of the flt crew for immediate assistance. *AAB",,803.0
+803,115884,True,Tue Oct 31 21:33:27 +0000 2017,.@delta this has been my inflight studio experience today. Nothing works except Twitter #toobadforyouandme https://t.co/VLo4ufL73y,802,
+804,Delta,False,Tue Oct 31 22:22:01 +0000 2017,@115885 2/2 https://t.co/6iDGBJAc2m,"805,806",807.0
+805,115885,True,Tue Oct 31 22:39:33 +0000 2017,@Delta Is that not what I’ve done already?,,804.0
+806,115885,True,Tue Oct 31 22:39:44 +0000 2017,@Delta Can you reply on the DM thread?,,804.0

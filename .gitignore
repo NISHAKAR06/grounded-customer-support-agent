@@ -69,6 +69,7 @@ data/external/*
 !data/external/.gitkeep
 data/samples/*
 !data/samples/.gitkeep
+!data/samples/sample_twcs.csv
 # Golden set data will be checked in under data/golden/ when curated (evaluation-only)
 !data/golden/.gitkeep
 

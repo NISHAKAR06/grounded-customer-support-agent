@@ -1,0 +1,50 @@
+name: Data Pipeline Validation
+
+on:
+  push:
+    paths:
+      - 'scripts/data/**'
+      - 'data/**'
+      - 'experiments/**'
+      - '.github/workflows/data-pipeline.yml'
+  pull_request:
+    paths:
+      - 'scripts/data/**'
+      - 'data/**'
+      - 'experiments/**'
+      - '.github/workflows/data-pipeline.yml'
+  workflow_dispatch:
+
+jobs:
+  validate-data-pipeline:
+    name: Dataset Contract & Schema Verification
+    runs-on: ubuntu-latest
+    env:
+      CI: "true"
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+          cache: "pip"
+
+      - name: Install Dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt
+          pip install -r requirements-dev.txt
+
+      - name: Verify Sample Dataset Contract
+        run: |
+          python -c "import pandas as pd; df = pd.read_csv('data/samples/sample_twcs.csv'); assert len(df) == 500; print('Sample dataset verified: 500 rows, 7 columns')"
+
+      - name: Run Data Loader & EDA Unit Tests
+        run: |
+          pytest tests/unit/test_data_loader.py -v
+
+      - name: Validate Dataset Statistics Schema
+        run: |
+          python -c "import json; d = json.load(open('experiments/dataset_stats.json')); assert 'dataset_metadata' in d and 'volume_breakdown' in d; print('dataset_stats.json schema validated successfully')"
