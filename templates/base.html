@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>{% block title %}Grounded Support Agent{% endblock %}</title>
+  
+  <!-- Inter Font -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  
+  <!-- CSS Stylesheets -->
+  <link rel="stylesheet" href="/static/css/base.css">
+  <link rel="stylesheet" href="/static/css/layout.css">
+  <link rel="stylesheet" href="/static/css/components.css">
+  <link rel="stylesheet" href="/static/css/pages.css">
+  <link rel="stylesheet" href="/static/css/responsive.css">
+  {% block extra_css %}{% endblock %}
+</head>
+<body>
+  <div class="app-shell">
+    <!-- Left Dark Sidebar -->
+    <aside class="app-sidebar">
+      <div class="sidebar-header">
+        <div class="brand-title">Grounded Support Agent</div>
+      </div>
+
+      <nav class="sidebar-nav">
+        <!-- WORKSPACE -->
+        <div class="nav-group">
+          <div class="nav-heading">Workspace</div>
+          <a href="/inbox" class="nav-link {% if active_page == 'inbox' %}active{% endif %}">
+            <span class="nav-link-dot"></span>
+            Inbox
+          </a>
+          <a href="/simulate" class="nav-link {% if active_page == 'simulate' %}active{% endif %}">
+            <span class="nav-link-dot"></span>
+            Simulate
+          </a>
+        </div>
+
+        <!-- INSIGHTS -->
+        <div class="nav-group">
+          <div class="nav-heading">Insights</div>
+          <a href="/evaluation" class="nav-link {% if active_page == 'evaluation' %}active{% endif %}">
+            <span class="nav-link-dot"></span>
+            Evaluation
+          </a>
+          <a href="/failures" class="nav-link {% if active_page == 'failures' %}active{% endif %}">
+            <span class="nav-link-dot"></span>
+            Failure Analysis
+          </a>
+        </div>
+      </nav>
+    </aside>
+
+    <!-- Main Workspace -->
+    <main class="app-main">
+      <header class="top-bar">
+        <div class="breadcrumbs">
+          <span>Operations</span>
+          <span>/</span>
+          <span class="breadcrumb-current">{% block breadcrumb %}Workspace{% endblock %}</span>
+        </div>
+        <div class="top-bar-badges">
+          <span class="badge badge-neutral">v{{ app_version }}</span>
+        </div>
+      </header>
+
+      <div class="workspace-content">
+        {% block content %}{% endblock %}
+      </div>
+    </main>
+  </div>
+
+  <script src="/static/js/app.js"></script>
+  {% block extra_js %}{% endblock %}
+</body>
+</html>

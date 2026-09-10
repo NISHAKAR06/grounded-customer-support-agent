@@ -1,0 +1,100 @@
+{% extends "base.html" %}
+
+{% block title %}Decision Log — Grounded Support Agent{% endblock %}
+{% block breadcrumb %}Engineering Decision Log{% endblock %}
+
+{% block content %}
+<div class="page-header">
+  <h1 class="page-title">Engineering Decision Log</h1>
+  <p class="page-subtitle">Documented rationale, alternatives, and trade-offs for 12 foundational system decisions.</p>
+</div>
+
+<div class="card">
+  <div class="table-responsive">
+    <table class="inbox-table">
+      <thead>
+        <tr>
+          <th style="min-width: 180px; width: 22%;">Decision Area</th>
+          <th style="min-width: 260px; width: 34%;">Choice & Core Rationale</th>
+          <th style="min-width: 200px; width: 22%;">Alternatives Rejected</th>
+          <th style="min-width: 200px; width: 22%;">Key Trade-off</th>
+        </tr>
+      </thead>
+    <tbody>
+      <tr>
+        <td><strong>1. Single Brand Focus</strong></td>
+        <td>Select exactly ONE brand from the 3M Twitter corpus to ground in real, verifiable policies.</td>
+        <td>Multi-brand aggregated training across distinct industries.</td>
+        <td>Specializes deeply in one brand; not generic across unrelated products.</td>
+      </tr>
+      <tr>
+        <td><strong>2. Thread-Level Data Split</strong></td>
+        <td>Split data strictly by conversation thread IDs to prevent conversational leakage.</td>
+        <td>Random message-level train/test split.</td>
+        <td>Requires precomputing the full conversational thread graph.</td>
+      </tr>
+      <tr>
+        <td><strong>3. Hand-Labelled Golden Set</strong></td>
+        <td>Personally review and hand-label 150–250 real examples without synthetic shortcuts.</td>
+        <td>Synthetic LLM-generated labels.</td>
+        <td>High manual labeling time; smaller evaluation set size.</td>
+      </tr>
+      <tr>
+        <td><strong>4. Two Baseline Systems</strong></td>
+        <td>Majority baseline + TF-IDF Logistic Regression for explainable benchmarks.</td>
+        <td>Zero-shot LLM baseline or heuristic string matching.</td>
+        <td>Requires maintaining three distinct model pipelines.</td>
+      </tr>
+      <tr>
+        <td><strong>5. Dense FAISS Vector Store</strong></td>
+        <td>Sentence-Transformers (MiniLM) + FAISS index for sub-millisecond semantic search.</td>
+        <td>Exact keyword matching or relational SQL LIKE queries.</td>
+        <td>Requires offline vector store construction and RAM overhead.</td>
+      </tr>
+      <tr>
+        <td><strong>6. LLM Provider Fallback</strong></td>
+        <td>Decoupled provider interface: Google Gemini primary with offline local fallback.</td>
+        <td>Single vendor hardcoding in route handlers.</td>
+        <td>Additional architectural abstraction layers.</td>
+      </tr>
+      <tr>
+        <td><strong>7. Deterministic Validator</strong></td>
+        <td>Independent validation gate verifying non-empty, grounded, and policy-compliant replies.</td>
+        <td>Relying purely on LLM system prompt obedience.</td>
+        <td>Adds ~5–10ms validation latency per response.</td>
+      </tr>
+      <tr>
+        <td><strong>8. Escalation Policy Matrix</strong></td>
+        <td>Rule-based routing using intent confidence, retrieval similarity, and risk phrases.</td>
+        <td>Asking the LLM whether it should escalate.</td>
+        <td>Requires calibrating thresholds during validation.</td>
+      </tr>
+      <tr>
+        <td><strong>9. Vanilla HTML/CSS/JS</strong></td>
+        <td>FastAPI Jinja2 templates without heavy Node/React build toolchains.</td>
+        <td>React, Next.js, Vue, or Angular SPA.</td>
+        <td>Manual DOM manipulation for real-time streaming updates.</td>
+      </tr>
+      <tr>
+        <td><strong>10. B2B SaaS Aesthetic</strong></td>
+        <td>Monochrome B2B support ops design inspired by modern shared inbox operations portals.</td>
+        <td>Generic Tailwind templates or flashy dark cyberpunk AI themes.</td>
+        <td>Requires disciplined custom CSS tokens and strict component hierarchy.</td>
+      </tr>
+      <tr>
+        <td><strong>11. Real Pipeline Streaming</strong></td>
+        <td>Real-time SSE events tracking actual execution rather than mock progress bars.</td>
+        <td>Client-side JavaScript setTimeout fake animations.</td>
+        <td>Requires event pub/sub management in backend services.</td>
+      </tr>
+      <tr>
+        <td><strong>12. Structured LLM Judge</strong></td>
+        <td>Strict JSON-schema rubric scoring Groundedness, Helpfulness, and Policy Fit.</td>
+        <td>Unstructured qualitative text summaries.</td>
+        <td>Requires JSON schema validation on judge outputs.</td>
+      </tr>
+    </tbody>
+    </table>
+  </div>
+</div>
+{% endblock %}

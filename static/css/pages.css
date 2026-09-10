@@ -1,0 +1,195 @@
+/* ==========================================================================
+   Page Specific Styles (Simulate, Inbox, Evaluation, Failures)
+   ========================================================================== */
+
+/* Simulate Page Split */
+.simulate-grid {
+  display: grid;
+  grid-template-columns: 1fr 1.2fr;
+  gap: 24px;
+  align-items: start;
+}
+
+.example-chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin: 12px 0 16px;
+}
+
+.chip-btn {
+  background-color: #f1f5f9;
+  border: 1px solid #e2e8f0;
+  padding: 4px 10px;
+  border-radius: 4px;
+  font-size: 11px;
+  font-weight: 500;
+  color: var(--text-secondary);
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+
+.chip-btn:hover {
+  background-color: #e2e8f0;
+  color: var(--text-primary);
+}
+
+/* Grounded Case Result Panels */
+.result-container {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  margin-top: 24px;
+}
+
+.evidence-card {
+  border: 1px solid var(--border-light);
+  border-radius: 6px;
+  padding: 12px 14px;
+  background-color: #f8fafc;
+  margin-bottom: 8px;
+  width: 100%;
+  max-width: 100%;
+  box-sizing: border-box;
+  overflow-wrap: break-word;
+  word-break: break-word;
+}
+
+.evidence-header {
+  display: flex;
+  justify-content: space-between;
+  font-size: 11px;
+  font-weight: 600;
+  color: var(--text-muted);
+  margin-bottom: 6px;
+}
+
+.evidence-body {
+  font-size: 12px;
+  line-height: 1.5;
+  color: var(--text-secondary);
+  overflow-wrap: break-word;
+  word-break: break-word;
+}
+
+.evidence-brand-reply {
+  margin-top: 6px;
+  padding-top: 6px;
+  border-top: 1px dashed #cbd5e1;
+  color: var(--text-primary);
+  overflow-wrap: break-word;
+  word-break: break-word;
+}
+
+.reply-box {
+  background-color: #f8fafc;
+  border: 1px solid #cbd5e1;
+  border-left: 3px solid #0f172a;
+  border-radius: 4px;
+  padding: 14px 16px;
+  font-size: 13px;
+  line-height: 1.6;
+  color: #0f172a;
+  overflow-wrap: break-word;
+  word-break: break-word;
+}
+
+.decision-banner {
+  padding: 16px 20px;
+  border-radius: 6px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  overflow-wrap: break-word;
+  word-break: break-word;
+}
+
+.decision-banner.auto {
+  background-color: var(--status-auto-handle-bg);
+  border: 1px solid var(--status-auto-handle-border);
+}
+
+.decision-banner.escalate {
+  background-color: var(--status-human-escalate-bg);
+  border: 1px solid var(--status-human-escalate-border);
+}
+
+/* Inbox Table */
+.inbox-filter-bar {
+  display: flex;
+  gap: 12px;
+  margin-bottom: 16px;
+  flex-wrap: wrap;
+}
+
+.inbox-table {
+  width: 100%;
+  min-width: 600px;
+  border-collapse: collapse;
+  background-color: #ffffff;
+  border: 1px solid var(--border-light);
+  border-radius: 8px;
+}
+
+.inbox-table th {
+  text-align: left;
+  padding: 12px 16px;
+  font-size: 11px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  background-color: #f8fafc;
+  border-bottom: 1px solid var(--border-light);
+  color: var(--text-muted);
+}
+
+.inbox-table td {
+  padding: 14px 16px;
+  border-bottom: 1px solid var(--border-subtle);
+  font-size: 13px;
+  overflow-wrap: break-word;
+  word-break: break-word;
+}
+
+.inbox-table tr:hover {
+  background-color: #f8fafc;
+}
+
+/* Evaluation Metrics Grid */
+.metrics-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 16px;
+  margin-bottom: 24px;
+  width: 100%;
+  max-width: 100%;
+}
+
+.metric-card {
+  background: #ffffff;
+  border: 1px solid var(--border-light);
+  border-radius: 8px;
+  padding: 20px;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.metric-title {
+  font-size: 12px;
+  font-weight: 600;
+  text-transform: uppercase;
+  color: var(--text-muted);
+  letter-spacing: 0.05em;
+}
+
+.metric-value {
+  font-size: 28px;
+  font-weight: 700;
+  color: var(--text-primary);
+  margin: 8px 0 4px;
+}
+
+.metric-desc {
+  font-size: 12px;
+  color: var(--text-secondary);
+}

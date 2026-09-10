@@ -1,0 +1,79 @@
+/* ==========================================================================
+   Design Tokens & CSS Reset (B2B SaaS Theme)
+   ========================================================================== */
+
+:root {
+  /* Surface Colors */
+  --bg-sidebar: #0f172a;
+  --bg-sidebar-hover: #1e293b;
+  --bg-sidebar-active: #1e293b;
+  --bg-workspace: #f8fafc;
+  --bg-card: #ffffff;
+  --bg-card-muted: #f1f5f9;
+  
+  /* Text Colors */
+  --text-primary: #0f172a;
+  --text-secondary: #475569;
+  --text-muted: #64748b;
+  --text-sidebar: #94a3b8;
+  --text-sidebar-bright: #ffffff;
+  --text-sidebar-heading: #64748b;
+  
+  /* Borders & Dividers */
+  --border-light: #e2e8f0;
+  --border-subtle: #f1f5f9;
+  --border-sidebar: #1e293b;
+  
+  /* Functional Semantic Colors */
+  --status-auto-handle: #10b981;
+  --status-auto-handle-bg: #ecfdf5;
+  --status-auto-handle-border: #a7f3d0;
+  
+  --status-human-escalate: #ef4444;
+  --status-human-escalate-bg: #fef2f2;
+  --status-human-escalate-border: #fecaca;
+  
+  --status-review: #f59e0b;
+  --status-review-bg: #fffbeb;
+  --status-review-border: #fde68a;
+  
+  /* Primary Action */
+  --primary-button: #0f172a;
+  --primary-button-hover: #1e293b;
+  --primary-button-text: #ffffff;
+  
+  /* Typography */
+  --font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  --font-mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+}
+
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html, body {
+  width: 100%;
+  max-width: 100%;
+  overflow-x: hidden;
+}
+
+body {
+  font-family: var(--font-family);
+  background-color: var(--bg-workspace);
+  color: var(--text-primary);
+  line-height: 1.5;
+  font-size: 14px;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+button, input, textarea, select {
+  font: inherit;
+}

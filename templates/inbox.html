@@ -1,0 +1,81 @@
+{% extends "base.html" %}
+
+{% block title %}Support Inbox — Grounded Support Agent{% endblock %}
+{% block breadcrumb %}Support Inbox{% endblock %}
+
+{% block content %}
+<div class="page-header">
+  <h1 class="page-title">Support Inbox</h1>
+  <p class="page-subtitle">Unified support operations queue with automated triage and human escalation routing.</p>
+</div>
+
+<!-- Filter Bar -->
+<div class="inbox-filter-bar">
+  <a href="/inbox?filter=all" class="btn btn-sm {% if active_filter == 'all' %}btn-primary{% else %}btn-secondary{% endif %}">
+    All Conversations
+  </a>
+  <a href="/inbox?filter=auto_ready" class="btn btn-sm {% if active_filter == 'auto_ready' %}btn-primary{% else %}btn-secondary{% endif %}">
+    AI Ready
+  </a>
+  <a href="/inbox?filter=needs_human" class="btn btn-sm {% if active_filter == 'needs_human' %}btn-primary{% else %}btn-secondary{% endif %}">
+    Needs Human
+  </a>
+  <a href="/inbox?filter=resolved" class="btn btn-sm {% if active_filter == 'resolved' %}btn-primary{% else %}btn-secondary{% endif %}">
+    Resolved
+  </a>
+</div>
+
+<!-- Conversations Table -->
+<div class="card" style="padding: 0; overflow: hidden;">
+  <div class="table-responsive">
+    <table class="inbox-table">
+      <thead>
+        <tr>
+          <th style="width: 120px;">Ticket ID</th>
+          <th style="width: 130px;">Customer</th>
+          <th>Latest Message</th>
+          <th style="width: 180px;">Classified Intent</th>
+          <th style="width: 100px;">Confidence</th>
+          <th style="width: 140px;">Status</th>
+          <th style="width: 100px;">Time</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for conv in conversations %}
+        <tr class="inbox-row" data-ticket-id="{{ conv.conversation_id }}" data-message="{{ conv.latest_message }}" style="cursor: pointer;">
+          <td style="font-family: var(--font-mono); font-weight: 600; color: #0f172a;">{{ conv.conversation_id }}</td>
+          <td style="color: var(--text-secondary);">{{ conv.customer_id }}</td>
+          <td style="color: var(--text-primary); font-weight: 500;">
+            {{ conv.latest_message }}
+          </td>
+          <td>
+            <span class="badge badge-neutral">{{ conv.intent }}</span>
+          </td>
+          <td style="font-weight: 600; color: #0f172a;">
+            {{ (conv.confidence * 100)|round|int }}%
+          </td>
+          <td>
+            {% if conv.decision == 'AUTO_HANDLE' %}
+            <span class="badge badge-auto">Auto-Handle</span>
+            {% else %}
+            <span class="badge badge-human">Needs Human</span>
+            {% endif %}
+          </td>
+          <td style="color: var(--text-muted); font-size: 12px;">{{ conv.timestamp }}</td>
+        </tr>
+        {% else %}
+        <tr>
+          <td colspan="7" style="text-align: center; padding: 32px; color: var(--text-muted);">
+            No conversations found for this filter.
+          </td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script src="/static/js/inbox.js"></script>
+{% endblock %}

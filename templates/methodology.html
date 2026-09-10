@@ -1,0 +1,46 @@
+{% extends "base.html" %}
+
+{% block title %}Methodology & Specifications — Grounded Support Agent{% endblock %}
+{% block breadcrumb %}Methodology & Formal Specifications{% endblock %}
+
+{% block content %}
+<div class="page-header">
+  <h1 class="page-title">Methodology & System Specifications</h1>
+  <p class="page-subtitle">Formal mathematical formulations and architectural constraints governing grounding and safe escalation.</p>
+</div>
+
+<div class="card" style="margin-bottom: 24px;">
+  <div class="card-header">
+    <div class="card-title">1. Grounding-First Generation Principle</div>
+    <span class="badge badge-auto">Strict Architectural Rule</span>
+  </div>
+  <div style="font-size: 13px; line-height: 1.7; color: var(--text-secondary);">
+    <p>A response $\hat{y}$ generated for an incoming customer message $q$ is defined as <em>Grounded</em> if and only if:</p>
+    <div class="formula-box">
+      <code>Claims(&#375;) ⊆ Claims(q) ∪ Claims(E)</code>
+    </div>
+    <p>Where $E = \{e_1, e_2, \dots, e_k\}$ is the set of top-$k$ retrieved historical resolved support interactions from the brand, and $\text{Claims}(\cdot)$ extracts factual commitments (e.g., refund policies, turnaround times, troubleshooting procedures).</p>
+    <p>Any claim $c \in \text{Claims}(\hat{y})$ that cannot be mapped to $E$ or $q$ constitutes an ungrounded hallucination and is blocked by the <code>ResponseValidator</code>.</p>
+  </div>
+</div>
+
+<div class="card" style="margin-bottom: 24px;">
+  <div class="card-header">
+    <div class="card-title">2. Escalation Policy Decision Matrix</div>
+    <span class="badge badge-neutral">Deterministic Formulation</span>
+  </div>
+  <div style="font-size: 13px; line-height: 1.7; color: var(--text-secondary);">
+    <p>The routing decision $D \in \{\text{AUTO\_HANDLE}, \text{HUMAN\_ESCALATION}\}$ is computed via the boolean evaluation:</p>
+    <div class="formula-box">
+      <code>D = AUTO_HANDLE &nbsp; if &nbsp; [P(y = c_intent | q) ≥ τ_intent] ∧ [max_{e ∈ E} cos(e, q) ≥ τ_retrieval] ∧ [¬RiskTrigger(q)] ∧ [ValidatorPassed(ŷ)]<br>
+      D = HUMAN_ESCALATION &nbsp; otherwise</code>
+    </div>
+    <ul style="margin: 12px 0 12px 20px;">
+      <li>$\tau_{\text{intent}}$: Minimum calibrated intent classifier confidence (default: 0.85).</li>
+      <li>$\tau_{\text{retrieval}}$: Minimum cosine similarity of top historical case (default: 0.65).</li>
+      <li>$\text{RiskTrigger}(q)$: Boolean function detecting explicit human agent requests, legal threats, or severe dispute language.</li>
+      <li>$\text{ValidatorPassed}(\hat{y})$: Output of deterministic non-empty, claim-bounded validation check.</li>
+    </ul>
+  </div>
+</div>
+{% endblock %}

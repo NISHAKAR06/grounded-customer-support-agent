@@ -1,0 +1,32 @@
+name: Fast Tests
+
+on:
+  pull_request:
+    paths:
+      - 'app/**'
+      - 'tests/**'
+      - 'requirements*.txt'
+
+jobs:
+  fast-tests:
+    name: Fast Unit & API Tests
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+          cache: "pip"
+
+      - name: Install Test Dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt
+          pip install pytest pytest-asyncio httpx
+
+      - name: Run Unit and API Tests
+        run: |
+          pytest tests/unit tests/api -v

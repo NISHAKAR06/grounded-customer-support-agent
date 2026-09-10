@@ -1,0 +1,174 @@
+{% extends "base.html" %}
+
+{% block title %}Simulate Incoming Message — Grounded Support Agent{% endblock %}
+{% block breadcrumb %}Simulate Incoming Message{% endblock %}
+
+{% block content %}
+<div class="page-header">
+  <h1 class="page-title">Simulate Incoming Message</h1>
+  <p class="page-subtitle">Test how the support agent analyzes, grounds, and routes a customer request.</p>
+</div>
+
+<div class="simulate-grid">
+  <!-- Left: Message Composer & Quick Load -->
+  <div class="card">
+    <div class="card-header">
+      <div class="card-title">Customer Message Composer</div>
+      <span class="badge badge-neutral">Inbound Simulation</span>
+    </div>
+
+    <label class="form-label" for="customer-message-input">Customer Message</label>
+    <textarea
+      id="customer-message-input"
+      class="form-textarea"
+      placeholder="Type a customer support message, e.g., 'I was charged twice for my order and only expected one payment.'"
+    ></textarea>
+
+    <div style="margin-top: 14px;">
+      <span class="form-label">Quick-Load Real Examples</span>
+      <div class="example-chips">
+        <button
+          type="button"
+          class="chip-btn example-chip"
+          data-sample="I ordered yesterday and need to change my shipping address before it dispatches."
+        >
+          📍 Address Change (Auto-Handle)
+        </button>
+        <button
+          type="button"
+          class="chip-btn example-chip"
+          data-sample="You charged my card twice for order #9421. I want an immediate refund or I will call my bank!"
+        >
+          💳 Duplicate Charge (Dispute)
+        </button>
+        <button
+          type="button"
+          class="chip-btn example-chip"
+          data-sample="The app keeps crashing whenever I tap on my account settings tab on iOS."
+        >
+          📱 App Crash (Technical)
+        </button>
+        <button
+          type="button"
+          class="chip-btn example-chip"
+          data-sample="I want to speak with a human supervisor right now. Your bot cannot help me."
+        >
+          🚨 Human Escalation Trigger
+        </button>
+      </div>
+    </div>
+
+    <div style="margin-top: 20px; display: flex; justify-content: flex-end;">
+      <button type="button" id="run-agent-btn" class="btn btn-primary" style="padding: 10px 24px; font-weight: 600;">
+        Run AI Agent
+      </button>
+    </div>
+  </div>
+
+  <!-- Right: Real-time AI Activity Timeline -->
+  <div class="card">
+    <div class="card-header">
+      <div class="card-title">AI AGENT ACTIVITY</div>
+      <span class="badge badge-neutral">Live Pipeline Trace</span>
+    </div>
+
+    <div class="timeline" id="agent-timeline">
+      <div class="timeline-step completed" id="step-received">
+        <div class="step-icon">✓</div>
+        <div class="step-content">
+          <div class="step-title">Message Received & Context Assembled</div>
+          <div class="step-desc">Ready for pipeline execution</div>
+        </div>
+      </div>
+
+      <div class="timeline-step" id="step-intent">
+        <div class="step-icon">2</div>
+        <div class="step-content">
+          <div class="step-title">Intent Classification</div>
+          <div class="step-desc">Awaiting execution</div>
+        </div>
+      </div>
+
+      <div class="timeline-step" id="step-retrieval">
+        <div class="step-icon">3</div>
+        <div class="step-content">
+          <div class="step-title">Historical Evidence Retrieval</div>
+          <div class="step-desc">Awaiting execution</div>
+        </div>
+      </div>
+
+      <div class="timeline-step" id="step-generation">
+        <div class="step-icon">4</div>
+        <div class="step-content">
+          <div class="step-title">Grounded Reply Generation</div>
+          <div class="step-desc">Awaiting execution</div>
+        </div>
+      </div>
+
+      <div class="timeline-step" id="step-validation">
+        <div class="step-icon">5</div>
+        <div class="step-content">
+          <div class="step-title">Response Validation</div>
+          <div class="step-desc">Awaiting execution</div>
+        </div>
+      </div>
+
+      <div class="timeline-step" id="step-decision">
+        <div class="step-icon">6</div>
+        <div class="step-content">
+          <div class="step-title">Escalation / Automation Policy</div>
+          <div class="step-desc">Awaiting execution</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Case Result Workspace (Appears after execution) -->
+<div id="case-result-container" class="result-container" style="display: none;">
+  <!-- Decision Banner -->
+  <div id="res-decision-banner" class="decision-banner auto">
+    <div id="res-decision-title" style="display: flex; align-items: center; gap: 10px;"></div>
+    <ul id="res-decision-reasons" style="margin-left: 20px; font-size: 13px; margin-top: 4px;"></ul>
+  </div>
+
+  <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px;">
+    <!-- AI Analysis Card -->
+    <div class="card">
+      <div class="card-header">
+        <div class="card-title">AI Intent Analysis</div>
+        <span id="res-intent-conf" class="badge badge-neutral">90%</span>
+      </div>
+      <div>
+        <div style="font-size: 15px; font-weight: 700; color: #0f172a;" id="res-intent-name">Intent</div>
+        <div style="margin-top: 10px;">
+          <span class="step-desc" style="display: block; margin-bottom: 4px;">Classification Signals:</span>
+          <div id="res-intent-signals"></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Grounded Draft Response Card -->
+    <div class="card">
+      <div class="card-header">
+        <div class="card-title">Grounded AI Response</div>
+        <span id="res-provider-badge" class="badge badge-neutral">Provider</span>
+      </div>
+      <div class="reply-box" id="res-grounded-reply"></div>
+    </div>
+  </div>
+
+  <!-- Historical Evidence Card -->
+  <div class="card">
+    <div class="card-header">
+      <div class="card-title">Retrieved Historical Evidence (Resolved Cases)</div>
+      <span class="badge badge-neutral">Grounding Precedents</span>
+    </div>
+    <div id="res-evidence-list"></div>
+  </div>
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script src="/static/js/simulate.js"></script>
+{% endblock %}
