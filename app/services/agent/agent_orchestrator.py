@@ -4,6 +4,7 @@ import time
 from datetime import datetime, timezone
 from typing import Callable, Optional
 
+from app.core.config import get_settings
 from app.core.logging import logger
 from app.models.response_models import (
     AgentRunResult,
@@ -35,6 +36,7 @@ class AgentOrchestrator:
         validator: Optional[ResponseValidator] = None,
         escalation_policy: Optional[EscalationPolicy] = None,
     ):
+        self.settings = get_settings()
         self.intent_classifier = intent_classifier or IntentClassifier()
         self.retriever = retriever or Retriever()
         self.evidence_ranker = evidence_ranker or EvidenceRanker()
@@ -53,10 +55,11 @@ class AgentOrchestrator:
         event_callback: Optional[Callable[[str, dict], None]] = None,
     ) -> AgentRunResult:
         """Execute the real pipeline synchronously, notifying optional event callback for streaming."""
+        effective_brand = brand or self.settings.TARGET_BRAND
         ctx = AgentRunContext(
             customer_message=customer_message,
             conversation_id=conversation_id,
-            brand=brand,
+            brand=effective_brand,
         )
         logger.info(f"Agent execution initiated for run_id: {ctx.run_id}")
 
@@ -155,6 +158,7 @@ class AgentOrchestrator:
         return AgentRunResult(
             run_id=ctx.run_id,
             timestamp=datetime.now(timezone.utc).isoformat(),
+            brand=effective_brand,
             customer_message=customer_message,
             intent=intent_pred,
             retrieval=RetrievalResult(

@@ -55,13 +55,23 @@
       </nav>
     </aside>
 
+    <!-- Sidebar Backdrop for Mobile -->
+    <div class="sidebar-backdrop" id="sidebarBackdrop"></div>
+
     <!-- Main Workspace -->
     <main class="app-main">
       <header class="top-bar">
-        <div class="breadcrumbs">
-          <span>Operations</span>
-          <span>/</span>
-          <span class="breadcrumb-current">{% block breadcrumb %}Workspace{% endblock %}</span>
+        <div class="top-bar-left">
+          <button class="mobile-nav-toggle" id="mobileNavToggle" aria-label="Toggle navigation menu">
+            <span class="nav-icon-bar"></span>
+            <span class="nav-icon-bar"></span>
+            <span class="nav-icon-bar"></span>
+          </button>
+          <div class="breadcrumbs">
+            <span>Operations</span>
+            <span>/</span>
+            <span class="breadcrumb-current">{% block breadcrumb %}Workspace{% endblock %}</span>
+          </div>
         </div>
         <div class="top-bar-badges">
           <span class="badge badge-neutral">v{{ app_version }}</span>

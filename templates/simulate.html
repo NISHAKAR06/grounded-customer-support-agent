@@ -21,39 +21,46 @@
     <textarea
       id="customer-message-input"
       class="form-textarea"
-      placeholder="Type a customer support message, e.g., 'I was charged twice for my order and only expected one payment.'"
+      placeholder="Type an Apple customer inquiry, e.g., 'My iPhone is stuck on Verifying update for iOS 11...'"
     ></textarea>
 
     <div style="margin-top: 14px;">
-      <span class="form-label">Quick-Load Real Examples</span>
+      <span class="form-label">Quick-Load Real @AppleSupport Examples</span>
       <div class="example-chips">
         <button
           type="button"
           class="chip-btn example-chip"
-          data-sample="I ordered yesterday and need to change my shipping address before it dispatches."
+          data-sample="My iPhone has been stuck on 'Verifying update' for iOS 11 for over 3 hours. How do I force restart or fix this?"
         >
-          📍 Address Change (Auto-Handle)
+          ⚙️ iOS Update Freeze (Auto-Handle)
         </button>
         <button
           type="button"
           class="chip-btn example-chip"
-          data-sample="You charged my card twice for order #9421. I want an immediate refund or I will call my bank!"
+          data-sample="My iPhone 7 battery percentage drops from 80% to 15% in less than an hour and the device gets burning hot."
         >
-          💳 Duplicate Charge (Dispute)
+          🔋 Battery Drain & Heat (Auto-Handle)
         </button>
         <button
           type="button"
           class="chip-btn example-chip"
-          data-sample="The app keeps crashing whenever I tap on my account settings tab on iOS."
+          data-sample="I'm locked out of my Apple ID because I changed my mobile number and cannot receive the two-factor code."
         >
-          📱 App Crash (Technical)
+          🔐 Apple ID 2FA Lockout (Account)
         </button>
         <button
           type="button"
           class="chip-btn example-chip"
-          data-sample="I want to speak with a human supervisor right now. Your bot cannot help me."
+          data-sample="My iPhone fell, the screen shattered completely and the battery is visibly swelling. Need replacement urgently."
         >
-          🚨 Human Escalation Trigger
+          💥 Shattered Screen & Swelling (Hardware Escalation)
+        </button>
+        <button
+          type="button"
+          class="chip-btn example-chip"
+          data-sample="I was charged $49.99 for an in-app subscription I never authorized. Reverse this payment immediately or I contact my bank!"
+        >
+          💳 Unauthorized Charge (Dispute Escalation)
         </button>
       </div>
     </div>

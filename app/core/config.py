@@ -19,6 +19,11 @@ class Settings(BaseSettings):
     APP_HOST: str = "0.0.0.0"
     APP_PORT: int = 8000
 
+    # Target Brand Selection (Phase 2)
+    TARGET_BRAND: str = "AppleSupport"
+    TARGET_BRAND_NAME: str = "Apple Support"
+    TARGET_BRAND_HANDLE: str = "@AppleSupport"
+
     # Paths
     BASE_DIR: Path = Path(__file__).resolve().parent.parent.parent
     DATA_DIR: Path = BASE_DIR / "data"

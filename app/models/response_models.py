@@ -34,6 +34,7 @@ class LatencyBreakdown(BaseModel):
 class AgentRunResult(BaseModel):
     run_id: str
     timestamp: str
+    brand: str = "AppleSupport"
     customer_message: str
     intent: IntentPrediction
     retrieval: RetrievalResult
