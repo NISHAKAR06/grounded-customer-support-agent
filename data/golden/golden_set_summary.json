@@ -1,0 +1,36 @@
+{
+  "total_samples": 200,
+  "target_range": "150-250",
+  "compliance": "PASS",
+  "intent_distribution": {
+    "OPERATING_SYSTEM_UPDATES": 40,
+    "BATTERY_POWER_HARDWARE": 35,
+    "ACCOUNT_APPLE_ID": 30,
+    "CONNECTIVITY_NETWORKING": 25,
+    "AUDIO_ACCESSORIES": 20,
+    "SUBSCRIPTIONS_BILLING": 20,
+    "GENERAL_INQUIRY": 30
+  },
+  "routing_distribution": {
+    "AUTO_HANDLE": 42,
+    "HUMAN_ESCALATION": 158,
+    "auto_handle_ratio": 0.21,
+    "human_escalation_ratio": 0.79
+  },
+  "dialogue_metrics": {
+    "multi_turn_samples": 80,
+    "single_turn_samples": 120,
+    "multi_turn_percentage": 40.0
+  },
+  "complexity_breakdown": {
+    "MULTI_TURN": 35,
+    "CANONICAL": 134,
+    "CONFLICT_QUERY": 3,
+    "EDGE_CASE": 28
+  },
+  "leakage_isolation": {
+    "isolated_file": "data/golden/golden_set.jsonl",
+    "leak_free": true,
+    "seed": 42
+  }
+}
