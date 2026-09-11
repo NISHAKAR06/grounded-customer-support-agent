@@ -72,11 +72,11 @@ class Settings(BaseSettings):
     EMBEDDING_MODEL_NAME: str = "sentence-transformers/all-MiniLM-L6-v2"
     FAISS_INDEX_PATH: str = "models/embedding_model/faiss.index"
     RETRIEVAL_TOP_K: int = 3
-    RETRIEVAL_SIMILARITY_THRESHOLD: float = 0.65
+    RETRIEVAL_SIMILARITY_THRESHOLD: float = 0.55
 
     # Escalation Policy Thresholds
     ESCALATION_MIN_CONFIDENCE: float = 0.80
-    ESCALATION_MIN_RETRIEVAL_SCORE: float = 0.60
+    ESCALATION_MIN_RETRIEVAL_SCORE: float = 0.55
 
     model_config = SettingsConfigDict(
         env_file=".env",

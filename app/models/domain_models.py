@@ -73,6 +73,7 @@ class ValidationResult(BaseModel):
     all_passed: bool
     checks: Dict[str, bool] = Field(default_factory=dict)
     warnings: List[str] = Field(default_factory=list)
+    grounding_score: float = 1.0
 
 
 class EscalationDecision(BaseModel):

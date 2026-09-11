@@ -111,6 +111,7 @@ class AgentOrchestrator:
             customer_message=customer_message,
             intent_name=intent_pred.name,
             evidence=ranked_evidence,
+            brand=effective_brand,
         )
         draft_reply, provider_used = self.llm_service.generate_reply(
             prompt, provider_name=provider
@@ -127,12 +128,17 @@ class AgentOrchestrator:
         # 5. Response Validation
         t3 = time.time()
         notify("VALIDATION_STARTED", {})
-        validation_result = self.validator.validate(draft_reply, ranked_evidence)
+        validation_result = self.validator.validate(
+            reply=draft_reply,
+            evidence=ranked_evidence,
+            customer_message=customer_message,
+        )
         validation_ms = round((time.time() - t3) * 1000, 2)
         notify(
             "VALIDATION_COMPLETED",
             {
                 "all_passed": validation_result.all_passed,
+                "grounding_score": validation_result.grounding_score,
                 "elapsed_ms": validation_ms,
             },
         )

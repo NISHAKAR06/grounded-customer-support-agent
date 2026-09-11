@@ -25,7 +25,7 @@ class MockProvider(BaseLLMProvider):
         """Generate deterministic grounded reply from the prompt context."""
         # Check if historical brand resolutions are provided in the prompt
         evidence_matches = re.findall(
-            r"Brand Resolution:\s*(.+?)(?=\n\[Historical Case|\n\nDRAFT REPLY:|$)",
+            r"(?:Official\s+[A-Za-z0-9_]+\s+Resolution|Brand Resolution):\s*(.+?)(?=\n\[Historical Case|\n\nDRAFT|$)",
             prompt,
             re.DOTALL,
         )
@@ -38,8 +38,10 @@ class MockProvider(BaseLLMProvider):
             return top_resolution
 
         # Check for intent cues in the prompt
-        intent_match = re.search(r"CUSTOMER INTENT:\s*([A-Za-z0-9_]+)", prompt)
-        intent = intent_match.group(1) if intent_match else "GENERAL"
+        intent_match = re.search(
+            r"(?:CUSTOMER INTENT|CLASSIFIED INTENT):\s*([A-Za-z0-9_]+)", prompt
+        )
+        intent = intent_match.group(1) if intent_match else "GENERAL_INQUIRY"
 
         templates = {
             "OPERATING_SYSTEM_UPDATES": (

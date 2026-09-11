@@ -10,32 +10,38 @@ class PromptBuilder:
 
     @staticmethod
     def build_grounded_prompt(
-        customer_message: str, intent_name: str, evidence: List[HistoricalCase]
+        customer_message: str,
+        intent_name: str,
+        evidence: List[HistoricalCase],
+        brand: str = "AppleSupport",
     ) -> str:
         """Construct prompt injecting historical brand resolutions and grounding constraints."""
         evidence_block = ""
         for i, case in enumerate(evidence, 1):
             evidence_block += (
-                f"\n[Historical Case #{i}] (ID: {case.case_id})\n"
-                f"Customer: {case.customer_text}\n"
-                f"Brand Resolution: {case.brand_response}\n"
+                f"\n[Historical Case #{i}] (ID: {case.case_id}, Similarity: {case.similarity:.2f})\n"
+                f"Customer Inquiry: {case.customer_text}\n"
+                f"Official {brand} Resolution: {case.brand_response}\n"
             )
 
         prompt = (
-            "You are a professional customer support agent representing the brand.\n"
-            "Your task is to draft a helpful, professional reply to the incoming customer inquiry.\n"
+            f"You are an official @{brand} customer support specialist.\n"
+            f"Your task is to draft a helpful, professional, and empathetic response to an incoming customer tweet.\n"
             "\n"
             "GROUNDING RULES (STRICT):\n"
-            "1. You MUST rely ONLY on the provided historical brand cases for policy, procedure, and capabilities.\n"
-            "2. NEVER invent refunds, account credits, delivery dates, or policies not supported by the evidence.\n"
-            "3. If the evidence requires asking for an order ID or account details, ask politely.\n"
-            "4. Maintain an empathetic, professional tone.\n"
+            "1. GROUNDING MANDATE: Base your response and troubleshooting steps strictly on the provided historical brand cases.\n"
+            "2. NO FABRICATIONS: Never invent repair costs, refund promises, warranty waivers, or policies not attested in the historical evidence.\n"
+            "3. SENSITIVE INFO / PRIVACY: Never ask the customer to post passwords, serial numbers, or payment info publicly on Twitter. Direct them to send a DM (Direct Message) if personal account details or diagnostic logs are required.\n"
+            "4. OFFICIAL LINKS ONLY: If linking resources, only reference official Apple domains (support.apple.com, appleid.apple.com, locate.apple.com).\n"
+            "5. SAFETY & HARDWARE: If the inquiry involves physical swelling, smoke, or shattered glass, advise the customer to safely stop using/charging the device and seek authorized service immediately.\n"
+            "6. TONE & LENGTH: Maintain a calm, helpful, and concise tone suitable for Twitter support.\n"
             "\n"
-            f"CUSTOMER INTENT: {intent_name}\n"
-            f'CUSTOMER MESSAGE:\n"{customer_message}"\n'
+            f"CLASSIFIED INTENT: {intent_name}\n"
+            f'CUSTOMER INQUIRY:\n"{customer_message}"\n'
             "\n"
-            f"HISTORICAL RESOLVED CASES:{evidence_block or ' No direct historical match available.'}\n"
+            f"HISTORICAL PRECEDENTS (RESOLVED BY @{brand.upper()}):\n"
+            f"{evidence_block or 'No direct historical precedent found. Advise standard safe troubleshooting or invite to DM for diagnostics.'}\n"
             "\n"
-            "DRAFT REPLY:"
+            f"DRAFT @{brand} REPLY:"
         )
         return prompt

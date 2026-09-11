@@ -1,0 +1,28 @@
+{
+  "timestamp": "2026-09-11T11:56:45Z",
+  "total_samples": 200,
+  "elapsed_seconds": 7.85,
+  "validation_pass_rate": 0.805,
+  "barrier_pass_rates": {
+    "non_empty_check": 0.995,
+    "grounding_evidence_present": 0.81,
+    "unsupported_claim_check": 1.0,
+    "url_whitelist_check": 1.0,
+    "pii_security_check": 1.0,
+    "hazardous_safety_check": 1.0
+  },
+  "routing_distribution": {
+    "auto_handle_count": 130,
+    "auto_handle_pct": 0.65,
+    "human_escalation_count": 70,
+    "human_escalation_pct": 0.35
+  },
+  "mean_grounding_fidelity_score": 0.81,
+  "mean_latencies_ms": {
+    "intent": 0.44,
+    "retrieval": 38.24,
+    "generation": 0.09,
+    "validation": 0.16,
+    "total": 39.13
+  }
+}

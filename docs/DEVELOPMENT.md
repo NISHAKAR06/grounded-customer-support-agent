@@ -28,8 +28,8 @@ To maintain clean engineering hygiene, strict evaluation integrity, and direct a
 | **Phase 5** | Golden Evaluation Set | 150–250 hand-labelled real examples sampled from `@AppleSupport` dialogues | `data/golden/golden_set.jsonl`, `data/golden/README.md` | ✅ Completed |
 | **Phase 6** | Baselines & Intent Benchmark | Trivial baseline (Majority) + Simple baseline (TF-IDF LogReg) vs Final Model | Per-class F1, Confusion matrix, trained weights | ✅ Completed |
 | **Phase 7** | Real Historical Retrieval | Dense MiniLM embeddings + FAISS vector store of resolved cases | `models/embedding_model/faiss.index`, Recall@1/3/5, MRR | ✅ Completed |
-| **Phase 8** | Grounded Generation & Validation | Evidence prompt conditioning, LLM generation, deterministic claim checks | Grounded prompt builder, `ResponseValidator` | ⏳ Next |
-| **Phase 9** | Evaluation Harness & LLM Judge | Automated test set benchmark, LLM-as-a-Judge, and human agreement metrics | Benchmark table, Cohen's Kappa, judge rubric | Planned |
+| **Phase 8** | Grounded Generation & Validation | Evidence prompt conditioning, multi-provider LLM generation, deterministic claim checks | Grounded prompt builder, multi-barrier `ResponseValidator` | ✅ Completed |
+| **Phase 9** | Evaluation Harness & LLM Judge | Automated test set benchmark, LLM-as-a-Judge, and human agreement metrics | Benchmark table, Cohen's Kappa, judge rubric | ⏳ Next |
 | **Phase 10**| Engineering Report & Reproducibility | 6-page report (5 failure modes, "Misleading headline", 15-min reproduction script) | `report/REPORT.md`, `scripts/run_evaluation.py` | Planned |
 
 ### Zero-Mock Policy
