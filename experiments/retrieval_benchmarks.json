@@ -1,0 +1,223 @@
+{
+  "model": "sentence-transformers/all-MiniLM-L6-v2",
+  "index_type": "FAISS IndexFlatIP (Cosine Similarity)",
+  "source_index_size": 2245,
+  "benchmarks": {
+    "test_split_unconditioned": {
+      "dataset": "Held-Out Test Split (484 samples)",
+      "mode": "Unconditioned",
+      "query_count": 484,
+      "recall_at_1": 0.7314,
+      "recall_at_3": 0.9215,
+      "recall_at_5": 0.9628,
+      "mrr": 0.8252,
+      "mean_top1_similarity": 0.6606,
+      "intent_breakdown": {
+        "OPERATING_SYSTEM_UPDATES": {
+          "total_queries": 186,
+          "recall_at_1": 0.7688,
+          "recall_at_3": 0.9677,
+          "recall_at_5": 0.9946
+        },
+        "GENERAL_INQUIRY": {
+          "total_queries": 228,
+          "recall_at_1": 0.7588,
+          "recall_at_3": 0.943,
+          "recall_at_5": 0.9868
+        },
+        "BATTERY_POWER_HARDWARE": {
+          "total_queries": 31,
+          "recall_at_1": 0.6452,
+          "recall_at_3": 0.7742,
+          "recall_at_5": 0.8387
+        },
+        "CONNECTIVITY_NETWORKING": {
+          "total_queries": 21,
+          "recall_at_1": 0.4286,
+          "recall_at_3": 0.7143,
+          "recall_at_5": 0.7143
+        },
+        "SUBSCRIPTIONS_BILLING": {
+          "total_queries": 3,
+          "recall_at_1": 0.3333,
+          "recall_at_3": 0.3333,
+          "recall_at_5": 0.3333
+        },
+        "ACCOUNT_APPLE_ID": {
+          "total_queries": 12,
+          "recall_at_1": 0.5833,
+          "recall_at_3": 0.8333,
+          "recall_at_5": 1.0
+        },
+        "AUDIO_ACCESSORIES": {
+          "total_queries": 3,
+          "recall_at_1": 0.3333,
+          "recall_at_3": 0.3333,
+          "recall_at_5": 0.6667
+        }
+      }
+    },
+    "test_split_intent_conditioned": {
+      "dataset": "Held-Out Test Split (484 samples)",
+      "mode": "Intent-Conditioned",
+      "query_count": 484,
+      "recall_at_1": 0.9938,
+      "recall_at_3": 0.9938,
+      "recall_at_5": 0.9938,
+      "mrr": 0.9938,
+      "mean_top1_similarity": 0.6481,
+      "intent_breakdown": {
+        "OPERATING_SYSTEM_UPDATES": {
+          "total_queries": 186,
+          "recall_at_1": 1.0,
+          "recall_at_3": 1.0,
+          "recall_at_5": 1.0
+        },
+        "GENERAL_INQUIRY": {
+          "total_queries": 228,
+          "recall_at_1": 1.0,
+          "recall_at_3": 1.0,
+          "recall_at_5": 1.0
+        },
+        "BATTERY_POWER_HARDWARE": {
+          "total_queries": 31,
+          "recall_at_1": 1.0,
+          "recall_at_3": 1.0,
+          "recall_at_5": 1.0
+        },
+        "CONNECTIVITY_NETWORKING": {
+          "total_queries": 21,
+          "recall_at_1": 0.9524,
+          "recall_at_3": 0.9524,
+          "recall_at_5": 0.9524
+        },
+        "SUBSCRIPTIONS_BILLING": {
+          "total_queries": 3,
+          "recall_at_1": 0.3333,
+          "recall_at_3": 0.3333,
+          "recall_at_5": 0.3333
+        },
+        "ACCOUNT_APPLE_ID": {
+          "total_queries": 12,
+          "recall_at_1": 1.0,
+          "recall_at_3": 1.0,
+          "recall_at_5": 1.0
+        },
+        "AUDIO_ACCESSORIES": {
+          "total_queries": 3,
+          "recall_at_1": 1.0,
+          "recall_at_3": 1.0,
+          "recall_at_5": 1.0
+        }
+      }
+    },
+    "golden_set_unconditioned": {
+      "dataset": "Golden Evaluation Set (200 samples)",
+      "mode": "Unconditioned",
+      "query_count": 200,
+      "recall_at_1": 0.655,
+      "recall_at_3": 0.775,
+      "recall_at_5": 0.835,
+      "mrr": 0.7226,
+      "mean_top1_similarity": 0.66,
+      "intent_breakdown": {
+        "OPERATING_SYSTEM_UPDATES": {
+          "total_queries": 40,
+          "recall_at_1": 0.9,
+          "recall_at_3": 0.975,
+          "recall_at_5": 1.0
+        },
+        "BATTERY_POWER_HARDWARE": {
+          "total_queries": 35,
+          "recall_at_1": 0.6857,
+          "recall_at_3": 0.7714,
+          "recall_at_5": 0.7714
+        },
+        "ACCOUNT_APPLE_ID": {
+          "total_queries": 30,
+          "recall_at_1": 0.5333,
+          "recall_at_3": 0.8,
+          "recall_at_5": 0.8667
+        },
+        "CONNECTIVITY_NETWORKING": {
+          "total_queries": 25,
+          "recall_at_1": 0.56,
+          "recall_at_3": 0.72,
+          "recall_at_5": 0.76
+        },
+        "AUDIO_ACCESSORIES": {
+          "total_queries": 20,
+          "recall_at_1": 0.85,
+          "recall_at_3": 0.85,
+          "recall_at_5": 0.85
+        },
+        "SUBSCRIPTIONS_BILLING": {
+          "total_queries": 20,
+          "recall_at_1": 0.25,
+          "recall_at_3": 0.45,
+          "recall_at_5": 0.55
+        },
+        "GENERAL_INQUIRY": {
+          "total_queries": 30,
+          "recall_at_1": 0.6333,
+          "recall_at_3": 0.7,
+          "recall_at_5": 0.9
+        }
+      }
+    },
+    "golden_set_intent_conditioned": {
+      "dataset": "Golden Evaluation Set (200 samples)",
+      "mode": "Intent-Conditioned",
+      "query_count": 200,
+      "recall_at_1": 0.965,
+      "recall_at_3": 0.965,
+      "recall_at_5": 0.965,
+      "mrr": 0.965,
+      "mean_top1_similarity": 0.6341,
+      "intent_breakdown": {
+        "OPERATING_SYSTEM_UPDATES": {
+          "total_queries": 40,
+          "recall_at_1": 1.0,
+          "recall_at_3": 1.0,
+          "recall_at_5": 1.0
+        },
+        "BATTERY_POWER_HARDWARE": {
+          "total_queries": 35,
+          "recall_at_1": 0.9714,
+          "recall_at_3": 0.9714,
+          "recall_at_5": 0.9714
+        },
+        "ACCOUNT_APPLE_ID": {
+          "total_queries": 30,
+          "recall_at_1": 1.0,
+          "recall_at_3": 1.0,
+          "recall_at_5": 1.0
+        },
+        "CONNECTIVITY_NETWORKING": {
+          "total_queries": 25,
+          "recall_at_1": 1.0,
+          "recall_at_3": 1.0,
+          "recall_at_5": 1.0
+        },
+        "AUDIO_ACCESSORIES": {
+          "total_queries": 20,
+          "recall_at_1": 0.95,
+          "recall_at_3": 0.95,
+          "recall_at_5": 0.95
+        },
+        "SUBSCRIPTIONS_BILLING": {
+          "total_queries": 20,
+          "recall_at_1": 0.75,
+          "recall_at_3": 0.75,
+          "recall_at_5": 0.75
+        },
+        "GENERAL_INQUIRY": {
+          "total_queries": 30,
+          "recall_at_1": 1.0,
+          "recall_at_3": 1.0,
+          "recall_at_5": 1.0
+        }
+      }
+    }
+  }
+}

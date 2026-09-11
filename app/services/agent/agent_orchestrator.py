@@ -87,7 +87,10 @@ class AgentOrchestrator:
         # 3. Historical Retrieval
         t1 = time.time()
         notify("RETRIEVAL_STARTED", {})
-        candidates = self.retriever.retrieve(customer_message, top_k=3)
+        intent_code = intent_pred.code.value if intent_pred.code else None
+        candidates = self.retriever.retrieve(
+            customer_message, top_k=3, intent_filter=intent_code
+        )
         ranked_evidence = self.evidence_ranker.rank_and_filter(candidates)
         retrieval_ms = round((time.time() - t1) * 1000, 2)
         notify(

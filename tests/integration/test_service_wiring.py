@@ -23,7 +23,7 @@ class MockFallbackProvider(BaseLLMProvider):
 
 
 class FixtureRetriever:
-    def retrieve(self, query: str, top_k: int = 3):
+    def retrieve(self, query: str, top_k: int = 3, **kwargs):
         return [get_sample_historical_case()]
 
 

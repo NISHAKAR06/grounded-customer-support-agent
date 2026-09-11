@@ -22,6 +22,9 @@ class EvaluationService:
         self.golden_summary_path = (
             settings.BASE_DIR / "data" / "golden" / "golden_set_summary.json"
         )
+        self.retrieval_benchmarks_path = (
+            settings.BASE_DIR / "experiments" / "retrieval_benchmarks.json"
+        )
 
     def get_benchmark_summary(self) -> Dict[str, Any]:
         """Return benchmark comparison metrics across systems."""
@@ -33,6 +36,33 @@ class EvaluationService:
                     golden_count = golden_summary.get("total_samples", 200)
             except Exception:
                 golden_count = 200
+
+        retrieval_data = {}
+        if self.retrieval_benchmarks_path.exists():
+            try:
+                with open(self.retrieval_benchmarks_path, "r", encoding="utf-8") as f:
+                    rb = json.load(f)
+                    bms = rb.get("benchmarks", {})
+                    retrieval_data = {
+                        "status": "completed",
+                        "model": rb.get(
+                            "model", "sentence-transformers/all-MiniLM-L6-v2"
+                        ),
+                        "index_type": rb.get(
+                            "index_type", "FAISS IndexFlatIP (Cosine Similarity)"
+                        ),
+                        "source_index_size": rb.get("source_index_size", 2245),
+                        "test_unconditioned": bms.get("test_split_unconditioned", {}),
+                        "test_intent_conditioned": bms.get(
+                            "test_split_intent_conditioned", {}
+                        ),
+                        "golden_unconditioned": bms.get("golden_set_unconditioned", {}),
+                        "golden_intent_conditioned": bms.get(
+                            "golden_set_intent_conditioned", {}
+                        ),
+                    }
+            except Exception:
+                pass
 
         if self.results_path and self.results_path.exists():
             try:
@@ -94,7 +124,7 @@ class EvaluationService:
                         "final_system": golden_rule,
                     },
                     "detailed_test_metrics": data.get("held_out_test_split", {}),
-                    "retrieval": {},
+                    "retrieval": retrieval_data,
                     "llm_judge": {},
                 }
             except Exception:
@@ -106,6 +136,6 @@ class EvaluationService:
             "message": "Model training and evaluation benchmarks scheduled in Phase 6.",
             "golden_set_count": golden_count,
             "models": {},
-            "retrieval": {},
+            "retrieval": retrieval_data,
             "llm_judge": {},
         }

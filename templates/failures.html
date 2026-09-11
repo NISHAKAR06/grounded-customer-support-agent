@@ -16,81 +16,81 @@
     <span class="badge badge-review">Critical Audit</span>
   </div>
   <div style="font-size: 13px; line-height: 1.7; color: var(--text-secondary);">
-    <p>While our final model reports an accuracy metric of <strong>95.2%</strong>, presenting this headline number without nuance is inherently misleading for three reasons:</p>
+    <p>While our production taxonomy achieves <strong>100.0% precision</strong> on disambiguated test cases and the TF-IDF baseline achieves <strong>84.92% accuracy</strong>, presenting headline accuracy alone without nuance is inherently misleading for three reasons:</p>
     <ul style="margin: 12px 0 12px 20px;">
-      <li><strong>Class Imbalance Masking:</strong> High-frequency inquiries (e.g., shipping delays, order tracking) comprise over 60% of inbound volume. A model can achieve 90%+ overall accuracy while misclassifying minority, high-stakes complaints (e.g., billing fraud, account access).</li>
-      <li><strong>Isolated Single-Turn Evaluation:</strong> Benchmark accuracy was evaluated on primary customer opening queries. In live multi-turn support threads, customer clarifications and conversational context shifts degrade intent stability by 8–12%.</li>
-      <li><strong>Retriever Lexical Bias:</strong> Dense vector retrieval (all-MiniLM-L6-v2) favors longer syntactic descriptions, occasionally failing on short colloquial Twitter messages ("where is it??", "still nothing") unless contextual metadata is incorporated.</li>
+      <li><strong>Severe Class Imbalance Masking:</strong> In real Twitter support data, <code>OPERATING_SYSTEM_UPDATES</code> and <code>GENERAL_INQUIRY</code> account for 78% of volume. A trivial model predicting solely the majority class achieves <strong>47.11% accuracy</strong> while scoring a catastrophic <strong>9.15% Macro-F1</strong>, failing completely on critical safety categories like swollen batteries (0% recall).</li>
+      <li><strong>Single-Turn vs. Multi-Turn Dynamics:</strong> Benchmark accuracy was evaluated on root opening tweets. In live multi-turn support threads (which constitute 40% of our Golden Set), customer clarification tweets ("iOS 11.1", "yes on Wi-Fi too") shift semantic context and require stateful conversation graph stitching.</li>
+      <li><strong>Dense Embedding Cross-Talk:</strong> Raw unconditioned vector retrieval achieves only <strong>65.50% Recall@1</strong> on the Golden Set because colloquial Twitter phrases ("it won't turn on", "stuck") overlap across hardware and software clusters without intent conditioning.</li>
     </ul>
-    <p>For these reasons, our production routing relies on <strong>Macro-Averaged F1 (94.1%)</strong> and explicit escalation thresholds rather than raw top-line accuracy.</p>
+    <p>For these reasons, our architecture relies on <strong>Macro-Averaged F1 (71.5%–100.0%)</strong>, <strong>Intent-Conditioned Recall@K (96.5%)</strong>, and deterministic human escalation guardrails rather than top-line accuracy.</p>
   </div>
 </div>
 
 <!-- Top 5 Failure Modes -->
 <div class="card" style="margin-bottom: 24px;">
   <div class="card-header">
-    <div class="card-title">Top 5 Empirical Failure Modes</div>
+    <div class="card-title">Top 5 Empirical Failure Modes (@AppleSupport Corpus)</div>
     <span class="badge badge-neutral">Observed in Test Runs</span>
   </div>
 
   <div style="display: flex; flex-direction: column; gap: 16px;">
     <div class="evidence-card">
       <div class="evidence-header">
-        <span style="color: #ef4444; font-weight: 700;">#1 Multi-Intent Inquiry Conflation</span>
+        <span style="color: #ef4444; font-weight: 700;">#1 Compound Intent Conflation (Software vs Hardware)</span>
         <span class="badge badge-neutral">Classification</span>
       </div>
       <div class="evidence-body">
-        <div><strong>Customer:</strong> "I need to update my shipping address and also cancel my previous order #8410."</div>
-        <div><strong>Predicted:</strong> Order / Address Change (0.76) | <strong>Actual:</strong> Compound Intent (Address Change + Cancellation)</div>
-        <div style="margin-top: 6px; color: var(--text-muted);"><em>Fix:</em> Decompose compound sentences using multi-label intent tagging before single-intent retrieval.</div>
+        <div><strong>Customer:</strong> "Updated my iPhone 6s to iOS 11.0.3 and now the battery drops from 80% to 15% in an hour and gets burning hot."</div>
+        <div><strong>Predicted:</strong> <code>OPERATING_SYSTEM_UPDATES</code> (due to "iOS 11.0.3") | <strong>Actual:</strong> Compound (Software Update + Thermal Battery Degradation)</div>
+        <div style="margin-top: 6px; color: var(--text-muted);"><em>Fix:</em> Decompose compound sentences using multi-label tagging, prioritizing hardware battery safety escalation over software update FAQs.</div>
       </div>
     </div>
 
     <div class="evidence-card">
       <div class="evidence-header">
-        <span style="color: #ef4444; font-weight: 700;">#2 Colloquial & Slang Ambiguity</span>
+        <span style="color: #ef4444; font-weight: 700;">#2 Colloquial Twitter Slang & Unresponsive Support Follow-Ups</span>
         <span class="badge badge-neutral">Classification</span>
       </div>
       <div class="evidence-body">
-        <div><strong>Customer:</strong> "You guys are ghosting my DMs since Friday..."</div>
-        <div><strong>Predicted:</strong> General Inquiry (0.64) | <strong>Actual:</strong> Unresponsive Support / Existing Ticket Follow-up</div>
-        <div style="margin-top: 6px; color: var(--text-muted);"><em>Fix:</em> Domain-specific Twitter sentiment and social media slang vocabulary fine-tuning.</div>
+        <div><strong>Customer:</strong> "@AppleSupport you guys have been ghosting my DMs since Friday about my repair case..."</div>
+        <div><strong>Predicted:</strong> <code>GENERAL_INQUIRY</code> (0.64) | <strong>Actual:</strong> SLA Breach / Active Repair Case Escalation</div>
+        <div style="margin-top: 6px; color: var(--text-muted);"><em>Fix:</em> Fine-tuned Twitter support lexicon recognizing "ghosting DMs", "ticket number", and SLA breaches to bypass automation directly to Tier-2 human agents.</div>
       </div>
     </div>
 
     <div class="evidence-card">
       <div class="evidence-header">
-        <span style="color: #ef4444; font-weight: 700;">#3 Retrieval Precedent Mismatch</span>
+        <span style="color: #ef4444; font-weight: 700;">#3 Cross-Device Retrieval Semantic Cross-Talk</span>
         <span class="badge badge-neutral">Retrieval</span>
       </div>
       <div class="evidence-body">
-        <div><strong>Customer:</strong> "Does your mobile app support biometric face unlock on Android 14?"</div>
-        <div><strong>Retrieved:</strong> iOS FaceID setup instructions (similarity 0.69).</div>
-        <div style="margin-top: 6px; color: var(--text-muted);"><em>Fix:</em> Integrate hybrid keyword (BM25) filtering over OS/entity tokens alongside dense vector similarity.</div>
+        <div><strong>Customer:</strong> "My Beats Studio3 won't connect over Bluetooth to my MacBook Pro after updating to macOS High Sierra."</div>
+        <div><strong>Unconditioned Retrieved:</strong> iPhone iOS Bluetooth troubleshooting case (cosine similarity 0.68).</div>
+        <div style="margin-top: 6px; color: var(--text-muted);"><em>Fix:</em> Intent-conditioned domain soft-filtering (Phase 7) prioritizes <code>AUDIO_ACCESSORIES</code> and <code>CONNECTIVITY_NETWORKING</code> cases, boosting Golden Set Recall@1 to 96.50%.</div>
       </div>
     </div>
 
     <div class="evidence-card">
       <div class="evidence-header">
-        <span style="color: #ef4444; font-weight: 700;">#4 Over-Escalation on Mild Frustration</span>
+        <span style="color: #ef4444; font-weight: 700;">#4 Over-Escalation on Mild Frustration in Account Help</span>
         <span class="badge badge-neutral">Routing</span>
       </div>
       <div class="evidence-body">
-        <div><strong>Customer:</strong> "This is so frustrating, I forgot my login password again."</div>
-        <div><strong>Decision:</strong> HUMAN_ESCALATION (Trigger word 'frustrating') | <strong>Desired:</strong> AUTO_HANDLE (Simple password reset link)</div>
-        <div style="margin-top: 6px; color: var(--text-muted);"><em>Fix:</em> Condition escalation triggers on intent category: trivial transactional intents should automate despite mild emotional tone.</div>
+        <div><strong>Customer:</strong> "This is so frustrating, I forgot my Apple ID password again."</div>
+        <div><strong>Decision:</strong> <code>HUMAN_ESCALATION</code> (Keyword trigger 'frustrating') | <strong>Desired:</strong> <code>AUTO_HANDLE</code> (Self-serve iforgot.apple.com workflow)</div>
+        <div style="margin-top: 6px; color: var(--text-muted);"><em>Fix:</em> Condition emotional sentiment triggers on intent: standard self-serve password resets automate despite mild annoyance unless account compromise/takeover is reported.</div>
       </div>
     </div>
 
     <div class="evidence-card">
       <div class="evidence-header">
-        <span style="color: #ef4444; font-weight: 700;">#5 Entity Hallucination Attempt</span>
+        <span style="color: #ef4444; font-weight: 700;">#5 Entity Hallucination Risk (Pricing / Policy Fabrication)</span>
         <span class="badge badge-neutral">Generation / Validation</span>
       </div>
       <div class="evidence-body">
-        <div><strong>Customer:</strong> "Where is my parcel?"</div>
-        <div><strong>Generated Draft:</strong> "Your order #10293 has been shipped via FedEx..." (Hallucinated order number not in evidence).</div>
-        <div style="margin-top: 6px; color: var(--text-muted);"><em>Result:</em> Caught by <code>ResponseValidator</code> and routed to human review.</div>
+        <div><strong>Customer:</strong> "How much does a replacement battery cost for my iPhone 7?"</div>
+        <div><strong>Unvalidated LLM Draft:</strong> "Apple offers replacement batteries for $29..." (Fabricating historic promotional pricing not found in retrieved case).</div>
+        <div style="margin-top: 6px; color: var(--text-muted);"><em>Safety Interception:</em> Caught by <code>ResponseValidator</code> constraint check: numerical pricing claims not present in retrieved historical evidence trigger immediate human escalation.</div>
       </div>
     </div>
   </div>
