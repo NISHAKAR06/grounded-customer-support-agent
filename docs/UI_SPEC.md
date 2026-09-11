@@ -2,7 +2,7 @@
 
 ## 1. Design Principles & Aesthetic Identity
 
-The user interface for the **Grounded Customer Support Agent** is designed as a serious, professional B2B SaaS customer support operations tool inspired by Hiver's high-contrast, clean email and ticket management portal.
+The user interface for the **Grounded Customer Support Agent** is designed as a serious, professional B2B SaaS customer support operations tool inspired by high-contrast, clean modern email and ticket management platforms.
 
 ### Key Visual Tenets:
 1. **High-Contrast Monochrome Palette**: A dark navy/charcoal sidebar (`#0f172a`) paired with clean white cards (`#ffffff`) over an off-white workspace canvas (`#f8fafc`).

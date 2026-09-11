@@ -2,7 +2,7 @@
 
 ## 1. System Overview
 
-The **Grounded Customer Support Agent** is designed as a modular, decoupled support intelligence engine. It mirrors real-world internal B2B customer support workflows (such as Hiver's shared inbox automation and email/ticket copilot systems).
+The **Grounded Customer Support Agent** is designed as a modular, decoupled support intelligence engine. It mirrors real-world internal B2B customer support workflows (such as modern shared inbox automation and email/ticket copilot systems).
 
 The system operates strictly on a **"Grounding First, Automation Second"** paradigm:
 1. Every customer query is classified into a well-defined domain intent.

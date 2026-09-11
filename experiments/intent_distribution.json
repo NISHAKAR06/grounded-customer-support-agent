@@ -1,0 +1,78 @@
+{
+  "total_conversations": 3423,
+  "distribution": {
+    "General Support": 1547,
+    "OS & iOS Updates": 1281,
+    "Connectivity & Wi-Fi": 161,
+    "Apple ID & Account": 109,
+    "Battery & Hardware": 239,
+    "Audio & Accessories": 44,
+    "Billing & Subscriptions": 42
+  },
+  "classes_represented": 7,
+  "detailed_statistics": {
+    "General Support": {
+      "count": 1547,
+      "percentage": 45.19,
+      "avg_confidence": 0.653,
+      "routing": {
+        "AUTO_HANDLE": 624,
+        "HUMAN_ESCALATION": 923
+      }
+    },
+    "OS & iOS Updates": {
+      "count": 1281,
+      "percentage": 37.42,
+      "avg_confidence": 0.904,
+      "routing": {
+        "AUTO_HANDLE": 438,
+        "HUMAN_ESCALATION": 843
+      }
+    },
+    "Connectivity & Wi-Fi": {
+      "count": 161,
+      "percentage": 4.7,
+      "avg_confidence": 0.934,
+      "routing": {
+        "AUTO_HANDLE": 76,
+        "HUMAN_ESCALATION": 85
+      }
+    },
+    "Apple ID & Account": {
+      "count": 109,
+      "percentage": 3.18,
+      "avg_confidence": 0.953,
+      "routing": {
+        "AUTO_HANDLE": 0,
+        "HUMAN_ESCALATION": 109
+      }
+    },
+    "Battery & Hardware": {
+      "count": 239,
+      "percentage": 6.98,
+      "avg_confidence": 0.946,
+      "routing": {
+        "AUTO_HANDLE": 0,
+        "HUMAN_ESCALATION": 239
+      }
+    },
+    "Audio & Accessories": {
+      "count": 44,
+      "percentage": 1.29,
+      "avg_confidence": 0.95,
+      "routing": {
+        "AUTO_HANDLE": 20,
+        "HUMAN_ESCALATION": 24
+      }
+    },
+    "Billing & Subscriptions": {
+      "count": 42,
+      "percentage": 1.23,
+      "avg_confidence": 0.944,
+      "routing": {
+        "AUTO_HANDLE": 0,
+        "HUMAN_ESCALATION": 42
+      }
+    }
+  }
+}

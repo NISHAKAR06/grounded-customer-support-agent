@@ -13,7 +13,7 @@ The authoritative dataset for the Grounded Customer Support Agent project is:
 ### Note on Secondary Kernel (`fengliplatform/customer-sentiment-analysis`)
 During initial research, the Kaggle kernel `fengliplatform/customer-sentiment-analysis` was reviewed.
 - **Finding**: This kernel focuses on general sentiment categorization rather than multi-turn conversational support resolution.
-- **Decision**: In strict accordance with the assignment requirements, the primary source remains the original `thoughtvector/customer-support-on-twitter` dataset.
+- **Decision**: In strict accordance with the system design specifications, the primary source remains the original `thoughtvector/customer-support-on-twitter` dataset.
 
 ---
 
@@ -61,7 +61,7 @@ Streaming analysis of all 2,811,774 records (`experiments/dataset_stats.json`) r
 
 ## 4. Brand Selection Criteria
 
-The assignment mandates selecting **ONE brand** from the dataset based on empirical evidence:
+The methodology requires selecting **ONE brand** from the dataset based on empirical evidence:
 
 1. **Total Inbound Message Volume**: Sufficient sample size (>20,000 incoming customer queries).
 2. **First-Turn Customer Queries**: Clear opening queries that initiate threads.

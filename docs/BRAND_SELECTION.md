@@ -2,7 +2,7 @@
 
 ## 1. Executive Summary & Final Selection
 
-The Hiver Take-Home assignment requires selecting **ONE brand** from the Kaggle *Customer Support on Twitter* dataset (`thoughtvector/customer-support-on-twitter`, ~2.81M tweets) to build and validate a grounded AI customer support agent.
+This project requires selecting **ONE brand** from the Kaggle *Customer Support on Twitter* dataset (`thoughtvector/customer-support-on-twitter`, ~2.81M tweets) to build and validate a grounded AI customer support agent.
 
 Based on empirical analysis across the entire 2,811,774 tweet corpus, **`@AppleSupport`** has been formally selected as the operational target brand for the Grounded Support Agent.
 
@@ -122,11 +122,11 @@ The agent halts automation and routes to a human agent with an explicit reason w
 
 ---
 
-## 7. Alignment with Core Assignment Philosophy
+## 7. Alignment with Core Engineering Philosophy
 
 > *"The proof is worth more than the system."*
 
 Selecting `@AppleSupport` directly serves this core evaluation requirement:
-1. **Verifiable Proof**: When the recruiter enters a query in the simulator, they can cross-reference the retrieved historical evidence against real Apple Support tweets to verify whether the AI's advice is faithful to historical precedent.
+1. **Verifiable Proof**: When an operator enters a query in the simulator, they can cross-reference the retrieved historical evidence against real Apple Support tweets to verify whether the AI's advice is faithful to historical precedent.
 2. **Hallucination Detection Proof**: If an LLM attempts to suggest a non-existent iOS menu item or invent an unauthorized warranty replacement, our deterministic Response Validator flags the hallucination and blocks the response.
-3. **Transparent Escalation Proof**: When presented with a query like *"My screen shattered and the battery is swelling"*, the recruiter directly observes the system detect hardware risk and escalate with `REASON: PHYSICAL_HARDWARE_DAMAGE`, proving safety in high-stakes scenarios.
+3. **Transparent Escalation Proof**: When presented with a query like *"My screen shattered and the battery is swelling"*, the operator directly observes the system detect hardware risk and escalate with `REASON: PHYSICAL_HARDWARE_DAMAGE`, proving safety in high-stakes scenarios.

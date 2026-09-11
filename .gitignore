@@ -77,6 +77,7 @@ data/samples/*
 # Models & Embeddings weights (Never commit heavy binaries)
 models/intent_classifier/*
 !models/intent_classifier/.gitkeep
+!models/intent_classifier/intent_taxonomy.json
 models/embedding_model/*
 !models/embedding_model/.gitkeep
 models/metadata/*

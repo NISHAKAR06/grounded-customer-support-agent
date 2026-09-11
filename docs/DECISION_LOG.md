@@ -26,7 +26,7 @@ This log records the major architectural, algorithmic, and engineering decisions
 - **Context**: Evaluating real support agents requires a reliable ground truth benchmark.
 - **Alternatives Considered**: Synthetic LLM-generated labels vs. human hand-labelling.
 - **Choice**: Personally review and hand-label 150–250 real examples.
-- **Reason**: The Hiver assignment explicitly requires authentic human verification without automated shortcuts.
+- **Reason**: Authentic human verification without automated shortcuts guarantees evaluation integrity.
 - **Trade-off**: High manual labeling effort; smaller test set size compared to automated bulk scraping.
 
 ---
@@ -77,7 +77,7 @@ This log records the major architectural, algorithmic, and engineering decisions
 ---
 
 ### Decision 9: Vanilla HTML/CSS/JS with Jinja2 Templates (No React / Next.js)
-- **Context**: The assignment specifies building a clean B2B SaaS interface without modern heavy single-page framework overhead.
+- **Context**: The architectural goal is to provide a clean, high-performance B2B SaaS interface without heavy single-page framework overhead.
 - **Alternatives Considered**: React/Next.js SPA vs. FastAPI Jinja2 server-rendered templates.
 - **Choice**: FastAPI Jinja2 templates styled with custom Vanilla CSS and Vanilla JavaScript.
 - **Reason**: Eliminates Node/NPM build toolchains, guarantees instant evaluator startup, and reduces dependency bloat.
@@ -85,11 +85,11 @@ This log records the major architectural, algorithmic, and engineering decisions
 
 ---
 
-### Decision 10: Hiver-Inspired High-Contrast B2B SaaS Design Language
+### Decision 10: High-Contrast Modern B2B SaaS Design Language
 - **Context**: The interface must convey production support operations credibility.
 - **Alternatives Considered**: Generic Tailwind dashboard vs. dark-mode cyber aesthetic vs. clean B2B SaaS monochrome design.
 - **Choice**: Dark sidebar, crisp white card surfaces, thin borders, restrained typography, and functional green/red/amber status indicators.
-- **Reason**: Resembles real enterprise software (like Hiver's shared inbox). Avoids flashy AI tropes.
+- **Reason**: Resembles real enterprise software (like modern operational shared inboxes). Avoids flashy AI tropes.
 - **Trade-off**: Requires disciplined custom CSS design tokens rather than pre-packaged UI kits.
 
 ---

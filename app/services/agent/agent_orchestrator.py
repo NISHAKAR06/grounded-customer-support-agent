@@ -14,9 +14,7 @@ from app.models.response_models import (
 )
 from app.services.agent.agent_context import AgentRunContext
 from app.services.escalation.escalation_policy import EscalationPolicy
-from app.services.generation.gemini_provider import GeminiProvider
 from app.services.generation.llm_service import LLMService
-from app.services.generation.local_llm_provider import LocalLLMProvider
 from app.services.generation.prompt_builder import PromptBuilder
 from app.services.intent.intent_classifier import IntentClassifier
 from app.services.retrieval.evidence_ranker import EvidenceRanker
@@ -40,10 +38,7 @@ class AgentOrchestrator:
         self.intent_classifier = intent_classifier or IntentClassifier()
         self.retriever = retriever or Retriever()
         self.evidence_ranker = evidence_ranker or EvidenceRanker()
-        self.llm_service = llm_service or LLMService(
-            primary_provider=GeminiProvider(),
-            fallback_provider=LocalLLMProvider(),
-        )
+        self.llm_service = llm_service or LLMService()
         self.validator = validator or ResponseValidator()
         self.escalation_policy = escalation_policy or EscalationPolicy()
 
@@ -52,6 +47,7 @@ class AgentOrchestrator:
         customer_message: str,
         conversation_id: Optional[str] = None,
         brand: Optional[str] = None,
+        provider: Optional[str] = None,
         event_callback: Optional[Callable[[str, dict], None]] = None,
     ) -> AgentRunResult:
         """Execute the real pipeline synchronously, notifying optional event callback for streaming."""
@@ -113,7 +109,9 @@ class AgentOrchestrator:
             intent_name=intent_pred.name,
             evidence=ranked_evidence,
         )
-        draft_reply, provider_used = self.llm_service.generate_reply(prompt)
+        draft_reply, provider_used = self.llm_service.generate_reply(
+            prompt, provider_name=provider
+        )
         generation_ms = round((time.time() - t2) * 1000, 2)
         notify(
             "GENERATION_COMPLETED",

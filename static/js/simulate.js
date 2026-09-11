@@ -8,6 +8,46 @@ document.addEventListener('DOMContentLoaded', () => {
   const timelineContainer = document.getElementById('agent-timeline');
   const resultContainer = document.getElementById('case-result-container');
 
+  const providerSelect = document.getElementById('llm-provider-select');
+  const providerBadge = document.getElementById('provider-status-badge');
+
+  // Load available LLM providers status from backend
+  let providerCatalog = [];
+  async function loadProviders() {
+    try {
+      const resp = await fetch('/api/agent/providers');
+      if (resp.ok) {
+        providerCatalog = await resp.json();
+        updateProviderBadge();
+      }
+    } catch (e) {
+      console.warn('Could not fetch provider list:', e);
+    }
+  }
+
+  function updateProviderBadge() {
+    if (!providerSelect || !providerBadge) return;
+    const selectedId = providerSelect.value;
+    const meta = providerCatalog.find(p => p.id === selectedId);
+    if (meta) {
+      if (meta.configured) {
+        providerBadge.className = 'badge badge-auto';
+        providerBadge.innerText = 'Ready';
+      } else {
+        providerBadge.className = 'badge badge-human';
+        providerBadge.innerText = 'Key Missing (Fallback Active)';
+      }
+    } else {
+      providerBadge.className = 'badge badge-auto';
+      providerBadge.innerText = 'Ready';
+    }
+  }
+
+  if (providerSelect) {
+    providerSelect.addEventListener('change', updateProviderBadge);
+    loadProviders();
+  }
+
   // Check URL query parameters for preloaded message (e.g. from Inbox)
   const urlParams = new URLSearchParams(window.location.search);
   const preloadedMsg = urlParams.get('msg');
@@ -34,6 +74,8 @@ document.addEventListener('DOMContentLoaded', () => {
         return;
       }
 
+      const selectedProvider = providerSelect ? providerSelect.value : 'mock';
+
       // Reset UI state
       runBtn.disabled = true;
       runBtn.innerText = 'Running AI Agent...';
@@ -47,7 +89,10 @@ document.addEventListener('DOMContentLoaded', () => {
         const response = await fetch('/api/agent/run', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ customer_message: text }),
+          body: JSON.stringify({
+            customer_message: text,
+            provider: selectedProvider,
+          }),
         });
 
         if (!response.ok) {

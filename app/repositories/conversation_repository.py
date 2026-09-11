@@ -55,6 +55,7 @@ class ConversationRepository:
         status_filter: str = "all",
         decision_filter: str = "all",
         turn_filter: str = "all",
+        intent_filter: str = "all",
         sort_by: str = "newest",
         search_query: str = "",
     ) -> List[Dict[str, Any]]:
@@ -83,7 +84,16 @@ class ConversationRepository:
         elif turn_filter == "deep":
             results = [c for c in results if int(c.get("turn_count") or 0) >= 5]
 
-        # 4. Filter by search query (ticket ID, customer ID, or message text)
+        # 4. Filter by classified intent
+        if intent_filter and intent_filter != "all":
+            results = [
+                c
+                for c in results
+                if str(c.get("intent_code", "")).lower() == intent_filter.lower()
+                or str(c.get("intent", "")).lower() == intent_filter.lower()
+            ]
+
+        # 5. Filter by search query (ticket ID, customer ID, or message text)
         if search_query:
             q = search_query.strip().lower()
             results = [
@@ -96,7 +106,7 @@ class ConversationRepository:
                 or q in str(c.get("first_inquiry", "")).lower()
             ]
 
-        # 5. Sort conversations
+        # 6. Sort conversations
         if sort_by == "oldest":
             results.sort(key=lambda x: str(x.get("created_at", "")))
         elif sort_by == "confidence_desc":
@@ -144,6 +154,7 @@ class ConversationRepository:
         status_filter: str = "all",
         decision_filter: str = "all",
         turn_filter: str = "all",
+        intent_filter: str = "all",
         sort_by: str = "newest",
         search_query: str = "",
         page: int = 1,
@@ -156,6 +167,7 @@ class ConversationRepository:
             status_filter=status_filter,
             decision_filter=decision_filter,
             turn_filter=turn_filter,
+            intent_filter=intent_filter,
             sort_by=sort_by,
             search_query=search_query,
         )

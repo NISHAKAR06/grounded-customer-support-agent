@@ -19,6 +19,8 @@ if str(REPO_ROOT) not in sys.path:
 
 import pandas as pd  # noqa: E402
 
+from app.models.domain_models import INTENT_LABELS  # noqa: E402
+from scripts.data.classify_intents import classify_text_intent  # noqa: E402
 from scripts.data.loader import (  # noqa: E402
     get_dataset_path,
     get_repo_root,
@@ -205,6 +207,9 @@ def reconstruct_conversations(
         final_brand_response = brand_turns[-1] if brand_turns else ""
         latest_message = turns[-1]["text"]
 
+        intent_enum, intent_conf, intent_signals = classify_text_intent(first_inquiry)
+        intent_label = INTENT_LABELS[intent_enum]
+
         conversations.append(
             {
                 "conversation_id": f"conv_{root_id}",
@@ -215,11 +220,19 @@ def reconstruct_conversations(
                 "first_inquiry": first_inquiry,
                 "latest_message": latest_message,
                 "final_brand_response": final_brand_response,
-                "intent": "Unclassified",
-                "confidence": 0.90 if meta["status"] == "AI Ready" else 0.80,
+                "intent": intent_label,
+                "intent_code": intent_enum.value,
+                "confidence": round(intent_conf, 2),
+                "intent_signals": intent_signals,
                 "decision": (
                     "AUTO_HANDLE"
                     if meta["status"] in ("Resolved", "AI Ready")
+                    and intent_enum
+                    not in (
+                        "BATTERY_POWER_HARDWARE",
+                        "ACCOUNT_APPLE_ID",
+                        "SUBSCRIPTIONS_BILLING",
+                    )
                     else "HUMAN_ESCALATION"
                 ),
                 "turn_count": len(turns),

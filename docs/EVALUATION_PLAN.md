@@ -2,7 +2,7 @@
 
 ## 1. Evaluation Philosophy
 
-The Hiver assignment explicitly states: **"The proof is worth more than the system."**
+The core project philosophy states: **"The proof is worth more than the system."**
 
 Our evaluation harness is constructed with complete methodological integrity:
 - **No data leakage**: Evaluation is executed exclusively on a held-out test partition and golden set.

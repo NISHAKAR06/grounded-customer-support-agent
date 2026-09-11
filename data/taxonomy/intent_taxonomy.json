@@ -1,0 +1,263 @@
+{
+  "brand": "AppleSupport",
+  "version": "1.0.0",
+  "num_classes": 7,
+  "classes": [
+    {
+      "code": "OPERATING_SYSTEM_UPDATES",
+      "label": "OS & iOS Updates",
+      "description": "System software updates (iOS, macOS, watchOS), update installation freezes, post-update performance degradation, UI glitches, autocorrect anomalies, and crash loops.",
+      "default_routing": "AUTO_HANDLE",
+      "risk_level": "LOW",
+      "priority_rank": 4,
+      "key_signals": [
+        "ios",
+        "update",
+        "verifying update",
+        "freeze",
+        "stuck",
+        "glitch",
+        "autocorrect",
+        "keyboard",
+        "reboot",
+        "lag",
+        "slow after update",
+        "apps crashing"
+      ],
+      "negative_signals": [
+        "battery swollen",
+        "unauthorized charge",
+        "refund"
+      ],
+      "canonical_examples": [
+        "My iPhone has been stuck on 'Verifying update' for iOS 11 for over 3 hours. How do I fix this?",
+        "Why does my keyboard keep changing the letter 'I' into an 'A' with a symbol?",
+        "Updated to iOS 11.0.3 and now my apps crash every time I swipe up."
+      ],
+      "empirical_frequency_pct": 32.0
+    },
+    {
+      "code": "BATTERY_POWER_HARDWARE",
+      "label": "Battery & Hardware",
+      "description": "Power delivery issues, rapid battery depletion, unexpected shutdowns, thermal overheating, physical screen fractures, swelling batteries, broken physical buttons, or liquid immersion.",
+      "default_routing": "HUMAN_ESCALATION",
+      "risk_level": "CRITICAL",
+      "priority_rank": 1,
+      "key_signals": [
+        "battery",
+        "percentage drops",
+        "drain",
+        "burning hot",
+        "overheating",
+        "swollen",
+        "won't charge",
+        "charging port",
+        "lightning cable",
+        "shattered screen",
+        "cracked display",
+        "hardware defect",
+        "water damage"
+      ],
+      "negative_signals": [
+        "app crashing after update"
+      ],
+      "canonical_examples": [
+        "My iPhone 7 battery percentage drops from 80% to 15% in less than an hour and the back gets burning hot.",
+        "My phone fell down stairs, screen shattered completely and battery is visibly swollen.",
+        "My lightning cable won't charge my phone unless I hold it at a specific angle."
+      ],
+      "empirical_frequency_pct": 21.0
+    },
+    {
+      "code": "ACCOUNT_APPLE_ID",
+      "label": "Apple ID & Account",
+      "description": "User authentication, Apple ID recovery, Two-Factor Authentication (2FA) verification codes, locked accounts, password reset loops, iCloud account syncing, or country/region migration.",
+      "default_routing": "HUMAN_ESCALATION",
+      "risk_level": "HIGH",
+      "priority_rank": 3,
+      "key_signals": [
+        "apple id",
+        "icloud",
+        "2fa",
+        "two-factor",
+        "verification code",
+        "locked out",
+        "account disabled",
+        "password reset",
+        "region change",
+        "country change",
+        "login error"
+      ],
+      "negative_signals": [],
+      "canonical_examples": [
+        "I'm locked out of my Apple ID because I changed my mobile number and cannot receive the two-factor code.",
+        "Need help changing the region on my Apple ID so I can download UK apps.",
+        "Forgot my Apple ID password and the recovery email is no longer accessible."
+      ],
+      "empirical_frequency_pct": 16.0
+    },
+    {
+      "code": "CONNECTIVITY_NETWORKING",
+      "label": "Connectivity & Wi-Fi",
+      "description": "Wireless connectivity protocols including Wi-Fi network disconnection, Bluetooth peripheral discovery, cellular reception/SIM errors, AirDrop failures, Home Sharing media streaming, and hotspot drops.",
+      "default_routing": "AUTO_HANDLE",
+      "risk_level": "LOW",
+      "priority_rank": 5,
+      "key_signals": [
+        "wifi",
+        "wi-fi",
+        "bluetooth",
+        "cellular",
+        "no service",
+        "searching...",
+        "sim card",
+        "airdrop",
+        "hotspot",
+        "home sharing",
+        "lte",
+        "drops connection"
+      ],
+      "negative_signals": [
+        "airpods",
+        "headphones"
+      ],
+      "canonical_examples": [
+        "Why does my Wi-Fi keep disconnecting every time my phone locks?",
+        "My iPhone won't connect to my car Bluetooth after updating to iOS 11.",
+        "Phone shows 'Searching...' for cellular service for past 2 hours even with full SIM."
+      ],
+      "empirical_frequency_pct": 12.0
+    },
+    {
+      "code": "AUDIO_ACCESSORIES",
+      "label": "Audio & Accessories",
+      "description": "Audio hardware and peripherals including AirPods (pairing, case charging, single earbud failure), EarPods, Lightning-to-3.5mm headphone jack adapters, microphone muffled audio, speaker crackling, and Apple Watch accessories.",
+      "default_routing": "AUTO_HANDLE",
+      "risk_level": "LOW",
+      "priority_rank": 6,
+      "key_signals": [
+        "airpods",
+        "earpods",
+        "earbuds",
+        "headphones",
+        "headphone jack",
+        "lightning adapter",
+        "dongle",
+        "microphone",
+        "mic not working",
+        "muffled",
+        "speaker crackling",
+        "audio stutter",
+        "watch band"
+      ],
+      "negative_signals": [],
+      "canonical_examples": [
+        "My right AirPod won't connect or charge in the case, only the left one works.",
+        "The lightning headphone adapter has static noise when I move the cord.",
+        "Callers say my voice sounds muffled when using speakerphone on iPhone 8."
+      ],
+      "empirical_frequency_pct": 8.0
+    },
+    {
+      "code": "SUBSCRIPTIONS_BILLING",
+      "label": "Billing & Subscriptions",
+      "description": "Financial transactions, credit card charges from ITUNES.COM/BILL, accidental in-app purchases, recurring subscription cancellation, refund requests, and family sharing payment disputes.",
+      "default_routing": "HUMAN_ESCALATION",
+      "risk_level": "CRITICAL",
+      "priority_rank": 2,
+      "key_signals": [
+        "subscription",
+        "refund",
+        "charged",
+        "billing",
+        "itunes.com/bill",
+        "receipt",
+        "invoice",
+        "unauthorized purchase",
+        "cancel subscription",
+        "in-app purchase"
+      ],
+      "negative_signals": [],
+      "canonical_examples": [
+        "I was charged $9.99 on my bank statement from Apple for an app I never downloaded. I want a refund.",
+        "How do I cancel my Apple Music trial before it auto-renews tomorrow?",
+        "My child made accidental in-app purchases on Roblox, how can I reverse the charges?"
+      ],
+      "empirical_frequency_pct": 6.0
+    },
+    {
+      "code": "GENERAL_INQUIRY",
+      "label": "General Support",
+      "description": "Retail Apple Store operating hours, product reservations (e.g. iPhone X launch pickup), marketing questions, general feedback, or ambiguous inquiries.",
+      "default_routing": "HUMAN_ESCALATION",
+      "risk_level": "MEDIUM",
+      "priority_rank": 7,
+      "key_signals": [
+        "store hours",
+        "opening hours",
+        "reservation",
+        "order status",
+        "delivery date",
+        "pre-order",
+        "genius bar appointment",
+        "feedback",
+        "representative"
+      ],
+      "negative_signals": [],
+      "canonical_examples": [
+        "Hello, are all the phone support lines closed for tonight?",
+        "I got an email saying my iPhone X is reserved for the 3rd, how do I confirm pickup?",
+        "Where is the nearest Apple Store in London open on Sunday?"
+      ],
+      "empirical_frequency_pct": 5.0
+    }
+  ],
+  "disambiguation_rules": [
+    {
+      "rule_id": "DISAMB_01_SAFETY_OVER_UPDATE",
+      "title": "Physical Hazard / Swollen Battery Overrides Software Update",
+      "higher_priority_intent": "BATTERY_POWER_HARDWARE",
+      "lower_priority_intent": "OPERATING_SYSTEM_UPDATES",
+      "condition_description": "If a customer mentions an iOS update in conjunction with physical hardware hazards (swollen battery, cracked screen, burning hot chassis), classify under BATTERY_POWER_HARDWARE due to safety and repair requirements.",
+      "example": "After installing the iOS 11 update my iPhone battery became swollen and pushed the screen out."
+    },
+    {
+      "rule_id": "DISAMB_02_BILLING_OVER_GENERAL",
+      "title": "Unauthorized Charge Overrides General Store Inquiry",
+      "higher_priority_intent": "SUBSCRIPTIONS_BILLING",
+      "lower_priority_intent": "GENERAL_INQUIRY",
+      "condition_description": "If a customer asks about a store or receipt in connection with an unauthorized fee or refund request, classify as SUBSCRIPTIONS_BILLING due to financial risk.",
+      "example": "I checked my receipt and noticed an unauthorized subscription charge from iTunes billing, need refund."
+    },
+    {
+      "rule_id": "DISAMB_03_AUDIO_OVER_NETWORKING",
+      "title": "Audio Peripheral Specificity Over General Bluetooth",
+      "higher_priority_intent": "AUDIO_ACCESSORIES",
+      "lower_priority_intent": "CONNECTIVITY_NETWORKING",
+      "condition_description": "If an audio accessory (AirPods, Bluetooth headphones) fails to connect, classify under AUDIO_ACCESSORIES rather than CONNECTIVITY_NETWORKING.",
+      "example": "My AirPods won't connect via Bluetooth to my MacBook."
+    },
+    {
+      "rule_id": "DISAMB_04_ACCOUNT_OVER_OS",
+      "title": "Account & 2FA Lockout Overrides App Store Update",
+      "higher_priority_intent": "ACCOUNT_APPLE_ID",
+      "lower_priority_intent": "OPERATING_SYSTEM_UPDATES",
+      "condition_description": "If a customer cannot download updates because their Apple ID is disabled or 2FA fails, classify under ACCOUNT_APPLE_ID.",
+      "example": "I cannot update any apps because my Apple ID has been disabled for security reasons."
+    },
+    {
+      "rule_id": "DISAMB_05_AMBIGUITY_FALLBACK",
+      "title": "Low Confidence or Empty Technical Detail Fallback",
+      "higher_priority_intent": "GENERAL_INQUIRY",
+      "lower_priority_intent": "GENERAL_INQUIRY",
+      "condition_description": "When no technical signals or domain keywords match, or confidence across all technical classes is below 0.50, route to GENERAL_INQUIRY.",
+      "example": "Can someone please help me right now?"
+    }
+  ],
+  "metadata": {
+    "mece_verified": true,
+    "source_dataset": "Kaggle Customer Support on Twitter (@AppleSupport)",
+    "derivation_methodology": "Empirical n-gram mining, TF-IDF term frequency analysis, and operational routing constraint mapping",
+    "last_reviewed": "2026-09-11"
+  }
+}

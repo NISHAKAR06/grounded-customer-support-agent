@@ -1,6 +1,6 @@
 # Runbook: Operations & Evaluator Quickstart
 
-## 1. Quickstart for Evaluators & Recruiters
+## 1. Quickstart for Evaluators & Reviewers
 
 This runbook allows an evaluator to run and verify the Grounded Customer Support Agent locally in under 5 minutes without downloading the full 3M Twitter dataset.
 

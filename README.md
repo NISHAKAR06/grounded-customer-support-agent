@@ -3,9 +3,9 @@
 [![CI/CD Pipeline](https://github.com/NISHAKAR06/customer-support-agent/actions/workflows/ci.yml/badge.svg)](https://github.com/NISHAKAR06/customer-support-agent/actions)
 [![Python 3.11+](https://img.shields.io/badge/python-3.11%2B-blue.svg)](https://www.python.org/)
 [![License: MIT](https://img.shields.io/badge/License-MIT-black.svg)](LICENSE)
-[![Design: B2B SaaS](https://img.shields.io/badge/UI-Hiver--Inspired-slate.svg)]()
+[![Design: B2B SaaS](https://img.shields.io/badge/UI-B2B--SaaS-slate.svg)]()
 
-> A production-grade, recruiter-facing AI customer support operations platform that classifies customer intent, retrieves historically resolved support conversations, generates grounded replies, validates against hallucinations, and intelligently decides between automated handling (`AUTO_HANDLE`) and human escalation (`HUMAN_ESCALATION`).
+> A production-grade AI customer support operations platform that classifies customer intent, retrieves historically resolved support conversations, generates grounded replies, validates against hallucinations, and intelligently decides between automated handling (`AUTO_HANDLE`) and human escalation (`HUMAN_ESCALATION`).
 
 ---
 
@@ -41,9 +41,9 @@ Final Result
 
 ## Architecture & Visual Interface
 
-The application interface captures the aesthetic of **modern B2B support operations software** (inspired by Hiver's clean high-contrast shared inbox):
+The application interface captures the aesthetic of **modern B2B support operations software** (inspired by clean, high-contrast shared inboxes):
 - **Dark Sidebar Navigation**: Focuses on core operational workspaces.
-- **Simulate Incoming Message**: The primary workspace where recruiters can test live customer inputs and observe the multi-stage pipeline executing in real-time.
+- **Simulate Incoming Message**: The primary workspace where operators and evaluators can test live customer inputs and observe the multi-stage pipeline executing in real-time.
 - **Support Inbox**: Operational queue distinguishing automated candidates from human escalation tickets.
 - **Evaluation & Failure Deep Dive**: Transparent reporting of model benchmarks, LLM-as-Judge scores, human-judge correlation, and top failure modes.
 

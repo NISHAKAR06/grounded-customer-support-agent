@@ -2,7 +2,7 @@
 
 ## 1. Overview & Evaluation Integrity
 
-In accordance with the Hiver Take-Home requirements, this document identifies and investigates the **top 5 failure modes** observed during real-world evaluation of the Grounded Customer Support Agent.
+This document systematically identifies and investigates the **top 5 failure modes** observed during real-world evaluation of the Grounded Customer Support Agent.
 
 A core principle of this project is: **"The proof is worth more than the system."** We do not present fabricated perfection; rather, we systematically audit vulnerabilities, categorize error types, and formulate actionable engineering fixes.
 

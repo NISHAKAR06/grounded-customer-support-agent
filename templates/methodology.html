@@ -6,9 +6,10 @@
 {% block content %}
 <div class="page-header">
   <h1 class="page-title">Methodology & System Specifications</h1>
-  <p class="page-subtitle">Formal mathematical formulations and architectural constraints governing grounding and safe escalation.</p>
+  <p class="page-subtitle">Formal mathematical formulations, interactive intent taxonomy, and deterministic escalation policies.</p>
 </div>
 
+<!-- 1. Grounding Principle -->
 <div class="card" style="margin-bottom: 24px;">
   <div class="card-header">
     <div class="card-title">1. Grounding-First Generation Principle</div>
@@ -16,7 +17,7 @@
   </div>
   <div style="font-size: 13px; line-height: 1.7; color: var(--text-secondary);">
     <p>A response $\hat{y}$ generated for an incoming customer message $q$ is defined as <em>Grounded</em> if and only if:</p>
-    <div class="formula-box">
+    <div class="formula-box" style="padding: 12px; background: var(--bg-surface-secondary, #fafafa); border: 1px solid var(--border-light); border-radius: 6px; font-family: var(--font-mono); margin: 12px 0;">
       <code>Claims(&#375;) ⊆ Claims(q) ∪ Claims(E)</code>
     </div>
     <p>Where $E = \{e_1, e_2, \dots, e_k\}$ is the set of top-$k$ retrieved historical resolved support interactions from the brand, and $\text{Claims}(\cdot)$ extracts factual commitments (e.g., refund policies, turnaround times, troubleshooting procedures).</p>
@@ -24,6 +25,7 @@
   </div>
 </div>
 
+<!-- 2. Escalation Policy -->
 <div class="card" style="margin-bottom: 24px;">
   <div class="card-header">
     <div class="card-title">2. Escalation Policy Decision Matrix</div>
@@ -31,7 +33,7 @@
   </div>
   <div style="font-size: 13px; line-height: 1.7; color: var(--text-secondary);">
     <p>The routing decision $D \in \{\text{AUTO\_HANDLE}, \text{HUMAN\_ESCALATION}\}$ is computed via the boolean evaluation:</p>
-    <div class="formula-box">
+    <div class="formula-box" style="padding: 12px; background: var(--bg-surface-secondary, #fafafa); border: 1px solid var(--border-light); border-radius: 6px; font-family: var(--font-mono); margin: 12px 0;">
       <code>D = AUTO_HANDLE &nbsp; if &nbsp; [P(y = c_intent | q) ≥ τ_intent] ∧ [max_{e ∈ E} cos(e, q) ≥ τ_retrieval] ∧ [¬RiskTrigger(q)] ∧ [ValidatorPassed(ŷ)]<br>
       D = HUMAN_ESCALATION &nbsp; otherwise</code>
     </div>
@@ -43,4 +45,542 @@
     </ul>
   </div>
 </div>
+
+<!-- 3. Interactive Intent Taxonomy -->
+<div class="card" style="margin-bottom: 24px;" id="taxonomySection">
+  <div class="card-header" style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 8px;">
+    <div>
+      <div class="card-title">3. Domain-Specific Intent Taxonomy (7-Class MECE)</div>
+      <div style="font-size: 12px; color: var(--text-muted); margin-top: 2px;">
+        Derived from 15,000+ @AppleSupport interactions. Interactive playground & real-time filter.
+      </div>
+    </div>
+    <div style="display: flex; gap: 8px;">
+      <a href="/api/v1/taxonomy" target="_blank" class="btn btn-sm btn-ghost" title="Inspect JSON Schema">
+        REST API ↗
+      </a>
+    </div>
+  </div>
+
+  <div style="font-size: 13px; line-height: 1.7; color: var(--text-secondary); margin-bottom: 16px;">
+    <!-- Live Classifier Playground -->
+    <div style="background: var(--bg-surface-secondary, #f8fafc); border: 1px solid var(--border-light); border-radius: 8px; padding: 16px; margin-bottom: 20px;">
+      <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px;">
+        <span style="font-weight: 700; color: var(--text-primary); font-size: 13px; display: flex; align-items: center; gap: 6px;">
+          <span style="width: 8px; height: 8px; border-radius: 50%; background: #10b981;"></span>
+          Interactive Live Intent Classifier & Precedence Tester
+        </span>
+        <span style="font-size: 11px; color: var(--text-muted);">Endpoint: <code>POST /api/v1/taxonomy/classify</code></span>
+      </div>
+
+      <div style="display: flex; gap: 8px; margin-bottom: 10px;">
+        <input
+          type="text"
+          id="liveTestInput"
+          class="search-input"
+          style="flex: 1; padding: 8px 12px; font-size: 13px; border: 1px solid var(--border-color); border-radius: 6px;"
+          placeholder="Type or click a conflict example below to test classification & disambiguation..."
+          value="After installing iOS 11 update my iPhone battery became swollen and pushed the screen out."
+        />
+        <button type="button" id="btnRunTest" class="btn btn-sm btn-primary" onclick="runLiveClassification()">
+          Classify & Test
+        </button>
+      </div>
+
+      <!-- Quick Test Conflict Chips -->
+      <div style="display: flex; gap: 6px; flex-wrap: wrap; align-items: center; margin-bottom: 12px;">
+        <span style="font-size: 11px; font-weight: 600; color: var(--text-muted);">Quick-Test Conflict Rules:</span>
+        <button type="button" class="badge badge-neutral" style="cursor: pointer; border: 1px solid var(--border-color);" onclick="loadAndRunTest('After installing iOS 11 update my iPhone battery became swollen and pushed the screen out.')">
+          1. Swollen Battery vs Update
+        </button>
+        <button type="button" class="badge badge-neutral" style="cursor: pointer; border: 1px solid var(--border-color);" onclick="loadAndRunTest('I checked my receipt and noticed an unauthorized subscription charge from iTunes billing, need refund.')">
+          2. iTunes Charge vs Store
+        </button>
+        <button type="button" class="badge badge-neutral" style="cursor: pointer; border: 1px solid var(--border-color);" onclick="loadAndRunTest('Cannot update any apps because my Apple ID has been disabled for security reasons.')">
+          3. 2FA Lockout vs Update
+        </button>
+        <button type="button" class="badge badge-neutral" style="cursor: pointer; border: 1px solid var(--border-color);" onclick="loadAndRunTest('My AirPods won\'t connect via Bluetooth to my MacBook.')">
+          4. AirPods vs General BT
+        </button>
+        <button type="button" class="badge badge-neutral" style="cursor: pointer; border: 1px solid var(--border-color);" onclick="loadAndRunTest('Can someone please help me right now?')">
+          5. Ambiguity Fallback
+        </button>
+      </div>
+
+      <!-- Live Test Output Result Box -->
+      <div id="liveTestResult" style="background: #ffffff; border: 1px solid var(--border-light); border-radius: 6px; padding: 12px 14px;">
+        <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 8px;">
+          <div>
+            <span style="font-size: 11px; color: var(--text-muted); text-transform: uppercase; font-weight: 600;">Detected Intent:</span>
+            <span id="resIntentName" style="font-weight: 700; color: var(--text-primary); font-size: 14px; margin-left: 6px;">Battery & Hardware</span>
+            <span id="resIntentCode" style="font-family: var(--font-mono); font-size: 11px; color: var(--text-muted); margin-left: 4px;">(BATTERY_POWER_HARDWARE)</span>
+          </div>
+          <div style="display: flex; gap: 8px; align-items: center;">
+            <span style="font-size: 11px; color: var(--text-muted);">Confidence:</span>
+            <span id="resConfidence" style="font-weight: 700; font-size: 13px; color: #10b981;">98%</span>
+            <span id="resRoutingBadge" class="badge badge-human">HUMAN_ESCALATION</span>
+          </div>
+        </div>
+        <div style="margin-top: 8px; display: flex; align-items: center; gap: 8px; flex-wrap: wrap;">
+          <span style="font-size: 11px; color: var(--text-muted); font-weight: 600;">Matched Signals:</span>
+          <div id="resSignals" style="display: flex; gap: 4px; flex-wrap: wrap;">
+            <span class="badge badge-neutral">swollen</span>
+            <span class="badge badge-neutral">battery</span>
+          </div>
+        </div>
+        <div id="resDisambiguationNote" style="margin-top: 8px; font-size: 11px; color: #b91c1c; background: #fef2f2; padding: 6px 10px; border-radius: 4px; border: 1px solid #fee2e2;">
+          <strong>Precedence Rule Applied:</strong> Safety Hazard Priority (Rank 1 overrides OS update).
+        </div>
+      </div>
+    </div>
+
+    <!-- Taxonomy Table Search & Filters -->
+    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px; flex-wrap: wrap; gap: 8px;">
+      <div style="display: flex; gap: 6px; flex-wrap: wrap;">
+        <button type="button" class="btn btn-sm btn-secondary tax-filter-btn active" data-filter="all" onclick="filterTaxonomyTable('all', this)">All (7)</button>
+        <button type="button" class="btn btn-sm btn-ghost tax-filter-btn" data-filter="auto_handle" onclick="filterTaxonomyTable('auto_handle', this)">Auto-Handle (3)</button>
+        <button type="button" class="btn btn-sm btn-ghost tax-filter-btn" data-filter="human_escalation" onclick="filterTaxonomyTable('human_escalation', this)">Needs Human (4)</button>
+        <button type="button" class="btn btn-sm btn-ghost tax-filter-btn" data-filter="critical" onclick="filterTaxonomyTable('critical', this)">Critical Risk</button>
+      </div>
+      <input
+        type="text"
+        id="taxonomySearch"
+        placeholder="Filter classes by keyword..."
+        class="search-input"
+        style="max-width: 240px; padding: 6px 10px; font-size: 12px; border: 1px solid var(--border-color); border-radius: 6px;"
+        oninput="searchTaxonomyTable(this.value)"
+      />
+    </div>
+
+    <!-- Table -->
+    <div class="table-responsive">
+      <table class="data-table" id="taxonomyTable" style="width: 100%; border-collapse: collapse; font-size: 13px;">
+        <thead>
+          <tr style="border-bottom: 1px solid var(--border-color); text-align: left;">
+            <th style="padding: 10px 12px;">Intent Code</th>
+            <th style="padding: 10px 12px;">Display Label</th>
+            <th style="padding: 10px 12px;">Priority</th>
+            <th style="padding: 10px 12px;">Risk Level</th>
+            <th style="padding: 10px 12px;">Default Routing</th>
+            <th style="padding: 10px 12px;">Empirical Freq</th>
+            <th style="padding: 10px 12px; text-align: center;">Details</th>
+          </tr>
+        </thead>
+        <tbody id="taxonomyTableBody">
+          <!-- Row 1: OS Updates -->
+          <tr class="tax-row" data-code="OPERATING_SYSTEM_UPDATES" data-routing="auto_handle" data-risk="low" id="row-OPERATING_SYSTEM_UPDATES" style="border-bottom: 1px solid var(--border-light); transition: background 0.2s;">
+            <td style="padding: 10px 12px;"><code>OPERATING_SYSTEM_UPDATES</code></td>
+            <td style="padding: 10px 12px; font-weight: 600;">OS & iOS Updates</td>
+            <td style="padding: 10px 12px;"><span class="badge badge-neutral">Rank 4</span></td>
+            <td style="padding: 10px 12px;"><span class="badge badge-auto">LOW</span></td>
+            <td style="padding: 10px 12px;"><span class="badge badge-auto">AUTO_HANDLE</span></td>
+            <td style="padding: 10px 12px;">~32%</td>
+            <td style="padding: 10px 12px; text-align: center;">
+              <button type="button" class="btn btn-sm btn-ghost" onclick="toggleDetails('det-os')">View ▾</button>
+            </td>
+          </tr>
+          <tr id="det-os" class="tax-details-row" style="display: none; background: #fbfbfb; border-bottom: 1px solid var(--border-light);">
+            <td colspan="7" style="padding: 12px 16px; font-size: 12px;">
+              <div><strong>Scope:</strong> iOS/macOS version glitches, update verification freezes, autocorrect anomalies (iOS 11 letter 'I' glitch), and post-update app crash loops.</div>
+              <div style="margin-top: 4px;"><strong>Signals:</strong> <code>ios, update, verifying update, freeze, stuck, glitch, autocorrect, reboot, lag</code></div>
+              <div style="margin-top: 4px;"><strong>Canonical Example:</strong> <em>"My iPhone has been stuck on 'Verifying update' for iOS 11 for over 3 hours. How do I fix this?"</em></div>
+            </td>
+          </tr>
+
+          <!-- Row 2: Battery & Hardware -->
+          <tr class="tax-row" data-code="BATTERY_POWER_HARDWARE" data-routing="human_escalation" data-risk="critical" id="row-BATTERY_POWER_HARDWARE" style="border-bottom: 1px solid var(--border-light); transition: background 0.2s;">
+            <td style="padding: 10px 12px;"><code>BATTERY_POWER_HARDWARE</code></td>
+            <td style="padding: 10px 12px; font-weight: 600;">Battery & Hardware</td>
+            <td style="padding: 10px 12px;"><span class="badge badge-neutral">Rank 1</span></td>
+            <td style="padding: 10px 12px;"><span class="badge badge-human">CRITICAL</span></td>
+            <td style="padding: 10px 12px;"><span class="badge badge-human">HUMAN_ESCALATION</span></td>
+            <td style="padding: 10px 12px;">~21%</td>
+            <td style="padding: 10px 12px; text-align: center;">
+              <button type="button" class="btn btn-sm btn-ghost" onclick="toggleDetails('det-battery')">View ▾</button>
+            </td>
+          </tr>
+          <tr id="det-battery" class="tax-details-row" style="display: none; background: #fbfbfb; border-bottom: 1px solid var(--border-light);">
+            <td colspan="7" style="padding: 12px 16px; font-size: 12px;">
+              <div><strong>Scope:</strong> Power delivery issues, rapid depletion, thermal overheating, physical screen fractures, swollen batteries, broken buttons, liquid damage.</div>
+              <div style="margin-top: 4px;"><strong>Signals:</strong> <code>battery, drain, percentage drops, burning hot, overheat, swollen, won't charge, charger, cracked screen</code></div>
+              <div style="margin-top: 4px;"><strong>Canonical Example:</strong> <em>"My iPhone 7 battery percentage drops from 80% to 15% in less than an hour and the back gets burning hot."</em></div>
+            </td>
+          </tr>
+
+          <!-- Row 3: Account & Apple ID -->
+          <tr class="tax-row" data-code="ACCOUNT_APPLE_ID" data-routing="human_escalation" data-risk="high" id="row-ACCOUNT_APPLE_ID" style="border-bottom: 1px solid var(--border-light); transition: background 0.2s;">
+            <td style="padding: 10px 12px;"><code>ACCOUNT_APPLE_ID</code></td>
+            <td style="padding: 10px 12px; font-weight: 600;">Apple ID & Account</td>
+            <td style="padding: 10px 12px;"><span class="badge badge-neutral">Rank 3</span></td>
+            <td style="padding: 10px 12px;"><span class="badge badge-human">HIGH</span></td>
+            <td style="padding: 10px 12px;"><span class="badge badge-human">HUMAN_ESCALATION</span></td>
+            <td style="padding: 10px 12px;">~16%</td>
+            <td style="padding: 10px 12px; text-align: center;">
+              <button type="button" class="btn btn-sm btn-ghost" onclick="toggleDetails('det-account')">View ▾</button>
+            </td>
+          </tr>
+          <tr id="det-account" class="tax-details-row" style="display: none; background: #fbfbfb; border-bottom: 1px solid var(--border-light);">
+            <td colspan="7" style="padding: 12px 16px; font-size: 12px;">
+              <div><strong>Scope:</strong> User identity authentication, Apple ID recovery, Two-Factor Authentication (2FA) verification code delivery, disabled accounts, country/region migration.</div>
+              <div style="margin-top: 4px;"><strong>Signals:</strong> <code>apple id, icloud, 2fa, two-factor, verification code, locked out, password reset, region change</code></div>
+              <div style="margin-top: 4px;"><strong>Canonical Example:</strong> <em>"I am locked out of my Apple ID because I changed my mobile number and cannot receive the two-factor code."</em></div>
+            </td>
+          </tr>
+
+          <!-- Row 4: Connectivity & Networking -->
+          <tr class="tax-row" data-code="CONNECTIVITY_NETWORKING" data-routing="auto_handle" data-risk="low" id="row-CONNECTIVITY_NETWORKING" style="border-bottom: 1px solid var(--border-light); transition: background 0.2s;">
+            <td style="padding: 10px 12px;"><code>CONNECTIVITY_NETWORKING</code></td>
+            <td style="padding: 10px 12px; font-weight: 600;">Connectivity & Wi-Fi</td>
+            <td style="padding: 10px 12px;"><span class="badge badge-neutral">Rank 5</span></td>
+            <td style="padding: 10px 12px;"><span class="badge badge-auto">LOW</span></td>
+            <td style="padding: 10px 12px;"><span class="badge badge-auto">AUTO_HANDLE</span></td>
+            <td style="padding: 10px 12px;">~12%</td>
+            <td style="padding: 10px 12px; text-align: center;">
+              <button type="button" class="btn btn-sm btn-ghost" onclick="toggleDetails('det-conn')">View ▾</button>
+            </td>
+          </tr>
+          <tr id="det-conn" class="tax-details-row" style="display: none; background: #fbfbfb; border-bottom: 1px solid var(--border-light);">
+            <td colspan="7" style="padding: 12px 16px; font-size: 12px;">
+              <div><strong>Scope:</strong> Wireless connectivity protocols, Wi-Fi drops, Bluetooth peripheral discovery, cellular reception/SIM errors, AirDrop failures, Home Sharing.</div>
+              <div style="margin-top: 4px;"><strong>Signals:</strong> <code>wifi, wi-fi, bluetooth, cellular, no service, searching..., sim card, airdrop, hotspot</code></div>
+              <div style="margin-top: 4px;"><strong>Canonical Example:</strong> <em>"Why does my Wi-Fi keep disconnecting every time my phone locks on my home network?"</em></div>
+            </td>
+          </tr>
+
+          <!-- Row 5: Audio & Accessories -->
+          <tr class="tax-row" data-code="AUDIO_ACCESSORIES" data-routing="auto_handle" data-risk="low" id="row-AUDIO_ACCESSORIES" style="border-bottom: 1px solid var(--border-light); transition: background 0.2s;">
+            <td style="padding: 10px 12px;"><code>AUDIO_ACCESSORIES</code></td>
+            <td style="padding: 10px 12px; font-weight: 600;">Audio & Accessories</td>
+            <td style="padding: 10px 12px;"><span class="badge badge-neutral">Rank 6</span></td>
+            <td style="padding: 10px 12px;"><span class="badge badge-auto">LOW</span></td>
+            <td style="padding: 10px 12px;"><span class="badge badge-auto">AUTO_HANDLE</span></td>
+            <td style="padding: 10px 12px;">~8%</td>
+            <td style="padding: 10px 12px; text-align: center;">
+              <button type="button" class="btn btn-sm btn-ghost" onclick="toggleDetails('det-audio')">View ▾</button>
+            </td>
+          </tr>
+          <tr id="det-audio" class="tax-details-row" style="display: none; background: #fbfbfb; border-bottom: 1px solid var(--border-light);">
+            <td colspan="7" style="padding: 12px 16px; font-size: 12px;">
+              <div><strong>Scope:</strong> Audio hardware and peripherals including AirPods pairing, charging case, Lightning-to-3.5mm adapters, microphone static, speaker crackling.</div>
+              <div style="margin-top: 4px;"><strong>Signals:</strong> <code>airpods, earpods, headphones, headphone jack, lightning adapter, dongle, microphone, speaker crackling</code></div>
+              <div style="margin-top: 4px;"><strong>Canonical Example:</strong> <em>"My right AirPod won't connect or charge in the case, only the left earbud works."</em></div>
+            </td>
+          </tr>
+
+          <!-- Row 6: Subscriptions & Billing -->
+          <tr class="tax-row" data-code="SUBSCRIPTIONS_BILLING" data-routing="human_escalation" data-risk="critical" id="row-SUBSCRIPTIONS_BILLING" style="border-bottom: 1px solid var(--border-light); transition: background 0.2s;">
+            <td style="padding: 10px 12px;"><code>SUBSCRIPTIONS_BILLING</code></td>
+            <td style="padding: 10px 12px; font-weight: 600;">Billing & Subscriptions</td>
+            <td style="padding: 10px 12px;"><span class="badge badge-neutral">Rank 2</span></td>
+            <td style="padding: 10px 12px;"><span class="badge badge-human">CRITICAL</span></td>
+            <td style="padding: 10px 12px;"><span class="badge badge-human">HUMAN_ESCALATION</span></td>
+            <td style="padding: 10px 12px;">~6%</td>
+            <td style="padding: 10px 12px; text-align: center;">
+              <button type="button" class="btn btn-sm btn-ghost" onclick="toggleDetails('det-bill')">View ▾</button>
+            </td>
+          </tr>
+          <tr id="det-bill" class="tax-details-row" style="display: none; background: #fbfbfb; border-bottom: 1px solid var(--border-light);">
+            <td colspan="7" style="padding: 12px 16px; font-size: 12px;">
+              <div><strong>Scope:</strong> Financial transactions, unauthorized credit card charges from ITUNES.COM/BILL, subscription cancellation, refund requests, in-app purchases.</div>
+              <div style="margin-top: 4px;"><strong>Signals:</strong> <code>subscription, refund, charged, billing, itunes.com/bill, receipt, unauthorized purchase, cancel subscription</code></div>
+              <div style="margin-top: 4px;"><strong>Canonical Example:</strong> <em>"I was charged $9.99 on my bank statement from Apple for an app I never bought. Need a refund."</em></div>
+            </td>
+          </tr>
+
+          <!-- Row 7: General Inquiry -->
+          <tr class="tax-row" data-code="GENERAL_INQUIRY" data-routing="human_escalation" data-risk="medium" id="row-GENERAL_INQUIRY" style="border-bottom: 1px solid var(--border-light); transition: background 0.2s;">
+            <td style="padding: 10px 12px;"><code>GENERAL_INQUIRY</code></td>
+            <td style="padding: 10px 12px; font-weight: 600;">General Support</td>
+            <td style="padding: 10px 12px;"><span class="badge badge-neutral">Rank 7</span></td>
+            <td style="padding: 10px 12px;"><span class="badge badge-neutral">MEDIUM</span></td>
+            <td style="padding: 10px 12px;"><span class="badge badge-human">HUMAN_ESCALATION</span></td>
+            <td style="padding: 10px 12px;">~5%</td>
+            <td style="padding: 10px 12px; text-align: center;">
+              <button type="button" class="btn btn-sm btn-ghost" onclick="toggleDetails('det-gen')">View ▾</button>
+            </td>
+          </tr>
+          <tr id="det-gen" class="tax-details-row" style="display: none; background: #fbfbfb; border-bottom: 1px solid var(--border-light);">
+            <td colspan="7" style="padding: 12px 16px; font-size: 12px;">
+              <div><strong>Scope:</strong> Retail Apple Store hours, product launch reservations (iPhone X pre-order pickup), general feedback, or queries lacking technical detail.</div>
+              <div style="margin-top: 4px;"><strong>Signals:</strong> <code>store hours, opening hours, reservation, order status, delivery date, pre-order, representative</code></div>
+              <div style="margin-top: 4px;"><strong>Canonical Example:</strong> <em>"What are the opening hours for the Apple Store Covent Garden on Sunday?"</em></div>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+
+<!-- 4. Disambiguation & Tie-Breaking Priority Hierarchy -->
+<div class="card" style="margin-bottom: 24px;">
+  <div class="card-header">
+    <div class="card-title">4. Disambiguation & Tie-Breaking Priority Hierarchy</div>
+    <span class="badge badge-neutral">Precedence Matrix</span>
+  </div>
+  <div style="font-size: 13px; line-height: 1.7; color: var(--text-secondary);">
+    <p style="margin-bottom: 16px;">
+      When customer utterances span multiple semantic categories simultaneously, deterministic tie-breaking rules guarantee consumer safety, policy compliance, and financial liability prevention. Click any card to test the conflict live:
+    </p>
+
+    <div style="display: flex; flex-direction: column; gap: 12px;" id="precedenceCards">
+      <!-- Rule 1: Safety -->
+      <div class="precedence-card" id="card-rule-1" style="padding: 14px 16px; border-left: 4px solid var(--danger, #ef4444); background: var(--bg-surface-secondary, #fafafa); border-radius: 0 6px 6px 0; display: flex; justify-content: space-between; align-items: flex-start; gap: 16px;">
+        <div style="flex: 1;">
+          <div style="font-weight: 700; color: var(--text-primary); margin-bottom: 4px; display: flex; align-items: center; gap: 8px;">
+            <span>1. Safety Hazard & Physical Damage Priority</span>
+            <span class="badge badge-human">Rank 1 Precedence</span>
+          </div>
+          <div><strong>Rule:</strong> Physical danger (swollen battery, burning hot chassis, shattered display) strictly overrides software update or general queries.</div>
+          <div style="font-size: 12px; color: var(--text-muted); margin-top: 4px;">
+            <em>Conflict Query: "After installing the iOS 11 update my iPhone battery became swollen and pushed the screen out." &rarr; <code>BATTERY_POWER_HARDWARE</code></em>
+          </div>
+        </div>
+        <button type="button" class="btn btn-sm btn-secondary" onclick="loadAndRunTest('After installing the iOS 11 update my iPhone battery became swollen and pushed the screen out.', 'card-rule-1')">
+          Test Rule 1
+        </button>
+      </div>
+
+      <!-- Rule 2: Financial -->
+      <div class="precedence-card" id="card-rule-2" style="padding: 14px 16px; border-left: 4px solid var(--warning, #f59e0b); background: var(--bg-surface-secondary, #fafafa); border-radius: 0 6px 6px 0; display: flex; justify-content: space-between; align-items: flex-start; gap: 16px;">
+        <div style="flex: 1;">
+          <div style="font-weight: 700; color: var(--text-primary); margin-bottom: 4px; display: flex; align-items: center; gap: 8px;">
+            <span>2. Financial Dispute & Liability Priority</span>
+            <span class="badge badge-human">Rank 2 Precedence</span>
+          </div>
+          <div><strong>Rule:</strong> Unauthorized iTunes charges, unwanted subscription renewals, and refund requests strictly override store or general inquiries.</div>
+          <div style="font-size: 12px; color: var(--text-muted); margin-top: 4px;">
+            <em>Conflict Query: "I checked my receipt and noticed an unauthorized subscription charge from iTunes billing, need refund." &rarr; <code>SUBSCRIPTIONS_BILLING</code></em>
+          </div>
+        </div>
+        <button type="button" class="btn btn-sm btn-secondary" onclick="loadAndRunTest('I checked my receipt and noticed an unauthorized subscription charge from iTunes billing, need refund.', 'card-rule-2')">
+          Test Rule 2
+        </button>
+      </div>
+
+      <!-- Rule 3: Security Lockout -->
+      <div class="precedence-card" id="card-rule-3" style="padding: 14px 16px; border-left: 4px solid var(--info, #3b82f6); background: var(--bg-surface-secondary, #fafafa); border-radius: 0 6px 6px 0; display: flex; justify-content: space-between; align-items: flex-start; gap: 16px;">
+        <div style="flex: 1;">
+          <div style="font-weight: 700; color: var(--text-primary); margin-bottom: 4px; display: flex; align-items: center; gap: 8px;">
+            <span>3. Identity & Security Lockout Priority</span>
+            <span class="badge badge-human">Rank 3 Precedence</span>
+          </div>
+          <div><strong>Rule:</strong> 2FA failures, Apple ID disables, and password recovery lockouts take precedence over OS update downloads.</div>
+          <div style="font-size: 12px; color: var(--text-muted); margin-top: 4px;">
+            <em>Conflict Query: "I cannot update any apps because my Apple ID has been disabled for security reasons." &rarr; <code>ACCOUNT_APPLE_ID</code></em>
+          </div>
+        </div>
+        <button type="button" class="btn btn-sm btn-secondary" onclick="loadAndRunTest('I cannot update any apps because my Apple ID has been disabled for security reasons.', 'card-rule-3')">
+          Test Rule 3
+        </button>
+      </div>
+
+      <!-- Rule 4: Peripheral Specificity -->
+      <div class="precedence-card" id="card-rule-4" style="padding: 14px 16px; border-left: 4px solid #64748b; background: var(--bg-surface-secondary, #fafafa); border-radius: 0 6px 6px 0; display: flex; justify-content: space-between; align-items: flex-start; gap: 16px;">
+        <div style="flex: 1;">
+          <div style="font-weight: 700; color: var(--text-primary); margin-bottom: 4px; display: flex; align-items: center; gap: 8px;">
+            <span>4. Peripheral Specificity Over Generic Protocol</span>
+            <span class="badge badge-auto">Rank 6 vs Rank 5</span>
+          </div>
+          <div><strong>Rule:</strong> Audio hardware issues (AirPods, headphones, microphone) over Bluetooth take precedence over generic networking.</div>
+          <div style="font-size: 12px; color: var(--text-muted); margin-top: 4px;">
+            <em>Conflict Query: "My AirPods won't connect via Bluetooth to my MacBook." &rarr; <code>AUDIO_ACCESSORIES</code></em>
+          </div>
+        </div>
+        <button type="button" class="btn btn-sm btn-secondary" onclick="loadAndRunTest('My AirPods won\'t connect via Bluetooth to my MacBook.', 'card-rule-4')">
+          Test Rule 4
+        </button>
+      </div>
+
+      <!-- Rule 5: Ambiguity Fallback -->
+      <div class="precedence-card" id="card-rule-5" style="padding: 14px 16px; border-left: 4px solid #94a3b8; background: var(--bg-surface-secondary, #fafafa); border-radius: 0 6px 6px 0; display: flex; justify-content: space-between; align-items: flex-start; gap: 16px;">
+        <div style="flex: 1;">
+          <div style="font-weight: 700; color: var(--text-primary); margin-bottom: 4px; display: flex; align-items: center; gap: 8px;">
+            <span>5. Ambiguity Fallback</span>
+            <span class="badge badge-neutral">Rank 7 Fallback</span>
+          </div>
+          <div><strong>Rule:</strong> Inquiries without domain-specific technical signals or confidence &lt; 0.50 default to General Support for human routing.</div>
+          <div style="font-size: 12px; color: var(--text-muted); margin-top: 4px;">
+            <em>Conflict Query: "Can someone please help me right now?" &rarr; <code>GENERAL_INQUIRY</code></em>
+          </div>
+        </div>
+        <button type="button" class="btn btn-sm btn-secondary" onclick="loadAndRunTest('Can someone please help me right now?', 'card-rule-5')">
+          Test Rule 5
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+// Expand/Collapse Details Drawer
+function toggleDetails(id) {
+  const row = document.getElementById(id);
+  if (!row) return;
+  row.style.display = (row.style.display === 'none' || row.style.display === '') ? 'table-row' : 'none';
+}
+
+// Table Filter Buttons
+function filterTaxonomyTable(filter, btn) {
+  document.querySelectorAll('.tax-filter-btn').forEach(b => {
+    b.classList.remove('active');
+    b.classList.replace('btn-secondary', 'btn-ghost');
+  });
+  btn.classList.add('active');
+  btn.classList.replace('btn-ghost', 'btn-secondary');
+
+  const rows = document.querySelectorAll('.tax-row');
+  rows.forEach(row => {
+    const routing = row.getAttribute('data-routing');
+    const risk = row.getAttribute('data-risk');
+    let visible = true;
+
+    if (filter === 'auto_handle' && routing !== 'auto_handle') visible = false;
+    else if (filter === 'human_escalation' && routing !== 'human_escalation') visible = false;
+    else if (filter === 'critical' && risk !== 'critical') visible = false;
+
+    row.style.display = visible ? '' : 'none';
+    const detailId = row.id.replace('row-', 'det-').toLowerCase();
+    const detailRow = document.getElementById(detailId);
+    if (detailRow && !visible) detailRow.style.display = 'none';
+  });
+}
+
+// Table Instant Search
+function searchTaxonomyTable(query) {
+  const q = (query || '').toLowerCase().trim();
+  const rows = document.querySelectorAll('.tax-row');
+  rows.forEach(row => {
+    const text = row.innerText.toLowerCase();
+    const visible = text.includes(q);
+    row.style.display = visible ? '' : 'none';
+    const detailId = row.id.replace('row-', 'det-').toLowerCase();
+    const detailRow = document.getElementById(detailId);
+    if (detailRow && !visible) detailRow.style.display = 'none';
+  });
+}
+
+// Quick Load & Run
+function loadAndRunTest(text, cardId) {
+  const input = document.getElementById('liveTestInput');
+  if (input) input.value = text;
+
+  // Highlight card
+  document.querySelectorAll('.precedence-card').forEach(c => {
+    c.style.boxShadow = 'none';
+  });
+  if (cardId) {
+    const activeCard = document.getElementById(cardId);
+    if (activeCard) {
+      activeCard.style.boxShadow = '0 0 0 2px var(--primary, #0f172a)';
+    }
+  }
+
+  runLiveClassification();
+}
+
+// Live Classification against /api/v1/taxonomy/classify
+async function runLiveClassification() {
+  const input = document.getElementById('liveTestInput');
+  const text = (input ? input.value : '').trim();
+  if (!text) return;
+
+  const btn = document.getElementById('btnRunTest');
+  if (btn) {
+    btn.disabled = true;
+    btn.innerText = 'Classifying...';
+  }
+
+  try {
+    const response = await fetch('/api/v1/taxonomy/classify', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ text })
+    });
+
+    if (!response.ok) throw new Error('Classification request failed: ' + response.status);
+    const data = await response.json();
+
+    // Populate Results
+    document.getElementById('resIntentName').innerText = data.name || 'Unknown';
+    document.getElementById('resIntentCode').innerText = '(' + (data.code || '') + ')';
+    const confPct = Math.round((data.confidence || 0) * 100);
+    document.getElementById('resConfidence').innerText = confPct + '%';
+
+    // Badge routing
+    const routingEl = document.getElementById('resRoutingBadge');
+    const humanIntents = ['BATTERY_POWER_HARDWARE', 'ACCOUNT_APPLE_ID', 'SUBSCRIPTIONS_BILLING', 'GENERAL_INQUIRY'];
+    const isHuman = humanIntents.includes(data.code) || (data.confidence < 0.85);
+
+    if (isHuman) {
+      routingEl.className = 'badge badge-human';
+      routingEl.innerText = 'HUMAN_ESCALATION';
+    } else {
+      routingEl.className = 'badge badge-auto';
+      routingEl.innerText = 'AUTO_HANDLE';
+    }
+
+    // Signals
+    const signalsContainer = document.getElementById('resSignals');
+    signalsContainer.innerHTML = '';
+    const signals = data.signals || [];
+    if (signals.length > 0) {
+      signals.forEach(s => {
+        const span = document.createElement('span');
+        span.className = 'badge badge-neutral';
+        span.innerText = s;
+        signalsContainer.appendChild(span);
+      });
+    } else {
+      signalsContainer.innerHTML = '<span class="badge badge-neutral">no specific signal</span>';
+    }
+
+    // Disambiguation Note
+    const disambigEl = document.getElementById('resDisambiguationNote');
+    if (data.code === 'BATTERY_POWER_HARDWARE') {
+      disambigEl.style.display = 'block';
+      disambigEl.innerHTML = '<strong>Precedence Rule Applied:</strong> Safety Hazard Priority (Rank 1 overrides OS updates or General queries).';
+    } else if (data.code === 'SUBSCRIPTIONS_BILLING') {
+      disambigEl.style.display = 'block';
+      disambigEl.innerHTML = '<strong>Precedence Rule Applied:</strong> Financial Dispute Priority (Rank 2 overrides General inquiries).';
+    } else if (data.code === 'ACCOUNT_APPLE_ID') {
+      disambigEl.style.display = 'block';
+      disambigEl.innerHTML = '<strong>Precedence Rule Applied:</strong> Security Lockout Priority (Rank 3 overrides App Update downloads).';
+    } else if (data.code === 'AUDIO_ACCESSORIES') {
+      disambigEl.style.display = 'block';
+      disambigEl.innerHTML = '<strong>Precedence Rule Applied:</strong> Peripheral Specificity (AirPods hardware takes precedence over generic wireless connection).';
+    } else if (data.code === 'GENERAL_INQUIRY') {
+      disambigEl.style.display = 'block';
+      disambigEl.innerHTML = '<strong>Precedence Rule Applied:</strong> Ambiguity Fallback (General support routing for non-technical or unclassified inquiry).';
+    } else {
+      disambigEl.style.display = 'none';
+    }
+
+    // Highlight row in taxonomy table
+    document.querySelectorAll('.tax-row').forEach(r => {
+      r.style.background = '';
+    });
+    const targetRow = document.getElementById('row-' + data.code);
+    if (targetRow) {
+      targetRow.style.background = '#f0fdf4';
+      targetRow.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+    }
+
+  } catch (err) {
+    console.error('Classification error:', err);
+  } finally {
+    if (btn) {
+      btn.disabled = false;
+      btn.innerText = 'Classify & Test';
+    }
+  }
+}
+
+// Initial classification on page load
+document.addEventListener('DOMContentLoaded', () => {
+  runLiveClassification();
+});
+</script>
 {% endblock %}

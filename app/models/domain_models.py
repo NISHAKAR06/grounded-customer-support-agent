@@ -17,6 +17,27 @@ class RoutingDecision(str, Enum):
     HUMAN_ESCALATION = "HUMAN_ESCALATION"
 
 
+class SupportIntent(str, Enum):
+    OPERATING_SYSTEM_UPDATES = "OPERATING_SYSTEM_UPDATES"
+    BATTERY_POWER_HARDWARE = "BATTERY_POWER_HARDWARE"
+    ACCOUNT_APPLE_ID = "ACCOUNT_APPLE_ID"
+    CONNECTIVITY_NETWORKING = "CONNECTIVITY_NETWORKING"
+    AUDIO_ACCESSORIES = "AUDIO_ACCESSORIES"
+    SUBSCRIPTIONS_BILLING = "SUBSCRIPTIONS_BILLING"
+    GENERAL_INQUIRY = "GENERAL_INQUIRY"
+
+
+INTENT_LABELS: Dict[SupportIntent, str] = {
+    SupportIntent.OPERATING_SYSTEM_UPDATES: "OS & iOS Updates",
+    SupportIntent.BATTERY_POWER_HARDWARE: "Battery & Hardware",
+    SupportIntent.ACCOUNT_APPLE_ID: "Apple ID & Account",
+    SupportIntent.CONNECTIVITY_NETWORKING: "Connectivity & Wi-Fi",
+    SupportIntent.AUDIO_ACCESSORIES: "Audio & Accessories",
+    SupportIntent.SUBSCRIPTIONS_BILLING: "Billing & Subscriptions",
+    SupportIntent.GENERAL_INQUIRY: "General Support",
+}
+
+
 class MessageRole(str, Enum):
     CUSTOMER = "CUSTOMER"
     BRAND = "BRAND"
@@ -43,6 +64,7 @@ class HistoricalCase(BaseModel):
 class IntentPrediction(BaseModel):
     name: str
     confidence: float = Field(..., ge=0.0, le=1.0)
+    code: Optional[SupportIntent] = None
     signals: List[str] = Field(default_factory=list)
     alternatives: List[Dict[str, float]] = Field(default_factory=list)
 

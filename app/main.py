@@ -9,10 +9,12 @@ from app.api.routes.agent import router as agent_router
 from app.api.routes.conversations import router as conversations_router
 from app.api.routes.evaluation import router as evaluation_router
 from app.api.routes.health import router as health_router
+from app.api.routes.taxonomy import router as taxonomy_router
 from app.core.config import get_settings
 from app.core.logging import setup_logger
 from app.repositories.conversation_repository import ConversationRepository
 from app.services.evaluation.evaluation_service import EvaluationService
+from scripts.data.classify_intents import load_intent_taxonomy
 
 settings = get_settings()
 logger = setup_logger(log_level=settings.LOG_LEVEL)
@@ -29,11 +31,13 @@ app = FastAPI(
 app.mount("/static", StaticFiles(directory=str(settings.STATIC_DIR)), name="static")
 templates = Jinja2Templates(directory=str(settings.TEMPLATES_DIR))
 
-# Include API route groups
-app.include_router(health_router, prefix="/api")
-app.include_router(agent_router, prefix="/api")
-app.include_router(conversations_router, prefix="/api")
-app.include_router(evaluation_router, prefix="/api")
+# Include API route groups (supporting both /api and /api/v1)
+for prefix in ("/api", "/api/v1"):
+    app.include_router(health_router, prefix=prefix)
+    app.include_router(agent_router, prefix=prefix)
+    app.include_router(conversations_router, prefix=prefix)
+    app.include_router(evaluation_router, prefix=prefix)
+    app.include_router(taxonomy_router, prefix=prefix)
 
 # Repositories & Services for Page Contexts
 _conversation_repo = ConversationRepository()
@@ -72,6 +76,7 @@ def page_inbox(
     filter: str = "all",
     decision: str = "all",
     turns: str = "all",
+    intent: str = "all",
     sort: str = "newest",
     search: str = "",
     page: int = 1,
@@ -82,6 +87,7 @@ def page_inbox(
         status_filter=filter,
         decision_filter=decision,
         turn_filter=turns,
+        intent_filter=intent,
         sort_by=sort,
         search_query=search,
         page=page,
@@ -97,6 +103,7 @@ def page_inbox(
             "active_filter": filter,
             "active_decision": decision,
             "active_turns": turns,
+            "active_intent": intent,
             "active_sort": sort,
             "search_query": search,
             "app_name": settings.APP_NAME,
@@ -151,7 +158,25 @@ def page_decisions(request: Request):
 
 @app.get("/methodology", response_class=HTMLResponse)
 def page_methodology(request: Request):
-    """Render grounding methodology and escalation policy specification."""
+    """Render grounding methodology, intent taxonomy, and escalation policy specification."""
+    import json
+    from pathlib import Path
+
+    taxonomy_schema = None
+    try:
+        taxonomy_schema = load_intent_taxonomy()
+    except Exception:
+        pass
+
+    distribution_data = None
+    dist_file = Path("experiments/intent_distribution.json")
+    if dist_file.exists():
+        try:
+            with open(dist_file, "r", encoding="utf-8") as f:
+                distribution_data = json.load(f)
+        except Exception:
+            pass
+
     return templates.TemplateResponse(
         request=request,
         name="methodology.html",
@@ -159,5 +184,7 @@ def page_methodology(request: Request):
             "active_page": "methodology",
             "app_name": settings.APP_NAME,
             "app_version": settings.APP_VERSION,
+            "taxonomy": taxonomy_schema,
+            "distribution": distribution_data,
         },
     )

@@ -13,6 +13,10 @@ class SimulateRequest(BaseModel):
         None, description="Optional thread/conversation identifier"
     )
     brand: Optional[str] = Field(None, description="Target brand identifier")
+    provider: Optional[str] = Field(
+        None,
+        description="Optional LLM provider: mock, ollama, openai, groq, gemini, claude",
+    )
 
 
 class ConversationFilterRequest(BaseModel):

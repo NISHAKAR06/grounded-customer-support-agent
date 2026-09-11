@@ -4,7 +4,7 @@
 
 Customer support automation often fails in production because generative models prioritize fluency over factual fidelity. When an agent invents refund policies, misinterprets customer frustration, or attempts to resolve ambiguous requests, it creates brand liability and customer churn.
 
-The **Grounded Customer Support Agent** addresses this operational challenge for enterprise shared inboxes (inspired by Hiver's core support operations). It implements a strict pipeline where generation is tethered to historically resolved interactions from the brand, screened by an explainable validation gate, and routed deterministically between automated dispatch (`AUTO_HANDLE`) and human escalation (`HUMAN_ESCALATION`).
+The **Grounded Customer Support Agent** addresses this operational challenge for enterprise shared inboxes (inspired by modern shared inbox support operations). It implements a strict pipeline where generation is tethered to historically resolved interactions from the brand, screened by an explainable validation gate, and routed deterministically between automated dispatch (`AUTO_HANDLE`) and human escalation (`HUMAN_ESCALATION`).
 
 ---
 
@@ -29,7 +29,7 @@ To preserve engineering focus and evaluation integrity, we explicitly chose not 
 
 ## 4. Baseline Comparison & Evaluation Methodology
 
-In strict accordance with the assignment, three distinct classification systems are benchmarked against a held-out test split and a 150–250 hand-labelled Golden Set:
+In strict accordance with the evaluation specification, three distinct classification systems are benchmarked against a held-out test split and a 150–250 hand-labelled Golden Set:
 
 1. **Baseline 1 (Majority Classifier)**: Trivial floor predicting the dominant intent unconditionally.
 2. **Baseline 2 (TF-IDF + Logistic Regression)**: Transparent classical ML baseline with L2 regularization.

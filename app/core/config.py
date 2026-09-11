@@ -32,9 +32,35 @@ class Settings(BaseSettings):
     TEMPLATES_DIR: Path = BASE_DIR / "templates"
 
     # LLM Settings
-    LLM_PROVIDER: str = "gemini"  # 'gemini' or 'local'
+    LLM_PROVIDER: str = "mock"  # 'mock', 'ollama', 'openai', 'groq', 'gemini', 'claude'
+
+    # Mock Provider
+    MOCK_MODEL_NAME: str = "mock-grounded-v1"
+
+    # Ollama Provider (Local)
+    OLLAMA_BASE_URL: str = "http://localhost:11434"
+    OLLAMA_MODEL_NAME: str = "llama3.2"
+
+    # OpenAI Provider
+    OPENAI_API_KEY: Optional[str] = None
+    OPENAI_MODEL_NAME: str = "gpt-4o-mini"
+    OPENAI_BASE_URL: str = "https://api.openai.com/v1"
+
+    # Groq Provider
+    GROQ_API_KEY: Optional[str] = None
+    GROQ_MODEL_NAME: str = "llama-3.1-8b-instant"
+    GROQ_BASE_URL: str = "https://api.groq.com/openai/v1"
+
+    # Gemini Provider
     GEMINI_API_KEY: Optional[str] = None
     GEMINI_MODEL_NAME: str = "gemini-1.5-flash"
+
+    # Claude (Anthropic) Provider
+    ANTHROPIC_API_KEY: Optional[str] = None
+    CLAUDE_API_KEY: Optional[str] = None
+    CLAUDE_MODEL_NAME: str = "claude-3-5-haiku-20241022"
+
+    # Legacy / Local Model Fallback Path
     LOCAL_MODEL_PATH: str = "models/local_llm/default"
     LOCAL_MODEL_DEVICE: str = "cpu"
 
