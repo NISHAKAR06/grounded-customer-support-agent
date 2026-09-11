@@ -1,0 +1,770 @@
+{
+  "metadata": {
+    "test_split_samples": 484,
+    "golden_set_samples": 200,
+    "num_classes": 7,
+    "classes": [
+      "OPERATING_SYSTEM_UPDATES",
+      "BATTERY_POWER_HARDWARE",
+      "ACCOUNT_APPLE_ID",
+      "CONNECTIVITY_NETWORKING",
+      "AUDIO_ACCESSORIES",
+      "SUBSCRIPTIONS_BILLING",
+      "GENERAL_INQUIRY"
+    ]
+  },
+  "held_out_test_split": {
+    "majority_baseline": {
+      "accuracy": 0.4711,
+      "macro_f1": 0.0915,
+      "macro_precision": 0.0673,
+      "macro_recall": 0.1429,
+      "weighted_f1": 0.3017,
+      "per_class": {
+        "OPERATING_SYSTEM_UPDATES": {
+          "precision": 0.0,
+          "recall": 0.0,
+          "f1": 0.0,
+          "support": 186
+        },
+        "BATTERY_POWER_HARDWARE": {
+          "precision": 0.0,
+          "recall": 0.0,
+          "f1": 0.0,
+          "support": 31
+        },
+        "ACCOUNT_APPLE_ID": {
+          "precision": 0.0,
+          "recall": 0.0,
+          "f1": 0.0,
+          "support": 12
+        },
+        "CONNECTIVITY_NETWORKING": {
+          "precision": 0.0,
+          "recall": 0.0,
+          "f1": 0.0,
+          "support": 21
+        },
+        "AUDIO_ACCESSORIES": {
+          "precision": 0.0,
+          "recall": 0.0,
+          "f1": 0.0,
+          "support": 3
+        },
+        "SUBSCRIPTIONS_BILLING": {
+          "precision": 0.0,
+          "recall": 0.0,
+          "f1": 0.0,
+          "support": 3
+        },
+        "GENERAL_INQUIRY": {
+          "precision": 0.4711,
+          "recall": 1.0,
+          "f1": 0.6404,
+          "support": 228
+        }
+      },
+      "confusion_matrix": [
+        [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          186
+        ],
+        [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          31
+        ],
+        [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          12
+        ],
+        [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          21
+        ],
+        [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          3
+        ],
+        [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          3
+        ],
+        [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          228
+        ]
+      ],
+      "classes": [
+        "OPERATING_SYSTEM_UPDATES",
+        "BATTERY_POWER_HARDWARE",
+        "ACCOUNT_APPLE_ID",
+        "CONNECTIVITY_NETWORKING",
+        "AUDIO_ACCESSORIES",
+        "SUBSCRIPTIONS_BILLING",
+        "GENERAL_INQUIRY"
+      ]
+    },
+    "tfidf_logreg_baseline": {
+      "accuracy": 0.8492,
+      "macro_f1": 0.7154,
+      "macro_precision": 0.8546,
+      "macro_recall": 0.6776,
+      "weighted_f1": 0.8481,
+      "per_class": {
+        "OPERATING_SYSTEM_UPDATES": {
+          "precision": 0.8976,
+          "recall": 0.8011,
+          "f1": 0.8466,
+          "support": 186
+        },
+        "BATTERY_POWER_HARDWARE": {
+          "precision": 0.625,
+          "recall": 0.8065,
+          "f1": 0.7042,
+          "support": 31
+        },
+        "ACCOUNT_APPLE_ID": {
+          "precision": 0.7692,
+          "recall": 0.8333,
+          "f1": 0.8,
+          "support": 12
+        },
+        "CONNECTIVITY_NETWORKING": {
+          "precision": 0.8333,
+          "recall": 0.7143,
+          "f1": 0.7692,
+          "support": 21
+        },
+        "AUDIO_ACCESSORIES": {
+          "precision": 1.0,
+          "recall": 0.3333,
+          "f1": 0.5,
+          "support": 3
+        },
+        "SUBSCRIPTIONS_BILLING": {
+          "precision": 1.0,
+          "recall": 0.3333,
+          "f1": 0.5,
+          "support": 3
+        },
+        "GENERAL_INQUIRY": {
+          "precision": 0.8571,
+          "recall": 0.9211,
+          "f1": 0.8879,
+          "support": 228
+        }
+      },
+      "confusion_matrix": [
+        [
+          149,
+          12,
+          0,
+          3,
+          0,
+          0,
+          22
+        ],
+        [
+          0,
+          25,
+          0,
+          0,
+          0,
+          0,
+          6
+        ],
+        [
+          1,
+          0,
+          10,
+          0,
+          0,
+          0,
+          1
+        ],
+        [
+          2,
+          1,
+          0,
+          15,
+          0,
+          0,
+          3
+        ],
+        [
+          1,
+          0,
+          0,
+          0,
+          1,
+          0,
+          1
+        ],
+        [
+          0,
+          0,
+          0,
+          0,
+          0,
+          1,
+          2
+        ],
+        [
+          13,
+          2,
+          3,
+          0,
+          0,
+          0,
+          210
+        ]
+      ],
+      "classes": [
+        "OPERATING_SYSTEM_UPDATES",
+        "BATTERY_POWER_HARDWARE",
+        "ACCOUNT_APPLE_ID",
+        "CONNECTIVITY_NETWORKING",
+        "AUDIO_ACCESSORIES",
+        "SUBSCRIPTIONS_BILLING",
+        "GENERAL_INQUIRY"
+      ]
+    },
+    "rule_based_taxonomy": {
+      "accuracy": 1.0,
+      "macro_f1": 1.0,
+      "macro_precision": 1.0,
+      "macro_recall": 1.0,
+      "weighted_f1": 1.0,
+      "per_class": {
+        "OPERATING_SYSTEM_UPDATES": {
+          "precision": 1.0,
+          "recall": 1.0,
+          "f1": 1.0,
+          "support": 186
+        },
+        "BATTERY_POWER_HARDWARE": {
+          "precision": 1.0,
+          "recall": 1.0,
+          "f1": 1.0,
+          "support": 31
+        },
+        "ACCOUNT_APPLE_ID": {
+          "precision": 1.0,
+          "recall": 1.0,
+          "f1": 1.0,
+          "support": 12
+        },
+        "CONNECTIVITY_NETWORKING": {
+          "precision": 1.0,
+          "recall": 1.0,
+          "f1": 1.0,
+          "support": 21
+        },
+        "AUDIO_ACCESSORIES": {
+          "precision": 1.0,
+          "recall": 1.0,
+          "f1": 1.0,
+          "support": 3
+        },
+        "SUBSCRIPTIONS_BILLING": {
+          "precision": 1.0,
+          "recall": 1.0,
+          "f1": 1.0,
+          "support": 3
+        },
+        "GENERAL_INQUIRY": {
+          "precision": 1.0,
+          "recall": 1.0,
+          "f1": 1.0,
+          "support": 228
+        }
+      },
+      "confusion_matrix": [
+        [
+          186,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        [
+          0,
+          31,
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        [
+          0,
+          0,
+          12,
+          0,
+          0,
+          0,
+          0
+        ],
+        [
+          0,
+          0,
+          0,
+          21,
+          0,
+          0,
+          0
+        ],
+        [
+          0,
+          0,
+          0,
+          0,
+          3,
+          0,
+          0
+        ],
+        [
+          0,
+          0,
+          0,
+          0,
+          0,
+          3,
+          0
+        ],
+        [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          228
+        ]
+      ],
+      "classes": [
+        "OPERATING_SYSTEM_UPDATES",
+        "BATTERY_POWER_HARDWARE",
+        "ACCOUNT_APPLE_ID",
+        "CONNECTIVITY_NETWORKING",
+        "AUDIO_ACCESSORIES",
+        "SUBSCRIPTIONS_BILLING",
+        "GENERAL_INQUIRY"
+      ]
+    }
+  },
+  "golden_evaluation_set": {
+    "majority_baseline": {
+      "accuracy": 0.15,
+      "macro_f1": 0.0373,
+      "macro_precision": 0.0214,
+      "macro_recall": 0.1429,
+      "weighted_f1": 0.0391,
+      "per_class": {
+        "OPERATING_SYSTEM_UPDATES": {
+          "precision": 0.0,
+          "recall": 0.0,
+          "f1": 0.0,
+          "support": 40
+        },
+        "BATTERY_POWER_HARDWARE": {
+          "precision": 0.0,
+          "recall": 0.0,
+          "f1": 0.0,
+          "support": 35
+        },
+        "ACCOUNT_APPLE_ID": {
+          "precision": 0.0,
+          "recall": 0.0,
+          "f1": 0.0,
+          "support": 30
+        },
+        "CONNECTIVITY_NETWORKING": {
+          "precision": 0.0,
+          "recall": 0.0,
+          "f1": 0.0,
+          "support": 25
+        },
+        "AUDIO_ACCESSORIES": {
+          "precision": 0.0,
+          "recall": 0.0,
+          "f1": 0.0,
+          "support": 20
+        },
+        "SUBSCRIPTIONS_BILLING": {
+          "precision": 0.0,
+          "recall": 0.0,
+          "f1": 0.0,
+          "support": 20
+        },
+        "GENERAL_INQUIRY": {
+          "precision": 0.15,
+          "recall": 1.0,
+          "f1": 0.2609,
+          "support": 30
+        }
+      },
+      "confusion_matrix": [
+        [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          40
+        ],
+        [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          35
+        ],
+        [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          30
+        ],
+        [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          25
+        ],
+        [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          20
+        ],
+        [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          20
+        ],
+        [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          30
+        ]
+      ],
+      "classes": [
+        "OPERATING_SYSTEM_UPDATES",
+        "BATTERY_POWER_HARDWARE",
+        "ACCOUNT_APPLE_ID",
+        "CONNECTIVITY_NETWORKING",
+        "AUDIO_ACCESSORIES",
+        "SUBSCRIPTIONS_BILLING",
+        "GENERAL_INQUIRY"
+      ]
+    },
+    "tfidf_logreg_baseline": {
+      "accuracy": 0.71,
+      "macro_f1": 0.6741,
+      "macro_precision": 0.8456,
+      "macro_recall": 0.6581,
+      "weighted_f1": 0.7074,
+      "per_class": {
+        "OPERATING_SYSTEM_UPDATES": {
+          "precision": 0.7391,
+          "recall": 0.85,
+          "f1": 0.7907,
+          "support": 40
+        },
+        "BATTERY_POWER_HARDWARE": {
+          "precision": 0.9032,
+          "recall": 0.8,
+          "f1": 0.8485,
+          "support": 35
+        },
+        "ACCOUNT_APPLE_ID": {
+          "precision": 1.0,
+          "recall": 0.9,
+          "f1": 0.9474,
+          "support": 30
+        },
+        "CONNECTIVITY_NETWORKING": {
+          "precision": 0.8889,
+          "recall": 0.64,
+          "f1": 0.7442,
+          "support": 25
+        },
+        "AUDIO_ACCESSORIES": {
+          "precision": 1.0,
+          "recall": 0.35,
+          "f1": 0.5185,
+          "support": 20
+        },
+        "SUBSCRIPTIONS_BILLING": {
+          "precision": 1.0,
+          "recall": 0.2,
+          "f1": 0.3333,
+          "support": 20
+        },
+        "GENERAL_INQUIRY": {
+          "precision": 0.3881,
+          "recall": 0.8667,
+          "f1": 0.5361,
+          "support": 30
+        }
+      },
+      "confusion_matrix": [
+        [
+          34,
+          2,
+          0,
+          0,
+          0,
+          0,
+          4
+        ],
+        [
+          2,
+          28,
+          0,
+          1,
+          0,
+          0,
+          4
+        ],
+        [
+          1,
+          0,
+          27,
+          0,
+          0,
+          0,
+          2
+        ],
+        [
+          3,
+          0,
+          0,
+          16,
+          0,
+          0,
+          6
+        ],
+        [
+          1,
+          0,
+          0,
+          1,
+          7,
+          0,
+          11
+        ],
+        [
+          1,
+          1,
+          0,
+          0,
+          0,
+          4,
+          14
+        ],
+        [
+          4,
+          0,
+          0,
+          0,
+          0,
+          0,
+          26
+        ]
+      ],
+      "classes": [
+        "OPERATING_SYSTEM_UPDATES",
+        "BATTERY_POWER_HARDWARE",
+        "ACCOUNT_APPLE_ID",
+        "CONNECTIVITY_NETWORKING",
+        "AUDIO_ACCESSORIES",
+        "SUBSCRIPTIONS_BILLING",
+        "GENERAL_INQUIRY"
+      ]
+    },
+    "rule_based_taxonomy": {
+      "accuracy": 1.0,
+      "macro_f1": 1.0,
+      "macro_precision": 1.0,
+      "macro_recall": 1.0,
+      "weighted_f1": 1.0,
+      "per_class": {
+        "OPERATING_SYSTEM_UPDATES": {
+          "precision": 1.0,
+          "recall": 1.0,
+          "f1": 1.0,
+          "support": 40
+        },
+        "BATTERY_POWER_HARDWARE": {
+          "precision": 1.0,
+          "recall": 1.0,
+          "f1": 1.0,
+          "support": 35
+        },
+        "ACCOUNT_APPLE_ID": {
+          "precision": 1.0,
+          "recall": 1.0,
+          "f1": 1.0,
+          "support": 30
+        },
+        "CONNECTIVITY_NETWORKING": {
+          "precision": 1.0,
+          "recall": 1.0,
+          "f1": 1.0,
+          "support": 25
+        },
+        "AUDIO_ACCESSORIES": {
+          "precision": 1.0,
+          "recall": 1.0,
+          "f1": 1.0,
+          "support": 20
+        },
+        "SUBSCRIPTIONS_BILLING": {
+          "precision": 1.0,
+          "recall": 1.0,
+          "f1": 1.0,
+          "support": 20
+        },
+        "GENERAL_INQUIRY": {
+          "precision": 1.0,
+          "recall": 1.0,
+          "f1": 1.0,
+          "support": 30
+        }
+      },
+      "confusion_matrix": [
+        [
+          40,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        [
+          0,
+          35,
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        [
+          0,
+          0,
+          30,
+          0,
+          0,
+          0,
+          0
+        ],
+        [
+          0,
+          0,
+          0,
+          25,
+          0,
+          0,
+          0
+        ],
+        [
+          0,
+          0,
+          0,
+          0,
+          20,
+          0,
+          0
+        ],
+        [
+          0,
+          0,
+          0,
+          0,
+          0,
+          20,
+          0
+        ],
+        [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          30
+        ]
+      ],
+      "classes": [
+        "OPERATING_SYSTEM_UPDATES",
+        "BATTERY_POWER_HARDWARE",
+        "ACCOUNT_APPLE_ID",
+        "CONNECTIVITY_NETWORKING",
+        "AUDIO_ACCESSORIES",
+        "SUBSCRIPTIONS_BILLING",
+        "GENERAL_INQUIRY"
+      ]
+    }
+  }
+}

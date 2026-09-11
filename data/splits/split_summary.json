@@ -1,0 +1,14 @@
+{
+  "total_source_conversations": 3423,
+  "golden_set_isolated": 200,
+  "train_samples": 2256,
+  "val_samples": 483,
+  "test_samples": 484,
+  "split_ratios": {
+    "train": 0.7,
+    "val": 0.15,
+    "test": 0.15
+  },
+  "random_seed": 42,
+  "stratified_by": "intent_code"
+}
