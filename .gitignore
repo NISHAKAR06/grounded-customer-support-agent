@@ -65,6 +65,7 @@ data/interim/*
 !data/interim/.gitkeep
 data/processed/*
 !data/processed/.gitkeep
+!data/processed/applesupport_sample.jsonl
 data/external/*
 !data/external/.gitkeep
 data/samples/*

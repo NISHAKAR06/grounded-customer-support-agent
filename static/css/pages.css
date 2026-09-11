@@ -114,7 +114,212 @@
   border: 1px solid var(--status-human-escalate-border);
 }
 
-/* Inbox Table */
+/* Inbox Table & Toolbar */
+.inbox-toolbar {
+  background: #ffffff;
+  border: 1px solid var(--border-light);
+  border-radius: 8px;
+  padding: 16px;
+  margin-bottom: 16px;
+}
+
+.inbox-controls-form {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.inbox-controls-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+
+.status-pills {
+  display: flex;
+  gap: 6px;
+  flex-wrap: wrap;
+}
+
+.pill-btn {
+  padding: 6px 14px;
+  border-radius: 20px;
+  font-size: 12px;
+  font-weight: 500;
+  color: var(--text-secondary);
+  background: #f1f5f9;
+  border: 1px solid #e2e8f0;
+  text-decoration: none;
+  transition: all 0.15s ease;
+}
+
+.pill-btn:hover {
+  background: #e2e8f0;
+  color: var(--text-primary);
+}
+
+.pill-btn.active {
+  background: #0f172a;
+  color: #ffffff;
+  border-color: #0f172a;
+  font-weight: 600;
+}
+
+.search-input-wrapper {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex: 1;
+  max-width: 380px;
+}
+
+.search-input {
+  flex: 1;
+  height: 36px;
+  padding: 0 12px;
+  font-size: 13px;
+  border: 1px solid var(--border-light);
+  border-radius: 6px;
+  background: #f8fafc;
+  outline: none;
+  transition: border-color 0.15s ease;
+}
+
+.search-input:focus {
+  border-color: #3b82f6;
+  background: #ffffff;
+}
+
+.secondary-controls {
+  padding-top: 10px;
+  border-top: 1px solid #f1f5f9;
+  font-size: 13px;
+  color: var(--text-secondary);
+}
+
+.controls-group {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.control-label {
+  font-size: 12px;
+  font-weight: 500;
+  color: var(--text-muted);
+}
+
+.form-select {
+  height: 34px;
+  padding: 0 10px;
+  font-size: 12px;
+  border: 1px solid var(--border-light);
+  border-radius: 6px;
+  background-color: #ffffff;
+  color: var(--text-primary);
+  outline: none;
+  cursor: pointer;
+}
+
+.records-summary {
+  font-size: 12px;
+  color: var(--text-muted);
+}
+
+/* Pagination Navigation */
+.pagination-footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 14px 20px;
+  border-top: 1px solid var(--border-light);
+  background: #ffffff;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+
+.pagination-info {
+  font-size: 12px;
+  color: var(--text-muted);
+}
+
+.pagination-nav {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.page-link {
+  min-width: 32px;
+  height: 32px;
+  padding: 0 8px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 6px;
+  font-size: 12px;
+  font-weight: 500;
+  color: var(--text-secondary);
+  background: #ffffff;
+  border: 1px solid var(--border-light);
+  text-decoration: none;
+  transition: all 0.15s ease;
+}
+
+.page-link:hover:not(.disabled):not(.active) {
+  background: #f1f5f9;
+  border-color: #cbd5e1;
+  color: var(--text-primary);
+}
+
+.page-link.active {
+  background: #0f172a;
+  color: #ffffff;
+  border-color: #0f172a;
+  font-weight: 600;
+}
+
+.page-link.disabled {
+  opacity: 0.4;
+  pointer-events: none;
+  background: #f8fafc;
+}
+
+.page-link.ellipsis {
+  border: none;
+  background: transparent;
+  cursor: default;
+  color: var(--text-muted);
+  font-weight: 700;
+  letter-spacing: 2px;
+  pointer-events: none;
+  min-width: 24px;
+}
+
+.simulate-action-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 4px 10px;
+  font-size: 11px;
+  font-weight: 600;
+  border-radius: 6px;
+  background: #f8fafc;
+  color: #0284c7;
+  border: 1px solid #bae6fd;
+  text-decoration: none;
+  white-space: nowrap;
+  transition: all 0.15s ease;
+}
+
+.simulate-action-btn:hover {
+  background: #0284c7;
+  color: #ffffff;
+  border-color: #0284c7;
+}
+
 .inbox-filter-bar {
   display: flex;
   gap: 12px;
@@ -153,6 +358,10 @@
 
 .inbox-table tr:hover {
   background-color: #f8fafc;
+}
+
+.inbox-table tr.selected td {
+  background-color: #eff6ff;
 }
 
 /* Evaluation Metrics Grid */

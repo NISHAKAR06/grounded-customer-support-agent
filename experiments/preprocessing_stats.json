@@ -1,0 +1,10 @@
+{
+  "brand": "AppleSupport",
+  "total_source_tweets": 15000,
+  "total_reconstructed_conversations": 3423,
+  "sample_size": 100,
+  "multi_turn_conversations": 1591,
+  "dm_escalated_count": 2134,
+  "kb_linked_count": 0,
+  "resolution_confirmed_count": 507
+}

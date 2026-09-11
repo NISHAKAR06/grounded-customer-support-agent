@@ -6,73 +6,223 @@
 {% block content %}
 <div class="page-header">
   <h1 class="page-title">Support Inbox</h1>
-  <p class="page-subtitle">Unified support operations queue with automated triage and human escalation routing.</p>
+  <p class="page-subtitle">Unified support operations queue with automated triage, intent filtering, and human escalation routing.</p>
 </div>
 
-<!-- Filter Bar -->
-<div class="inbox-filter-bar">
-  <a href="/inbox?filter=all" class="btn btn-sm {% if active_filter == 'all' %}btn-primary{% else %}btn-secondary{% endif %}">
-    All Conversations
-  </a>
-  <a href="/inbox?filter=auto_ready" class="btn btn-sm {% if active_filter == 'auto_ready' %}btn-primary{% else %}btn-secondary{% endif %}">
-    AI Ready
-  </a>
-  <a href="/inbox?filter=needs_human" class="btn btn-sm {% if active_filter == 'needs_human' %}btn-primary{% else %}btn-secondary{% endif %}">
-    Needs Human
-  </a>
-  <a href="/inbox?filter=resolved" class="btn btn-sm {% if active_filter == 'resolved' %}btn-primary{% else %}btn-secondary{% endif %}">
-    Resolved
-  </a>
+<!-- Filter, Search & Sort Control Toolbar -->
+<div class="inbox-toolbar card">
+  <form method="get" action="/inbox" class="inbox-controls-form" id="inboxFilterForm">
+    <!-- Top Row: Status Pills & Search Input -->
+    <div class="inbox-controls-row">
+      <div class="status-pills">
+        <a href="/inbox?filter=all&decision={{ active_decision }}&turns={{ active_turns }}&sort={{ active_sort }}&page_size={{ pagination.page_size }}&search={{ search_query }}" class="pill-btn {% if active_filter == 'all' %}active{% endif %}">
+          All Tickets
+        </a>
+        <a href="/inbox?filter=auto_ready&decision={{ active_decision }}&turns={{ active_turns }}&sort={{ active_sort }}&page_size={{ pagination.page_size }}&search={{ search_query }}" class="pill-btn {% if active_filter == 'auto_ready' %}active{% endif %}">
+          AI Ready
+        </a>
+        <a href="/inbox?filter=needs_human&decision={{ active_decision }}&turns={{ active_turns }}&sort={{ active_sort }}&page_size={{ pagination.page_size }}&search={{ search_query }}" class="pill-btn {% if active_filter == 'needs_human' %}active{% endif %}">
+          Needs Human
+        </a>
+        <a href="/inbox?filter=resolved&decision={{ active_decision }}&turns={{ active_turns }}&sort={{ active_sort }}&page_size={{ pagination.page_size }}&search={{ search_query }}" class="pill-btn {% if active_filter == 'resolved' %}active{% endif %}">
+          Resolved
+        </a>
+      </div>
+
+      <div class="search-input-wrapper">
+        <input
+          type="text"
+          name="search"
+          value="{{ search_query }}"
+          placeholder="Search ticket, customer, or message..."
+          class="search-input"
+          aria-label="Search conversations"
+        />
+        <input type="hidden" name="filter" value="{{ active_filter }}" />
+        <button type="submit" class="btn btn-sm btn-secondary">Search</button>
+        {% if search_query %}
+        <a href="/inbox?filter={{ active_filter }}&decision={{ active_decision }}&turns={{ active_turns }}&sort={{ active_sort }}&page_size={{ pagination.page_size }}" class="btn btn-sm btn-ghost" title="Clear search">✕</a>
+        {% endif %}
+      </div>
+    </div>
+
+    <!-- Secondary Row: Filtering + Sorting + Page Size + Count -->
+    <div class="inbox-controls-row secondary-controls">
+      <div style="display: flex; gap: 14px; flex-wrap: wrap; align-items: center;">
+        <!-- Decision Filter -->
+        <div class="controls-group">
+          <label class="control-label" for="decision-select">Decision:</label>
+          <select name="decision" id="decision-select" class="form-select" onchange="document.getElementById('inboxFilterForm').submit()">
+            <option value="all" {% if active_decision == 'all' %}selected{% endif %}>All Routing</option>
+            <option value="auto_handle" {% if active_decision == 'auto_handle' %}selected{% endif %}>Auto-Handle</option>
+            <option value="human_escalation" {% if active_decision == 'human_escalation' %}selected{% endif %}>Needs Human</option>
+          </select>
+        </div>
+
+        <!-- Turns Depth Filter -->
+        <div class="controls-group">
+          <label class="control-label" for="turns-select">Turns:</label>
+          <select name="turns" id="turns-select" class="form-select" onchange="document.getElementById('inboxFilterForm').submit()">
+            <option value="all" {% if active_turns == 'all' %}selected{% endif %}>All Depths</option>
+            <option value="short" {% if active_turns == 'short' %}selected{% endif %}>1–2 Turns (Quick)</option>
+            <option value="medium" {% if active_turns == 'medium' %}selected{% endif %}>3–4 Turns (Medium)</option>
+            <option value="deep" {% if active_turns == 'deep' %}selected{% endif %}>5+ Turns (Extended)</option>
+          </select>
+        </div>
+
+        <!-- Sorting Selector -->
+        <div class="controls-group">
+          <label class="control-label" for="sort-select">Sort by:</label>
+          <select name="sort" id="sort-select" class="form-select" onchange="document.getElementById('inboxFilterForm').submit()">
+            <option value="newest" {% if active_sort == 'newest' %}selected{% endif %}>Newest First</option>
+            <option value="oldest" {% if active_sort == 'oldest' %}selected{% endif %}>Oldest First</option>
+            <option value="confidence_desc" {% if active_sort == 'confidence_desc' %}selected{% endif %}>Highest Confidence</option>
+            <option value="confidence_asc" {% if active_sort == 'confidence_asc' %}selected{% endif %}>Lowest Confidence</option>
+            <option value="turns_desc" {% if active_sort == 'turns_desc' %}selected{% endif %}>Most Turns (Deepest)</option>
+            <option value="turns_asc" {% if active_sort == 'turns_asc' %}selected{% endif %}>Fewest Turns (Quickest)</option>
+            <option value="ticket_asc" {% if active_sort == 'ticket_asc' %}selected{% endif %}>Ticket ID (A–Z)</option>
+          </select>
+        </div>
+
+        <!-- Records Per Page (10 to 20 records) -->
+        <div class="controls-group">
+          <label class="control-label" for="page-size-select">Per page:</label>
+          <select name="page_size" id="page-size-select" class="form-select" onchange="document.getElementById('inboxFilterForm').submit()">
+            <option value="10" {% if pagination.page_size == 10 %}selected{% endif %}>10 records</option>
+            <option value="15" {% if pagination.page_size == 15 %}selected{% endif %}>15 records</option>
+            <option value="20" {% if pagination.page_size == 20 %}selected{% endif %}>20 records</option>
+            <option value="50" {% if pagination.page_size == 50 %}selected{% endif %}>50 records</option>
+          </select>
+        </div>
+
+        {% if active_filter != 'all' or active_decision != 'all' or active_turns != 'all' or active_sort != 'newest' or search_query %}
+        <a href="/inbox?page_size={{ pagination.page_size }}" class="btn btn-sm btn-ghost" style="font-size: 12px; color: var(--text-muted); text-decoration: none; padding: 4px 8px;" title="Reset all filters">
+          Reset Filters
+        </a>
+        {% endif %}
+      </div>
+
+      <div class="records-summary">
+        Showing <strong>{{ pagination.start_item }}</strong>–<strong>{{ pagination.end_item }}</strong> of <strong>{{ pagination.total_items }}</strong> records
+      </div>
+    </div>
+  </form>
 </div>
 
 <!-- Conversations Table -->
-<div class="card" style="padding: 0; overflow: hidden;">
+<div class="card" style="padding: 0; overflow: hidden; margin-bottom: 24px;">
   <div class="table-responsive">
     <table class="inbox-table">
       <thead>
         <tr>
-          <th style="width: 120px;">Ticket ID</th>
-          <th style="width: 130px;">Customer</th>
-          <th>Latest Message</th>
-          <th style="width: 180px;">Classified Intent</th>
-          <th style="width: 100px;">Confidence</th>
-          <th style="width: 140px;">Status</th>
+          <th style="width: 110px;">Ticket ID</th>
+          <th style="width: 110px;">Customer</th>
+          <th>Inquiry / Message</th>
+          <th style="width: 150px;">Classified Intent</th>
+          <th style="width: 80px;">Turns</th>
+          <th style="width: 90px;">Confidence</th>
+          <th style="width: 120px;">Routing</th>
           <th style="width: 100px;">Time</th>
+          <th style="width: 100px; text-align: center;">Action</th>
         </tr>
       </thead>
       <tbody>
         {% for conv in conversations %}
-        <tr class="inbox-row" data-ticket-id="{{ conv.conversation_id }}" data-message="{{ conv.latest_message }}" style="cursor: pointer;">
-          <td style="font-family: var(--font-mono); font-weight: 600; color: #0f172a;">{{ conv.conversation_id }}</td>
-          <td style="color: var(--text-secondary);">{{ conv.customer_id }}</td>
+        <tr
+          class="inbox-row"
+          data-ticket-id="{{ conv.ticket_id or conv.conversation_id }}"
+          data-message="{{ (conv.first_inquiry or conv.latest_message) | e }}"
+        >
+          <td style="font-family: var(--font-mono); font-weight: 600; color: #0f172a;">
+            {{ conv.ticket_id or conv.conversation_id }}
+          </td>
+          <td style="color: var(--text-secondary); font-size: 12px;">
+            @{{ conv.customer_id }}
+          </td>
           <td style="color: var(--text-primary); font-weight: 500;">
-            {{ conv.latest_message }}
+            {{ conv.first_inquiry or conv.latest_message }}
           </td>
           <td>
-            <span class="badge badge-neutral">{{ conv.intent }}</span>
+            <span class="badge badge-neutral">{{ conv.intent if conv.intent else "Unclassified" }}</span>
+          </td>
+          <td style="color: var(--text-secondary); font-size: 12px;">
+            {{ conv.turn_count or conv.turns|length or 1 }} turns
           </td>
           <td style="font-weight: 600; color: #0f172a;">
-            {{ (conv.confidence * 100)|round|int }}%
+            {% if conv.confidence is defined and conv.confidence is not none %}
+              {{ (conv.confidence * 100)|round|int }}%
+            {% else %}
+              —
+            {% endif %}
           </td>
           <td>
-            {% if conv.decision == 'AUTO_HANDLE' %}
+            {% if conv.decision == 'AUTO_HANDLE' or conv.status == 'Resolved' or conv.status == 'AI Ready' %}
             <span class="badge badge-auto">Auto-Handle</span>
             {% else %}
             <span class="badge badge-human">Needs Human</span>
             {% endif %}
           </td>
-          <td style="color: var(--text-muted); font-size: 12px;">{{ conv.timestamp }}</td>
+          <td style="color: var(--text-muted); font-size: 11px;">
+            {{ conv.created_at or conv.timestamp or '' }}
+          </td>
+          <td style="text-align: center;">
+            <a
+              href="/simulate?msg={{ (conv.first_inquiry or conv.latest_message) | urlencode }}"
+              class="simulate-action-btn"
+              title="Test this message in Simulate workspace"
+            >
+              Simulate ↗
+            </a>
+          </td>
         </tr>
         {% else %}
         <tr>
-          <td colspan="7" style="text-align: center; padding: 32px; color: var(--text-muted);">
-            No conversations found for this filter.
+          <td colspan="9" style="text-align: center; padding: 48px 24px; color: var(--text-muted);">
+            <div style="font-size: 15px; font-weight: 600; margin-bottom: 4px; color: var(--text-primary);">No conversations match your criteria</div>
+            <div style="font-size: 13px;">Try clearing your search query or selecting a different status filter.</div>
           </td>
         </tr>
         {% endfor %}
       </tbody>
     </table>
   </div>
+
+  <!-- Pagination Bar (1 2 3 4 5 ...) -->
+  {% if pagination.total_pages > 1 %}
+  <div class="pagination-footer">
+    <div class="pagination-info">
+      Page <strong>{{ pagination.current_page }}</strong> of <strong>{{ pagination.total_pages }}</strong>
+    </div>
+
+    <div class="pagination-nav">
+      {% if pagination.has_prev %}
+      <a href="/inbox?filter={{ active_filter }}&decision={{ active_decision }}&turns={{ active_turns }}&sort={{ active_sort }}&search={{ search_query }}&page_size={{ pagination.page_size }}&page=1" class="page-link" title="First Page">«</a>
+      <a href="/inbox?filter={{ active_filter }}&decision={{ active_decision }}&turns={{ active_turns }}&sort={{ active_sort }}&search={{ search_query }}&page_size={{ pagination.page_size }}&page={{ pagination.prev_page }}" class="page-link" title="Previous Page">‹ Prev</a>
+      {% else %}
+      <span class="page-link disabled">«</span>
+      <span class="page-link disabled">‹ Prev</span>
+      {% endif %}
+
+      {% for p in pagination.pages_display %}
+        {% if p == '...' %}
+        <span class="page-link ellipsis" title="More pages">…</span>
+        {% elif p == pagination.current_page %}
+        <span class="page-link active" aria-current="page">{{ p }}</span>
+        {% else %}
+        <a href="/inbox?filter={{ active_filter }}&decision={{ active_decision }}&turns={{ active_turns }}&sort={{ active_sort }}&search={{ search_query }}&page_size={{ pagination.page_size }}&page={{ p }}" class="page-link">{{ p }}</a>
+        {% endif %}
+      {% endfor %}
+
+      {% if pagination.has_next %}
+      <a href="/inbox?filter={{ active_filter }}&decision={{ active_decision }}&turns={{ active_turns }}&sort={{ active_sort }}&search={{ search_query }}&page_size={{ pagination.page_size }}&page={{ pagination.next_page }}" class="page-link" title="Next Page">Next ›</a>
+      <a href="/inbox?filter={{ active_filter }}&decision={{ active_decision }}&turns={{ active_turns }}&sort={{ active_sort }}&search={{ search_query }}&page_size={{ pagination.page_size }}&page={{ pagination.total_pages }}" class="page-link" title="Last Page">»</a>
+      {% else %}
+      <span class="page-link disabled">Next ›</span>
+      <span class="page-link disabled">»</span>
+      {% endif %}
+    </div>
+  </div>
+  {% endif %}
 </div>
 {% endblock %}
 

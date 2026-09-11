@@ -22,11 +22,32 @@ def test_simulate_page_renders():
     assert "Run AI Agent" in response.text
 
 
+def test_simulate_page_preloads_message_from_query_param():
+    """Verify /simulate?msg=... pre-populates the customer message textarea."""
+    test_msg = "My iPhone 7 battery is draining very fast after iOS 11.1"
+    response = client.get(f"/simulate?msg={test_msg}")
+    assert response.status_code == 200
+    assert test_msg in response.text
+
+
 def test_inbox_page_renders():
     """Verify /inbox renders HTML table."""
     response = client.get("/inbox")
     assert response.status_code == 200
     assert "Support Inbox" in response.text
+    assert "Showing" in response.text
+    assert "records" in response.text
+
+
+def test_inbox_page_with_filters_sorting_and_pagination():
+    """Verify /inbox handles filter, decision, turns, sort, and pagination query params."""
+    response = client.get(
+        "/inbox?filter=needs_human&decision=human_escalation&turns=deep&sort=turns_desc&page=1&page_size=10"
+    )
+    assert response.status_code == 200
+    assert "Needs Human" in response.text
+    assert "Support Inbox" in response.text
+    assert "Per page:" in response.text
 
 
 def test_evaluation_page_renders():

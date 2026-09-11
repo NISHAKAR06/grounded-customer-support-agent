@@ -52,13 +52,14 @@ def root():
 
 
 @app.get("/simulate", response_class=HTMLResponse)
-def page_simulate(request: Request):
+def page_simulate(request: Request, msg: str = ""):
     """Render the primary Simulate Incoming Message workspace."""
     return templates.TemplateResponse(
         request=request,
         name="simulate.html",
         context={
             "active_page": "simulate",
+            "initial_message": msg,
             "app_name": settings.APP_NAME,
             "app_version": settings.APP_VERSION,
         },
@@ -66,16 +67,38 @@ def page_simulate(request: Request):
 
 
 @app.get("/inbox", response_class=HTMLResponse)
-def page_inbox(request: Request, filter: str = "all"):
-    """Render the Support Inbox workspace."""
-    conversations = _conversation_repo.list_conversations(status_filter=filter)
+def page_inbox(
+    request: Request,
+    filter: str = "all",
+    decision: str = "all",
+    turns: str = "all",
+    sort: str = "newest",
+    search: str = "",
+    page: int = 1,
+    page_size: int = 10,
+):
+    """Render the Support Inbox workspace with filtering, sorting, and pagination."""
+    pagination_data = _conversation_repo.paginate(
+        status_filter=filter,
+        decision_filter=decision,
+        turn_filter=turns,
+        sort_by=sort,
+        search_query=search,
+        page=page,
+        page_size=page_size,
+    )
     return templates.TemplateResponse(
         request=request,
         name="inbox.html",
         context={
             "active_page": "inbox",
-            "conversations": conversations,
+            "conversations": pagination_data["items"],
+            "pagination": pagination_data,
             "active_filter": filter,
+            "active_decision": decision,
+            "active_turns": turns,
+            "active_sort": sort,
+            "search_query": search,
             "app_name": settings.APP_NAME,
             "app_version": settings.APP_VERSION,
         },

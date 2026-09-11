@@ -8,6 +8,14 @@ document.addEventListener('DOMContentLoaded', () => {
   const timelineContainer = document.getElementById('agent-timeline');
   const resultContainer = document.getElementById('case-result-container');
 
+  // Check URL query parameters for preloaded message (e.g. from Inbox)
+  const urlParams = new URLSearchParams(window.location.search);
+  const preloadedMsg = urlParams.get('msg');
+  if (preloadedMsg && messageInput) {
+    messageInput.value = preloadedMsg;
+    messageInput.focus();
+  }
+
   // Example message loaders
   document.querySelectorAll('.example-chip').forEach(btn => {
     btn.addEventListener('click', () => {
