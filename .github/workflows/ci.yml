@@ -54,10 +54,11 @@ jobs:
       - name: Install Dependencies
         run: |
           python -m pip install --upgrade pip
-          # Pre-install lightweight CPU torch to optimize CI build time
-          pip install torch --index-url https://download.pytorch.org/whl/cpu
+          # Pre-install lightweight CPU torch alongside PyPI
+          pip install torch --extra-index-url https://download.pytorch.org/whl/cpu
           pip install -r requirements.txt
           pip install -r requirements-dev.txt
+
 
       - name: Run Pytest Suite with Coverage
         run: |
