@@ -20,9 +20,7 @@ import sys
 from pathlib import Path
 from typing import Any, Dict, List
 
-logging.basicConfig(
-    level=logging.INFO, format="%(asctime)s [%(levelname)s] %(message)s"
-)
+logging.basicConfig(level=logging.INFO, format="%(asctime)s [%(levelname)s] %(message)s")
 logger = logging.getLogger(__name__)
 
 BASE_DIR = Path(__file__).resolve().parent.parent.parent
@@ -60,8 +58,7 @@ def load_queries_from_jsonl(path: Path) -> List[Dict[str, Any]]:
             if customer_text:
                 records.append(
                     {
-                        "case_id": item.get("conversation_id")
-                        or item.get("sample_id", ""),
+                        "case_id": item.get("conversation_id") or item.get("sample_id", ""),
                         "query": customer_text,
                         "ground_truth_intent": intent,
                     }
@@ -152,9 +149,7 @@ def evaluate_retrieval_on_dataset(
     recall_5 = round(hits_at_5 / n, 4) if n else 0.0
     mrr = round(sum(reciprocal_ranks) / n, 4) if n else 0.0
     mean_top1_sim = (
-        round(sum(top1_similarities) / len(top1_similarities), 4)
-        if top1_similarities
-        else 0.0
+        round(sum(top1_similarities) / len(top1_similarities), 4) if top1_similarities else 0.0
     )
 
     intent_breakdown = {}

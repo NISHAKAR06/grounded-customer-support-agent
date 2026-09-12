@@ -25,6 +25,15 @@ ignore = [
     "E501",  # line too long (handled by formatter)
 ]
 
+[tool.black]
+line-length = 100
+target-version = ["py311"]
+extend-exclude = '''
+/(
+  notebooks
+)/
+'''
+
 [tool.pytest.ini_options]
 testpaths = ["tests"]
 python_files = ["test_*.py"]

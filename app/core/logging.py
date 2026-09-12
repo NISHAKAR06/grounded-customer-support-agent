@@ -13,9 +13,7 @@ class CorrelationFilter(logging.Filter):
         return True
 
 
-def setup_logger(
-    name: str = "customer_support_agent", log_level: str = "INFO"
-) -> logging.Logger:
+def setup_logger(name: str = "customer_support_agent", log_level: str = "INFO") -> logging.Logger:
     """Initialize and configure a structured logger."""
     logger = logging.getLogger(name)
 

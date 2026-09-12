@@ -16,9 +16,7 @@ router = APIRouter(prefix="/v1/taxonomy", tags=["Taxonomy"])
 
 
 class ClassifyTextRequest(BaseModel):
-    text: str = Field(
-        ..., min_length=1, max_length=2000, description="Customer text to classify"
-    )
+    text: str = Field(..., min_length=1, max_length=2000, description="Customer text to classify")
 
 
 class TaxonomyResponse(BaseModel):
@@ -32,9 +30,7 @@ def get_taxonomy() -> TaxonomyResponse:
     try:
         schema = load_intent_taxonomy()
     except Exception as ex:
-        raise HTTPException(
-            status_code=500, detail=f"Failed to load taxonomy specification: {ex}"
-        )
+        raise HTTPException(status_code=500, detail=f"Failed to load taxonomy specification: {ex}")
 
     distribution_data = None
     dist_file = Path("experiments/intent_distribution.json")

@@ -69,9 +69,7 @@ class OllamaProvider(BaseLLMProvider):
 
                     if response.status_code != 200:
                         error_detail = response.text
-                        logger.error(
-                            f"Ollama returned HTTP {response.status_code}: {error_detail}"
-                        )
+                        logger.error(f"Ollama returned HTTP {response.status_code}: {error_detail}")
                         raise LLMProviderException(
                             f"Ollama error (HTTP {response.status_code}): {error_detail}"
                         )
@@ -79,14 +77,10 @@ class OllamaProvider(BaseLLMProvider):
                 data = response.json()
                 reply = data.get("response", "").strip()
                 if not reply:
-                    raise LLMProviderException(
-                        "Ollama returned an empty response string."
-                    )
+                    raise LLMProviderException("Ollama returned an empty response string.")
                 return reply
         except httpx.ConnectError as ex:
-            logger.warning(
-                f"Cannot connect to Ollama at {self.base_url}. Service may be offline."
-            )
+            logger.warning(f"Cannot connect to Ollama at {self.base_url}. Service may be offline.")
             raise LLMProviderException(
                 f"Ollama connection refused at {self.base_url}. Ensure 'ollama serve' is running."
             ) from ex

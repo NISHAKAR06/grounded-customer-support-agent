@@ -87,9 +87,7 @@ def test_response_validator_passes_valid_reply():
     validator = ResponseValidator()
     evidence = [get_sample_historical_case()]
 
-    good_reply = (
-        "We can certainly help update your address. Please provide your order ID."
-    )
+    good_reply = "We can certainly help update your address. Please provide your order ID."
     result = validator.validate(good_reply, evidence)
     assert result.all_passed is True
 

@@ -45,9 +45,7 @@ def test_faiss_index_properties(settings):
 
 def test_retriever_returns_valid_cases(retriever):
     """Verify live retrieval returns populated HistoricalCase domain models."""
-    results = retriever.retrieve(
-        "my battery drains quickly after updating to ios 11", top_k=3
-    )
+    results = retriever.retrieve("my battery drains quickly after updating to ios 11", top_k=3)
 
     assert len(results) == 3
     for case in results:

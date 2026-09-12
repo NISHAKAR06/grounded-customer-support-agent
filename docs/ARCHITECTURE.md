@@ -80,8 +80,7 @@ app/
 │   │   ├── agent_orchestrator.py # Master pipeline coordinator
 │   │   └── agent_context.py      # Working memory & run state
 │   ├── intent/
-│   │   ├── intent_classifier.py  # Intent inference interface & implementations
-│   │   └── model_loader.py       # Thread-safe model artifact caching
+│   │   └── intent_classifier.py  # Intent inference interface & implementations
 │   ├── retrieval/
 │   │   ├── retriever.py          # Vector query & candidate fetcher
 │   │   └── evidence_ranker.py    # Resolution scoring & similarity filtering

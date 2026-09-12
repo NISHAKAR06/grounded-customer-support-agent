@@ -20,9 +20,7 @@ class ConversationRepository:
         self._conversations: List[Dict[str, Any]] = []
         self._load_conversations()
 
-    def _resolve_data_path(
-        self, data_path: Optional[Path], settings: Any
-    ) -> Optional[Path]:
+    def _resolve_data_path(self, data_path: Optional[Path], settings: Any) -> Optional[Path]:
         if data_path and data_path.is_file():
             return data_path
 
@@ -173,9 +171,7 @@ class ConversationRepository:
         )
         total_items = len(items)
         page_size = max(5, min(page_size, 100))
-        total_pages = (
-            max(1, math.ceil(total_items / page_size)) if total_items > 0 else 1
-        )
+        total_pages = max(1, math.ceil(total_items / page_size)) if total_items > 0 else 1
         page = max(1, min(page, total_pages))
 
         start_idx = (page - 1) * page_size

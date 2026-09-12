@@ -35,9 +35,7 @@ def test_get_taxonomy_endpoint():
 
 def test_classify_text_endpoint_canonical_os():
     """Verify POST /api/v1/taxonomy/classify identifies OS update inquiries."""
-    payload = {
-        "text": "My iPhone is frozen and stuck on 'Verifying update' for iOS 11.0.3."
-    }
+    payload = {"text": "My iPhone is frozen and stuck on 'Verifying update' for iOS 11.0.3."}
     response = client.post("/api/v1/taxonomy/classify", json=payload)
     assert response.status_code == 200
     data = response.json()
@@ -50,9 +48,7 @@ def test_classify_text_endpoint_canonical_os():
 
 def test_classify_text_endpoint_hardware_safety_precedence():
     """Verify POST /api/v1/taxonomy/classify correctly applies safety disambiguation."""
-    payload = {
-        "text": "After the update the iPhone battery became burning hot and swollen."
-    }
+    payload = {"text": "After the update the iPhone battery became burning hot and swollen."}
     response = client.post("/api/v1/taxonomy/classify", json=payload)
     assert response.status_code == 200
     data = response.json()

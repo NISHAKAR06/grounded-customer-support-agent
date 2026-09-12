@@ -18,21 +18,18 @@
     </div>
 
     <label class="form-label" for="customer-message-input">Customer Message</label>
-    <textarea
-      id="customer-message-input"
-      class="form-textarea"
-      placeholder="Type an Apple customer inquiry, e.g., 'My iPhone is stuck on Verifying update for iOS 11...'"
-    >{{ initial_message or '' }}</textarea>
+    <textarea id="customer-message-input" class="form-textarea"
+      placeholder="Type an Apple customer inquiry, e.g., 'My iPhone is stuck on Verifying update for iOS 11...'">{{ initial_message or '' }}</textarea>
 
     <div style="margin-top: 20px; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 12px;">
       <div style="display: flex; align-items: center; gap: 10px;">
         <label for="llm-provider-select" style="font-size: 13px; font-weight: 600; color: #475569;">LLM Provider:</label>
         <select id="llm-provider-select" style="padding: 8px 12px; font-size: 13px; font-weight: 500; border-radius: 6px; border: 1px solid #cbd5e1; background: #ffffff; color: #0f172a; cursor: pointer;">
-          <option value="groq" selected>⚡ Groq (Llama-3.1 / Compound-Mini)</option>
-          <option value="ollama">🦙 Ollama (Local Self-Hosted)</option>
-          <option value="openai">⚡ OpenAI (GPT-4o mini)</option>
-          <option value="gemini">✨ Google Gemini (1.5 Flash)</option>
-          <option value="claude">🧠 Anthropic Claude (3.5 Haiku)</option>
+          <option value="groq" selected>Groq (Llama-3.1 / Compound-Mini)</option>
+          <option value="ollama">Ollama (Local Self-Hosted)</option>
+          <option value="openai">OpenAI (GPT-4o mini)</option>
+          <option value="gemini">Google Gemini (1.5 Flash)</option>
+          <option value="claude">Anthropic Claude (3.5 Haiku)</option>
         </select>
         <span id="provider-status-badge" class="badge badge-auto" style="font-size: 11px;">Active</span>
       </div>

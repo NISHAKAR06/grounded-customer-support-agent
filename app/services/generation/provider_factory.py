@@ -41,9 +41,7 @@ class LLMProviderFactory:
         return alias_map.get(clean, clean)
 
     @classmethod
-    def create_provider(
-        cls, provider_name: Optional[str] = None, **kwargs
-    ) -> BaseLLMProvider:
+    def create_provider(cls, provider_name: Optional[str] = None, **kwargs) -> BaseLLMProvider:
         """Instantiate an LLM provider by identifier name."""
         name = cls.normalize_provider_name(provider_name)
 
@@ -122,9 +120,7 @@ class LLMProviderFactory:
                 "badge": "Cloud API",
                 "description": "OpenAI official Chat Completions API",
                 "model": settings.OPENAI_MODEL_NAME,
-                "configured": is_valid_key(
-                    settings.OPENAI_API_KEY, "your_openai_api_key"
-                ),
+                "configured": is_valid_key(settings.OPENAI_API_KEY, "your_openai_api_key"),
                 "is_active": active_provider == "openai",
                 "type": "cloud_api",
             },
@@ -134,9 +130,7 @@ class LLMProviderFactory:
                 "badge": "Cloud Multimodal",
                 "description": "Google AI Studio / Vertex Gemini API",
                 "model": settings.GEMINI_MODEL_NAME,
-                "configured": is_valid_key(
-                    settings.GEMINI_API_KEY, "your_gemini_api_key"
-                ),
+                "configured": is_valid_key(settings.GEMINI_API_KEY, "your_gemini_api_key"),
                 "is_active": active_provider == "gemini",
                 "type": "cloud_api",
             },

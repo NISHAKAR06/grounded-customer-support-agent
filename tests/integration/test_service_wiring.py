@@ -44,18 +44,13 @@ def test_orchestrator_wiring_with_fixture_retriever():
 
 def test_orchestrator_wiring_without_index_zero_mock_escalation():
     """Verify AgentOrchestrator safely escalates to human when no vector index exists."""
-    orchestrator = (
-        AgentOrchestrator()
-    )  # Default retriever has no index prior to Phase 7
+    orchestrator = AgentOrchestrator()  # Default retriever has no index prior to Phase 7
     result = orchestrator.run(customer_message="I need to change my shipping address.")
 
     assert result.run_id.startswith("run_")
     assert len(result.retrieval.evidence) == 0
     assert result.routing.decision == RoutingDecision.HUMAN_ESCALATION
-    assert any(
-        "No historical resolved support cases found" in r
-        for r in result.routing.reasons
-    )
+    assert any("No historical resolved support cases found" in r for r in result.routing.reasons)
 
 
 def test_llm_service_circuit_breaker_fallback():

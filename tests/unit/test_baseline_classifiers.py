@@ -79,9 +79,7 @@ def test_train_val_test_splits_exist_and_leak_free():
                     assert (
                         cid not in golden_ids
                     ), f"Data leakage detected: {cid} in golden set and {name}"
-                    assert (
-                        cid not in split_ids
-                    ), f"Duplicate conversation {cid} across splits"
+                    assert cid not in split_ids, f"Duplicate conversation {cid} across splits"
                     split_ids.add(cid)
 
     assert len(split_ids) == 3223

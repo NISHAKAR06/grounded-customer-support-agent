@@ -19,18 +19,14 @@ class EvaluationService:
         self.results_path = results_path or (
             settings.BASE_DIR / "experiments" / "baseline_benchmarks.json"
         )
-        self.golden_summary_path = (
-            settings.BASE_DIR / "data" / "golden" / "golden_set_summary.json"
-        )
+        self.golden_summary_path = settings.BASE_DIR / "data" / "golden" / "golden_set_summary.json"
         self.retrieval_benchmarks_path = (
             settings.BASE_DIR / "experiments" / "retrieval_benchmarks.json"
         )
         self.generation_benchmarks_path = (
             settings.BASE_DIR / "experiments" / "generation_benchmarks.json"
         )
-        self.judge_benchmarks_path = (
-            settings.BASE_DIR / "experiments" / "judge_benchmarks.json"
-        )
+        self.judge_benchmarks_path = settings.BASE_DIR / "experiments" / "judge_benchmarks.json"
 
     def get_benchmark_summary(self) -> Dict[str, Any]:
         """Return benchmark comparison metrics across systems."""
@@ -51,21 +47,13 @@ class EvaluationService:
                     bms = rb.get("benchmarks", {})
                     retrieval_data = {
                         "status": "completed",
-                        "model": rb.get(
-                            "model", "sentence-transformers/all-MiniLM-L6-v2"
-                        ),
-                        "index_type": rb.get(
-                            "index_type", "FAISS IndexFlatIP (Cosine Similarity)"
-                        ),
+                        "model": rb.get("model", "sentence-transformers/all-MiniLM-L6-v2"),
+                        "index_type": rb.get("index_type", "FAISS IndexFlatIP (Cosine Similarity)"),
                         "source_index_size": rb.get("source_index_size", 2245),
                         "test_unconditioned": bms.get("test_split_unconditioned", {}),
-                        "test_intent_conditioned": bms.get(
-                            "test_split_intent_conditioned", {}
-                        ),
+                        "test_intent_conditioned": bms.get("test_split_intent_conditioned", {}),
                         "golden_unconditioned": bms.get("golden_set_unconditioned", {}),
-                        "golden_intent_conditioned": bms.get(
-                            "golden_set_intent_conditioned", {}
-                        ),
+                        "golden_intent_conditioned": bms.get("golden_set_intent_conditioned", {}),
                     }
             except Exception:
                 pass
@@ -91,32 +79,18 @@ class EvaluationService:
                 with open(self.results_path, "r", encoding="utf-8") as f:
                     data = json.load(f)
 
-                test_maj = data.get("held_out_test_split", {}).get(
-                    "majority_baseline", {}
-                )
-                test_lr = data.get("held_out_test_split", {}).get(
-                    "tfidf_logreg_baseline", {}
-                )
-                test_rule = data.get("held_out_test_split", {}).get(
-                    "rule_based_taxonomy", {}
-                )
+                test_maj = data.get("held_out_test_split", {}).get("majority_baseline", {})
+                test_lr = data.get("held_out_test_split", {}).get("tfidf_logreg_baseline", {})
+                test_rule = data.get("held_out_test_split", {}).get("rule_based_taxonomy", {})
 
-                golden_maj = data.get("golden_evaluation_set", {}).get(
-                    "majority_baseline", {}
-                )
-                golden_lr = data.get("golden_evaluation_set", {}).get(
-                    "tfidf_logreg_baseline", {}
-                )
-                golden_rule = data.get("golden_evaluation_set", {}).get(
-                    "rule_based_taxonomy", {}
-                )
+                golden_maj = data.get("golden_evaluation_set", {}).get("majority_baseline", {})
+                golden_lr = data.get("golden_evaluation_set", {}).get("tfidf_logreg_baseline", {})
+                golden_rule = data.get("golden_evaluation_set", {}).get("rule_based_taxonomy", {})
 
                 return {
                     "status": "completed",
                     "golden_set_count": golden_count,
-                    "test_set_count": data.get("metadata", {}).get(
-                        "test_split_samples", 484
-                    ),
+                    "test_set_count": data.get("metadata", {}).get("test_split_samples", 484),
                     "models": {
                         "majority_baseline": {
                             "name": "Majority Classifier",

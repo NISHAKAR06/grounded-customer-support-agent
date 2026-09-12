@@ -101,16 +101,12 @@ def analyze_dataset(chunksize: int = 150000) -> Dict[str, Any]:
         unique_customer_ids.update(inbound_df["author_id"].dropna().unique().tolist())
 
         # Topology metrics
-        root_inbound_inquiries += int(
-            inbound_df["in_response_to_tweet_id"].isna().sum()
-        )
+        root_inbound_inquiries += int(inbound_df["in_response_to_tweet_id"].isna().sum())
         reply_inbound_turns += int(inbound_df["in_response_to_tweet_id"].notna().sum())
 
         # Customer gratitude check on inbound
         inbound_texts = inbound_df["text"].dropna().astype(str)
-        gratitude_count += int(
-            inbound_texts.apply(lambda t: bool(gratitude_regex.search(t))).sum()
-        )
+        gratitude_count += int(inbound_texts.apply(lambda t: bool(gratitude_regex.search(t))).sum())
 
         # Outbound (brand) analysis
         outbound_df = chunk[~inbound_mask]
@@ -121,18 +117,12 @@ def analyze_dataset(chunksize: int = 150000) -> Dict[str, Any]:
             brand_outbound_counts[str(brand)] += int(cnt)
 
         # Multi-reply checks (response_tweet_id containing comma)
-        multi_reply_parent_count += int(
-            chunk["response_tweet_id"].dropna().str.contains(",").sum()
-        )
+        multi_reply_parent_count += int(chunk["response_tweet_id"].dropna().str.contains(",").sum())
 
         # Brand responses text cues
         outbound_texts = outbound_df["text"].dropna().astype(str)
-        dm_escalation_count += int(
-            outbound_texts.apply(lambda t: bool(dm_regex.search(t))).sum()
-        )
-        url_reference_count += int(
-            outbound_texts.apply(lambda t: bool(url_regex.search(t))).sum()
-        )
+        dm_escalation_count += int(outbound_texts.apply(lambda t: bool(dm_regex.search(t))).sum())
+        url_reference_count += int(outbound_texts.apply(lambda t: bool(url_regex.search(t))).sum())
 
     # Compile Top Brands
     top_brands = []
@@ -168,9 +158,7 @@ def analyze_dataset(chunksize: int = 150000) -> Dict[str, Any]:
         "temporal_range": {
             "min_date": str(min_date) if min_date else None,
             "max_date": str(max_date) if max_date else None,
-            "span_days": (
-                (max_date - min_date).days if (min_date and max_date) else None
-            ),
+            "span_days": ((max_date - min_date).days if (min_date and max_date) else None),
         },
         "schema_missingness": {
             col: {
@@ -184,9 +172,7 @@ def analyze_dataset(chunksize: int = 150000) -> Dict[str, Any]:
         "conversation_topology": {
             "root_customer_inquiries": root_inbound_inquiries,
             "root_customer_percentage": (
-                round((root_inbound_inquiries / inbound_count) * 100, 2)
-                if inbound_count
-                else 0
+                round((root_inbound_inquiries / inbound_count) * 100, 2) if inbound_count else 0
             ),
             "follow_up_customer_turns": reply_inbound_turns,
             "brand_in_reply_turns": brand_replies,
@@ -196,15 +182,11 @@ def analyze_dataset(chunksize: int = 150000) -> Dict[str, Any]:
         "behavioral_and_resolution_signals": {
             "brand_dm_referrals": dm_escalation_count,
             "brand_dm_percentage": (
-                round((dm_escalation_count / outbound_count) * 100, 2)
-                if outbound_count
-                else 0
+                round((dm_escalation_count / outbound_count) * 100, 2) if outbound_count else 0
             ),
             "brand_link_referrals": url_reference_count,
             "brand_link_percentage": (
-                round((url_reference_count / outbound_count) * 100, 2)
-                if outbound_count
-                else 0
+                round((url_reference_count / outbound_count) * 100, 2) if outbound_count else 0
             ),
             "customer_gratitude_signals": gratitude_count,
         },

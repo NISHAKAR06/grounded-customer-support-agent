@@ -12,12 +12,8 @@ class GoldenSetRepository:
 
     def __init__(self, data_path: Optional[Path] = None):
         self.settings = get_settings()
-        self.data_path = data_path or (
-            self.settings.DATA_DIR / "golden" / "golden_set.jsonl"
-        )
-        self.summary_path = (
-            self.settings.DATA_DIR / "golden" / "golden_set_summary.json"
-        )
+        self.data_path = data_path or (self.settings.DATA_DIR / "golden" / "golden_set.jsonl")
+        self.summary_path = self.settings.DATA_DIR / "golden" / "golden_set_summary.json"
         self._samples: Optional[List[Dict[str, Any]]] = None
 
     def _ensure_loaded(self) -> List[Dict[str, Any]]:

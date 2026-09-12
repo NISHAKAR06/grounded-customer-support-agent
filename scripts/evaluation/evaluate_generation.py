@@ -15,9 +15,7 @@ if str(BASE_DIR) not in sys.path:
 from app.core.config import get_settings  # noqa: E402
 from app.services.agent.agent_orchestrator import AgentOrchestrator  # noqa: E402
 
-logging.basicConfig(
-    level=logging.INFO, format="%(asctime)s [%(levelname)s] %(message)s"
-)
+logging.basicConfig(level=logging.INFO, format="%(asctime)s [%(levelname)s] %(message)s")
 logger = logging.getLogger("evaluate_generation")
 
 
@@ -36,9 +34,7 @@ def evaluate_grounded_generation() -> Dict[str, Any]:
             if line:
                 samples.append(json.loads(line))
 
-    logger.info(
-        f"Loaded {len(samples)} golden set samples for grounded generation evaluation."
-    )
+    logger.info(f"Loaded {len(samples)} golden set samples for grounded generation evaluation.")
 
     results = []
     barrier_counts = {
@@ -117,23 +113,15 @@ def evaluate_grounded_generation() -> Dict[str, Any]:
         "total_samples": total_samples,
         "elapsed_seconds": total_time,
         "validation_pass_rate": round(all_passed_count / total_samples, 4),
-        "barrier_pass_rates": {
-            k: round(v / total_samples, 4) for k, v in barrier_counts.items()
-        },
+        "barrier_pass_rates": {k: round(v / total_samples, 4) for k, v in barrier_counts.items()},
         "routing_distribution": {
             "auto_handle_count": routing_counts["AUTO_HANDLE"],
             "auto_handle_pct": round(routing_counts["AUTO_HANDLE"] / total_samples, 4),
             "human_escalation_count": routing_counts["HUMAN_ESCALATION"],
-            "human_escalation_pct": round(
-                routing_counts["HUMAN_ESCALATION"] / total_samples, 4
-            ),
+            "human_escalation_pct": round(routing_counts["HUMAN_ESCALATION"] / total_samples, 4),
         },
-        "mean_grounding_fidelity_score": round(
-            sum(grounding_scores) / len(grounding_scores), 4
-        ),
-        "mean_latencies_ms": {
-            k: round(sum(v) / len(v), 2) for k, v in latencies.items()
-        },
+        "mean_grounding_fidelity_score": round(sum(grounding_scores) / len(grounding_scores), 4),
+        "mean_latencies_ms": {k: round(sum(v) / len(v), 2) for k, v in latencies.items()},
     }
 
     out_path = settings.BASE_DIR / "experiments" / "generation_benchmarks.json"
@@ -144,12 +132,8 @@ def evaluate_grounded_generation() -> Dict[str, Any]:
     logger.info(f"Generation benchmarks saved to: {out_path}")
     print("\n=== GROUNDED GENERATION & VALIDATION BENCHMARKS SUMMARY ===")
     print(f"Total Evaluated:              {total_samples} Golden Samples")
-    print(
-        f"Validation Pass Rate:         {benchmarks['validation_pass_rate'] * 100:.2f}%"
-    )
-    print(
-        f"Mean Grounding Overlap Score: {benchmarks['mean_grounding_fidelity_score']:.4f}"
-    )
+    print(f"Validation Pass Rate:         {benchmarks['validation_pass_rate'] * 100:.2f}%")
+    print(f"Mean Grounding Overlap Score: {benchmarks['mean_grounding_fidelity_score']:.4f}")
     print(
         f"Auto-Handle Rate:             {benchmarks['routing_distribution']['auto_handle_pct'] * 100:.1f}% ({benchmarks['routing_distribution']['auto_handle_count']})"
     )

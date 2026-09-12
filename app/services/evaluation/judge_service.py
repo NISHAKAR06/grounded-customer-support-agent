@@ -42,48 +42,6 @@ class LLMJudgeService:
         self.provider_name = LLMProviderFactory.normalize_provider_name(provider_name)
         self.provider = LLMProviderFactory.create_provider(self.provider_name)
 
-    def build_judge_prompt(
-        self,
-        customer_message: str,
-        draft_reply: str,
-        evidence: List[HistoricalCase],
-        routing_decision: str,
-    ) -> str:
-        """Construct evaluation rubric prompt for LLM judge."""
-        evidence_text = (
-            "\n".join(
-                f"- Precedent #{i+1}: Customer: {c.customer_text} | Brand: {c.brand_response}"
-                for i, c in enumerate(evidence)
-            )
-            or "No historical precedents available."
-        )
-
-        return (
-            "You are an expert impartial quality evaluator for enterprise customer support operations.\n"
-            "Evaluate the following drafted support reply based on the customer inquiry and retrieved historical evidence.\n"
-            "\n"
-            f'CUSTOMER INQUIRY:\n"{customer_message}"\n\n'
-            f"RETRIEVED BRAND EVIDENCE:\n{evidence_text}\n\n"
-            f'DRAFTED REPLY:\n"{draft_reply}"\n\n'
-            f"PIPELINE ROUTING DECISION: {routing_decision}\n\n"
-            "EVALUATION RUBRIC (Score 1 to 5 for each):\n"
-            "1. groundedness (1-5): Are claims and steps strictly supported by the retrieved precedents?\n"
-            "2. answer_relevance (1-5): Does the reply directly address the customer's core issue?\n"
-            "3. brand_tone (1-5): Is the reply professional, empathetic, and in proper brand support voice?\n"
-            "4. safety_compliance (1-5): Does the reply avoid fabricated pricing, unauthorized guarantees, or unsafe advice?\n"
-            "\n"
-            "OUTPUT FORMAT: Provide a valid JSON object with the following structure:\n"
-            "{\n"
-            '  "groundedness": 5,\n'
-            '  "answer_relevance": 5,\n'
-            '  "brand_tone": 5,\n'
-            '  "safety_compliance": 5,\n'
-            '  "overall_score": 5.0,\n'
-            '  "routing_agreement": true,\n'
-            '  "critique": "Brief justification for the scores"\n'
-            "}"
-        )
-
     def evaluate_response(
         self,
         customer_message: str,
@@ -126,9 +84,7 @@ class LLMJudgeService:
         # 1. Groundedness (1-5)
         # Score based on evidence presence, lexical overlap, and lack of unverified pricing
         if not evidence:
-            groundedness = (
-                2 if routing_decision == RoutingDecision.HUMAN_ESCALATION.value else 1
-            )
+            groundedness = 2 if routing_decision == RoutingDecision.HUMAN_ESCALATION.value else 1
         else:
             top_sim = max(c.similarity for c in evidence)
             if top_sim >= 0.70:
@@ -140,9 +96,7 @@ class LLMJudgeService:
 
         # Check for ungrounded pricing ($) penalty
         if re.search(r"\$\d+", draft_reply):
-            evidence_text = " ".join(
-                f"{c.customer_text} {c.brand_response}" for c in evidence
-            )
+            evidence_text = " ".join(f"{c.customer_text} {c.brand_response}" for c in evidence)
             if not any(num in evidence_text for num in re.findall(r"\d+", draft_reply)):
                 groundedness = max(1, groundedness - 2)
 
@@ -165,13 +119,9 @@ class LLMJudgeService:
         # Apple Support tone markers: polite greeting, clear steps, invitation to DM
         tone_score = 3
         reply_lower = draft_reply.lower()
-        if any(
-            w in reply_lower for w in ["thanks", "help", "let us know", "reach out"]
-        ):
+        if any(w in reply_lower for w in ["thanks", "help", "let us know", "reach out"]):
             tone_score += 1
-        if any(
-            w in reply_lower for w in ["dm", "direct message", "settings", "apple.com"]
-        ):
+        if any(w in reply_lower for w in ["dm", "direct message", "settings", "apple.com"]):
             tone_score += 1
         brand_tone = min(5, tone_score)
 
@@ -229,12 +179,8 @@ class LLMJudgeService:
         # Expected Agreement by chance (Pe)
         p_e = 0.0
         for c in categories:
-            row_sum = sum(
-                matrix[c][col] for col in categories
-            )  # Total times human chose c
-            col_sum = sum(
-                matrix[row][c] for row in categories
-            )  # Total times judge chose c
+            row_sum = sum(matrix[c][col] for col in categories)  # Total times human chose c
+            col_sum = sum(matrix[row][c] for row in categories)  # Total times judge chose c
             p_e += (row_sum * col_sum) / (n * n)
 
         # Cohen's Kappa = (Po - Pe) / (1 - Pe)

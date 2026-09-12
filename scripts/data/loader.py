@@ -78,9 +78,7 @@ def get_dataset_path() -> Path:
     if sample_path.is_file():
         return sample_path
 
-    raise FileNotFoundError(
-        "twcs.csv could not be located in local, cache, or sample paths."
-    )
+    raise FileNotFoundError("twcs.csv could not be located in local, cache, or sample paths.")
 
 
 def load_sample_data(nrows: int = 10000) -> pd.DataFrame:
@@ -133,9 +131,9 @@ def load_brand_subset(
     for chunk in iter_chunks(chunksize=100000):
         # Outbound by brand or Inbound mentioning brand
         outbound_mask = chunk["author_id"] == brand_handle
-        inbound_mask = chunk["inbound"].fillna(False).astype(bool) & chunk[
-            "text"
-        ].fillna("").str.contains(mention_pattern, case=False, regex=False)
+        inbound_mask = chunk["inbound"].fillna(False).astype(bool) & chunk["text"].fillna(
+            ""
+        ).str.contains(mention_pattern, case=False, regex=False)
         brand_chunk = chunk[outbound_mask | inbound_mask].copy()
 
         if not brand_chunk.empty:

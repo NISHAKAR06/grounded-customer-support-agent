@@ -18,9 +18,7 @@ class AgentRunContext(BaseModel):
     events: list = Field(default_factory=list)
     metadata: Dict[str, Any] = Field(default_factory=dict)
 
-    def log_event(
-        self, event_name: str, payload: Optional[Dict[str, Any]] = None
-    ) -> None:
+    def log_event(self, event_name: str, payload: Optional[Dict[str, Any]] = None) -> None:
         elapsed = round((time.time() - self.start_time) * 1000, 2)
         self.events.append(
             {

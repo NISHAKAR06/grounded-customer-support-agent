@@ -1,5 +1,4 @@
-"""Central Agent Orchestrator coordinating all pipeline stages."""
-
+import re
 import time
 from datetime import datetime, timezone
 from typing import Callable, Optional
@@ -42,16 +41,123 @@ class AgentOrchestrator:
         self.validator = validator or ResponseValidator()
         self.escalation_policy = escalation_policy or EscalationPolicy()
 
+    @classmethod
+    def extract_customer_handle(
+        cls,
+        customer_message: str,
+        brand: str = "AppleSupport",
+        explicit_handle: Optional[str] = None,
+    ) -> str:
+        """Extract customer handle or author ID token automatically from tweet text.
+
+        Examples:
+            - "@AppleSupport @115858 my phone is slow..." -> "@115858"
+            - "@145247 @AppleSupport need help" -> "@145247"
+            - "@AppleSupport @john_smith screen is cracked" -> "@john_smith"
+            - "My iPhone is broken..." -> "@Customer"
+        """
+        if explicit_handle and explicit_handle.strip():
+            h = explicit_handle.strip()
+            return h if h.startswith("@") else f"@{h}"
+
+        if not customer_message:
+            return "@Customer"
+
+        # Look for Twitter mentions in the message: @115858, @john_doe, etc.
+        mentions = re.findall(r"@([A-Za-z0-9_]+)", customer_message)
+
+        # Disallow brand itself and generic placeholder/system words
+        brand_clean = brand.lower().replace("@", "")
+        excluded = {
+            brand_clean,
+            "applesupport",
+            "apple",
+            "support",
+            "help",
+            "admin",
+            "user",
+            "username",
+            "here",
+        }
+
+        customer_mentions = [m for m in mentions if m.lower() not in excluded]
+        if customer_mentions:
+            return f"@{customer_mentions[0]}"
+
+        # Check for patterns like "from: @115858" or "ID: 115858" or "author: 115858"
+        id_match = re.search(
+            r"(?:user|author|customer|id|from)[\s:=-]+@?([A-Za-z0-9_]+)",
+            customer_message,
+            re.IGNORECASE,
+        )
+        if id_match:
+            candidate = id_match.group(1).strip()
+            if candidate.lower() not in excluded:
+                return f"@{candidate}"
+
+        return "@Customer"
+
+    @staticmethod
+    def _clean_draft_reply(draft_reply: str, customer_handle: Optional[str] = None) -> str:
+        """Sanitize AI response to remove markdown asterisks and replace placeholder username tokens."""
+        if not draft_reply:
+            return ""
+
+        handle = (customer_handle or "@Customer").strip()
+        if not handle.startswith("@"):
+            handle = f"@{handle}"
+
+        cleaned = draft_reply
+
+        # 1. Replace placeholder username tokens like @[user], @[username], [user], @{user}, etc.
+        # Including any narrow or zero-width spaces (\u200b-\u200f, \ufeff, \u202f, \u00a0)
+        placeholder_pattern = re.compile(
+            r"@?[\u2000-\u200f\ufeff\s]*[\[\{][\u2000-\u200f\ufeff\s]*(?:user|username|handle|customer)[\u2000-\u200f\ufeff\s]*[\]\}]",
+            re.IGNORECASE,
+        )
+        cleaned = placeholder_pattern.sub(handle, cleaned)
+
+        # 2. Also replace standalone [user] or [username]
+        cleaned = re.sub(
+            r"\[(?:user|username|handle|customer)\]",
+            handle,
+            cleaned,
+            flags=re.IGNORECASE,
+        )
+
+        # 3. Clean up double @@ (e.g. if @ was already outside the placeholder: "@@Customer" -> "@Customer")
+        cleaned = re.sub(r"@+(" + re.escape(handle.lstrip("@")) + r")", r"@\1", cleaned)
+
+        # 4. Remove bold/italic markdown asterisks while preserving the enclosed text:
+        # e.g., **Settings → Wi-Fi** -> Settings → Wi-Fi, *disconnect* -> disconnect
+        cleaned = re.sub(r"\*{1,3}(.*?)\*{1,3}", r"\1", cleaned)
+        # Remove any remaining stray asterisks
+        cleaned = cleaned.replace("*", "")
+
+        # 5. Remove bold markdown underscores if any (__word__ -> word)
+        cleaned = re.sub(r"_{2,3}(.*?)_{2,3}", r"\1", cleaned)
+
+        # 6. Normalize multiple horizontal spaces into single space, keeping line breaks
+        cleaned = re.sub(r"[ \t\u2000-\u200a\u202f\u00a0]+", " ", cleaned)
+
+        return cleaned.strip()
+
     def run(
         self,
         customer_message: str,
         conversation_id: Optional[str] = None,
         brand: Optional[str] = None,
+        customer_handle: Optional[str] = None,
         provider: Optional[str] = None,
         event_callback: Optional[Callable[[str, dict], None]] = None,
     ) -> AgentRunResult:
         """Execute the real pipeline synchronously, notifying optional event callback for streaming."""
         effective_brand = brand or self.settings.TARGET_BRAND
+        effective_handle = self.extract_customer_handle(
+            customer_message=customer_message,
+            brand=effective_brand,
+            explicit_handle=customer_handle,
+        )
         ctx = AgentRunContext(
             customer_message=customer_message,
             conversation_id=conversation_id,
@@ -88,18 +194,14 @@ class AgentOrchestrator:
         t1 = time.time()
         notify("RETRIEVAL_STARTED", {})
         intent_code = intent_pred.code.value if intent_pred.code else None
-        candidates = self.retriever.retrieve(
-            customer_message, top_k=3, intent_filter=intent_code
-        )
+        candidates = self.retriever.retrieve(customer_message, top_k=3, intent_filter=intent_code)
         ranked_evidence = self.evidence_ranker.rank_and_filter(candidates)
         retrieval_ms = round((time.time() - t1) * 1000, 2)
         notify(
             "RETRIEVAL_COMPLETED",
             {
                 "count": len(ranked_evidence),
-                "top_similarity": (
-                    ranked_evidence[0].similarity if ranked_evidence else 0.0
-                ),
+                "top_similarity": (ranked_evidence[0].similarity if ranked_evidence else 0.0),
                 "elapsed_ms": retrieval_ms,
             },
         )
@@ -112,10 +214,12 @@ class AgentOrchestrator:
             intent_name=intent_pred.name,
             evidence=ranked_evidence,
             brand=effective_brand,
+            customer_handle=effective_handle,
         )
-        draft_reply, provider_used = self.llm_service.generate_reply(
+        raw_draft_reply, provider_used = self.llm_service.generate_reply(
             prompt, provider_name=provider
         )
+        draft_reply = self._clean_draft_reply(raw_draft_reply, customer_handle=effective_handle)
         generation_ms = round((time.time() - t2) * 1000, 2)
         notify(
             "GENERATION_COMPLETED",

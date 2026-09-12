@@ -21,9 +21,7 @@ def test_clean_tweet_text_entities():
 
 def test_clean_tweet_text_leading_mentions():
     """Verify leading handles are stripped while preserving mid-sentence mentions."""
-    raw = (
-        "@AppleSupport @115854 My iPhone battery is draining. I also tweeted @tim_cook."
-    )
+    raw = "@AppleSupport @115854 My iPhone battery is draining. I also tweeted @tim_cook."
     cleaned = clean_tweet_text(raw)
     assert cleaned == "My iPhone battery is draining. I also tweeted @tim_cook."
 
@@ -152,6 +150,4 @@ def test_conversation_repository_filters_and_sorting():
 
     # Sorting by confidence descending
     sorted_conf = repo.list_conversations(sort_by="confidence_desc")
-    assert float(sorted_conf[0]["confidence"] or 0) >= float(
-        sorted_conf[-1]["confidence"] or 0
-    )
+    assert float(sorted_conf[0]["confidence"] or 0) >= float(sorted_conf[-1]["confidence"] or 0)

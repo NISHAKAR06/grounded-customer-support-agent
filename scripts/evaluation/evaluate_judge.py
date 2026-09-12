@@ -16,9 +16,7 @@ from app.core.config import get_settings  # noqa: E402
 from app.services.agent.agent_orchestrator import AgentOrchestrator  # noqa: E402
 from app.services.evaluation.judge_service import LLMJudgeService  # noqa: E402
 
-logging.basicConfig(
-    level=logging.INFO, format="%(asctime)s [%(levelname)s] %(message)s"
-)
+logging.basicConfig(level=logging.INFO, format="%(asctime)s [%(levelname)s] %(message)s")
 logger = logging.getLogger("evaluate_judge")
 
 
@@ -126,12 +124,8 @@ def run_judge_evaluation() -> Dict[str, Any]:
         },
         "score_distribution": {
             "five_star_pct": round(sum(1 for s in scores_overall if s >= 4.5) / n, 4),
-            "four_star_pct": round(
-                sum(1 for s in scores_overall if 3.5 <= s < 4.5) / n, 4
-            ),
-            "three_star_pct": round(
-                sum(1 for s in scores_overall if 2.5 <= s < 3.5) / n, 4
-            ),
+            "four_star_pct": round(sum(1 for s in scores_overall if 3.5 <= s < 4.5) / n, 4),
+            "three_star_pct": round(sum(1 for s in scores_overall if 2.5 <= s < 3.5) / n, 4),
             "below_three_pct": round(sum(1 for s in scores_overall if s < 2.5) / n, 4),
         },
         "inter_annotator_agreement": agreement_metrics,
@@ -154,25 +148,17 @@ def run_judge_evaluation() -> Dict[str, Any]:
     logger.info(f"LLM Judge benchmarks saved to: {out_path}")
     print("\n=== LLM-AS-A-JUDGE & HUMAN AGREEMENT BENCHMARKS ===")
     print(f"Evaluated Samples:           {n} Golden Set Conversations")
-    print(
-        f"Overall Mean Score:          {benchmarks['rubric_means']['overall_score']:.2f} / 5.00"
-    )
-    print(
-        f"  - Groundedness / Fidelity: {benchmarks['rubric_means']['groundedness']:.2f} / 5.00"
-    )
+    print(f"Overall Mean Score:          {benchmarks['rubric_means']['overall_score']:.2f} / 5.00")
+    print(f"  - Groundedness / Fidelity: {benchmarks['rubric_means']['groundedness']:.2f} / 5.00")
     print(
         f"  - Answer Relevance:        {benchmarks['rubric_means']['answer_relevance']:.2f} / 5.00"
     )
-    print(
-        f"  - Brand Voice / Tone:      {benchmarks['rubric_means']['brand_tone']:.2f} / 5.00"
-    )
+    print(f"  - Brand Voice / Tone:      {benchmarks['rubric_means']['brand_tone']:.2f} / 5.00")
     print(
         f"  - Safety Compliance:       {benchmarks['rubric_means']['safety_compliance']:.2f} / 5.00"
     )
     print("\nInter-Annotator Agreement (Human Expert vs. Automated System):")
-    print(
-        f"  - Observed Agreement:      {agreement_metrics['observed_agreement'] * 100:.2f}%"
-    )
+    print(f"  - Observed Agreement:      {agreement_metrics['observed_agreement'] * 100:.2f}%")
     print(
         f"  - Cohen's Kappa (kappa):   {agreement_metrics['cohens_kappa']:.4f} ({benchmarks['agreement_interpretation']})"
     )

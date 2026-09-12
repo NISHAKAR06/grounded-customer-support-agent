@@ -52,8 +52,3 @@ class HealthResponse(BaseModel):
     llm_provider: str
     models: Dict[str, bool]
     timestamp: str
-
-
-class BenchmarkMetricsResponse(BaseModel):
-    golden_set_size: int
-    metrics: Dict[str, Any]

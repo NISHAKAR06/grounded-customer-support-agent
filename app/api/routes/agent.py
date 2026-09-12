@@ -40,14 +40,13 @@ def run_agent(
             customer_message=payload.customer_message,
             conversation_id=payload.conversation_id,
             brand=payload.brand,
+            customer_handle=payload.customer_handle,
             provider=payload.provider,
         )
         return result
     except Exception as ex:
         logger.error(f"Agent execution failed: {ex}", exc_info=True)
-        raise HTTPException(
-            status_code=500, detail=f"Agent pipeline failure: {str(ex)}"
-        )
+        raise HTTPException(status_code=500, detail=f"Agent pipeline failure: {str(ex)}")
 
 
 @router.get("/stream")
@@ -56,6 +55,7 @@ async def stream_agent_execution(
     customer_message: str = Query(..., description="Customer support inquiry text"),
     conversation_id: Optional[str] = Query(None, description="Optional thread/conversation ID"),
     brand: Optional[str] = Query("AppleSupport", description="Target brand"),
+    customer_handle: Optional[str] = Query(None, description="Customer handle or username"),
     provider: Optional[str] = Query(None, description="LLM provider name"),
     orchestrator: AgentOrchestrator = Depends(get_orchestrator),
 ):
@@ -74,6 +74,7 @@ async def stream_agent_execution(
                     customer_message=customer_message,
                     conversation_id=conversation_id,
                     brand=brand,
+                    customer_handle=customer_handle,
                     provider=provider,
                     event_callback=sync_event_callback,
                 ),
@@ -102,18 +103,3 @@ async def stream_agent_execution(
             }
 
     return EventSourceResponse(event_generator())
-
-
-@router.get("/events/{run_id}")
-async def stream_agent_events(run_id: str):
-    """Server-Sent Events (SSE) endpoint to monitor live execution status."""
-
-    async def event_generator():
-        yield {
-            "event": "connected",
-            "data": json.dumps({"run_id": run_id, "status": "listening"}),
-        }
-        await asyncio.sleep(0.1)
-
-    return EventSourceResponse(event_generator())
-

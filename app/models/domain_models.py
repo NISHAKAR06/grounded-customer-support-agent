@@ -38,20 +38,6 @@ INTENT_LABELS: Dict[SupportIntent, str] = {
 }
 
 
-class MessageRole(str, Enum):
-    CUSTOMER = "CUSTOMER"
-    BRAND = "BRAND"
-    AGENT = "AGENT"
-
-
-class ConversationMessage(BaseModel):
-    message_id: str
-    role: MessageRole
-    text: str
-    timestamp: Optional[str] = None
-    author_id: Optional[str] = None
-
-
 class HistoricalCase(BaseModel):
     case_id: str
     similarity: float = Field(..., ge=0.0, le=1.0)

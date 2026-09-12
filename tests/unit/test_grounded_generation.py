@@ -89,9 +89,7 @@ def test_response_validator_blocks_hallucinated_pricing(sample_evidence):
 def test_response_validator_blocks_unauthorized_external_urls(sample_evidence):
     """Verify validator blocks third-party or phishing links outside official whitelist."""
     validator = ResponseValidator()
-    reply = (
-        "Please visit https://apple-repair-discount-center.com/claim to book service."
-    )
+    reply = "Please visit https://apple-repair-discount-center.com/claim to book service."
     result = validator.validate(
         reply=reply,
         evidence=sample_evidence,
@@ -115,17 +113,13 @@ def test_response_validator_allows_official_apple_urls(sample_evidence):
     for url in official_urls:
         reply = f"You can review official instructions at {url}. Let us know in DM if you need more help."
         result = validator.validate(reply=reply, evidence=sample_evidence)
-        assert (
-            result.checks["url_whitelist_check"] is True
-        ), f"Failed on valid URL: {url}"
+        assert result.checks["url_whitelist_check"] is True, f"Failed on valid URL: {url}"
 
 
 def test_response_validator_blocks_public_pii_solicitation(sample_evidence):
     """Verify validator blocks prompts asking users to tweet passwords publicly."""
     validator = ResponseValidator()
-    reply = (
-        "Please reply with your password and Apple ID so we can verify your account."
-    )
+    reply = "Please reply with your password and Apple ID so we can verify your account."
     result = validator.validate(
         reply=reply,
         evidence=sample_evidence,
@@ -134,9 +128,7 @@ def test_response_validator_blocks_public_pii_solicitation(sample_evidence):
 
     assert result.all_passed is False
     assert result.checks["pii_security_check"] is False
-    assert any(
-        "credentials" in w.lower() or "pii" in w.lower() for w in result.warnings
-    )
+    assert any("credentials" in w.lower() or "pii" in w.lower() for w in result.warnings)
 
 
 def test_response_validator_enforces_hazardous_battery_caution(sample_evidence):
@@ -183,3 +175,71 @@ def test_grounded_prompt_contains_resolution_evidence(sample_evidence):
     assert "force restart" in prompt
     assert "case_101" in prompt
     assert "Historical Case #1" in prompt
+
+
+def test_prompt_builder_customer_handle_and_no_asterisks(sample_evidence):
+    """Verify PromptBuilder enforces handle greeting and forbids markdown asterisks."""
+    prompt = PromptBuilder.build_grounded_prompt(
+        customer_message="Wi-Fi keeps turning on.",
+        intent_name="CONNECTIVITY_NETWORKING",
+        evidence=sample_evidence,
+        brand="AppleSupport",
+        customer_handle="@alex_dev",
+    )
+    assert "@alex_dev" in prompt
+    assert "NO MARKDOWN / NO ASTERISKS" in prompt
+    assert "NEVER output placeholder bracket tokens like '@[user]'" in prompt
+
+
+def test_orchestrator_clean_draft_reply():
+    """Verify _clean_draft_reply strips all asterisks and replaces user placeholder tokens."""
+    from app.services.agent.agent_orchestrator import AgentOrchestrator
+
+    # Test with user's exact example
+    raw_ai_response = (
+        "Hi @[user] — on iOS 11 the Control Center switches only **disconnect** Wi‑Fi or Bluetooth "
+        "temporarily; they’ll power back on for services like AirDrop, location, or after a restart. "
+        "To keep them off, go to **Settings → Wi‑Fi** (or **Settings → Bluetooth**) and toggle them off."
+    )
+    cleaned = AgentOrchestrator._clean_draft_reply(raw_ai_response, customer_handle="@alex_dev")
+
+    assert "*" not in cleaned
+    assert "**" not in cleaned
+    assert "@[user]" not in cleaned
+    assert "[user]" not in cleaned
+    assert "Hi @alex_dev" in cleaned
+    assert "disconnect" in cleaned
+    assert "Settings" in cleaned and "Wi" in cleaned
+    assert "Settings →" in cleaned or "Settings \u2192" in cleaned
+
+    # Test default fallback when no handle is provided
+    cleaned_default = AgentOrchestrator._clean_draft_reply(
+        "Hi @[username], please try *Settings > General*."
+    )
+    assert "*" not in cleaned_default
+    assert "@[username]" not in cleaned_default
+    assert "Hi @Customer, please try Settings > General." == cleaned_default
+
+
+def test_orchestrator_extract_customer_handle():
+    """Verify extract_customer_handle automatically extracts handle/id tokens from tweet messages."""
+    from app.services.agent.agent_orchestrator import AgentOrchestrator
+
+    # 1. Tweet with brand and customer ID token
+    msg1 = "@AppleSupport @115858 my phone is slow after the new iOs download"
+    assert AgentOrchestrator.extract_customer_handle(msg1) == "@115858"
+
+    # 2. Customer ID before brand
+    msg2 = "@145247 @AppleSupport I think you need to notify people of the below scam."
+    assert AgentOrchestrator.extract_customer_handle(msg2) == "@145247"
+
+    # 3. Alpha handle
+    msg3 = "@AppleSupport @sarah_connor screen is frozen"
+    assert AgentOrchestrator.extract_customer_handle(msg3) == "@sarah_connor"
+
+    # 4. Message without handle defaults to @Customer
+    msg4 = "My iPhone battery is draining quickly on iOS 11"
+    assert AgentOrchestrator.extract_customer_handle(msg4) == "@Customer"
+
+    # 5. Explicit handle takes precedence
+    assert AgentOrchestrator.extract_customer_handle(msg4, explicit_handle="171804") == "@171804"

@@ -18,9 +18,7 @@ def test_target_brand_configuration():
 def test_applesupport_profile_artifact():
     """Verify the empirical AppleSupport profile artifact has exact metrics."""
     profile_path = Path("experiments/brand_profile_applesupport.json")
-    assert (
-        profile_path.exists()
-    ), "experiments/brand_profile_applesupport.json should exist"
+    assert profile_path.exists(), "experiments/brand_profile_applesupport.json should exist"
 
     with open(profile_path, "r", encoding="utf-8") as f:
         data = json.load(f)

@@ -55,6 +55,7 @@ document.addEventListener('DOMContentLoaded', () => {
     messageInput.value = preloadedMsg;
     messageInput.focus();
   }
+  const preloadedCustomerHandle = urlParams.get('handle') || urlParams.get('user') || null;
 
   function resetTimeline() {
     const steps = [
@@ -101,7 +102,10 @@ document.addEventListener('DOMContentLoaded', () => {
       let sseActive = false;
       let completed = false;
 
-      const sseUrl = `/api/agent/stream?customer_message=${encodeURIComponent(text)}&provider=${encodeURIComponent(selectedProvider)}`;
+      let sseUrl = `/api/agent/stream?customer_message=${encodeURIComponent(text)}&provider=${encodeURIComponent(selectedProvider)}`;
+      if (preloadedCustomerHandle) {
+        sseUrl += `&customer_handle=${encodeURIComponent(preloadedCustomerHandle)}`;
+      }
       let evtSource = null;
 
       try {
@@ -216,13 +220,17 @@ document.addEventListener('DOMContentLoaded', () => {
   async function fallbackSyncRun(text, selectedProvider, startTime) {
     try {
       updateTimelineStep('step-received', 'active', 'Analyzing text payload...');
+      const payload = {
+        customer_message: text,
+        provider: selectedProvider,
+      };
+      if (preloadedCustomerHandle) {
+        payload.customer_handle = preloadedCustomerHandle;
+      }
       const response = await fetch('/api/agent/run', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          customer_message: text,
-          provider: selectedProvider,
-        }),
+        body: JSON.stringify(payload),
       });
 
       if (!response.ok) {

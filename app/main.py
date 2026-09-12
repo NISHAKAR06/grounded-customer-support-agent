@@ -31,6 +31,9 @@ app = FastAPI(
 app.mount("/static", StaticFiles(directory=str(settings.STATIC_DIR)), name="static")
 templates = Jinja2Templates(directory=str(settings.TEMPLATES_DIR))
 
+# Root health probe
+app.include_router(health_router)
+
 # Include API route groups (supporting both /api and /api/v1)
 for prefix in ("/api", "/api/v1"):
     app.include_router(health_router, prefix=prefix)

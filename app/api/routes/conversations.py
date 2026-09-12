@@ -12,9 +12,7 @@ _repo = ConversationRepository()
 
 @router.get("", response_model=List[Dict[str, Any]])
 def list_conversations(
-    status: str = Query(
-        "all", description="Status filter: all, auto_ready, needs_human, resolved"
-    )
+    status: str = Query("all", description="Status filter: all, auto_ready, needs_human, resolved")
 ):
     """List reconstructed support conversations."""
     return _repo.list_conversations(status_filter=status)

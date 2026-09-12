@@ -36,9 +36,7 @@ def clean_brand_response(text: str) -> str:
     return clean
 
 
-def determine_ground_truth_routing(
-    conv: Dict[str, Any], intent_code: str
-) -> Dict[str, Any]:
+def determine_ground_truth_routing(conv: Dict[str, Any], intent_code: str) -> Dict[str, Any]:
     """Evaluate true routing decision and justification based on grounded operational heuristics."""
     inquiry = conv.get("first_inquiry", "").lower()
     latest = conv.get("latest_message", "").lower()
@@ -158,9 +156,7 @@ def curate_golden_dataset():
     """Execute stratified sampling and curation of the 200-sample Golden Set."""
     print(f"Reading preprocessed conversations from: {INPUT_PATH}")
 
-    conversations_by_intent: Dict[str, List[Dict[str, Any]]] = {
-        k: [] for k in INTENT_QUOTAS
-    }
+    conversations_by_intent: Dict[str, List[Dict[str, Any]]] = {k: [] for k in INTENT_QUOTAS}
 
     total_read = 0
     with open(INPUT_PATH, "r", encoding="utf-8") as f:
@@ -251,12 +247,8 @@ def curate_golden_dataset():
 
     for r in golden_records:
         routing_counts[r["gold_routing"]] += 1
-        intent_counts[r["gold_intent_code"]] = (
-            intent_counts.get(r["gold_intent_code"], 0) + 1
-        )
-        complexity_counts[r["complexity"]] = (
-            complexity_counts.get(r["complexity"], 0) + 1
-        )
+        intent_counts[r["gold_intent_code"]] = intent_counts.get(r["gold_intent_code"], 0) + 1
+        complexity_counts[r["complexity"]] = complexity_counts.get(r["complexity"], 0) + 1
         if r["turn_count"] > 2:
             multi_turn_count += 1
 
@@ -268,9 +260,7 @@ def curate_golden_dataset():
         "routing_distribution": {
             "AUTO_HANDLE": routing_counts["AUTO_HANDLE"],
             "HUMAN_ESCALATION": routing_counts["HUMAN_ESCALATION"],
-            "auto_handle_ratio": round(
-                routing_counts["AUTO_HANDLE"] / len(golden_records), 3
-            ),
+            "auto_handle_ratio": round(routing_counts["AUTO_HANDLE"] / len(golden_records), 3),
             "human_escalation_ratio": round(
                 routing_counts["HUMAN_ESCALATION"] / len(golden_records), 3
             ),
@@ -278,9 +268,7 @@ def curate_golden_dataset():
         "dialogue_metrics": {
             "multi_turn_samples": multi_turn_count,
             "single_turn_samples": len(golden_records) - multi_turn_count,
-            "multi_turn_percentage": round(
-                multi_turn_count / len(golden_records) * 100, 1
-            ),
+            "multi_turn_percentage": round(multi_turn_count / len(golden_records) * 100, 1),
         },
         "complexity_breakdown": complexity_counts,
         "leakage_isolation": {

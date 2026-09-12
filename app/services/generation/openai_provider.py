@@ -63,9 +63,7 @@ class OpenAIProvider(BaseLLMProvider):
                 response = client.post(endpoint, headers=headers, json=payload)
                 if response.status_code != 200:
                     error_msg = response.text
-                    logger.error(
-                        f"OpenAI error (HTTP {response.status_code}): {error_msg}"
-                    )
+                    logger.error(f"OpenAI error (HTTP {response.status_code}): {error_msg}")
                     raise LLMProviderException(
                         f"OpenAI API error ({response.status_code}): {error_msg}"
                     )
@@ -73,9 +71,7 @@ class OpenAIProvider(BaseLLMProvider):
                 data = response.json()
                 choices = data.get("choices", [])
                 if not choices:
-                    raise LLMProviderException(
-                        "OpenAI returned zero completion choices."
-                    )
+                    raise LLMProviderException("OpenAI returned zero completion choices.")
 
                 reply = choices[0].get("message", {}).get("content", "").strip()
                 return reply

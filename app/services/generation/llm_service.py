@@ -33,9 +33,7 @@ class LLMService:
         self.primary = primary_provider or LLMProviderFactory.create_provider()
         self.fallback = fallback_provider or LLMProviderFactory.create_fallback_provider()
 
-    def generate_reply(
-        self, prompt: str, provider_name: Optional[str] = None
-    ) -> Tuple[str, str]:
+    def generate_reply(self, prompt: str, provider_name: Optional[str] = None) -> Tuple[str, str]:
         """Generate reply using the designated or active provider, falling back on failure.
 
         Args:

@@ -20,9 +20,7 @@ class ClaudeProvider(BaseLLMProvider):
         timeout: float = 30.0,
     ):
         self.settings = get_settings()
-        self.api_key = (
-            api_key or self.settings.ANTHROPIC_API_KEY or self.settings.CLAUDE_API_KEY
-        )
+        self.api_key = api_key or self.settings.ANTHROPIC_API_KEY or self.settings.CLAUDE_API_KEY
         self.model_name = model_name or self.settings.CLAUDE_MODEL_NAME
         self.timeout = timeout
 
@@ -59,9 +57,7 @@ class ClaudeProvider(BaseLLMProvider):
                 response = client.post(endpoint, headers=headers, json=payload)
                 if response.status_code != 200:
                     error_msg = response.text
-                    logger.error(
-                        f"Claude error (HTTP {response.status_code}): {error_msg}"
-                    )
+                    logger.error(f"Claude error (HTTP {response.status_code}): {error_msg}")
                     raise LLMProviderException(
                         f"Claude API error ({response.status_code}): {error_msg}"
                     )
@@ -69,13 +65,9 @@ class ClaudeProvider(BaseLLMProvider):
                 data = response.json()
                 content_blocks = data.get("content", [])
                 if not content_blocks:
-                    raise LLMProviderException(
-                        "Claude returned zero message content blocks."
-                    )
+                    raise LLMProviderException("Claude returned zero message content blocks.")
 
-                text_blocks = [
-                    b.get("text", "") for b in content_blocks if b.get("type") == "text"
-                ]
+                text_blocks = [b.get("text", "") for b in content_blocks if b.get("type") == "text"]
                 reply = "\n".join(text_blocks).strip()
                 return reply
         except httpx.TimeoutException as ex:

@@ -30,17 +30,13 @@ from scripts.data.loader import (  # noqa: E402
 # Pre-compiled regex patterns for deterministic text cleaning
 LEADING_MENTIONS_RE = re.compile(r"^(@\w+\s*)+", re.UNICODE)
 MULTIPLE_SPACES_RE = re.compile(r"[ \t]+", re.UNICODE)
-DM_KEYWORD_RE = re.compile(
-    r"\b(dm|direct message|join us in a dm|send us a dm)\b", re.IGNORECASE
-)
+DM_KEYWORD_RE = re.compile(r"\b(dm|direct message|join us in a dm|send us a dm)\b", re.IGNORECASE)
 RESOLUTION_KEYWORD_RE = re.compile(
     r"\b(thank you|thanks|fixed|working now|worked|solved|appreciate your help|all set|awesome)\b",
     re.IGNORECASE,
 )
 URL_RE = re.compile(r"https?://\S+", re.IGNORECASE)
-APPLE_KB_RE = re.compile(
-    r"(apple\.co|support\.apple\.com|appleid\.apple\.com)", re.IGNORECASE
-)
+APPLE_KB_RE = re.compile(r"(apple\.co|support\.apple\.com|appleid\.apple\.com)", re.IGNORECASE)
 
 
 def clean_tweet_text(text: str) -> str:
@@ -122,9 +118,7 @@ def reconstruct_conversations(
         tweet_dict[t_id] = {
             "tweet_id": t_id,
             "author_id": author,
-            "author_role": (
-                "BRAND" if author.lower() == brand_handle.lower() else "CUSTOMER"
-            ),
+            "author_role": ("BRAND" if author.lower() == brand_handle.lower() else "CUSTOMER"),
             "inbound": is_inbound,
             "created_at": str(row["created_at"]),
             "text": str(row["text"]),
@@ -138,10 +132,7 @@ def reconstruct_conversations(
         t_id
         for t_id, t_data in tweet_dict.items()
         if t_data["author_role"] == "CUSTOMER"
-        and (
-            t_data["in_response_to"] is None
-            or t_data["in_response_to"] not in tweet_dict
-        )
+        and (t_data["in_response_to"] is None or t_data["in_response_to"] not in tweet_dict)
     ]
 
     # Map children tweets (parent_id -> list of child_ids)
@@ -177,9 +168,7 @@ def reconstruct_conversations(
 
         # We are only interested in threads with at least one brand response
         roles_in_thread = [
-            tweet_dict[tid]["author_role"]
-            for tid in thread_tweet_ids
-            if tid in tweet_dict
+            tweet_dict[tid]["author_role"] for tid in thread_tweet_ids if tid in tweet_dict
         ]
         if "BRAND" not in roles_in_thread:
             continue
@@ -269,9 +258,9 @@ def run_pipeline(
     chunksize = 100000
     for chunk in iter_chunks(chunksize=chunksize):
         outbound_mask = chunk["author_id"] == "AppleSupport"
-        inbound_mask = chunk["inbound"].fillna(False).astype(bool) & chunk[
-            "text"
-        ].fillna("").str.contains(mention_pattern, case=False, regex=False)
+        inbound_mask = chunk["inbound"].fillna(False).astype(bool) & chunk["text"].fillna(
+            ""
+        ).str.contains(mention_pattern, case=False, regex=False)
         matched = chunk[outbound_mask | inbound_mask].copy()
 
         if not matched.empty:
@@ -287,14 +276,10 @@ def run_pipeline(
     df = pd.concat(frames, ignore_index=True)
     if max_source_rows:
         df = df.iloc[:max_source_rows]
-    print(
-        f"Loaded {len(df)} AppleSupport-related tweets. Reconstructing conversation threads..."
-    )
+    print(f"Loaded {len(df)} AppleSupport-related tweets. Reconstructing conversation threads...")
 
     conversations = reconstruct_conversations(df, brand_handle="AppleSupport")
-    print(
-        f"Reconstructed {len(conversations)} valid multi-turn customer conversations."
-    )
+    print(f"Reconstructed {len(conversations)} valid multi-turn customer conversations.")
 
     # Save full processed dataset
     full_output_file = processed_dir / "applesupport_conversations.jsonl"
@@ -309,23 +294,17 @@ def run_pipeline(
     with open(sample_output_file, "w", encoding="utf-8") as f:
         for conv in sample_conversations:
             f.write(json.dumps(conv, ensure_ascii=False) + "\n")
-    print(
-        f"Saved {len(sample_conversations)} sample conversations to: {sample_output_file}"
-    )
+    print(f"Saved {len(sample_conversations)} sample conversations to: {sample_output_file}")
 
     summary = {
         "brand": "AppleSupport",
         "total_source_tweets": len(df),
         "total_reconstructed_conversations": len(conversations),
         "sample_size": len(sample_conversations),
-        "multi_turn_conversations": sum(
-            1 for c in conversations if c["turn_count"] > 2
-        ),
+        "multi_turn_conversations": sum(1 for c in conversations if c["turn_count"] > 2),
         "dm_escalated_count": sum(1 for c in conversations if c["has_dm"]),
         "kb_linked_count": sum(1 for c in conversations if c["has_kb_link"]),
-        "resolution_confirmed_count": sum(
-            1 for c in conversations if c["has_resolution"]
-        ),
+        "resolution_confirmed_count": sum(1 for c in conversations if c["has_resolution"]),
     }
 
     stats_file = repo_root / "experiments" / "preprocessing_stats.json"

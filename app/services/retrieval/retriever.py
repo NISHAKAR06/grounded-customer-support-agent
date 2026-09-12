@@ -33,9 +33,7 @@ class Retriever:
     ):
         self.settings = get_settings()
         self.index_path = Path(index_path or self.settings.FAISS_INDEX_PATH)
-        self.metadata_path = Path(
-            metadata_path or (self.index_path.parent / "case_metadata.json")
-        )
+        self.metadata_path = Path(metadata_path or (self.index_path.parent / "case_metadata.json"))
         self.model_name = model_name or self.settings.EMBEDDING_MODEL_NAME
 
         self._index: Optional[faiss.Index] = None

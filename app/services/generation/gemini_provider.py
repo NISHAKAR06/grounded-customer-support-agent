@@ -67,9 +67,7 @@ class GeminiProvider(BaseLLMProvider):
                 response = client.post(endpoint, json=payload)
                 if response.status_code != 200:
                     error_msg = response.text
-                    logger.error(
-                        f"Gemini error (HTTP {response.status_code}): {error_msg}"
-                    )
+                    logger.error(f"Gemini error (HTTP {response.status_code}): {error_msg}")
                     raise LLMProviderException(
                         f"Gemini API error ({response.status_code}): {error_msg}"
                     )
@@ -77,9 +75,7 @@ class GeminiProvider(BaseLLMProvider):
                 data = response.json()
                 candidates = data.get("candidates", [])
                 if not candidates:
-                    raise LLMProviderException(
-                        "Gemini returned zero response candidates."
-                    )
+                    raise LLMProviderException("Gemini returned zero response candidates.")
 
                 parts = candidates[0].get("content", {}).get("parts", [])
                 if not parts:

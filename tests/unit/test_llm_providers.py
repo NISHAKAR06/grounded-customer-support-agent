@@ -96,9 +96,7 @@ def test_openai_provider_successful_generation(mock_post):
     """Verify OpenAIProvider parses chat completion response."""
     mock_resp = MagicMock()
     mock_resp.status_code = 200
-    mock_resp.json.return_value = {
-        "choices": [{"message": {"content": "Hello from GPT-4o mini!"}}]
-    }
+    mock_resp.json.return_value = {"choices": [{"message": {"content": "Hello from GPT-4o mini!"}}]}
     mock_post.return_value = mock_resp
 
     provider = OpenAIProvider(api_key="sk-real-test-key", model_name="gpt-4o-mini")
@@ -155,9 +153,7 @@ def test_gemini_provider_successful_generation(mock_post):
     mock_resp = MagicMock()
     mock_resp.status_code = 200
     mock_resp.json.return_value = {
-        "candidates": [
-            {"content": {"parts": [{"text": "Hello from Gemini 1.5 Flash!"}]}}
-        ]
+        "candidates": [{"content": {"parts": [{"text": "Hello from Gemini 1.5 Flash!"}]}}]
     }
     mock_post.return_value = mock_resp
 
@@ -177,9 +173,7 @@ def test_claude_provider_missing_key():
     provider = ClaudeProvider(api_key="")
     with pytest.raises(LLMProviderException) as exc_info:
         provider.generate("Test prompt")
-    assert "Claude API key is missing" in str(exc_info.value) or "Anthropic" in str(
-        exc_info.value
-    )
+    assert "Claude API key is missing" in str(exc_info.value) or "Anthropic" in str(exc_info.value)
 
 
 @patch("httpx.Client.post")
@@ -192,9 +186,7 @@ def test_claude_provider_successful_generation(mock_post):
     }
     mock_post.return_value = mock_resp
 
-    provider = ClaudeProvider(
-        api_key="sk-ant-test-key", model_name="claude-3-5-haiku-20241022"
-    )
+    provider = ClaudeProvider(api_key="sk-ant-test-key", model_name="claude-3-5-haiku-20241022")
     reply = provider.generate("Test prompt")
     assert reply == "Hello from Claude 3.5 Haiku!"
     assert provider.provider_name() == "claude (claude-3-5-haiku-20241022)"

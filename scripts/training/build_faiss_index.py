@@ -16,9 +16,7 @@ import faiss
 import numpy as np
 from sentence_transformers import SentenceTransformer
 
-logging.basicConfig(
-    level=logging.INFO, format="%(asctime)s [%(levelname)s] %(message)s"
-)
+logging.basicConfig(level=logging.INFO, format="%(asctime)s [%(levelname)s] %(message)s")
 logger = logging.getLogger(__name__)
 
 BASE_DIR = Path(__file__).resolve().parent.parent.parent
@@ -50,9 +48,7 @@ def load_train_cases(train_path: Path) -> List[Dict[str, Any]]:
             cases.append(
                 {
                     "case_id": item["conversation_id"],
-                    "ticket_id": item.get(
-                        "ticket_id", f"TICK-{item['conversation_id']}"
-                    ),
+                    "ticket_id": item.get("ticket_id", f"TICK-{item['conversation_id']}"),
                     "customer_text": customer_text,
                     "brand_response": brand_response,
                     "intent": item.get("intent_code", "GENERAL_INQUIRY"),
@@ -86,17 +82,13 @@ def build_and_save_index(
         len(texts),
         EMBEDDING_DIM,
     )
-    embeddings = model.encode(
-        texts, batch_size=64, show_progress_bar=True, convert_to_numpy=True
-    )
+    embeddings = model.encode(texts, batch_size=64, show_progress_bar=True, convert_to_numpy=True)
     embeddings = embeddings.astype(np.float32)
 
     logger.info("Normalizing embeddings to unit L2 norm for exact cosine similarity...")
     faiss.normalize_L2(embeddings)
 
-    logger.info(
-        "Constructing FAISS IndexFlatIP (Inner Product = Cosine on unit vectors)..."
-    )
+    logger.info("Constructing FAISS IndexFlatIP (Inner Product = Cosine on unit vectors)...")
     index = faiss.IndexFlatIP(EMBEDDING_DIM)
     index.add(embeddings)
     logger.info("Indexed %d vectors in FAISS.", index.ntotal)
@@ -124,9 +116,7 @@ def build_and_save_index(
         "index_type": "IndexFlatIP",
         "metric": "Cosine Similarity (via L2-normalized Inner Product)",
         "intent_distribution": intent_counts,
-        "sample_case_id_range": (
-            [cases[0]["case_id"], cases[-1]["case_id"]] if cases else []
-        ),
+        "sample_case_id_range": ([cases[0]["case_id"], cases[-1]["case_id"]] if cases else []),
     }
 
     with open(SUMMARY_PATH, "w", encoding="utf-8") as f:

@@ -104,9 +104,7 @@ def test_conversations_in_sample_have_valid_intents():
 
     valid_labels = set(INTENT_LABELS.values())
     for conv in conversations:
-        assert (
-            conv.get("intent") in valid_labels
-        ), f"Unknown intent: {conv.get('intent')}"
+        assert conv.get("intent") in valid_labels, f"Unknown intent: {conv.get('intent')}"
         assert conv.get("intent_code") in [i.value for i in SupportIntent]
         assert "confidence" in conv
 
@@ -152,9 +150,7 @@ def test_intent_taxonomy_audio_over_bluetooth_priority():
 
 def test_intent_taxonomy_account_over_os_update_priority():
     """Verify security lockout takes precedence over app updates."""
-    text = (
-        "Cannot download the latest app update because my Apple ID account is locked."
-    )
+    text = "Cannot download the latest app update because my Apple ID account is locked."
     intent_enum, conf, signals = classify_text_intent(text)
     assert intent_enum == SupportIntent.ACCOUNT_APPLE_ID
     assert "locked" in signals or "apple id" in signals

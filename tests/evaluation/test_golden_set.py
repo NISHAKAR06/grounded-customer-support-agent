@@ -38,9 +38,7 @@ def test_golden_set_sample_count_in_specification_range():
         for line in f:
             if line.strip():
                 count += 1
-    assert (
-        150 <= count <= 250
-    ), f"Expected sample count between 150 and 250, but got {count}"
+    assert 150 <= count <= 250, f"Expected sample count between 150 and 250, but got {count}"
     assert count == 200, f"Expected exactly 200 curated samples, got {count}"
 
 

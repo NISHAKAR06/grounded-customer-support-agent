@@ -155,12 +155,8 @@ def run_evaluation():
         },
         "golden_evaluation_set": {
             "majority_baseline": evaluate_predictions(golden_labels, maj_pred_golden),
-            "tfidf_logreg_baseline": evaluate_predictions(
-                golden_labels, lr_pred_golden
-            ),
-            "rule_based_taxonomy": evaluate_predictions(
-                golden_labels, rule_pred_golden
-            ),
+            "tfidf_logreg_baseline": evaluate_predictions(golden_labels, lr_pred_golden),
+            "rule_based_taxonomy": evaluate_predictions(golden_labels, rule_pred_golden),
         },
     }
 

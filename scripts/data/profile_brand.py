@@ -32,9 +32,7 @@ def profile_apple_support(chunksize: int = 150000):
 
         # Inbound directed to AppleSupport
         inbound_chunk = chunk[chunk["inbound"].fillna(False).astype(bool)]
-        mention_mask = (
-            inbound_chunk["text"].fillna("").str.contains(apple_mention_pattern)
-        )
+        mention_mask = inbound_chunk["text"].fillna("").str.contains(apple_mention_pattern)
         apple_inbound = inbound_chunk[mention_mask]
         inbound_mention_count += len(apple_inbound)
         unique_customers.update(apple_inbound["author_id"].dropna().unique().tolist())

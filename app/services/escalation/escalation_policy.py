@@ -22,9 +22,7 @@ class EscalationPolicy:
     ):
         settings = get_settings()
         self.min_confidence = min_confidence or settings.ESCALATION_MIN_CONFIDENCE
-        self.min_retrieval_score = (
-            min_retrieval_score or settings.ESCALATION_MIN_RETRIEVAL_SCORE
-        )
+        self.min_retrieval_score = min_retrieval_score or settings.ESCALATION_MIN_RETRIEVAL_SCORE
 
         # High-risk trigger phrases that demand human attention
         self.human_escalation_triggers = [
@@ -68,9 +66,7 @@ class EscalationPolicy:
         # 3. Retrieval evidence sufficiency check
         if not evidence:
             is_escalation = True
-            reasons.append(
-                "No historical resolved support cases found to ground response."
-            )
+            reasons.append("No historical resolved support cases found to ground response.")
         else:
             top_similarity = max(c.similarity for c in evidence)
             if top_similarity < self.min_retrieval_score:
@@ -82,9 +78,7 @@ class EscalationPolicy:
         # 4. Response validation check
         if not validation.all_passed:
             is_escalation = True
-            reasons.append(
-                "Response validation failed (hallucination or unverified claim check)."
-            )
+            reasons.append("Response validation failed (hallucination or unverified claim check).")
 
         if is_escalation:
             return EscalationDecision(

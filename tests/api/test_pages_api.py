@@ -54,9 +54,7 @@ def test_inbox_page_with_intent_filter():
     """Verify /inbox filters tickets by domain intent."""
     response = client.get("/inbox?intent=OPERATING_SYSTEM_UPDATES")
     assert response.status_code == 200
-    assert (
-        "OS &amp; iOS Updates" in response.text or "OS & iOS Updates" in response.text
-    )
+    assert "OS &amp; iOS Updates" in response.text or "OS & iOS Updates" in response.text
     assert "Support Inbox" in response.text
 
 

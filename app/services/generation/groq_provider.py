@@ -73,9 +73,7 @@ class GroqProvider(BaseLLMProvider):
 
                     if response.status_code != 200:
                         error_msg = response.text
-                        logger.error(
-                            f"Groq error (HTTP {response.status_code}): {error_msg}"
-                        )
+                        logger.error(f"Groq error (HTTP {response.status_code}): {error_msg}")
                         raise LLMProviderException(
                             f"Groq API error ({response.status_code}): {error_msg}"
                         )
@@ -88,9 +86,7 @@ class GroqProvider(BaseLLMProvider):
                 reply = choices[0].get("message", {}).get("content", "").strip()
                 return reply
         except httpx.TimeoutException as ex:
-            raise LLMProviderException(
-                f"Groq API request timed out after {self.timeout}s."
-            ) from ex
+            raise LLMProviderException(f"Groq API request timed out after {self.timeout}s.") from ex
         except LLMProviderException:
             raise
         except Exception as ex:

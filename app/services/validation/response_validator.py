@@ -77,16 +77,12 @@ class ResponseValidator:
         clean_reply = (reply or "").strip()
         checks["non_empty_check"] = len(clean_reply) >= 15
         if not checks["non_empty_check"]:
-            warnings.append(
-                "Draft reply is empty or unreasonably brief (<15 characters)."
-            )
+            warnings.append("Draft reply is empty or unreasonably brief (<15 characters).")
 
         # 2. Evidence presence check
         checks["grounding_evidence_present"] = len(evidence) > 0
         if not checks["grounding_evidence_present"]:
-            warnings.append(
-                "No historical brand evidence available to ground the response."
-            )
+            warnings.append("No historical brand evidence available to ground the response.")
 
         reply_lower = clean_reply.lower()
 
@@ -98,9 +94,7 @@ class ResponseValidator:
         # Check for ungrounded monetary amounts (e.g. $29, $99, 50 USD) not found in evidence
         has_ungrounded_pricing = self._check_ungrounded_pricing(clean_reply, evidence)
 
-        checks["unsupported_claim_check"] = not (
-            has_unsupported_phrase or has_ungrounded_pricing
-        )
+        checks["unsupported_claim_check"] = not (has_unsupported_phrase or has_ungrounded_pricing)
         if has_unsupported_phrase:
             warnings.append(
                 "Response contains unverified financial promises or replacement guarantees."
@@ -130,9 +124,7 @@ class ResponseValidator:
         msg_lower = (customer_message or "").lower()
         hazard_present = any(term in msg_lower for term in self.hazard_terms)
         if hazard_present:
-            provides_safety_advice = any(
-                act in reply_lower for act in self.safe_hazard_actions
-            )
+            provides_safety_advice = any(act in reply_lower for act in self.safe_hazard_actions)
             checks["hazardous_safety_check"] = provides_safety_advice
             if not provides_safety_advice:
                 warnings.append(
@@ -152,9 +144,7 @@ class ResponseValidator:
             grounding_score=grounding_score,
         )
 
-    def _check_ungrounded_pricing(
-        self, reply: str, evidence: List[HistoricalCase]
-    ) -> bool:
+    def _check_ungrounded_pricing(self, reply: str, evidence: List[HistoricalCase]) -> bool:
         """Detect numeric dollar amounts in reply that are not in the evidence context."""
         price_patterns = re.findall(
             r"\$\s*\d+(?:\.\d{2})?|\b\d+\s*(?:dollars|usd)\b", reply, re.IGNORECASE
@@ -162,9 +152,7 @@ class ResponseValidator:
         if not price_patterns:
             return False
 
-        evidence_text = " ".join(
-            f"{c.customer_text} {c.brand_response}" for c in evidence
-        )
+        evidence_text = " ".join(f"{c.customer_text} {c.brand_response}" for c in evidence)
         for price in price_patterns:
             digits = re.sub(r"[^\d]", "", price)
             if digits and digits not in evidence_text:
@@ -205,9 +193,7 @@ class ResponseValidator:
         ]
         return any(phrase in text_lower for phrase in risky_prompts)
 
-    def _compute_grounding_overlap(
-        self, reply: str, evidence: List[HistoricalCase]
-    ) -> float:
+    def _compute_grounding_overlap(self, reply: str, evidence: List[HistoricalCase]) -> float:
         """Compute Jaccard token overlap between reply and retrieved historical evidence."""
         if not reply or not evidence:
             return 0.0

@@ -13,15 +13,10 @@ class SimulateRequest(BaseModel):
         None, description="Optional thread/conversation identifier"
     )
     brand: Optional[str] = Field(None, description="Target brand identifier")
+    customer_handle: Optional[str] = Field(
+        None, description="Customer handle or username (e.g. @alex)"
+    )
     provider: Optional[str] = Field(
         None,
         description="Optional LLM provider: groq, ollama, openai, gemini, claude",
     )
-
-
-class ConversationFilterRequest(BaseModel):
-    status_filter: Optional[str] = Field(
-        "all", description="Filter by status: all, auto_ready, needs_human, resolved"
-    )
-    limit: int = Field(50, ge=1, le=100)
-    offset: int = Field(0, ge=0)

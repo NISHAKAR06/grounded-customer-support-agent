@@ -130,8 +130,7 @@ def classify_text_intent(text: str) -> Tuple[SupportIntent, float, List[str]]:
     if SupportIntent.BATTERY_POWER_HARDWARE in intent_scores:
         hw_signals = intent_signals[SupportIntent.BATTERY_POWER_HARDWARE]
         if any(
-            w in hw_signals
-            for w in ["swollen", "swelling", "shatter", "cracked", "burning", "hot"]
+            w in hw_signals for w in ["swollen", "swelling", "shatter", "cracked", "burning", "hot"]
         ):
             return (
                 SupportIntent.BATTERY_POWER_HARDWARE,
@@ -142,10 +141,7 @@ def classify_text_intent(text: str) -> Tuple[SupportIntent, float, List[str]]:
     # 2. Financial / Billing Priority
     if SupportIntent.SUBSCRIPTIONS_BILLING in intent_scores:
         bill_signals = intent_signals[SupportIntent.SUBSCRIPTIONS_BILLING]
-        if any(
-            w in bill_signals
-            for w in ["refund", "charged", "itunes.com/bill", "cancel"]
-        ):
+        if any(w in bill_signals for w in ["refund", "charged", "itunes.com/bill", "cancel"]):
             return (
                 SupportIntent.SUBSCRIPTIONS_BILLING,
                 intent_scores[SupportIntent.SUBSCRIPTIONS_BILLING],
@@ -155,10 +151,7 @@ def classify_text_intent(text: str) -> Tuple[SupportIntent, float, List[str]]:
     # 3. Account / 2FA Priority
     if SupportIntent.ACCOUNT_APPLE_ID in intent_scores:
         acc_signals = intent_signals[SupportIntent.ACCOUNT_APPLE_ID]
-        if any(
-            w in acc_signals
-            for w in ["2fa", "two-factor", "locked", "verification", "region"]
-        ):
+        if any(w in acc_signals for w in ["2fa", "two-factor", "locked", "verification", "region"]):
             return (
                 SupportIntent.ACCOUNT_APPLE_ID,
                 intent_scores[SupportIntent.ACCOUNT_APPLE_ID],
@@ -223,9 +216,7 @@ def label_conversations_file(input_path: Path, output_path: Path) -> Dict[str, A
             decision = record.get("decision", "AUTO_HANDLE")
             if label not in routing_breakdown:
                 routing_breakdown[label] = {"AUTO_HANDLE": 0, "HUMAN_ESCALATION": 0}
-            routing_breakdown[label][decision] = (
-                routing_breakdown[label].get(decision, 0) + 1
-            )
+            routing_breakdown[label][decision] = routing_breakdown[label].get(decision, 0) + 1
 
             conversations.append(record)
 
@@ -240,9 +231,7 @@ def label_conversations_file(input_path: Path, output_path: Path) -> Dict[str, A
         intent_stats[label] = {
             "count": count,
             "percentage": round((count / total) * 100, 2) if total else 0.0,
-            "avg_confidence": (
-                round(confidence_sums[label] / count, 3) if count else 0.0
-            ),
+            "avg_confidence": (round(confidence_sums[label] / count, 3) if count else 0.0),
             "routing": routing_breakdown.get(label, {}),
         }
 
@@ -278,9 +267,7 @@ if __name__ == "__main__":
             stats_out.parent.mkdir(parents=True, exist_ok=True)
             with open(stats_out, "w", encoding="utf-8") as f:
                 json.dump(sample_stats, f, indent=2)
-        print(
-            f"Done! Labeled {sample_stats['total_conversations']} sample conversations."
-        )
+        print(f"Done! Labeled {sample_stats['total_conversations']} sample conversations.")
 
     if not full_file.exists() and not sample_file.exists():
         print("No processed conversation files found.")

@@ -15,16 +15,16 @@
     <!-- Top Row: Status Pills & Search Input -->
     <div class="inbox-controls-row">
       <div class="status-pills">
-        <a href="/inbox?filter=all&decision={{ active_decision }}&turns={{ active_turns }}&intent={{ active_intent }}&sort={{ active_sort }}&page_size={{ pagination.page_size }}&search={{ search_query }}" class="pill-btn {% if active_filter == 'all' %}active{% endif %}">
+        <a href="/inbox?filter=all&turns={{ active_turns }}&intent={{ active_intent }}&sort={{ active_sort }}&page_size={{ pagination.page_size }}&search={{ search_query }}" class="pill-btn {% if active_filter == 'all' %}active{% endif %}">
           All Tickets
         </a>
-        <a href="/inbox?filter=auto_ready&decision={{ active_decision }}&turns={{ active_turns }}&intent={{ active_intent }}&sort={{ active_sort }}&page_size={{ pagination.page_size }}&search={{ search_query }}" class="pill-btn {% if active_filter == 'auto_ready' %}active{% endif %}">
+        <a href="/inbox?filter=auto_ready&turns={{ active_turns }}&intent={{ active_intent }}&sort={{ active_sort }}&page_size={{ pagination.page_size }}&search={{ search_query }}" class="pill-btn {% if active_filter == 'auto_ready' %}active{% endif %}">
           AI Ready
         </a>
-        <a href="/inbox?filter=needs_human&decision={{ active_decision }}&turns={{ active_turns }}&intent={{ active_intent }}&sort={{ active_sort }}&page_size={{ pagination.page_size }}&search={{ search_query }}" class="pill-btn {% if active_filter == 'needs_human' %}active{% endif %}">
+        <a href="/inbox?filter=needs_human&turns={{ active_turns }}&intent={{ active_intent }}&sort={{ active_sort }}&page_size={{ pagination.page_size }}&search={{ search_query }}" class="pill-btn {% if active_filter == 'needs_human' %}active{% endif %}">
           Needs Human
         </a>
-        <a href="/inbox?filter=resolved&decision={{ active_decision }}&turns={{ active_turns }}&intent={{ active_intent }}&sort={{ active_sort }}&page_size={{ pagination.page_size }}&search={{ search_query }}" class="pill-btn {% if active_filter == 'resolved' %}active{% endif %}">
+        <a href="/inbox?filter=resolved&turns={{ active_turns }}&intent={{ active_intent }}&sort={{ active_sort }}&page_size={{ pagination.page_size }}&search={{ search_query }}" class="pill-btn {% if active_filter == 'resolved' %}active{% endif %}">
           Resolved
         </a>
       </div>
@@ -41,7 +41,7 @@
         <input type="hidden" name="filter" value="{{ active_filter }}" />
         <button type="submit" class="btn btn-sm btn-secondary">Search</button>
         {% if search_query %}
-        <a href="/inbox?filter={{ active_filter }}&decision={{ active_decision }}&turns={{ active_turns }}&intent={{ active_intent }}&sort={{ active_sort }}&page_size={{ pagination.page_size }}" class="btn btn-sm btn-ghost" title="Clear search">✕</a>
+        <a href="/inbox?filter={{ active_filter }}&turns={{ active_turns }}&intent={{ active_intent }}&sort={{ active_sort }}&page_size={{ pagination.page_size }}" class="btn btn-sm btn-ghost" title="Clear search">✕</a>
         {% endif %}
       </div>
     </div>
@@ -61,16 +61,6 @@
             <option value="AUDIO_ACCESSORIES" {% if active_intent == 'AUDIO_ACCESSORIES' or active_intent == 'Audio & Accessories' %}selected{% endif %}>Audio & Accessories</option>
             <option value="SUBSCRIPTIONS_BILLING" {% if active_intent == 'SUBSCRIPTIONS_BILLING' or active_intent == 'Billing & Subscriptions' %}selected{% endif %}>Billing & Subscriptions</option>
             <option value="GENERAL_INQUIRY" {% if active_intent == 'GENERAL_INQUIRY' or active_intent == 'General Support' %}selected{% endif %}>General Support</option>
-          </select>
-        </div>
-
-        <!-- Decision Filter -->
-        <div class="controls-group">
-          <label class="control-label" for="decision-select">Decision:</label>
-          <select name="decision" id="decision-select" class="form-select" onchange="document.getElementById('inboxFilterForm').submit()">
-            <option value="all" {% if active_decision == 'all' %}selected{% endif %}>All Routing</option>
-            <option value="auto_handle" {% if active_decision == 'auto_handle' %}selected{% endif %}>Auto-Handle</option>
-            <option value="human_escalation" {% if active_decision == 'human_escalation' %}selected{% endif %}>Needs Human</option>
           </select>
         </div>
 
@@ -136,7 +126,6 @@
           <th style="width: 150px;">Classified Intent</th>
           <th style="width: 80px;">Turns</th>
           <th style="width: 90px;">Confidence</th>
-          <th style="width: 120px;">Routing</th>
           <th style="width: 100px;">Time</th>
           <th style="width: 100px; text-align: center;">Action</th>
         </tr>
@@ -170,19 +159,12 @@
               —
             {% endif %}
           </td>
-          <td>
-            {% if conv.decision == 'AUTO_HANDLE' or conv.status == 'Resolved' or conv.status == 'AI Ready' %}
-            <span class="badge badge-auto">Auto-Handle</span>
-            {% else %}
-            <span class="badge badge-human">Needs Human</span>
-            {% endif %}
-          </td>
           <td style="color: var(--text-muted); font-size: 11px;">
             {{ conv.created_at or conv.timestamp or '' }}
           </td>
           <td style="text-align: center;">
             <a
-              href="/simulate?msg={{ (conv.first_inquiry or conv.latest_message) | urlencode }}"
+              href="/simulate?msg={{ (conv.first_inquiry or conv.latest_message) | urlencode }}&user={{ conv.customer_id | urlencode }}"
               class="simulate-action-btn"
               title="Test this message in Simulate workspace"
             >
@@ -192,7 +174,7 @@
         </tr>
         {% else %}
         <tr>
-          <td colspan="9" style="text-align: center; padding: 48px 24px; color: var(--text-muted);">
+          <td colspan="8" style="text-align: center; padding: 48px 24px; color: var(--text-muted);">
             <div style="font-size: 15px; font-weight: 600; margin-bottom: 4px; color: var(--text-primary);">No conversations match your criteria</div>
             <div style="font-size: 13px;">Try clearing your search query or selecting a different status filter.</div>
           </td>
