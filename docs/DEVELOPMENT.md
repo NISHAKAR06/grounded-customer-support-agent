@@ -89,3 +89,22 @@ pytest tests/ -v
 ruff check .
 black --check .
 ```
+
+---
+
+## 6. Running Benchmark Evaluations
+
+```bash
+# 1. Evaluate baseline intent classifiers (Test split & Golden set)
+python scripts/evaluation/evaluate_baselines.py
+
+# 2. Evaluate dense FAISS retrieval (Unconditioned vs Intent-Conditioned)
+python scripts/evaluation/evaluate_retrieval.py
+
+# 3. Evaluate grounded generation & safety barriers across 200 Golden samples
+python scripts/evaluation/evaluate_generation.py
+
+# 4. Evaluate LLM-as-a-Judge rubric & inter-annotator agreement
+python scripts/evaluation/evaluate_judge.py
+```
+

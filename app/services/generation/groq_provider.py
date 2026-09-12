@@ -21,7 +21,7 @@ class GroqProvider(BaseLLMProvider):
         timeout: float = 20.0,
     ):
         self.settings = get_settings()
-        self.api_key = api_key or self.settings.GROQ_API_KEY
+        self.api_key = self.settings.GROQ_API_KEY if api_key is None else api_key
         self.model_name = model_name or self.settings.GROQ_MODEL_NAME
         self.base_url = (base_url or self.settings.GROQ_BASE_URL).rstrip("/")
         self.timeout = timeout
@@ -62,12 +62,23 @@ class GroqProvider(BaseLLMProvider):
                 response = client.post(endpoint, headers=headers, json=payload)
                 if response.status_code != 200:
                     error_msg = response.text
-                    logger.error(
-                        f"Groq error (HTTP {response.status_code}): {error_msg}"
-                    )
-                    raise LLMProviderException(
-                        f"Groq API error ({response.status_code}): {error_msg}"
-                    )
+                    if response.status_code == 404 and "model_not_found" in error_msg:
+                        logger.warning(
+                            f"Groq model '{self.model_name}' not found. "
+                            f"Auto-adapting to available model 'groq/compound-mini'."
+                        )
+                        self.model_name = "groq/compound-mini"
+                        payload["model"] = "groq/compound-mini"
+                        response = client.post(endpoint, headers=headers, json=payload)
+
+                    if response.status_code != 200:
+                        error_msg = response.text
+                        logger.error(
+                            f"Groq error (HTTP {response.status_code}): {error_msg}"
+                        )
+                        raise LLMProviderException(
+                            f"Groq API error ({response.status_code}): {error_msg}"
+                        )
 
                 data = response.json()
                 choices = data.get("choices", [])

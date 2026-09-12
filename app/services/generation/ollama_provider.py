@@ -45,12 +45,36 @@ class OllamaProvider(BaseLLMProvider):
                 response = client.post(endpoint, json=payload)
                 if response.status_code != 200:
                     error_detail = response.text
-                    logger.error(
-                        f"Ollama returned HTTP {response.status_code}: {error_detail}"
-                    )
-                    raise LLMProviderException(
-                        f"Ollama error (HTTP {response.status_code}): {error_detail}"
-                    )
+                    # If model not found, try to auto-adapt to any installed local model
+                    if response.status_code == 404 and "not found" in error_detail.lower():
+                        try:
+                            tags_resp = client.get(f"{self.base_url}/api/tags", timeout=5.0)
+                            if tags_resp.status_code == 200:
+                                models = [
+                                    m.get("name")
+                                    for m in tags_resp.json().get("models", [])
+                                    if m.get("name")
+                                ]
+                                if models:
+                                    fallback_model = models[0]
+                                    logger.warning(
+                                        f"Ollama model '{self.model_name}' not found. "
+                                        f"Auto-adapting to installed local model '{fallback_model}'."
+                                    )
+                                    self.model_name = fallback_model
+                                    payload["model"] = fallback_model
+                                    response = client.post(endpoint, json=payload)
+                        except Exception as tag_err:
+                            logger.debug(f"Failed to query Ollama tags for fallback: {tag_err}")
+
+                    if response.status_code != 200:
+                        error_detail = response.text
+                        logger.error(
+                            f"Ollama returned HTTP {response.status_code}: {error_detail}"
+                        )
+                        raise LLMProviderException(
+                            f"Ollama error (HTTP {response.status_code}): {error_detail}"
+                        )
 
                 data = response.json()
                 reply = data.get("response", "").strip()

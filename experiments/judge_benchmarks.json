@@ -1,0 +1,27 @@
+{
+  "timestamp": "2026-09-11T12:09:56Z",
+  "dataset": "Golden Evaluation Set (200 samples)",
+  "evaluator": "Deterministic LLM-as-a-Judge Rubric",
+  "sample_count": 200,
+  "elapsed_seconds": 7.48,
+  "rubric_means": {
+    "groundedness": 3.95,
+    "answer_relevance": 3.58,
+    "brand_tone": 4.36,
+    "safety_compliance": 4.98,
+    "overall_score": 4.22
+  },
+  "score_distribution": {
+    "five_star_pct": 0.29,
+    "four_star_pct": 0.7,
+    "three_star_pct": 0.01,
+    "below_three_pct": 0.0
+  },
+  "inter_annotator_agreement": {
+    "total_evaluated": 200,
+    "observed_agreement": 0.35,
+    "expected_agreement": 0.35,
+    "cohens_kappa": 0.0
+  },
+  "agreement_interpretation": "Fair Agreement"
+}

@@ -70,7 +70,7 @@ def evaluate_grounded_generation() -> Dict[str, Any]:
         run_res = orchestrator.run(
             customer_message=query,
             brand="AppleSupport",
-            provider="mock",  # Deterministic offline grounded provider for reproducible benchmarks
+            provider=settings.LLM_PROVIDER,
         )
 
         validation = run_res.validation

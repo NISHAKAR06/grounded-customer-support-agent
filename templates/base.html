@@ -1,15 +1,18 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>{% block title %}Grounded Support Agent{% endblock %}</title>
-  
+
   <!-- Inter Font -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
-  
+  <link
+    href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap"
+    rel="stylesheet">
+
   <!-- CSS Stylesheets -->
   <link rel="stylesheet" href="/static/css/base.css">
   <link rel="stylesheet" href="/static/css/layout.css">
@@ -18,6 +21,7 @@
   <link rel="stylesheet" href="/static/css/responsive.css">
   {% block extra_css %}{% endblock %}
 </head>
+
 <body>
   <div class="app-shell">
     <!-- Left Dark Sidebar -->
@@ -56,7 +60,8 @@
         <!-- ENGINEERING -->
         <div class="nav-group">
           <div class="nav-heading">Engineering</div>
-          <a href="/methodology" class="nav-link {% if active_page == 'methodology' %}active{% endif %}" id="navMethodology">
+          <a href="/methodology" class="nav-link {% if active_page == 'methodology' %}active{% endif %}"
+            id="navMethodology">
             <span class="nav-link-dot"></span>
             Methodology
           </a>
@@ -100,4 +105,5 @@
   <script src="/static/js/app.js"></script>
   {% block extra_js %}{% endblock %}
 </body>
+
 </html>

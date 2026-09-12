@@ -14,7 +14,7 @@
   <div class="card">
     <div class="card-header">
       <div class="card-title">Customer Message Composer</div>
-      <span class="badge badge-neutral">Inbound Simulation</span>
+      <span class="badge badge-neutral">Live Request</span>
     </div>
 
     <label class="form-label" for="customer-message-input">Customer Message</label>
@@ -24,55 +24,13 @@
       placeholder="Type an Apple customer inquiry, e.g., 'My iPhone is stuck on Verifying update for iOS 11...'"
     >{{ initial_message or '' }}</textarea>
 
-    <div style="margin-top: 14px;">
-      <span class="form-label">Quick-Load Real @AppleSupport Examples</span>
-      <div class="example-chips">
-        <button
-          type="button"
-          class="chip-btn example-chip"
-          data-sample="My iPhone has been stuck on 'Verifying update' for iOS 11 for over 3 hours. How do I force restart or fix this?"
-        >
-          ⚙️ iOS Update Freeze (Auto-Handle)
-        </button>
-        <button
-          type="button"
-          class="chip-btn example-chip"
-          data-sample="My iPhone 7 battery percentage drops from 80% to 15% in less than an hour and the device gets burning hot."
-        >
-          🔋 Battery Drain & Heat (Auto-Handle)
-        </button>
-        <button
-          type="button"
-          class="chip-btn example-chip"
-          data-sample="I'm locked out of my Apple ID because I changed my mobile number and cannot receive the two-factor code."
-        >
-          🔐 Apple ID 2FA Lockout (Account)
-        </button>
-        <button
-          type="button"
-          class="chip-btn example-chip"
-          data-sample="My iPhone fell, the screen shattered completely and the battery is visibly swelling. Need replacement urgently."
-        >
-          💥 Shattered Screen & Swelling (Hardware Escalation)
-        </button>
-        <button
-          type="button"
-          class="chip-btn example-chip"
-          data-sample="I was charged $49.99 for an in-app subscription I never authorized. Reverse this payment immediately or I contact my bank!"
-        >
-          💳 Unauthorized Charge (Dispute Escalation)
-        </button>
-      </div>
-    </div>
-
     <div style="margin-top: 20px; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 12px;">
       <div style="display: flex; align-items: center; gap: 10px;">
         <label for="llm-provider-select" style="font-size: 13px; font-weight: 600; color: #475569;">LLM Provider:</label>
         <select id="llm-provider-select" style="padding: 8px 12px; font-size: 13px; font-weight: 500; border-radius: 6px; border: 1px solid #cbd5e1; background: #ffffff; color: #0f172a; cursor: pointer;">
-          <option value="mock" selected>🤖 Mock (Offline Simulation)</option>
+          <option value="groq" selected>⚡ Groq (Llama-3.1 / Compound-Mini)</option>
           <option value="ollama">🦙 Ollama (Local Self-Hosted)</option>
           <option value="openai">⚡ OpenAI (GPT-4o mini)</option>
-          <option value="groq">⚡ Groq (Llama-3.1 8B Instant)</option>
           <option value="gemini">✨ Google Gemini (1.5 Flash)</option>
           <option value="claude">🧠 Anthropic Claude (3.5 Haiku)</option>
         </select>
@@ -92,8 +50,8 @@
     </div>
 
     <div class="timeline" id="agent-timeline">
-      <div class="timeline-step completed" id="step-received">
-        <div class="step-icon">✓</div>
+      <div class="timeline-step" id="step-received">
+        <div class="step-icon">1</div>
         <div class="step-content">
           <div class="step-title">Message Received & Context Assembled</div>
           <div class="step-desc">Ready for pipeline execution</div>

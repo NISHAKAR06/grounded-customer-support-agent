@@ -15,7 +15,7 @@ class SimulateRequest(BaseModel):
     brand: Optional[str] = Field(None, description="Target brand identifier")
     provider: Optional[str] = Field(
         None,
-        description="Optional LLM provider: mock, ollama, openai, groq, gemini, claude",
+        description="Optional LLM provider: groq, ollama, openai, gemini, claude",
     )
 
 

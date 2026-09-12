@@ -1,7 +1,8 @@
 """Unit and integration tests for multi-provider LLM system.
 
-Tests all 6 providers: mock, ollama, openai, groq, gemini, claude,
+Tests all 5 real inference providers: groq, ollama, openai, gemini, claude,
 as well as the provider factory, fallback circuit breaker, and API endpoints.
+Zero-mock policy: No offline mock simulation engines in production runtime.
 """
 
 from unittest.mock import MagicMock, patch
@@ -16,7 +17,6 @@ from app.services.generation.claude_provider import ClaudeProvider
 from app.services.generation.gemini_provider import GeminiProvider
 from app.services.generation.groq_provider import GroqProvider
 from app.services.generation.llm_service import BaseLLMProvider, LLMService
-from app.services.generation.mock_provider import MockProvider
 from app.services.generation.ollama_provider import OllamaProvider
 from app.services.generation.openai_provider import OpenAIProvider
 from app.services.generation.provider_factory import LLMProviderFactory
@@ -25,45 +25,35 @@ client = TestClient(app)
 
 
 # ---------------------------------------------------------------------------
-# 1. MockProvider Tests
+# Test Fixture: Minimal In-Memory Provider for LLMService Testing
 # ---------------------------------------------------------------------------
 
 
-def test_mock_provider_grounded_in_resolution():
-    """Verify MockProvider extracts historical resolution from prompt."""
-    provider = MockProvider()
-    prompt = (
-        "GROUNDING RULES:\n1. Rely on evidence\n\n"
-        "CUSTOMER INTENT: OPERATING_SYSTEM_UPDATES\n"
-        "CUSTOMER MESSAGE: 'iOS 11 battery drain'\n\n"
-        "HISTORICAL RESOLVED CASES:\n"
-        "[Historical Case #1] (ID: case_001)\n"
-        "Customer: My battery is draining fast\n"
-        "Brand Resolution: Please try updating your iPhone to the latest iOS build.\n\n"
-        "DRAFT REPLY:"
-    )
-    reply = provider.generate(prompt)
-    assert "Please try updating your iPhone" in reply
-    assert "mock" in provider.provider_name()
+class DummyTestProvider(BaseLLMProvider):
+    """In-memory test stub for verifying LLMService circuit breaking."""
 
+    def __init__(self, name: str = "dummy", should_fail: bool = False):
+        self._name = name
+        self._should_fail = should_fail
 
-def test_mock_provider_fallback_templates():
-    """Verify MockProvider generates appropriate response when no evidence is present."""
-    provider = MockProvider()
-    prompt = "CUSTOMER INTENT: BATTERY_POWER_HARDWARE\nCUSTOMER MESSAGE: 'battery swollen'\nDRAFT REPLY:"
-    reply = provider.generate(prompt)
-    assert "hardware" in reply.lower() or "battery" in reply.lower()
+    def provider_name(self) -> str:
+        return self._name
+
+    def generate(self, prompt: str) -> str:
+        if self._should_fail:
+            raise LLMProviderException(f"Simulated failure on {self._name}")
+        return f"Response from {self._name}: {prompt[:20]}"
 
 
 # ---------------------------------------------------------------------------
-# 2. OllamaProvider Tests
+# 1. OllamaProvider Tests
 # ---------------------------------------------------------------------------
 
 
 def test_ollama_provider_name_and_config():
     """Verify OllamaProvider configuration and naming."""
-    provider = OllamaProvider(base_url="http://localhost:11434", model_name="llama3.2")
-    assert provider.provider_name() == "ollama (llama3.2)"
+    provider = OllamaProvider(base_url="http://localhost:11434", model_name="qwen2.5-coder:7b")
+    assert "ollama" in provider.provider_name()
 
 
 @patch("httpx.Client.post", side_effect=httpx.ConnectError("Connection refused"))
@@ -80,16 +70,16 @@ def test_ollama_provider_successful_generation(mock_post):
     """Verify OllamaProvider parses successful HTTP 200 response."""
     mock_resp = MagicMock()
     mock_resp.status_code = 200
-    mock_resp.json.return_value = {"response": "Hello from Ollama Llama 3.2!"}
+    mock_resp.json.return_value = {"response": "Hello from Ollama!"}
     mock_post.return_value = mock_resp
 
-    provider = OllamaProvider(base_url="http://localhost:11434", model_name="llama3.2")
+    provider = OllamaProvider(base_url="http://localhost:11434", model_name="qwen2.5-coder:7b")
     reply = provider.generate("Test prompt")
-    assert reply == "Hello from Ollama Llama 3.2!"
+    assert reply == "Hello from Ollama!"
 
 
 # ---------------------------------------------------------------------------
-# 3. OpenAIProvider Tests
+# 2. OpenAIProvider Tests
 # ---------------------------------------------------------------------------
 
 
@@ -118,7 +108,7 @@ def test_openai_provider_successful_generation(mock_post):
 
 
 # ---------------------------------------------------------------------------
-# 4. GroqProvider Tests
+# 3. GroqProvider Tests
 # ---------------------------------------------------------------------------
 
 
@@ -140,14 +130,14 @@ def test_groq_provider_successful_generation(mock_post):
     }
     mock_post.return_value = mock_resp
 
-    provider = GroqProvider(api_key="gsk-test-key", model_name="llama-3.1-8b-instant")
+    provider = GroqProvider(api_key="gsk-test-key", model_name="groq/compound-mini")
     reply = provider.generate("Test prompt")
     assert reply == "Ultra-fast response from Groq!"
-    assert provider.provider_name() == "groq (llama-3.1-8b-instant)"
+    assert "groq" in provider.provider_name()
 
 
 # ---------------------------------------------------------------------------
-# 5. GeminiProvider Tests
+# 4. GeminiProvider Tests
 # ---------------------------------------------------------------------------
 
 
@@ -178,7 +168,7 @@ def test_gemini_provider_successful_generation(mock_post):
 
 
 # ---------------------------------------------------------------------------
-# 6. ClaudeProvider Tests
+# 5. ClaudeProvider Tests
 # ---------------------------------------------------------------------------
 
 
@@ -211,13 +201,13 @@ def test_claude_provider_successful_generation(mock_post):
 
 
 # ---------------------------------------------------------------------------
-# 7. LLMProviderFactory Tests
+# 6. LLMProviderFactory Tests
 # ---------------------------------------------------------------------------
 
 
-def test_factory_creates_all_six_providers():
-    """Verify factory instantiates all 6 supported providers."""
-    for name in ["mock", "ollama", "openai", "groq", "gemini", "claude"]:
+def test_factory_creates_all_five_providers():
+    """Verify factory instantiates all 5 supported real inference providers."""
+    for name in ["ollama", "openai", "groq", "gemini", "claude"]:
         provider = LLMProviderFactory.create_provider(name)
         assert isinstance(provider, BaseLLMProvider)
 
@@ -225,81 +215,76 @@ def test_factory_creates_all_six_providers():
 def test_factory_normalizes_aliases():
     """Verify factory handles common aliases."""
     local_p = LLMProviderFactory.create_provider("local")
-    assert isinstance(local_p, MockProvider)
+    assert isinstance(local_p, OllamaProvider)
 
     anthropic_p = LLMProviderFactory.create_provider("anthropic")
     assert isinstance(anthropic_p, ClaudeProvider)
 
 
 def test_factory_unsupported_raises_error():
-    """Verify factory raises exception on invalid provider identifier."""
+    """Verify factory raises exception on invalid provider identifier or deprecated mock."""
     with pytest.raises(LLMProviderException) as exc_info:
         LLMProviderFactory.create_provider("unknown_super_llm")
     assert "Unsupported LLM provider" in str(exc_info.value)
 
 
 def test_factory_list_available_providers():
-    """Verify metadata list contains all 6 providers."""
+    """Verify metadata list contains all 5 real providers without mock."""
     providers = LLMProviderFactory.list_available_providers()
-    assert len(providers) == 6
+    assert len(providers) == 5
     ids = [p["id"] for p in providers]
-    for expected in ["mock", "ollama", "openai", "groq", "gemini", "claude"]:
+    assert "mock" not in ids
+    for expected in ["ollama", "openai", "groq", "gemini", "claude"]:
         assert expected in ids
 
 
+def test_factory_fallback_creates_real_provider():
+    """Verify fallback provider creates a real alternative engine."""
+    fallback = LLMProviderFactory.create_fallback_provider()
+    assert isinstance(fallback, (OllamaProvider, GroqProvider, OpenAIProvider))
+    assert "mock" not in fallback.provider_name()
+
+
 # ---------------------------------------------------------------------------
-# 8. LLMService Fallback & Dynamic Routing
+# 7. LLMService Fallback & Dynamic Routing
 # ---------------------------------------------------------------------------
 
 
 def test_llm_service_dynamic_provider_override():
     """Verify LLMService uses the provider specified at runtime."""
-    service = LLMService(
-        primary_provider=MockProvider(model_name="primary-mock"),
-        fallback_provider=MockProvider(model_name="fallback-mock"),
-    )
-    reply, provider_used = service.generate_reply("Test prompt", provider_name="mock")
-    assert "mock" in provider_used
+    primary = DummyTestProvider(name="primary-p")
+    fallback = DummyTestProvider(name="fallback-p")
+    service = LLMService(primary_provider=primary, fallback_provider=fallback)
+
+    with patch.object(LLMProviderFactory, "create_provider", return_value=primary):
+        reply, provider_used = service.generate_reply("Test prompt", provider_name="groq")
+        assert "primary-p" in provider_used
 
 
-def test_llm_service_falls_back_when_selected_provider_fails():
-    """Verify LLMService transparently falls back to safe mock when target provider fails."""
-    service = LLMService(
-        primary_provider=MockProvider(model_name="primary-mock"),
-        fallback_provider=MockProvider(model_name="safe-fallback"),
-    )
-    # Target openai with no API key; will fail and trigger fallback
-    reply, provider_used = service.generate_reply("Test prompt", provider_name="openai")
-    assert reply != ""
-    assert "safe-fallback" in provider_used or "mock" in provider_used
+def test_llm_service_falls_back_when_primary_fails():
+    """Verify LLMService transparently falls back to secondary real provider when primary fails."""
+    primary = DummyTestProvider(name="primary-failing", should_fail=True)
+    fallback = DummyTestProvider(name="fallback-live", should_fail=False)
+    service = LLMService(primary_provider=primary, fallback_provider=fallback)
+
+    reply, provider_used = service.generate_reply("Test prompt")
+    assert "fallback-live" in provider_used
+    assert "Response from fallback-live" in reply
 
 
 # ---------------------------------------------------------------------------
-# 9. API Endpoints for Providers
+# 8. API Endpoints for Providers
 # ---------------------------------------------------------------------------
 
 
 def test_api_get_providers():
-    """Verify GET /api/agent/providers and /api/v1/agent/providers return 6 providers."""
+    """Verify GET /api/agent/providers returns 5 real providers and excludes mock."""
     for path in ["/api/agent/providers", "/api/v1/agent/providers"]:
         res = client.get(path)
         assert res.status_code == 200
         data = res.json()
-        assert len(data) == 6
+        assert len(data) == 5
         provider_ids = [p["id"] for p in data]
-        assert "mock" in provider_ids
+        assert "mock" not in provider_ids
         assert "groq" in provider_ids
-        assert "claude" in provider_ids
-
-
-def test_api_run_agent_with_provider_selection():
-    """Verify POST /api/agent/run accepts provider override."""
-    payload = {
-        "customer_message": "My iPhone battery dies so fast after the update.",
-        "provider": "mock",
-    }
-    res = client.post("/api/agent/run", json=payload)
-    assert res.status_code == 200
-    data = res.json()
-    assert "mock" in data["generation"]["provider"].lower()
-    assert data["generation"]["draft_reply"] != ""
+        assert "ollama" in provider_ids

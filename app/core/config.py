@@ -32,14 +32,11 @@ class Settings(BaseSettings):
     TEMPLATES_DIR: Path = BASE_DIR / "templates"
 
     # LLM Settings
-    LLM_PROVIDER: str = "mock"  # 'mock', 'ollama', 'openai', 'groq', 'gemini', 'claude'
-
-    # Mock Provider
-    MOCK_MODEL_NAME: str = "mock-grounded-v1"
+    LLM_PROVIDER: str = "groq"  # 'groq', 'ollama', 'openai', 'gemini', 'claude'
 
     # Ollama Provider (Local)
     OLLAMA_BASE_URL: str = "http://localhost:11434"
-    OLLAMA_MODEL_NAME: str = "llama3.2"
+    OLLAMA_MODEL_NAME: str = "qwen2.5-coder:7b"
 
     # OpenAI Provider
     OPENAI_API_KEY: Optional[str] = None
@@ -48,7 +45,7 @@ class Settings(BaseSettings):
 
     # Groq Provider
     GROQ_API_KEY: Optional[str] = None
-    GROQ_MODEL_NAME: str = "llama-3.1-8b-instant"
+    GROQ_MODEL_NAME: str = "groq/compound-mini"
     GROQ_BASE_URL: str = "https://api.groq.com/openai/v1"
 
     # Gemini Provider

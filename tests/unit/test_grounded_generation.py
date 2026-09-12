@@ -3,7 +3,6 @@
 import pytest
 
 from app.models.domain_models import HistoricalCase, ResolutionStatus
-from app.services.generation.mock_provider import MockProvider
 from app.services.generation.prompt_builder import PromptBuilder
 from app.services.validation.response_validator import ResponseValidator
 
@@ -173,16 +172,14 @@ def test_response_validator_passes_hazardous_safety_with_caution(sample_evidence
     assert result.checks["non_empty_check"] is True
 
 
-def test_mock_provider_extracts_evidence_resolution(sample_evidence):
-    """Verify deterministic mock provider extracts top historical resolution from prompt."""
-    provider = MockProvider()
+def test_grounded_prompt_contains_resolution_evidence(sample_evidence):
+    """Verify prompt builder formats top historical resolution for LLM consumption."""
     prompt = PromptBuilder.build_grounded_prompt(
         customer_message="How do I restart?",
         intent_name="OS & iOS Updates",
         evidence=sample_evidence,
         brand="AppleSupport",
     )
-    reply = provider.generate(prompt)
-
-    assert "force restart" in reply
-    assert len(reply) > 20
+    assert "force restart" in prompt
+    assert "case_101" in prompt
+    assert "Historical Case #1" in prompt

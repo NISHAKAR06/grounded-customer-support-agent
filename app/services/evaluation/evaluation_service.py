@@ -25,6 +25,12 @@ class EvaluationService:
         self.retrieval_benchmarks_path = (
             settings.BASE_DIR / "experiments" / "retrieval_benchmarks.json"
         )
+        self.generation_benchmarks_path = (
+            settings.BASE_DIR / "experiments" / "generation_benchmarks.json"
+        )
+        self.judge_benchmarks_path = (
+            settings.BASE_DIR / "experiments" / "judge_benchmarks.json"
+        )
 
     def get_benchmark_summary(self) -> Dict[str, Any]:
         """Return benchmark comparison metrics across systems."""
@@ -61,6 +67,22 @@ class EvaluationService:
                             "golden_set_intent_conditioned", {}
                         ),
                     }
+            except Exception:
+                pass
+
+        generation_data = {}
+        if self.generation_benchmarks_path.exists():
+            try:
+                with open(self.generation_benchmarks_path, "r", encoding="utf-8") as f:
+                    generation_data = json.load(f)
+            except Exception:
+                pass
+
+        judge_data = {}
+        if self.judge_benchmarks_path.exists():
+            try:
+                with open(self.judge_benchmarks_path, "r", encoding="utf-8") as f:
+                    judge_data = json.load(f)
             except Exception:
                 pass
 
@@ -125,7 +147,8 @@ class EvaluationService:
                     },
                     "detailed_test_metrics": data.get("held_out_test_split", {}),
                     "retrieval": retrieval_data,
-                    "llm_judge": {},
+                    "generation": generation_data,
+                    "llm_judge": judge_data,
                 }
             except Exception:
                 pass
@@ -137,5 +160,6 @@ class EvaluationService:
             "golden_set_count": golden_count,
             "models": {},
             "retrieval": retrieval_data,
-            "llm_judge": {},
+            "generation": generation_data,
+            "llm_judge": judge_data,
         }

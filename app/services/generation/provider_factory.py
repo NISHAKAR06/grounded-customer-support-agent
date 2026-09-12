@@ -8,7 +8,6 @@ from app.services.generation.claude_provider import ClaudeProvider
 from app.services.generation.gemini_provider import GeminiProvider
 from app.services.generation.groq_provider import GroqProvider
 from app.services.generation.llm_service import BaseLLMProvider
-from app.services.generation.mock_provider import MockProvider
 from app.services.generation.ollama_provider import OllamaProvider
 from app.services.generation.openai_provider import OpenAIProvider
 
@@ -16,16 +15,15 @@ from app.services.generation.openai_provider import OpenAIProvider
 class LLMProviderFactory:
     """Factory for dynamically creating and inspecting LLM providers.
 
-    Supported Providers:
-        - mock: Zero-cost offline deterministic simulation
-        - ollama: Local self-hosted LLM (Llama, Mistral, Phi)
+    Supported Real Inference Providers:
+        - groq: Groq ultra-low latency cloud inference (Llama-3.1, Compound-Mini)
+        - ollama: Local self-hosted LLM (Llama, Qwen, Mistral)
         - openai: OpenAI Chat Completions (GPT-4o mini, GPT-4o)
-        - groq: Groq ultra-low latency cloud inference (Llama-3.1, Mixtral)
         - gemini: Google Gemini (1.5 Flash, 2.0 Flash)
         - claude: Anthropic Claude (3.5 Haiku, 3.5 Sonnet)
     """
 
-    SUPPORTED_PROVIDERS = ("mock", "ollama", "openai", "groq", "gemini", "claude")
+    SUPPORTED_PROVIDERS = ("groq", "ollama", "openai", "gemini", "claude")
 
     @classmethod
     def normalize_provider_name(cls, provider_name: Optional[str]) -> str:
@@ -36,8 +34,7 @@ class LLMProviderFactory:
 
         clean = provider_name.strip().lower()
         alias_map = {
-            "local": "mock",
-            "offline": "mock",
+            "local": "ollama",
             "anthropic": "claude",
             "google": "gemini",
         }
@@ -50,14 +47,12 @@ class LLMProviderFactory:
         """Instantiate an LLM provider by identifier name."""
         name = cls.normalize_provider_name(provider_name)
 
-        if name == "mock":
-            return MockProvider(**kwargs)
+        if name == "groq":
+            return GroqProvider(**kwargs)
         elif name == "ollama":
             return OllamaProvider(**kwargs)
         elif name == "openai":
             return OpenAIProvider(**kwargs)
-        elif name == "groq":
-            return GroqProvider(**kwargs)
         elif name == "gemini":
             return GeminiProvider(**kwargs)
         elif name == "claude":
@@ -65,12 +60,35 @@ class LLMProviderFactory:
         else:
             raise LLMProviderException(
                 f"Unsupported LLM provider '{provider_name}'. "
-                f"Supported providers: {list(cls.SUPPORTED_PROVIDERS)}"
+                f"Supported real inference providers: {list(cls.SUPPORTED_PROVIDERS)}"
             )
 
     @classmethod
-    def list_available_providers(cls) -> List[Dict[str, Any]]:
-        """Return metadata, status, and model info for all supported providers."""
+    def create_fallback_provider(cls) -> BaseLLMProvider:
+        """Create a real secondary inference provider when primary engine fails.
+
+        Zero-Mock Policy: Engages alternative live models (Groq <-> Ollama),
+        never offline mock simulations.
+        """
+        settings = get_settings()
+        primary = cls.normalize_provider_name(settings.LLM_PROVIDER)
+
+        # If Groq is primary, fallback to local Ollama
+        if primary == "groq":
+            return OllamaProvider()
+        # If Ollama is primary, fallback to cloud Groq if configured
+        elif primary == "ollama":
+            if settings.GROQ_API_KEY and not settings.GROQ_API_KEY.startswith("your_"):
+                return GroqProvider()
+            return OpenAIProvider()
+        elif settings.GROQ_API_KEY and not settings.GROQ_API_KEY.startswith("your_"):
+            return GroqProvider()
+        else:
+            return OllamaProvider()
+
+    @classmethod
+    def list_available_providers(cls, **kwargs) -> List[Dict[str, Any]]:
+        """Return catalog of supported real providers and configuration status."""
         settings = get_settings()
         active_provider = cls.normalize_provider_name(settings.LLM_PROVIDER)
 
@@ -79,14 +97,14 @@ class LLMProviderFactory:
 
         return [
             {
-                "id": "mock",
-                "name": "Mock Provider",
-                "badge": "Offline Simulation",
-                "description": "Deterministic, zero-latency grounded simulation without API keys",
-                "model": settings.MOCK_MODEL_NAME,
-                "configured": True,
-                "is_active": active_provider == "mock",
-                "type": "local_mock",
+                "id": "groq",
+                "name": "Groq",
+                "badge": "Ultra-Fast LPU",
+                "description": "Groq cloud high-speed inference engine (Llama-3.1 / Compound-Mini)",
+                "model": settings.GROQ_MODEL_NAME,
+                "configured": is_valid_key(settings.GROQ_API_KEY, "your_groq_api_key"),
+                "is_active": active_provider == "groq",
+                "type": "cloud_api",
             },
             {
                 "id": "ollama",
@@ -108,16 +126,6 @@ class LLMProviderFactory:
                     settings.OPENAI_API_KEY, "your_openai_api_key"
                 ),
                 "is_active": active_provider == "openai",
-                "type": "cloud_api",
-            },
-            {
-                "id": "groq",
-                "name": "Groq",
-                "badge": "Ultra-Fast LPU",
-                "description": "Groq cloud high-speed inference engine",
-                "model": settings.GROQ_MODEL_NAME,
-                "configured": is_valid_key(settings.GROQ_API_KEY, "your_groq_api_key"),
-                "is_active": active_provider == "groq",
                 "type": "cloud_api",
             },
             {

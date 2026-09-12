@@ -56,70 +56,197 @@ document.addEventListener('DOMContentLoaded', () => {
     messageInput.focus();
   }
 
-  // Example message loaders
-  document.querySelectorAll('.example-chip').forEach(btn => {
-    btn.addEventListener('click', () => {
-      const sampleText = btn.getAttribute('data-sample');
-      if (sampleText && messageInput) {
-        messageInput.value = sampleText;
-      }
+  function resetTimeline() {
+    const steps = [
+      { id: 'step-received', num: '1', title: 'Message Received & Context Assembled', desc: 'Ready for pipeline execution' },
+      { id: 'step-intent', num: '2', title: 'Intent Classification', desc: 'Awaiting execution' },
+      { id: 'step-retrieval', num: '3', title: 'Historical Evidence Retrieval', desc: 'Awaiting execution' },
+      { id: 'step-generation', num: '4', title: 'Grounded Reply Generation', desc: 'Awaiting execution' },
+      { id: 'step-validation', num: '5', title: 'Response Validation', desc: 'Awaiting execution' },
+      { id: 'step-decision', num: '6', title: 'Escalation / Automation Policy', desc: 'Awaiting execution' },
+    ];
+    steps.forEach(s => {
+      const el = document.getElementById(s.id);
+      if (!el) return;
+      el.className = 'timeline-step';
+      const icon = el.querySelector('.step-icon');
+      if (icon) icon.innerText = s.num;
+      const desc = el.querySelector('.step-desc');
+      if (desc) desc.innerText = s.desc;
     });
-  });
+  }
 
   if (runBtn) {
-    runBtn.addEventListener('click', async () => {
+    runBtn.addEventListener('click', () => {
       const text = messageInput.value.trim();
       if (!text) {
-        alert('Please enter a customer message or select an example.');
+        alert('Please enter a customer message to analyze.');
         return;
       }
 
-      const selectedProvider = providerSelect ? providerSelect.value : 'mock';
+      const selectedProvider = providerSelect ? providerSelect.value : 'groq';
 
       // Reset UI state
       runBtn.disabled = true;
       runBtn.innerText = 'Running AI Agent...';
       if (resultContainer) resultContainer.style.display = 'none';
 
-      // Update timeline to processing state
-      updateTimelineStep('step-received', 'active', 'Analyzing text payload...');
+      resetTimeline();
+
+      // Step 1: Active
+      updateTimelineStep('step-received', 'active', 'Assembling message payload...');
+      const startTime = performance.now();
+
+      // Attempt real-time SSE streaming for live pipeline updates
+      let sseActive = false;
+      let completed = false;
+
+      const sseUrl = `/api/agent/stream?customer_message=${encodeURIComponent(text)}&provider=${encodeURIComponent(selectedProvider)}`;
+      let evtSource = null;
 
       try {
-        const startTime = performance.now();
-        const response = await fetch('/api/agent/run', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({
-            customer_message: text,
-            provider: selectedProvider,
-          }),
+        evtSource = new EventSource(sseUrl);
+
+        evtSource.addEventListener('MESSAGE_RECEIVED', (e) => {
+          sseActive = true;
+          const data = JSON.parse(e.data);
+          updateTimelineStep('step-received', 'completed', `Received (${data.customer_message.length} chars)`);
+          updateTimelineStep('step-intent', 'active', 'Classifying inquiry intent & domain signals...');
         });
 
-        if (!response.ok) {
-          throw new Error(`Server returned status ${response.status}`);
-        }
+        evtSource.addEventListener('INTENT_CLASSIFICATION_STARTED', () => {
+          sseActive = true;
+          updateTimelineStep('step-intent', 'active', 'Extracting domain entities & signals...');
+        });
 
-        const data = await response.json();
-        const totalDuration = Math.round(performance.now() - startTime);
+        evtSource.addEventListener('INTENT_CLASSIFICATION_COMPLETED', (e) => {
+          sseActive = true;
+          const data = JSON.parse(e.data);
+          updateTimelineStep('step-intent', 'completed', `${data.intent} (${Math.round(data.confidence * 100)}% conf, ${data.elapsed_ms}ms)`);
+          updateTimelineStep('step-retrieval', 'active', 'Querying dense FAISS vector index...');
+        });
 
-        // Update Timeline to Completed States
-        updateTimelineStep('step-received', 'completed', `Received (${data.customer_message.length} chars)`);
-        updateTimelineStep('step-intent', 'completed', `${data.intent.name} (${Math.round(data.intent.confidence * 100)}% conf)`);
-        updateTimelineStep('step-retrieval', 'completed', `${data.retrieval.evidence.length} resolved cases retrieved`);
-        updateTimelineStep('step-generation', 'completed', `Grounded draft generated via ${data.generation.provider}`);
-        updateTimelineStep('step-validation', 'completed', data.validation.all_passed ? 'All safety checks passed' : 'Validation warnings');
-        updateTimelineStep('step-decision', 'completed', `${data.routing.decision} (${totalDuration}ms total)`);
+        evtSource.addEventListener('RETRIEVAL_STARTED', () => {
+          sseActive = true;
+          updateTimelineStep('step-retrieval', 'active', 'Scanning 2,245 historical resolved cases...');
+        });
 
-        // Render Case Results
-        renderCaseResults(data);
-      } catch (err) {
-        console.error('Agent execution error:', err);
-        alert('An error occurred while executing the AI agent. Check console or backend logs.');
-      } finally {
-        runBtn.disabled = false;
-        runBtn.innerText = 'Run AI Agent';
+        evtSource.addEventListener('RETRIEVAL_COMPLETED', (e) => {
+          sseActive = true;
+          const data = JSON.parse(e.data);
+          updateTimelineStep('step-retrieval', 'completed', `${data.count} resolved cases retrieved (sim: ${data.top_similarity.toFixed(2)}, ${data.elapsed_ms}ms)`);
+          updateTimelineStep('step-generation', 'active', `Drafting grounded reply via ${selectedProvider}...`);
+        });
+
+        evtSource.addEventListener('GENERATION_STARTED', () => {
+          sseActive = true;
+          updateTimelineStep('step-generation', 'active', `Generating response with grounding constraints...`);
+        });
+
+        evtSource.addEventListener('GENERATION_COMPLETED', (e) => {
+          sseActive = true;
+          const data = JSON.parse(e.data);
+          updateTimelineStep('step-generation', 'completed', `Grounded draft generated via ${data.provider} (${data.elapsed_ms}ms)`);
+          updateTimelineStep('step-validation', 'active', 'Auditing 6 safety barriers & URL whitelists...');
+        });
+
+        evtSource.addEventListener('VALIDATION_STARTED', () => {
+          sseActive = true;
+          updateTimelineStep('step-validation', 'active', 'Running deterministic safety & PII checks...');
+        });
+
+        evtSource.addEventListener('VALIDATION_COMPLETED', (e) => {
+          sseActive = true;
+          const data = JSON.parse(e.data);
+          const valText = data.all_passed
+            ? `All safety checks passed (overlap: ${(data.grounding_score * 100).toFixed(0)}%)`
+            : `Validation warnings flagged (overlap: ${(data.grounding_score * 100).toFixed(0)}%)`;
+          updateTimelineStep('step-validation', 'completed', valText);
+          updateTimelineStep('step-decision', 'active', 'Evaluating escalation threshold policies...');
+        });
+
+        evtSource.addEventListener('ESCALATION_STARTED', () => {
+          sseActive = true;
+          updateTimelineStep('step-decision', 'active', 'Applying deterministic escalation criteria...');
+        });
+
+        evtSource.addEventListener('ESCALATION_COMPLETED', (e) => {
+          sseActive = true;
+          const data = JSON.parse(e.data);
+          const totalDuration = Math.round(performance.now() - startTime);
+          updateTimelineStep('step-decision', 'completed', `${data.decision} (${totalDuration}ms total)`);
+        });
+
+        evtSource.addEventListener('RESULT', (e) => {
+          completed = true;
+          const resultData = JSON.parse(e.data);
+          evtSource.close();
+          runBtn.disabled = false;
+          runBtn.innerText = 'Run AI Agent';
+          renderCaseResults(resultData);
+        });
+
+        evtSource.addEventListener('ERROR', (e) => {
+          console.warn('SSE stream error event received:', e);
+          evtSource.close();
+          if (!completed) {
+            fallbackSyncRun(text, selectedProvider, startTime);
+          }
+        });
+
+        evtSource.onerror = (e) => {
+          if (!sseActive && !completed) {
+            // If SSE couldn't connect at all, fallback immediately to synchronous POST
+            evtSource.close();
+            fallbackSyncRun(text, selectedProvider, startTime);
+          } else if (!completed) {
+            evtSource.close();
+            runBtn.disabled = false;
+            runBtn.innerText = 'Run AI Agent';
+          }
+        };
+      } catch (sseErr) {
+        console.warn('EventSource failed to initialize, falling back to POST:', sseErr);
+        fallbackSyncRun(text, selectedProvider, startTime);
       }
     });
+  }
+
+  // Fallback synchronous POST runner if SSE is blocked
+  async function fallbackSyncRun(text, selectedProvider, startTime) {
+    try {
+      updateTimelineStep('step-received', 'active', 'Analyzing text payload...');
+      const response = await fetch('/api/agent/run', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          customer_message: text,
+          provider: selectedProvider,
+        }),
+      });
+
+      if (!response.ok) {
+        throw new Error(`Server returned status ${response.status}`);
+      }
+
+      const data = await response.json();
+      const totalDuration = Math.round(performance.now() - startTime);
+
+      updateTimelineStep('step-received', 'completed', `Received (${data.customer_message.length} chars)`);
+      updateTimelineStep('step-intent', 'completed', `${data.intent.name} (${Math.round(data.intent.confidence * 100)}% conf)`);
+      updateTimelineStep('step-retrieval', 'completed', `${data.retrieval.evidence.length} resolved cases retrieved`);
+      updateTimelineStep('step-generation', 'completed', `Grounded draft generated via ${data.generation.provider}`);
+      updateTimelineStep('step-validation', 'completed', data.validation.all_passed ? 'All safety checks passed' : 'Validation warnings');
+      updateTimelineStep('step-decision', 'completed', `${data.routing.decision} (${totalDuration}ms total)`);
+
+      renderCaseResults(data);
+    } catch (err) {
+      console.error('Agent execution error:', err);
+      alert('An error occurred while executing the AI agent. Check console or backend logs.');
+    } finally {
+      runBtn.disabled = false;
+      runBtn.innerText = 'Run AI Agent';
+    }
   }
 });
 
@@ -131,6 +258,25 @@ function updateTimelineStep(elementId, state, detailText) {
   const descEl = el.querySelector('.step-desc');
   if (descEl && detailText) {
     descEl.innerText = detailText;
+  }
+
+  const iconEl = el.querySelector('.step-icon');
+  if (iconEl) {
+    if (state === 'completed') {
+      iconEl.innerText = '✓';
+    } else if (state === 'active') {
+      iconEl.innerHTML = '<span class="pulse-dot">●</span>';
+    } else {
+      const stepNums = {
+        'step-received': '1',
+        'step-intent': '2',
+        'step-retrieval': '3',
+        'step-generation': '4',
+        'step-validation': '5',
+        'step-decision': '6',
+      };
+      iconEl.innerText = stepNums[elementId] || '•';
+    }
   }
 }
 

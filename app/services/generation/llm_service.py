@@ -31,7 +31,7 @@ class LLMService:
         from app.services.generation.provider_factory import LLMProviderFactory
 
         self.primary = primary_provider or LLMProviderFactory.create_provider()
-        self.fallback = fallback_provider or LLMProviderFactory.create_provider("mock")
+        self.fallback = fallback_provider or LLMProviderFactory.create_fallback_provider()
 
     def generate_reply(
         self, prompt: str, provider_name: Optional[str] = None
@@ -40,7 +40,7 @@ class LLMService:
 
         Args:
             prompt: Text prompt with grounded constraints and historical evidence.
-            provider_name: Optional provider override ('mock', 'ollama', 'openai', 'groq', 'gemini', 'claude').
+            provider_name: Optional provider override ('groq', 'ollama', 'openai', 'gemini', 'claude').
 
         Returns:
             Tuple of (generated_text, active_provider_name)
