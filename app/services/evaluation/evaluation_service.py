@@ -130,7 +130,7 @@ class EvaluationService:
         # Fallback pending state if benchmarks have not yet executed
         return {
             "status": "pending_model_training",
-            "message": "Model training and evaluation benchmarks scheduled in Phase 6.",
+            "message": "Model training and evaluation benchmarks pending initial execution.",
             "golden_set_count": golden_count,
             "models": {},
             "retrieval": retrieval_data,

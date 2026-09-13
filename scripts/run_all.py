@@ -69,7 +69,7 @@ def run_stage(
             check=False,
         )
         elapsed = time.time() - start_time
-        success = (result.returncode == 0)
+        success = result.returncode == 0
         return success, elapsed, ""
     except Exception as exc:
         elapsed = time.time() - start_time
@@ -94,7 +94,7 @@ def run_command(title: str, cmd: List[str]) -> Tuple[bool, float, str]:
             check=False,
         )
         elapsed = time.time() - start_time
-        success = (result.returncode == 0)
+        success = result.returncode == 0
         return success, elapsed, ""
     except Exception as exc:
         elapsed = time.time() - start_time
@@ -153,10 +153,22 @@ def main() -> None:
         data_scripts = [
             ("Dataset Exploration", BASE_DIR / "scripts" / "data" / "explore_dataset.py"),
             ("Brand Profiling (@AppleSupport)", BASE_DIR / "scripts" / "data" / "profile_brand.py"),
-            ("Conversation Thread Reconstruction", BASE_DIR / "scripts" / "data" / "preprocess_conversations.py"),
-            ("Intent Classification Annotation", BASE_DIR / "scripts" / "data" / "classify_intents.py"),
-            ("Dataset Split Generation (Train/Val/Test)", BASE_DIR / "scripts" / "data" / "split_dataset.py"),
-            ("Golden Set Curation (200 Samples)", BASE_DIR / "scripts" / "evaluation" / "curate_golden_set.py"),
+            (
+                "Conversation Thread Reconstruction",
+                BASE_DIR / "scripts" / "data" / "preprocess_conversations.py",
+            ),
+            (
+                "Intent Classification Annotation",
+                BASE_DIR / "scripts" / "data" / "classify_intents.py",
+            ),
+            (
+                "Dataset Split Generation (Train/Val/Test)",
+                BASE_DIR / "scripts" / "data" / "split_dataset.py",
+            ),
+            (
+                "Golden Set Curation (200 Samples)",
+                BASE_DIR / "scripts" / "evaluation" / "curate_golden_set.py",
+            ),
         ]
         for name, script in data_scripts:
             if script.exists():
@@ -170,8 +182,14 @@ def main() -> None:
     if not (args.smoke or args.eval or args.tests):
         print_banner("PHASE 1: TRAINING BASELINE MODELS & VECTOR INDEX")
         train_stages = [
-            ("Baseline Classifiers (Majority & TF-IDF)", BASE_DIR / "scripts" / "training" / "train_baselines.py"),
-            ("Dense FAISS Vector Index (all-MiniLM-L6-v2)", BASE_DIR / "scripts" / "training" / "build_faiss_index.py"),
+            (
+                "Baseline Classifiers (Majority & TF-IDF)",
+                BASE_DIR / "scripts" / "training" / "train_baselines.py",
+            ),
+            (
+                "Dense FAISS Vector Index (all-MiniLM-L6-v2)",
+                BASE_DIR / "scripts" / "training" / "build_faiss_index.py",
+            ),
         ]
         for name, script in train_stages:
             success, elapsed, _ = run_stage(name, script)
@@ -197,7 +215,15 @@ def main() -> None:
     # Phase 4: Automated Tests (if requested)
     if args.with_tests or args.tests:
         print_banner("PHASE 4: AUTOMATED TEST SUITE & COVERAGE")
-        test_cmd = [sys.executable, "-m", "pytest", "tests/", "-v", "--cov=app", "--cov-report=term"]
+        test_cmd = [
+            sys.executable,
+            "-m",
+            "pytest",
+            "tests/",
+            "-v",
+            "--cov=app",
+            "--cov-report=term",
+        ]
         success, elapsed, _ = run_command("Pytest Test Suite (112 Tests)", test_cmd)
         results.append(("Automated Test Suite (pytest)", success, elapsed))
 
