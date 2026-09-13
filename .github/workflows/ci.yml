@@ -59,6 +59,10 @@ jobs:
           pip install -r requirements.txt
           pip install -r requirements-dev.txt
 
+      - name: Build Baseline Classifiers and Vector Store
+        run: |
+          python scripts/training/train_baselines.py
+          python scripts/training/build_faiss_index.py
 
       - name: Run Pytest Suite with Coverage
         run: |

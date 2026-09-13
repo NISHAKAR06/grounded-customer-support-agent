@@ -95,8 +95,12 @@ black --check .
 ## 6. Running Benchmark Evaluations
 
 ```bash
+# Master pipeline: runs all training, smoke tests, and evaluation benchmarks:
+python scripts/run_all.py
+
+# Or run individual benchmark modules:
 # 1. Evaluate baseline intent classifiers (Test split & Golden set)
-python scripts/evaluation/evaluate_baselines.py
+python scripts/evaluation/evaluate_intent_models.py
 
 # 2. Evaluate dense FAISS retrieval (Unconditioned vs Intent-Conditioned)
 python scripts/evaluation/evaluate_retrieval.py

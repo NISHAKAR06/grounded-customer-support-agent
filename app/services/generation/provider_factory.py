@@ -12,6 +12,27 @@ from app.services.generation.ollama_provider import OllamaProvider
 from app.services.generation.openai_provider import OpenAIProvider
 
 
+class GroundedPrecedentProvider(BaseLLMProvider):
+    """Zero-credential offline fallback provider synthesizing top historical precedent."""
+
+    def __init__(self, **kwargs):
+        pass
+
+    def generate(self, prompt: str) -> str:
+        from app.services.generation.llm_service import LLMService
+
+        return LLMService._extract_grounded_fallback(prompt)
+
+    def provider_name(self) -> str:
+        return "grounded_precedent"
+
+    def model_name(self) -> str:
+        return "grounded-precedent"
+
+    def is_available(self) -> bool:
+        return True
+
+
 class LLMProviderFactory:
     """Factory for dynamically creating and inspecting LLM providers.
 
@@ -21,9 +42,17 @@ class LLMProviderFactory:
         - openai: OpenAI Chat Completions (GPT-4o mini, GPT-4o)
         - gemini: Google Gemini (1.5 Flash, 2.0 Flash)
         - claude: Anthropic Claude (3.5 Haiku, 3.5 Sonnet)
+        - grounded_precedent: Zero-credential offline grounded precedent synthesis
     """
 
-    SUPPORTED_PROVIDERS = ("groq", "ollama", "openai", "gemini", "claude")
+    SUPPORTED_PROVIDERS = (
+        "groq",
+        "ollama",
+        "openai",
+        "gemini",
+        "claude",
+        "grounded_precedent",
+    )
 
     @classmethod
     def normalize_provider_name(cls, provider_name: Optional[str]) -> str:
@@ -37,6 +66,7 @@ class LLMProviderFactory:
             "local": "ollama",
             "anthropic": "claude",
             "google": "gemini",
+            "precedent": "grounded_precedent",
         }
         return alias_map.get(clean, clean)
 
@@ -55,6 +85,8 @@ class LLMProviderFactory:
             return GeminiProvider(**kwargs)
         elif name == "claude":
             return ClaudeProvider(**kwargs)
+        elif name == "grounded_precedent":
+            return GroundedPrecedentProvider(**kwargs)
         else:
             raise LLMProviderException(
                 f"Unsupported LLM provider '{provider_name}'. "

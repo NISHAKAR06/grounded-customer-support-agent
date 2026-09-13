@@ -6,26 +6,36 @@ WORKDIR /app
 ENV PYTHONDONTWRITEBYTECODE=1 \
     PYTHONUNBUFFERED=1 \
     PORT=8000 \
-    APP_ENV=production
+    APP_ENV=production \
+    HF_HOME=/app/models/cache
 
-# Install minimal OS utilities
+# Install minimal OS utilities (including libgomp1 required by faiss-cpu OpenMP runtime)
 RUN apt-get update && apt-get install -y --no-install-recommends \
     curl \
+    libgomp1 \
     && rm -rf /var/lib/apt/lists/*
 
 # Install Python dependencies (with lightweight CPU-only torch)
 COPY requirements.txt .
 RUN pip install --no-cache-dir --upgrade pip && \
-    pip install --no-cache-dir torch --index-url https://download.pytorch.org/whl/cpu && \
+    pip install --no-cache-dir torch --extra-index-url https://download.pytorch.org/whl/cpu && \
     pip install --no-cache-dir -r requirements.txt
 
-# Copy application code, configurations, and static assets
+# Copy application code, configurations, data splits, and static assets
 COPY app/ app/
 COPY config/ config/
-COPY data/samples/ data/samples/
+COPY data/ data/
+COPY models/ models/
+COPY templates/ templates/
+COPY static/ static/
+COPY scripts/ scripts/
 COPY experiments/ experiments/
 COPY docs/ docs/
 COPY pyproject.toml .
+
+# Build baseline classifiers and FAISS vector index inside container
+RUN python scripts/training/train_baselines.py && \
+    python scripts/training/build_faiss_index.py
 
 # Expose web server port
 EXPOSE 8000

@@ -74,7 +74,7 @@ data/samples/*
 # Golden set data will be checked in under data/golden/ when curated (evaluation-only)
 !data/golden/.gitkeep
 
-# Models & Embeddings weights (Never commit heavy binaries)
+# Models & Embeddings weights (Option 2: Zero model binaries in Git - built on the fly)
 models/intent_classifier/*
 !models/intent_classifier/.gitkeep
 !models/intent_classifier/intent_taxonomy.json

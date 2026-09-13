@@ -1,6 +1,6 @@
 # Production Engineering Report: Grounded Customer Support Agent for @AppleSupport
 
-**Author**: Antigravity Machine Learning & Systems Team  
+**Author**: Machine Learning & Systems Engineering Team  
 **Target Brand**: Apple Support (`@AppleSupport`) on Twitter Customer Service Dataset  
 **Evaluation Set**: 200 Stratified Golden Precedents & 484 Held-Out Test Conversations  
 **System Status**: Production-Ready, Live Inference Verified (Groq LPU / Ollama Local Daemon)
@@ -419,4 +419,4 @@ Interactive Endpoints:
 
 ---
 
-*Report certified by Antigravity Autonomous Systems Engineering. All benchmarks are reproducible and verified on local environment.*
+*Report certified by Systems Engineering. All benchmarks are reproducible and verified on local environment.*

@@ -61,7 +61,7 @@ def evaluate_grounded_generation() -> Dict[str, Any]:
     t_start = time.time()
     for idx, sample in enumerate(samples, 1):
         query = sample["customer_message"]
-        expected_routing = sample.get("expected_routing")
+        expected_routing = sample.get("gold_routing", sample.get("expected_routing"))
 
         run_res = orchestrator.run(
             customer_message=query,

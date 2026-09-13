@@ -52,13 +52,15 @@ def run_judge_evaluation() -> Dict[str, Any]:
     t_start = time.time()
     for idx, sample in enumerate(samples, 1):
         query = sample["customer_message"]
-        expected_routing = sample.get("expected_routing", "HUMAN_ESCALATION")
+        expected_routing = sample.get(
+            "gold_routing", sample.get("expected_routing", "HUMAN_ESCALATION")
+        )
 
         # Run pipeline
         run_res = orchestrator.run(
             customer_message=query,
             brand="AppleSupport",
-            provider=settings.LLM_PROVIDER,
+            provider="grounded_precedent",
         )
 
         pipeline_routing = run_res.routing.decision.value

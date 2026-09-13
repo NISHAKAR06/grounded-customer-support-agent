@@ -32,4 +32,4 @@
 
 ## 4. Performance & Evaluation Metrics
 
-All metrics are verified through reproducible evaluation scripts (`scripts/evaluation/eval_models.py`). Metrics will be populated as each respective phase executes on real data without fabrication.
+All metrics are verified through reproducible evaluation scripts ([`scripts/run_evaluation.py`](../scripts/run_evaluation.py) and [`scripts/evaluation/evaluate_intent_models.py`](../scripts/evaluation/evaluate_intent_models.py)). Metrics are saved to versioned JSON artifacts in `experiments/` without fabrication.

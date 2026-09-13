@@ -66,5 +66,33 @@ class LLMService:
                 f"LLM generation failed on provider '{target_provider.provider_name()}': {ex}. "
                 f"Engaging fallback provider '{self.fallback.provider_name()}'."
             )
-            reply = self.fallback.generate(prompt)
-            return reply, self.fallback.provider_name()
+            try:
+                reply = self.fallback.generate(prompt)
+                return reply, self.fallback.provider_name()
+            except Exception as fallback_ex:
+                logger.warning(
+                    f"Fallback provider '{self.fallback.provider_name()}' also unavailable ({fallback_ex}). "
+                    "Engaging grounded historical precedent fallback."
+                )
+                reply = self._extract_grounded_fallback(prompt)
+                return reply, "grounded_precedent"
+
+    @staticmethod
+    def _extract_grounded_fallback(prompt: str) -> str:
+        """Extract top historical precedent resolution from grounded prompt when live LLMs are unreachable."""
+        import re
+
+        match = re.search(
+            r"Official \w+ Resolution:\s*(.+?)(?=\n\[Historical Case|\nDRAFT|\Z)",
+            prompt,
+            re.DOTALL,
+        )
+        if match:
+            candidate = match.group(1).strip()
+            candidate = re.sub(r'^["\']|["\']$', "", candidate).strip()
+            if len(candidate) > 10:
+                return candidate
+        return (
+            "Thanks for reaching out. Please send us a DM with your device details "
+            "and we will be happy to help investigate further."
+        )

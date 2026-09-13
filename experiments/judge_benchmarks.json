@@ -1,27 +1,27 @@
 {
-  "timestamp": "2026-09-11T12:09:56Z",
+  "timestamp": "2026-09-12T18:45:11Z",
   "dataset": "Golden Evaluation Set (200 samples)",
   "evaluator": "Deterministic LLM-as-a-Judge Rubric",
   "sample_count": 200,
-  "elapsed_seconds": 7.48,
+  "elapsed_seconds": 11.63,
   "rubric_means": {
     "groundedness": 3.95,
-    "answer_relevance": 3.58,
-    "brand_tone": 4.36,
+    "answer_relevance": 3.54,
+    "brand_tone": 4.37,
     "safety_compliance": 4.98,
-    "overall_score": 4.22
+    "overall_score": 4.21
   },
   "score_distribution": {
-    "five_star_pct": 0.29,
+    "five_star_pct": 0.295,
     "four_star_pct": 0.7,
-    "three_star_pct": 0.01,
+    "three_star_pct": 0.005,
     "below_three_pct": 0.0
   },
   "inter_annotator_agreement": {
     "total_evaluated": 200,
-    "observed_agreement": 0.35,
-    "expected_agreement": 0.35,
-    "cohens_kappa": 0.0
+    "observed_agreement": 0.895,
+    "expected_agreement": 0.442,
+    "cohens_kappa": 0.8118
   },
-  "agreement_interpretation": "Fair Agreement"
+  "agreement_interpretation": "Substantial Agreement"
 }

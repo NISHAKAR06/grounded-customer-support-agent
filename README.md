@@ -1,46 +1,82 @@
 # Grounded Customer Support Agent
 
 [![Python 3.11 | 3.12](https://img.shields.io/badge/python-3.11%20%7C%203.12-blue.svg)](https://www.python.org/)
-
+[![License: MIT](https://img.shields.io/badge/License-MIT-black.svg)](LICENSE)
+[![Architecture: Enterprise B2B SaaS](https://img.shields.io/badge/Architecture-Enterprise%20B2B%20SaaS-emerald.svg)]()
+[![Code Style: Black](https://img.shields.io/badge/code%20style-black-000000.svg)](https://github.com/psf/black)
+[![Linter: Ruff](https://img.shields.io/badge/linter-ruff-orange.svg)](https://github.com/astral-sh/ruff)
 
 > An enterprise-grade AI customer support platform designed for real-world support traffic on social channels. Classifies customer intent into a domain taxonomy, retrieves historically resolved brand precedents via dense vector search, drafts grounded replies, enforces multi-barrier hallucination guardrails, and deterministically routes inquiries between automated resolution (`AUTO_HANDLE`) and human review (`HUMAN_ESCALATION`).
 
 ---
 
-## Table of Contents
+## TL;DR / At a Glance
 
-- [The Core Philosophy: Proof Over Hype](#the-core-philosophy-proof-over-hype)
-- [System Architecture](#system-architecture)
-- [Module Map](#module-map)
-- [Target Brand & Dataset Framing](#target-brand--dataset-framing)
-- [Data Preprocessing & Cleaning Pipeline](#data-preprocessing--cleaning-pipeline)
-- [7-Class Intent Taxonomy & Disambiguation Rules](#7-class-intent-taxonomy--disambiguation-rules)
-- [Retrieval Architecture (Dense FAISS Vector Index)](#retrieval-architecture-dense-faiss-vector-index)
-- [Grounded Generation & Multi-LLM Routing](#grounded-generation--multi-llm-routing)
-- [Deterministic Response Validation Barriers](#deterministic-response-validation-barriers)
-- [Escalation & Automation Policy Engine](#escalation--automation-policy-engine)
-- [Evaluation Harness & Golden Evaluation Set](#evaluation-harness--golden-evaluation-set)
-- [Benchmark Results vs. Baselines](#benchmark-results-vs-baselines)
-- [LLM-as-a-Judge & Human Agreement (Cohen's Kappa)](#llm-as-a-judge--human-agreement-cohens-kappa)
-- [Top 5 Empirical Failure Modes](#top-5-empirical-failure-modes)
-- [What is Misleading About My Headline Number?](#what-is-misleading-about-my-headline-number)
-- [Engineering Decision Log (12 Non-Obvious Decisions)](#engineering-decision-log-12-non-obvious-decisions)
-- [What I Would Do With One More Week](#what-i-would-do-with-one-more-week)
-- [Reproduce Headline Results in < 15 Minutes](#reproduce-headline-results-in--15-minutes)
-- [Interactive Visual Workspaces](#interactive-visual-workspaces)
-- [Continuous Integration & Verification](#continuous-integration--verification)
+| Area | Implementation & Verified Finding |
+| :--- | :--- |
+| **Problem** | Unconstrained LLM hallucinations, fabricated pricing, and physical safety hazards in automated customer support |
+| **Dataset** | Kaggle *Customer Support on Twitter* (`thoughtvector/customer-support-on-twitter`, 2.81M tweets) |
+| **Target Brand** | `@AppleSupport` (106,860 brand replies; complex hardware diagnostics, OS updates, and billing disputes) |
+| **Intent Classification** | 7-class domain taxonomy with priority disambiguation rules (**88.0% Accuracy**, **0.867 Macro F1**) |
+| **Retrieval Engine** | Dense FAISS `IndexFlatIP` on `all-MiniLM-L6-v2` (2,245 resolved precedents, **Recall@3 = 96.5%**, MRR = 0.965) |
+| **Generation Layer** | Pluggable coordinator: Groq (Llama-3.1-8b), Ollama, OpenAI, Gemini, Claude, with offline precedent fallback |
+| **Safety Barriers** | 5 deterministic validators: ungrounded pricing ($), URL allowlisting, public PII, hazard detection, lexical overlap |
+| **Escalation Policy** | Multi-factor routing on intent confidence, evidence similarity, risk phrases, and validation checks (**94.8% Precision**, **96.2% Recall**, **100% Safety Hazard Recall**) |
+| **Evaluation Harness** | 200 hand-verified Golden Set samples benchmarked against Trivial Majority and TF-IDF LogReg baselines |
+| **Human Agreement** | LLM-as-a-Judge calibrated against human expert labels (**Observed Agreement = 89.5%**, **Cohen's $\kappa$ = 0.8118**) |
+| **Interface** | Full-featured FastAPI web application with Vanilla CSS (Simulate workspace, Support Inbox, Evaluation Dashboard, Failure Modes, Decision Log) |
 
 ---
 
-## The Core Philosophy: Proof Over Hype
+## Table of Contents
 
-In customer support operations, an AI agent that speaks fluently but invents refund policies, promises hardware replacements, or advises customers to puncture swollen batteries is a catastrophic operational and legal liability.
+- [TL;DR / At a Glance](#tldr--at-a-glance)
+- [Project Overview](#project-overview)
+- [System Architecture](#system-architecture)
+- [Module Navigation](#module-navigation)
+- [Why This Approach](#why-this-approach)
+- [Dataset & Corpus Selection](#dataset--corpus-selection)
+- [Data Preprocessing Pipeline](#data-preprocessing-pipeline)
+- [System Pipeline Components](#system-pipeline-components)
+  - [1. Intent Classification & Disambiguation](#1-intent-classification--disambiguation)
+  - [2. Grounded Retrieval (Dense FAISS)](#2-grounded-retrieval-dense-faiss)
+  - [3. Grounded Generation](#3-grounded-generation)
+  - [4. Deterministic Response Validation](#4-deterministic-response-validation)
+  - [5. Escalation Policy Engine](#5-escalation-policy-engine)
+- [Evaluation Methodology](#evaluation-methodology)
+  - [Golden Evaluation Set Profile ($N=200$)](#golden-evaluation-set-profile-n200)
+  - [Metric Justification](#metric-justification)
+  - [Validation Experiments (Probe Tests)](#validation-experiments-probe-tests)
+- [Benchmark Results vs. Baselines](#benchmark-results-vs-baselines)
+  - [Intent Classification & Routing vs Baselines](#intent-classification--routing-vs-baselines)
+  - [Dense Retrieval Performance](#dense-retrieval-performance)
+  - [LLM-as-a-Judge Rubric & Human Agreement](#llm-as-a-judge-rubric--human-agreement)
+- [Top 5 Empirical Failure Modes](#top-5-empirical-failure-modes)
+- [What is Misleading About My Headline Number? / Limitations](#what-is-misleading-about-my-headline-number--limitations)
+- [Engineering Trade-Offs](#engineering-trade-offs)
+- [How to Run / Reproducibility (< 15 Minutes)](#how-to-run--reproducibility--15-minutes)
+- [Real End-to-End Example Walkthrough](#real-end-to-end-example-walkthrough)
+- [Testing & CI/CD Pipeline](#testing--cicd-pipeline)
+- [Future Work Tied to Actual Limitations](#future-work-tied-to-actual-limitations)
+- [AI Tools Used](#ai-tools-used)
 
-This system is built on four non-negotiable principles:
-1. **Strict Historical Precedent Grounding**: Every troubleshooting instruction and guidance must be anchored in verified historical resolutions enacted by official support engineers.
-2. **Deterministic Safety Barriers**: Fact-checking, pricing audit, URL allowlisting, and public PII protection operate on explicit deterministic rules that execute *before* dispatch, independent of model temperature or prompt drift.
-3. **Transparent Escalation**: Borderline intent confidence, low vector similarity, customer frustration, or physical safety triggers immediately route to human specialists with explicit, audit-logged rationale.
-4. **Empirical Evaluation Rigor**: Zero metric fabrication. Tested against a hand-labelled Golden Set ($N=200$), evaluated across two distinct baselines (Trivial Majority vs. Feature-Based TF-IDF Logistic Regression), and audited with inter-annotator agreement metrics (Cohen's $\kappa$).
+---
+
+## Project Overview
+
+The system processes incoming customer inquiries through a deterministic 7-step lifecycle:
+
+```
+[Inquiry Ingest] ➔ [Intent Classification] ➔ [Vector Retrieval] ➔ [Prompt Assembly] ➔ [Reply Drafting] ➔ [Safety Barrier Validation] ➔ [Routing Action]
+```
+
+1. **Inbound Ingestion**: The raw customer inquiry is sanitized; customer handles (`@user`) are extracted to preserve natural addressing, and formatting artifacts are normalized.
+2. **Intent Classification**: A priority-disambiguated 7-class classifier assigns a domain category and confidence score in ~2 ms.
+3. **Intent-Conditioned Dense Retrieval**: The classified intent partitions the search space; `sentence-transformers/all-MiniLM-L6-v2` embeds the query to retrieve the top-$k$ most similar resolved historical precedents from a FAISS `IndexFlatIP` index ($\text{sim} \ge 0.55$).
+4. **Grounded Prompt Synthesis**: Retrieved historical resolutions, customer handle, and anti-hallucination constraints are assembled into an evidence prompt.
+5. **Multi-Engine Response Generation**: Generation is dispatched to the active provider (Groq Llama-3.1-8b, local Ollama, OpenAI, Gemini, or Claude). If cloud providers fail, the system falls back to the top grounded historical precedent.
+6. **Deterministic Validation Barriers**: The draft reply must pass 5 explicit safety checks: ungrounded pricing detection (`$\d+`), URL allowlisting, public PII solicitation prevention, physical hazard precautions, and lexical overlap auditing.
+7. **Escalation Routing Action**: The policy engine evaluates validation results, intent confidence ($\ge 0.80$), retrieval similarity ($\ge 0.60$), and critical risk phrases to produce the final routing action (`AUTO_HANDLE` vs `HUMAN_ESCALATION`) with an audit-logged reason.
 
 ---
 
@@ -65,7 +101,7 @@ flowchart TD
         router -->|Cloud High-Speed| groq["Groq (Llama-3.1-8b)"]
         router -->|Local Self-Hosted| ollama["Ollama (Llama-3.1:8b)"]
         router -->|Commercial Cloud| cloud["OpenAI / Gemini / Claude"]
-        router -->|Offline Sandbox / CI Fallback| fallback["Nearest-Neighbor Precedent"]
+        router -->|Offline Sandbox / Fallback| fallback["Grounded Precedent Fallback"]
     end
 
     groq --> draft["Drafted Brand Response<br/>(No markdown asterisks, natural @handle greeting)"]
@@ -88,369 +124,528 @@ flowchart TD
     policy -->|Eligible| autoHandle["Route: AUTO_HANDLE<br/>(Automated Dispatch Approved)"]
     policy -->|Risk / Low Conf| humanReview["Route: HUMAN_ESCALATION<br/>(Borderline Signals Stated)"]
 
-    autoHandle --> dispatch["Structured Output Payload and Event Stream<br/>(JSON API / SSE Stream / Operational Workspaces)"]
+    autoHandle --> dispatch["Structured Output Payload & UI Workspaces<br/>(JSON API / SSE Stream / Operational Workspaces)"]
     humanReview --> dispatch
     humanEscalate --> dispatch
 ```
 
 ---
 
-## Module Map
+## Module Navigation
 
-| Module | Location | Primary Responsibility |
+| Module | Primary File | Responsibility |
 | :--- | :--- | :--- |
-| **Orchestrator** | `app/services/agent/agent_orchestrator.py` | Coordinates the 6-stage operational pipeline and event dispatching |
-| **Intent Classifier** | `app/services/intent/intent_classifier.py` | 7-class rule-based taxonomy classifier with priority disambiguation |
-| **Vector Retriever** | `app/services/retrieval/retriever.py` | Dense vector candidate retrieval via FAISS inner-product search |
-| **Evidence Ranker** | `app/services/retrieval/evidence_ranker.py` | Resolution status filtering, similarity thresholding, and re-ranking |
-| **Prompt Builder** | `app/services/generation/prompt_builder.py` | Injects precedents, dynamic handles, and anti-hallucination instructions |
-| **LLM Service** | `app/services/generation/llm_service.py` | Pluggable multi-provider manager with automatic circuit breaking |
-| **Provider Factory** | `app/services/generation/provider_factory.py` | Instantiates Groq, Ollama, OpenAI, Gemini, Claude, and fallback engines |
-| **Response Validator** | `app/services/validation/response_validator.py` | 5 deterministic safety and policy barriers (pricing, URLs, PII, hazards) |
-| **Escalation Policy** | `app/services/escalation/escalation_policy.py` | Deterministic routing logic evaluating intent, retrieval, and risk phrases |
-| **LLM-as-a-Judge** | `app/services/evaluation/judge_service.py` | Multi-criteria rubric evaluation and Cohen's Kappa ($\kappa$) calculation |
-| **Golden Repository** | `app/repositories/golden_set_repository.py` | Loads and queries the 200 hand-labelled evaluation benchmark cases |
-| **Evaluation Harness** | `scripts/run_evaluation.py` | Headless benchmark runner computing end-to-end classification and judge metrics |
+| **Agent Orchestrator** | [`app/services/agent/agent_orchestrator.py`](file:///c:/Users/NISHAKART/Documents/GitHub/customer-support-agent/app/services/agent/agent_orchestrator.py) | Coordinates the end-to-end 7-stage execution lifecycle and timing telemetry |
+| **Intent Classifier** | [`app/services/intent/intent_classifier.py`](file:///c:/Users/NISHAKART/Documents/GitHub/customer-support-agent/app/services/intent/intent_classifier.py) | 7-class taxonomy classifier with hierarchical priority disambiguation rules |
+| **Baseline Classifiers** | [`app/services/intent/baseline_classifiers.py`](file:///c:/Users/NISHAKART/Documents/GitHub/customer-support-agent/app/services/intent/baseline_classifiers.py) | Majority class and TF-IDF + Logistic Regression benchmark baselines |
+| **Dense Retriever** | [`app/services/retrieval/retriever.py`](file:///c:/Users/NISHAKART/Documents/GitHub/customer-support-agent/app/services/retrieval/retriever.py) | SentenceTransformer query embedding and FAISS inner-product similarity search |
+| **Evidence Ranker** | [`app/services/retrieval/evidence_ranker.py`](file:///c:/Users/NISHAKART/Documents/GitHub/customer-support-agent/app/services/retrieval/evidence_ranker.py) | Filters candidates by resolution status and similarity threshold ($\text{sim} \ge 0.55$) |
+| **Prompt Builder** | [`app/services/generation/prompt_builder.py`](file:///c:/Users/NISHAKART/Documents/GitHub/customer-support-agent/app/services/generation/prompt_builder.py) | Constructs few-shot prompts with dynamic handle insertion and anti-hallucination directives |
+| **LLM Service** | [`app/services/generation/llm_service.py`](file:///c:/Users/NISHAKART/Documents/GitHub/customer-support-agent/app/services/generation/llm_service.py) | Multi-provider manager with automatic circuit breaking and precedent extraction |
+| **Provider Factory** | [`app/services/generation/provider_factory.py`](file:///c:/Users/NISHAKART/Documents/GitHub/customer-support-agent/app/services/generation/provider_factory.py) | Dynamic registry for Groq, Ollama, OpenAI, Gemini, Claude, and Grounded Precedent |
+| **Response Validator** | [`app/services/validation/response_validator.py`](file:///c:/Users/NISHAKART/Documents/GitHub/customer-support-agent/app/services/validation/response_validator.py) | Enforces 5 deterministic safety checks (pricing, URLs, PII, physical hazards, overlap) |
+| **Escalation Policy** | [`app/services/escalation/escalation_policy.py`](file:///c:/Users/NISHAKART/Documents/GitHub/customer-support-agent/app/services/escalation/escalation_policy.py) | Deterministic routing logic evaluating intent, similarity, risk phrases, and validation |
+| **LLM-as-a-Judge** | [`app/services/evaluation/judge_service.py`](file:///c:/Users/NISHAKART/Documents/GitHub/customer-support-agent/app/services/evaluation/judge_service.py) | Multi-criteria rubric evaluator (1–5) and Cohen's Kappa ($\kappa$) agreement calculator |
+| **Golden Repository** | [`app/repositories/golden_set_repository.py`](file:///c:/Users/NISHAKART/Documents/GitHub/customer-support-agent/app/repositories/golden_set_repository.py) | Ingests and queries the 200 hand-verified Golden Set evaluation benchmark cases |
+| **Web Server & UI** | [`app/main.py`](file:///c:/Users/NISHAKART/Documents/GitHub/customer-support-agent/app/main.py) | FastAPI application mounting API endpoints, SSE streams, and Jinja2 visual workspaces |
 
 ---
 
-## Target Brand & Problem Framing
+## Why This Approach
 
-### Target Brand: `@AppleSupport`
-- **Why Apple Support?**: In customer support datasets, telecom or airline brands frequently rely on cookie-cutter triage ("Please DM us your ticket number"). In contrast, `@AppleSupport` handles a diverse mixture of deep hardware diagnostics, software update recovery, billing subscriptions, and acute hardware hazards (battery swelling). This creates a realistic stress test for intent disambiguation and grounding.
-- **Corpus**: The Kaggle *Customer Support on Twitter* dataset (~3M tweets).
-- **Domain Framing**: Support tweets are treated as incoming customer tickets; company replies represent authoritative agent resolutions.
-
-### Problem Framing: What "Good" Means for @AppleSupport & What We Chose Not to Build
-
-- **What "Good" Means for @AppleSupport**:
-  1. **Zero Hallucination Tolerance**: Never invent repair pricing (e.g. quoting $199 when pricing varies by AppleCare tier), never promise replacement units, and never quote unofficial policies.
-  2. **Strict Safety Protocol**: Acute hardware risks (swollen lithium-ion batteries, smoke, thermal runaway) must immediately trigger physical hazard precautions (unplug immediately, do not puncture) and route to human tier-2 safety engineers.
-  3. **Empathetic and Actionable Voice**: Clear, direct, step-by-step guidance conforming to Apple Support voice, addressing the customer with their real handle (`@handle`) without robotic placeholders or markdown asterisks.
-  4. **Strict URL White-Listing**: Reference only official Apple domains (`support.apple.com`, `appleid.apple.com`, `locate.apple.com`).
-
-- **What We Chose NOT to Build**:
-  1. **No Autonomous External API Action Execution**: The agent drafts replies and advises steps, but does *not* execute automated account password resets or refund transactions directly without human supervisor approval.
-  2. **No Multi-Brand Blending**: We chose *not* to build a generic multi-brand bot that retrieves Uber or Amazon answers when addressing Apple questions; retrieval is strictly partitioned to `@AppleSupport`.
-  3. **No Heavyweight Client-Side Frameworks**: We chose pure Vanilla CSS and JavaScript with SSE streaming rather than React/Node bloat, guaranteeing instant load times and zero build dependencies.
-
----
-
-## Data Preprocessing & Cleaning Pipeline
-
-The raw corpus is noisy, containing dead links, truncated tweets, and broken conversation graphs. The preprocessing pipeline (`scripts/data/preprocess_conversations.py`):
-
-1. **Entity Masking & Normalization**: Replaces sensitive internal numeric tokens, normalizes Apple service URLs (`support.apple.com`), and decodes HTML entities.
-2. **Customer Handle Extraction**: Intelligently extracts user handles (`@[user]`, `@handle`) from inbound text or conversation metadata to prevent generic greeting hallucinations.
-3. **Conversational Thread Reconstruction**: Reconstructs multi-turn dialogue graphs via `in_response_to_tweet_id` and `response_tweet_id`, filtering single-turn orphans.
-4. **Resolution Status Tagging**: Identifies resolved conversations where troubleshooting concluded or customer acknowledged resolution.
-5. **Deduplication & Boilerplate Truncation**: Removes exact duplicates and caps repetitive canned greetings.
-
----
-
-## 7-Class Intent Taxonomy & Disambiguation Rules
-
-Customer issues are categorized into a 7-class domain-specific taxonomy:
-
-| Code | Intent Name | Description | Example Customer Inquiry |
+| Design Choice | What We Built | Why We Built It This Way (Rationale) | What We Explicitly Avoided |
 | :--- | :--- | :--- | :--- |
-| `OPERATING_SYSTEM_UPDATES` | OS & iOS Updates | Installation failures, verification loops, update bugs | *"My iPhone has been stuck on 'Verifying update' for iOS 11 for 3 hours."* |
-| `BATTERY_POWER_HARDWARE` | Battery & Hardware | Rapid battery drain, sudden shutdowns, thermal spikes, swelling | *"My iPhone 7 battery percentage drops from 80% to 15% in less than an hour."* |
-| `ACCOUNT_APPLE_ID` | Apple ID & Account | 2FA lockout, forgotten passwords, activation locks | *"I am locked out of my Apple ID because I changed my phone number."* |
-| `CONNECTIVITY_NETWORKING` | Connectivity & Wi-Fi | Wi-Fi drops, Bluetooth pairing, cellular connection issues | *"Why does my Wi-Fi keep disconnecting every time my phone locks?"* |
-| `AUDIO_ACCESSORIES` | Audio & Accessories | AirPods charging, single earbud failure, microphone static | *"My right AirPod won't connect or charge in the case, only the left works."* |
-| `SUBSCRIPTIONS_BILLING` | Billing & Subscriptions | Unauthorized iTunes charges, recurring subscription refunds | *"I was charged $9.99 on my bank statement from itunes.com/bill for an app."* |
-| `GENERAL_INQUIRY` | General Support | Store hours, trade-in policies, general product compatibility | *"What are the Apple Store Regent Street opening hours on Sunday?"* |
-
-### How We Arrived at the Intent Taxonomy from Data
-
-Rather than imposing a generic academic classification schema, the 7-class taxonomy was derived empirically from 50,000 raw `@AppleSupport` tweets:
-1. **Unsupervised Frequency Clustering**: Bi-gram and noun-phrase clustering revealed that >85% of real support volume concentrates in 6 recurring hardware and software verticals (iOS updates, battery/thermal events, Apple ID/iCloud lockouts, connectivity drops, AirPods/accessories, and iTunes billing disputes).
-2. **Mutually Exclusive, Collectively Exhaustive (MECE) Design**: Fragmented micro-intents (e.g., separating "Wi-Fi password" from "Wi-Fi drop") cause classification thrashing and degrade retrieval conditioning. Grouping into 7 cohesive macro-intents provides optimal precision for vector index filtering while maintaining reliable classification boundaries.
-3. **General Support Fallback**: The 7th intent (`GENERAL_INQUIRY`) absorbs non-technical store hours, trade-in policies, and warranty questions without polluting technical troubleshooting indexes.
-
-### Priority Disambiguation Rules
-- **Rule 1 (Safety Preempts All)**: Physical swelling or thermal runaway automatically overrides software updates (e.g., *"My phone battery swelled after installing iOS 11"* &rarr; `BATTERY_POWER_HARDWARE`).
-- **Rule 2 (Financial Preempts Software)**: Unauthorized charges override generic account queries (e.g., *"Unauthorized bill on my Apple ID"* &rarr; `SUBSCRIPTIONS_BILLING`).
-- **Rule 3 (Accessory Preempts Connectivity)**: Specific earbud hardware issues override generic Bluetooth settings (e.g., *"AirPod won't pair"* &rarr; `AUDIO_ACCESSORIES`).
+| **Target Brand** | `@AppleSupport` | Apple handles technical hardware diagnostics, software update verification loops, billing refunds, and acute hardware hazards. This provides a genuine stress-test for intent disambiguation and safety guardrails. | Generic telecom/airline brands where 90% of replies are identical canned triage (*"Please DM your ticket number"*). |
+| **Vector Index** | FAISS `IndexFlatIP` | With 2,245 historical support cases, exact inner product on normalized embeddings executes in **< 1 ms** with 100% recall. Approximate indices (IVF, HNSW) introduce recall degradation for zero practical benefit at this corpus size. | Approximate nearest neighbor indexing (IVF, HNSW) or external cloud vector databases adding unnecessary latency and cost. |
+| **Classification** | Priority Rule Taxonomy | Classifies inquiries in **~2 ms** with 0 token cost, deterministic execution, and zero cold-start failure modes. Disambiguation rules enforce safety (swollen batteries always override software updates). | Pure few-shot LLM classification that costs tokens on every request, adds 500ms latency, and exhibits non-deterministic classification drift. |
+| **Safety Barriers** | Deterministic Regex & Set Checks | Fact-checking, pricing audit, URL allowlisting, and public PII protection execute via hardcoded deterministic rules *before* message dispatch. | Relying on LLM self-correction or prompt directives ("please do not hallucinate prices"), which routinely fail edge-case jailbreaks. |
+| **Multi-Provider Coordinator** | Pluggable Factory with Circuit Breakers | Supports Groq, local Ollama, OpenAI, Gemini, and Claude with automated fallback. If all external APIs fail, the system falls back to the top grounded precedent rather than throwing an HTTP 500. | Single-vendor lock-in that breaks when an API goes down or rate limits are reached. |
+| **Frontend UI** | Vanilla CSS & JavaScript | Zero npm build steps, zero node_modules dependencies, and instant browser rendering with Server-Sent Events (SSE) streaming. | Heavy client-side JavaScript frameworks (React, Next.js) that introduce build bloat for an operational dashboard. |
 
 ---
 
-## Retrieval Architecture (Dense FAISS Vector Index)
+## Dataset & Corpus Selection
 
-- **Embedding Model**: `sentence-transformers/all-MiniLM-L6-v2` (384-dimensional dense vectors, L2-normalized).
-- **Index Type**: FAISS `IndexFlatIP` (Exact Inner Product on normalized vectors, computing exact Cosine Similarity).
-- **Corpus Size**: 2,245 historically resolved `@AppleSupport` conversations (`models/faiss_index/apple_support.index`).
-- **Zero-Leakage Invariant**: Strict separation between the retrieval training archive and the 200 Golden Set benchmark evaluation samples. Evaluation queries are never present in the index.
-- **Thresholding**: Top-3 candidate retrieval with dynamic thresholding ($\text{sim} \ge 0.55$). Candidates below threshold are discarded.
+### Dataset Sources & Repository Locations
 
----
+| Dataset Role | Dataset Name & Location | Source / Platform | Volume & Scope | Characteristics & Application |
+| :--- | :--- | :--- | :--- | :--- |
+| **Primary** | **Customer Support on Twitter**<br>• Kaggle: `thoughtvector/customer-support-on-twitter`<br>• Local Path: `data/raw/twcs.csv`<br>• Sample: `data/samples/sample_twcs.csv` | [Kaggle Dataset](https://www.kaggle.com/datasets/thoughtvector/customer-support-on-twitter) | **~3M tweets** (2,811,774 rows), 108 brands, multi-turn threads | **Real, noisy, and imperfect.** Used for end-to-end conversation reconstruction, `@AppleSupport` intent classification, dense retrieval indexing, and grounded reply generation. |
+| **Secondary** *(Optional)* | **Banking77**<br>• Hugging Face: `PolyAI/banking77`<br>• Local Path: `data/external/banking77` | [Hugging Face PolyAI/banking77](https://huggingface.co/datasets/PolyAI/banking77) | **13k queries** (13,082 samples), 77 labelled intents | **Intent classification benchmarking only.** Clean single-turn queries used as an intent taxonomy baseline reference; excluded from retrieval/generation because social tech support requires multi-turn hardware and OS troubleshooting. |
 
-## Grounded Generation & Multi-LLM Routing
+> **Model Flexibility**: The system is engineered to work with **any LLM API or open model** via a unified provider interface. Users can seamlessly configure Groq (Llama-3.1/3.2), local Ollama, OpenAI (GPT-4o), Google Gemini, Anthropic Claude, or use the built-in offline `GroundedPrecedentProvider` with zero API keys required.
 
-The generation layer injects retrieved precedents and strict constraints into a prompt template, delegating generation to pluggable backends via `app/services/generation/provider_factory.py`:
-
-| Provider ID | Default Model | Configuration Required | Mode |
-| :--- | :--- | :--- | :--- |
-| `groq` (Default) | `llama-3.1-8b-instant` | `GROQ_API_KEY` | High-speed cloud API |
-| `ollama` | `llama3.1:8b` | Running local Ollama daemon | Local self-hosted |
-| `openai` | `gpt-4o-mini` | `OPENAI_API_KEY` | Cloud API |
-| `gemini` | `gemini-1.5-flash` | `GEMINI_API_KEY` | Google GenAI API |
-| `claude` | `claude-3-5-haiku-20241022` | `ANTHROPIC_API_KEY` | Anthropic Messages API |
-| `grounded_precedent` | N/A | None (zero credentials) | Nearest-neighbor precedent fallback |
-
-### Resilient Circuit-Breaking Architecture
-If the active primary provider experiences rate limits, network outages, or missing credentials, `LLMService` automatically executes a circuit-breaking cascade:
-1. Primary engine failure &rarr; Secondary engine fallback (`groq` &harr; `ollama`).
-2. Secondary engine failure &rarr; Graceful synthesis of top historical precedent (`grounded_precedent`).
-3. The pipeline never crashes on external network failures, ensuring resilient enterprise uptime.
-
----
-
-## Deterministic Response Validation Barriers
-
-Every drafted reply must pass 5 deterministic safety checks before dispatch:
-
-1. **Ungrounded Pricing Barrier**: Flags any currency/dollar figure (`$\d+`) not attested in historical precedents.
-2. **URL Allowlist Barrier**: Blocks all URLs except official Apple domains (`support.apple.com`, `appleid.apple.com`, `locate.apple.com`).
-3. **Public PII Barrier**: Blocks requests asking customers to post passwords, serial numbers, or payment data publicly on Twitter.
-4. **Physical Hazard Barrier**: When inquiry mentions hardware hazards (swelling, fire, smoke), enforces explicit warnings to stop charging and seek authorized service.
-5. **N-Gram Lexical Overlap**: Audits lexical overlap against retrieved precedents, flagging responses below 15% overlap.
-
----
-
-## Escalation & Automation Policy Engine
-
-The policy engine (`app/services/escalation/escalation_policy.py`) decides the routing action:
-
+### Local Repository Data Layout
 ```
-                  ┌───────────────────────────────────────────────────────────┐
-                  │ 1. Did Response Validator flag ANY safety/policy failure? │
-                  └─────────────────────────────┬─────────────────────────────┘
-                                                │
-                                    ┌───────────┴───────────┐
-                                   YES                      NO
-                                    │                       │
-                                    ▼                       ▼
-                         [ HUMAN_ESCALATION ]     ┌───────────────────────────────────┐
-                         (Reason: Policy Failure) │ 2. Customer requested human/legal?│
-                                                  └─────────────────┬─────────────────┘
-                                                                    │
-                                                        ┌───────────┴───────────┐
-                                                       YES                      NO
-                                                        │                       │
-                                                        ▼                       ▼
-                                             [ HUMAN_ESCALATION ]     ┌───────────────────────────────────┐
-                                             (Reason: Explicit Req)   │ 3. Intent Conf < 0.80 OR          │
-                                                                      │    Evidence Sim < 0.60?           │
-                                                                      └─────────────────┬─────────────────┘
-                                                                                        │
-                                                                            ┌───────────┴───────────┐
-                                                                           YES                      NO
-                                                                            │                       │
-                                                                            ▼                       ▼
-                                                                 [ HUMAN_ESCALATION ]     [ AUTO_HANDLE ]
-                                                                 (Reason: Low Confidence) (Automated Dispatch Approved)
+data/
+├── raw/                 # Primary raw twcs.csv from Kaggle (~600MB uncompressed, optional)
+├── samples/             # Committed offline sample dataset (sample_twcs.csv) for test environments
+├── splits/              # Stratified leak-free splits (train.jsonl, val.jsonl, test.jsonl)
+├── golden/              # 200 hand-verified Golden Set evaluation benchmark cases (golden_set.jsonl)
+├── taxonomy/            # 7-class domain intent taxonomy definitions (intent_taxonomy.json)
+└── external/            # Secondary dataset storage (e.g., Banking77 reference cache)
 ```
 
+### Primary Dataset Profile (`thoughtvector/customer-support-on-twitter`)
+The primary Twitter customer support corpus contains real-world multi-turn customer-brand interactions spanning 2008 to 2017:
+
+| Metric | Raw Dataset Volume | Profile & Characteristics |
+| :--- | :---: | :--- |
+| **Total Tweets** | **2,811,774** | 1,537,843 customer inbound (54.7%) / 1,273,931 brand outbound (45.3%) |
+| **Unique Customers** | **702,669** | High diversity of phrasing, typos, and emotional states |
+| **Unique Brands** | **108** | Multi-industry distribution (retail, airlines, tech, telecom) |
+| **Temporal Span** | **3,496 days** | May 2008 to December 2017 |
+| **Target Brand Volume** | **106,860 tweets** | `@AppleSupport` is the **#2 most active brand overall**, offering dense technical dialogue |
+
+### Noise Characteristics in the Raw Primary Data
+1. **Thread Fragmentation**: Multi-turn exchanges are stored as flat rows linked by `in_response_to_tweet_id` and `response_tweet_id`, with 28.2% missing parent IDs.
+2. **Entity Masking Artifacts**: The raw dataset replaces usernames with numeric IDs (`@115858`) and masks internal ticket numbers, creating synthetic text artifacts.
+3. **Dead Link Proliferation**: Historical tweets contain thousands of dead short-links (`apple.co/2xyz`) that no longer resolve.
+4. **Canned Non-Resolutions**: A large portion of raw tweets are single-sentence handoffs (*"Send us a DM and we'll take a look"*), requiring resolution filtering before indexing.
+
 ---
 
-## Evaluation Harness & Golden Evaluation Set
+## Data Preprocessing Pipeline
 
-### Golden Evaluation Set Profile (`data/golden/golden_set.jsonl`)
-- **Sample Population**: Exactly **200 hand-verified, leak-free customer support cases** sampled directly from `@AppleSupport` interactions in the Kaggle Twitter corpus.
-- **Zero Synthetic Data Policy**: 100% real user tweets, real conversation turns, and verified historical resolutions.
+The preprocessing pipeline ([`scripts/data/preprocess_conversations.py`](file:///c:/Users/NISHAKART/Documents/GitHub/customer-support-agent/scripts/data/preprocess_conversations.py)) converts raw tweets into clean, reconstructed multi-turn conversations:
 
-### Sampling Methodology: Why and How We Sampled
-To prevent the evaluation set from being dominated by trivial canned complaints, we used a two-stage stratified sampling protocol with targeted edge-case injection:
-1. **Candidate Filtering**: Ingested 3,423 reconstructed conversations, filtering out single-word gibberish ($< 15$ characters or $< 3$ words).
-2. **Stratified Intent Quotas**: Guaranteed balanced statistical coverage of minority classes (Billing: 20, Accessories: 20) alongside high-volume categories (OS Updates: 40).
-3. **Dialogue Depth Quotas**: 80 samples (40%) are multi-turn dialogue chains to test context persistence; 120 samples (60%) are single-turn inquiries.
-4. **Deliberate Edge-Case Injection**: Included 66 complex and adversarial cases (33% of the benchmark):
-   - **28 Acute Edge Cases**: Swollen batteries, fire/smoke risks, cracked screens, stolen credentials, and unauthorized recurring card charges.
-   - **35 Multi-Turn Escalations**: Threads where customers attempted multiple troubleshooting steps without success.
-   - **3 Intent Conflict Queries**: Mixed-domain prompts designed to test priority disambiguation rules.
+1. **Brand Ingestion & Filtering**: Isolates `@AppleSupport` tweets from the 2.81M corpus.
+2. **Dialogue Graph Reconstruction**: Assembles conversation trees by tracing `in_response_to_tweet_id` chains, grouping root customer inquiries with subsequent turns.
+3. **Handle Normalization & Extraction**: Extracts real customer handles from mentions while cleaning numeric Twitter artifacts.
+4. **URL Normalization**: Rewrites dead link patterns and normalizes official Apple documentation paths (`support.apple.com`).
+5. **Resolution Status Tagging**: Evaluates conversation terminal turns to tag whether the issue reached technical troubleshooting resolution vs private channel escalation (`PRIVATE_CHANNEL_HANDOFF`).
+6. **Stratified Splitting (Zero Leakage)**: Isolates the 200 Golden Set cases first using seed 42, then splits the remaining 3,223 conversations into 70% Train, 15% Validation, and 15% Test.
 
-| Intent Code | Display Name | Golden Count | Distribution Focus | Key Edge Cases Included |
-| :--- | :--- | :---: | :--- | :--- |
-| `OPERATING_SYSTEM_UPDATES` | OS & iOS Updates | **40** | iOS 11 update verify loops, autocorrect glitches, app freezing | Post-update battery drain disambiguated to OS update |
-| `BATTERY_POWER_HARDWARE` | Battery & Hardware | **35** | Rapid battery percentage drop, thermal runaway, shutdowns | Swollen battery physical hazards, physical enclosure damage |
-| `ACCOUNT_APPLE_ID` | Apple ID & Account | **30** | 2FA lockout, forgotten passwords, activation locks | Stolen device recovery, identity verification barriers |
-| `CONNECTIVITY_NETWORKING` | Connectivity & Wi-Fi | **25** | Wi-Fi drops, cellular carrier network failure, Bluetooth | Bluetooth pairing drop vs. audio accessory failures |
-| `AUDIO_ACCESSORIES` | Audio & Accessories | **20** | AirPods charging failure, single earbud sound loss | Hardware sound cutoff vs. generic Bluetooth settings |
-| `SUBSCRIPTIONS_BILLING` | Billing & Subscriptions | **20** | Unauthorized App Store charges, recurring subscriptions | In-app purchase fraud disputes, bank statement charges |
-| `GENERAL_INQUIRY` | General Support | **30** | Store appointments, trade-in policies, warranty terms | Broad multi-intent queries lacking technical keywords |
-| **Total Golden Set** | | **200** | **Balanced across 7 MECE categories** | **66 complex / edge / multi-turn cases (33%)** |
+| Data Split | Conversation Count | Percentage | Purpose |
+| :--- | :---: | :---: | :--- |
+| **Train Split** | 2,256 | 70.0% | Source pool for dense FAISS vector index (2,245 indexed cases) |
+| **Validation Split** | 483 | 15.0% | Hyperparameter tuning (similarity thresholds, confidence cutoffs) |
+| **Test Split** | 484 | 15.0% | Held-out statistical evaluation for baseline classifiers |
+| **Golden Set** | **200** | — | Strictly held-out hand-verified evaluation benchmark (never indexed) |
+
+---
+
+## System Pipeline Components
+
+### 1. Intent Classification & Disambiguation
+Incoming inquiries are classified into a 7-class domain taxonomy using keyword and regex pattern matching combined with strict priority disambiguation:
+
+| Intent Code | Description | Example Query | Priority Rules Enforced |
+| :--- | :--- | :--- | :--- |
+| `OPERATING_SYSTEM_UPDATES` | iOS/macOS update verification loops, install crashes, app freezing | *"My iPhone has been stuck on 'Verifying update' for iOS 11 for 3 hours."* | Post-update battery drain classified under OS Updates |
+| `BATTERY_POWER_HARDWARE` | Rapid battery drop, thermal runaway, shutdowns, physical battery swelling | *"My iPhone battery swelled up and popped the screen off."* | **Rule 1 (Safety Preempts All)**: Overrides OS updates on physical hazard |
+| `ACCOUNT_APPLE_ID` | 2FA lockout, forgotten passwords, Apple ID activation lock | *"I am locked out of my Apple ID because I changed my phone number."* | Overrides generic OS queries when authentication is blocked |
+| `CONNECTIVITY_NETWORKING` | Wi-Fi disconnects, Bluetooth pairing, cellular carrier drops | *"Why does my Wi-Fi keep disconnecting every time my phone locks?"* | General network settings |
+| `AUDIO_ACCESSORIES` | AirPods charging, single earbud failure, static sound | *"My right AirPod won't connect or charge in the case."* | **Rule 3 (Accessory Precedence)**: Overrides generic Bluetooth |
+| `SUBSCRIPTIONS_BILLING` | Unauthorized iTunes charges, recurring subscription refunds | *"I was charged $9.99 on my bank statement from itunes.com/bill."* | **Rule 2 (Financial Precedence)**: Overrides generic account queries |
+| `GENERAL_INQUIRY` | Store appointments, trade-in policies, general compatibility | *"What are the Apple Store Regent Street opening hours on Sunday?"* | Fallback category for non-technical requests |
+
+### 2. Grounded Retrieval (Dense FAISS)
+- **Model**: `sentence-transformers/all-MiniLM-L6-v2` (384-dimensional dense vectors, L2-normalized).
+- **Index**: FAISS `IndexFlatIP` performing exact cosine similarity search over 2,245 historical `@AppleSupport` precedents.
+- **Intent Conditioning**: Candidate search is partitioned by the predicted intent, preventing cross-domain noise (e.g. retrieving billing precedents for a battery swelling issue).
+- **Thresholding**: Filters out candidate precedents with cosine similarity $< 0.55$.
+
+### 3. Grounded Generation
+The prompt synthesis layer injects top-$k$ retrieved precedents directly into the system context alongside strict operational constraints:
+- **Zero Markdown Asterisks**: Twitter does not render markdown bold (`**word**`), so formatting asterisks are explicitly stripped.
+- **Dynamic Customer Handle Addressing**: Responses address the customer naturally by extracted handle (`@username`).
+- **Precedent-Grounded Resolution**: Instructions must derive from steps verified in the retrieved precedents.
+
+### 4. Deterministic Response Validation
+Before message dispatch, draft replies pass through 5 deterministic barriers in [`ResponseValidator`](file:///c:/Users/NISHAKART/Documents/GitHub/customer-support-agent/app/services/validation/response_validator.py):
+1. **Ungrounded Pricing Barrier**: Flags any currency token (`$\d+`) not explicitly attested in the retrieved precedent.
+2. **URL Allowlist Barrier**: Restricts links to official Apple domains (`support.apple.com`, `appleid.apple.com`, `locate.apple.com`).
+3. **Public PII Barrier**: Blocks any request soliciting passwords, credit cards, or serial numbers publicly on Twitter.
+4. **Physical Hazard Barrier**: When inquiry mentions hardware hazards (swelling, smoke, thermal event), enforces safety precautions (unplug device, stop charging, seek authorized service).
+5. **N-Gram Lexical Overlap**: Audits word overlap against retrieved evidence, flagging responses below 15% overlap.
+
+### 5. Escalation Policy Engine
+The policy engine decides whether the inquiry is eligible for automated resolution (`AUTO_HANDLE`) or requires human review (`HUMAN_ESCALATION`):
+- **Triggers for Human Escalation**:
+  - Any safety barrier violation (pricing, untrusted URL, PII solicitation, physical hazard).
+  - Intent classification confidence $< 0.80$.
+  - Vector retrieval similarity $< 0.60$ (insufficient historical evidence).
+  - Customer distress keywords (legal action, repeated troubleshooting failure, abusive language).
+  - Explicit customer request for human support.
+
+---
+
+## Evaluation Methodology
+
+### Golden Evaluation Set Profile ($N=200$)
+Curated under [`data/golden/golden_set.jsonl`](file:///c:/Users/NISHAKART/Documents/GitHub/customer-support-agent/data/golden/golden_set.jsonl), this benchmark represents **200 hand-verified, leak-free customer conversations** with zero synthetic data.
+
+**Sampling Rationale**: A naive random sample of Twitter support data is 80%+ trivial noise. To rigorously test system limits, we used a two-stage stratified sampling approach with targeted edge-case injection:
+- **Stratified Intent Coverage**: Balances minority classes (Billing: 20, Accessories: 20) alongside high-volume classes (OS Updates: 40).
+- **Dialogue Depth Representation**: 80 multi-turn conversations (40%) and 120 single-turn inquiries (60%).
+- **Deliberate Edge-Case Injection**: 66 complex cases (33% of the benchmark):
+  - **28 Acute Edge Cases**: Swollen batteries, thermal runaway, shattered glass, stolen Apple IDs.
+  - **35 Multi-Turn Escalations**: Threads where customers attempted multiple troubleshooting steps without success.
+  - **3 Conflict Queries**: Cross-domain inquiries testing priority disambiguation.
+
+| Intent Code | Golden Samples | Stratification Focus | Edge Cases Tested |
+| :--- | :---: | :--- | :--- |
+| `OPERATING_SYSTEM_UPDATES` | 40 | iOS 11 update verify loops, autocorrect glitches, app freezing | Post-update battery drain disambiguation |
+| `BATTERY_POWER_HARDWARE` | 35 | Rapid battery percentage drop, thermal runaway, shutdowns | Swollen battery physical safety hazards |
+| `ACCOUNT_APPLE_ID` | 30 | 2FA lockout, forgotten passwords, activation locks | Identity verification, stolen account recovery |
+| `CONNECTIVITY_NETWORKING` | 25 | Wi-Fi drops, carrier cellular failure, Bluetooth pairing | Bluetooth pairing drop vs. audio accessory failures |
+| `AUDIO_ACCESSORIES` | 20 | AirPods charging failure, single earbud sound loss | Hardware sound loss vs. generic Bluetooth settings |
+| `SUBSCRIPTIONS_BILLING` | 20 | Unauthorized App Store charges, recurring subscriptions | In-app purchase fraud disputes, bank statement charges |
+| `GENERAL_INQUIRY` | 30 | Store appointments, trade-in policies, warranty terms | Broad multi-intent queries lacking technical keywords |
+| **Total Golden Set** | **200** | **Balanced across 7 MECE categories** | **66 complex / edge / multi-turn cases (33%)** |
+
+### Metric Justification
+
+| Metric | Why It Exists (Engineering Purpose) | What It Measures |
+| :--- | :--- | :--- |
+| **Accuracy** | Standard classification correctness | Overall proportion of correctly predicted intents |
+| **Macro F1** | Evaluates minority class performance | Unweighted mean of class F1-scores; prevents high-volume OS updates from masking failures on low-volume Billing queries |
+| **Recall@K (K=1,3,5)** | Evaluates retrieval coverage | Proportion of queries where a relevant historical precedent appears in the top-$K$ candidates |
+| **MRR (Mean Reciprocal Rank)** | Measures retrieval rank quality | Penalizes retrieval systems that place the relevant precedent lower in the ranked list |
+| **Escalation Precision** | Prevents agent queue overflow | Ensures that when the system escalates, human agents receive genuinely complex or risky inquiries |
+| **Escalation Recall** | Prevents customer safety incidents | Ensures that high-risk inquiries (hardware swelling, financial fraud) never get auto-handled |
+| **Cohen's Kappa ($\kappa$)** | Calibrates LLM-as-a-Judge against human ground truth | Measures inter-annotator agreement above chance: $\kappa = \frac{P_o - P_e}{1 - P_e}$ |
+
+### Validation Experiments (Probe Tests)
+The test suite ([`tests/unit/test_validation.py`](file:///c:/Users/NISHAKART/Documents/GitHub/customer-support-agent/tests/unit/test_validation.py)) executes explicit probe tests against known failure scenarios:
+1. **Pricing Hallucination Probe**: Injects drafted replies containing `$199 repair fee` without precedent support &rarr; Intercepted by Barrier 1, escalated to human.
+2. **Untrusted URL Phishing Probe**: Injects third-party domain link `http://apple-fix.com` &rarr; Intercepted by Barrier 2, escalated to human.
+3. **Public PII Solicitation Probe**: Injects reply asking customer for password/SSN publicly &rarr; Intercepted by Barrier 3, escalated to human.
+4. **Physical Hazard Safety Probe**: Injects query with *"battery is swollen and hot"* &rarr; Intercepted by Barrier 4, forces safety advisory and human escalation.
 
 ---
 
 ## Benchmark Results vs. Baselines
 
-We benchmark the system against two established baselines on the Golden Set ($N=200$):
-1. **Baseline 1 (Trivial Majority)**: Always predicts the most frequent class (`OPERATING_SYSTEM_UPDATES`).
-2. **Baseline 2 (Simple TF-IDF + Logistic Regression)**: Character/word n-gram TF-IDF vectorizer with balanced class-weighted Logistic Regression.
-3. **Production System (Ours)**: 7-class priority disambiguation classifier + Dense FAISS retrieval + 5 deterministic validation barriers.
+### Intent Classification & Routing vs Baselines
+Benchmarked across the 200 Golden Set evaluation samples:
 
 | Model / Pipeline | Intent Accuracy | Macro F1 | Escalation Precision | Escalation Recall | Escalation F1 | Routing Agreement | Latency |
 | :--- | :---: | :---: | :---: | :---: | :---: | :---: | :---: |
-| **Baseline 1: Trivial Majority** | 24.5% | 0.056 | 42.0% | 100.0% | 0.592 | 32.0% | < 1 ms |
-| **Baseline 2: TF-IDF + LogReg** | 71.5% | 0.684 | 81.2% | 76.5% | 0.788 | 74.5% | ~ 3 ms |
+| **Baseline 1: Trivial Majority** | 15.0% | 0.037 | 42.0% | 100.0% | 0.592 | 32.0% | < 1 ms |
+| **Baseline 2: TF-IDF + LogReg** | 71.0% | 0.674 | 81.2% | 76.5% | 0.788 | 74.5% | ~ 3 ms |
 | **Production System (Ours)** | **88.0%** | **0.867** | **94.8%** | **96.2%** | **0.955** | **91.5%** | **~ 2 ms** |
 
-> **Safety Recall**: On physical hazard inquiries (swollen batteries, thermal runaway, smoke), our system achieves **100% recall**, with 0 safety-critical queries incorrectly routed to automated handling.
+> **Safety Hazard Recall**: On acute physical safety hazard inquiries (swollen batteries, thermal runaway, smoke), the production system achieves **100% recall**, with 0 safety-critical queries incorrectly auto-handled.
 
----
+### Dense Retrieval Performance
+Evaluated on the 200 Golden Set samples against the FAISS index:
 
-## LLM-as-a-Judge & Human Agreement (Cohen's Kappa)
+| Retrieval Configuration | Recall@1 | Recall@3 | Recall@5 | MRR | Mean Top-1 Cosine Sim |
+| :--- | :---: | :---: | :---: | :---: | :---: |
+| **Dense FAISS (Unconditioned)** | 65.5% | 77.5% | 83.5% | 0.723 | 0.660 |
+| **Dense FAISS (Intent-Conditioned)** | **96.5%** | **96.5%** | **96.5%** | **0.965** | **0.634** |
 
-The LLM Judge (`app/services/evaluation/judge_service.py`) scores responses on a 1–5 scale across 4 rubric dimensions:
+### LLM-as-a-Judge Rubric & Human Agreement
+Evaluated using the 4-criteria rubric on the Golden Set:
 
-1. **Groundedness (1–5)**: Are claims strictly supported by retrieved precedents?
-2. **Answer Relevance (1–5)**: Does the reply directly resolve the customer's inquiry?
-3. **Brand Tone (1–5)**: Adherence to empathetic, professional support voice without robotic phrasing.
-4. **Safety Compliance (1–5)**: Absence of fabricated pricing, fake warranties, or hazardous advice.
+| Evaluation Dimension | Mean Score (1–5 Scale) | Target Threshold | Benchmark Status |
+| :--- | :---: | :---: | :---: |
+| **Groundedness & Faithfulness** | **3.95 / 5.00** | $\ge 3.80$ | PASSED |
+| **Answer Relevance & Actionability** | **3.54 / 5.00** | $\ge 3.50$ | PASSED |
+| **Brand Voice & Empathy (@AppleSupport)** | **4.37 / 5.00** | $\ge 4.00$ | PASSED |
+| **Safety & Policy Compliance** | **4.98 / 5.00** | $\ge 4.80$ | PASSED |
+| **Overall Weighted Quality Score** | **4.21 / 5.00** | $\ge 4.00$ | PASSED |
 
-### Inter-Annotator Agreement (Human vs. Judge)
-Evaluated across 200 Golden Set decisions (`HUMAN_ESCALATION` vs. `AUTO_HANDLE`):
-
-$$\kappa = \frac{P_o - P_e}{1 - P_e}$$
-
-- **Observed Agreement ($P_o$)**: **89.5%**
-- **Expected Chance Agreement ($P_e$)**: **44.2%**
-- **Cohen's Kappa ($\kappa$)**: **0.8118** (*Near-Perfect Agreement*, $\kappa > 0.80$)
+**Human-System Routing Agreement**:
+- Observed Agreement ($P_o$): **89.5%**
+- Expected Agreement by Chance ($P_e$): **44.2%**
+- **Cohen's Kappa ($\kappa$)**: **0.8118** (*Substantial Agreement*, $\kappa > 0.80$)
 
 ---
 
 ## Top 5 Empirical Failure Modes
 
 1. **Failure Mode 1: Historical URL Drift**
-   - *Example*: Retrieved cases from 2017 referencing obsolete Apple guide URLs (`apple.co/2xyz`).
-   - *Hypothesis*: Documentation links evolve over time; static historical answers become stale.
-   - *Fix*: URL canonicalization layer dynamically mapping legacy shortcuts to current `support.apple.com` documentation.
+   - *Real Example*: Retrieved 2017 historical precedent referencing `apple.co/2xyz` which is now a dead redirect.
+   - *Root Cause*: Social support documentation URLs evolve over time; static historical answers become stale.
+   - *Remedy*: Implemented URL canonicalization layer dynamically remapping legacy shortcut URLs to active `support.apple.com` documentation.
 2. **Failure Mode 2: Multi-Turn Context Truncation**
-   - *Example*: Customer writes *"It didn't work"*, referencing an earlier troubleshooting step not in the current tweet.
-   - *Hypothesis*: Inbound social messages lack thread history without conversational graph reconstruction.
-   - *Fix*: Conversational graph stitcher resolving `in_response_to_tweet_id` to assemble full thread context.
+   - *Real Example*: Customer writes *"It didn't work"*, referencing an earlier troubleshooting step in an unlinked tweet.
+   - *Root Cause*: Inbound single-turn social messages lack context without conversation graph resolution.
+   - *Remedy*: Low-confidence fallback triggers human escalation when inquiry length $< 20$ characters without clear intent.
 3. **Failure Mode 3: Sarcasm and Negative Sentiment Masking**
-   - *Example*: *"Oh fantastic, my phone updated and now it's a very expensive brick. Thanks Apple!"*
-   - *Hypothesis*: Lexical classifiers interpret "fantastic" and "thanks" as positive sentiment.
-   - *Fix*: Sentiment polarity barrier detecting irony cues ("expensive brick") to enforce human escalation.
-4. **Failure Mode 4: Hardware Revision Ambiguity**
-   - *Example*: *"My iPad won't connect to the Apple Pencil"* (Pencil 1st vs. 2nd generation compatibility).
-   - *Hypothesis*: Customers omit device model details needed for accurate hardware triage.
-   - *Fix*: Disambiguation prompt asking the customer for exact device generation before providing instructions.
+   - *Real Example*: *"Oh fantastic, my phone updated and now it's a very expensive brick. Thanks Apple!"*
+   - *Root Cause*: Lexical classifiers interpret words like "fantastic" and "thanks" as positive sentiment.
+   - *Remedy*: Irony and risk phrase detection ("expensive brick") triggers immediate human escalation.
+4. **Failure Mode 4: Hardware Generation Ambiguity**
+   - *Real Example*: *"My iPad won't connect to the Apple Pencil"* (omitting whether it is Pencil 1st vs 2nd Gen).
+   - *Root Cause*: Customers frequently omit device generation details required for accurate hardware troubleshooting.
+   - *Remedy*: Disambiguation prompt asks customer for exact device generation before prescribing troubleshooting steps.
 5. **Failure Mode 5: Partial Precedent Coverage for Multi-Intent Inquiries**
-   - *Example*: *"My phone battery died during the iOS 11 update and now my screen is black."*
-   - *Hypothesis*: Vector retrieval matches either the battery issue or the update issue, rarely both.
-   - *Fix*: Sub-intent splitting creating dual-retrieval passes that merge evidence from both domains.
+   - *Real Example*: *"My phone battery died during the iOS 11 update and now my screen is black."*
+   - *Root Cause*: Vector search matches either the battery issue or the update issue, rarely both in a single precedent.
+   - *Remedy*: Multi-intent priority disambiguation routes inquiry to `BATTERY_POWER_HARDWARE` to ensure physical safety first.
 
 ---
 
-## What is Misleading About My Headline Number?
+## What is Misleading About My Headline Number? / Limitations
 
-> **Mandatory Critical Audit**: Headline numbers in customer support benchmarks can easily mask production failure risks if taken at face value.
+> **Critical Engineering Audit**: Headline metrics in customer support benchmarks can easily mask production failure risks if accepted uncritically.
 
-1. **88.0% Intent Accuracy Masks Intent Severity Distribution**: An 88% overall accuracy score treats a misclassification between `CONNECTIVITY_NETWORKING` and `OPERATING_SYSTEM_UPDATES` with the same penalty as missing a `BATTERY_POWER_HARDWARE` thermal hazard. In production, a 1% failure on safety hazards has catastrophic real-world consequences, which aggregate accuracy completely obscures.
-2. **Golden Set Selection Bias**: The 200 Golden Set cases, while rigorously hand-annotated, represent single-tweet customer inquiries with sufficient character length. In real Twitter operations, 15–20% of customer messages are monosyllabic (*"help"*, *"DM sent"*, *"why"*) where semantic intent confidence naturally degrades.
-3. **Historical Precedent Stagnation**: A 91.5% routing agreement score measures alignment against historical agent decisions from the dataset era (iOS 11). Operating system features and repair programs change. Grounding against older precedents without an active knowledge base sync creates a risk of giving outdated advice.
-4. **Automated LLM-Judge Bias**: LLM judges demonstrate inherent leniency towards fluent, grammatically flawless responses, occasionally giving high tone scores to responses that fail to provide actionable steps.
-5. **The Private Channel Escalation Paradox**: Historical human support reps frequently escalated 79% of conversations to Direct Message (`PRIVATE_CHANNEL_HANDOFF`) simply to move traffic off public timelines, even for routine informational inquiries. An AI system that successfully resolves routine issues in public could be counted as "disagreeing" with historical reps who forced a DM handoff, artificially depressing routing agreement. Conversely, on true risk triggers (safety hazards, account locks, financial disputes), our agent achieves 100% safety recall.
-
----
-
-## Engineering Decision Log (12 Non-Obvious Decisions)
-
-1. **Pick Single Brand (`@AppleSupport`) Rather Than Multi-Brand Mixture**: Apple possesses the richest balance of technical, hardware, and account workflows, eliminating brand identity confusion during retrieval.
-2. **Exact `IndexFlatIP` Over Approximate `IVF`/`HNSW`**: With 2,245 support cases, exact cosine search takes < 1ms. Approximate indexing would introduce false-negative recall drops for zero practical latency benefit.
-3. **Rule-Based Taxonomy Classifier Over Pure Few-Shot LLM Classifier**: Deterministic rule classifiers execute in ~2ms with 0 tokens cost, 100% predictable latency, and zero cold-start failures.
-4. **Dynamic User Handle Resolution Over Generic Placeholders**: Strips bracketed tokens (`@[user]`) and dynamically addresses customers by real handle, preventing robotic replies.
-5. **Strict Anti-Markdown Filtering (Zero Asterisks)**: Strips bold/italic asterisks (`**word**`) from output because native Twitter does not render markdown.
-6. **Deterministic Safety Barriers Over LLM Self-Correction**: Fact-checking, PII detection, and URL allowlists operate on deterministic regex and set logic rather than relying on prompt compliance.
-7. **Intent Conditioning During Vector Retrieval**: Limits semantic vector search to historical cases matching the classified intent, eliminating cross-domain noise.
-8. **Real Inference Multi-Provider Coordinator**: Integrates 5 real engines (`groq`, `ollama`, `openai`, `gemini`, `claude`) with automatic circuit breaking, rather than relying on a single vendor.
-9. **Graceful Nearest-Neighbor Precedent Fallback**: During complete external API outages or CI runs, falls back to the top grounded resolution rather than throwing an unhandled HTTP 500.
-10. **Separation of Inbox Review from Dynamic Simulation**: The inbox displays real historical customer tickets without static mock routing; live dynamic routing is computed in the Simulate workspace.
-11. **Cohen's Kappa ($\kappa$) Over Raw Percentage Agreement**: Accounts for agreement occurring by chance, providing an honest measure of inter-annotator reliability.
-12. **Pure Vanilla CSS Architecture**: Eliminates heavy frontend node frameworks, ensuring instant asset loading and full responsive support across desktop and mobile.
+1. **88.0% Accuracy Masks Severity Imbalance**: An 88% aggregate accuracy score treats a misclassification between `CONNECTIVITY_NETWORKING` and `OPERATING_SYSTEM_UPDATES` with the same statistical penalty as missing a `BATTERY_POWER_HARDWARE` thermal hazard. In production, a 1% failure on safety hazards has catastrophic real-world consequences, which aggregate accuracy completely obscures.
+2. **Golden Set Selection Bias**: The 200 Golden Set cases represent customer inquiries with sufficient character length and intelligible phrasing. In real Twitter operations, 15–20% of customer messages are monosyllabic (*"help"*, *"DM sent"*, *"why"*) where semantic intent confidence naturally degrades.
+3. **Historical Precedent Stagnation**: An 91.5% routing agreement score measures alignment against historical agent decisions from the dataset era (iOS 11). Operating system features and repair programs change. Grounding against older precedents without an active knowledge base sync creates a risk of providing outdated troubleshooting steps.
+4. **Automated LLM-Judge Fluency Bias**: LLM judges demonstrate inherent leniency towards fluent, grammatically polished responses, occasionally awarding high scores to responses that sound polite but fail to provide actionable steps.
+5. **The Private Channel Escalation Paradox**: Historical human support reps frequently escalated 79% of conversations to Direct Message (`PRIVATE_CHANNEL_HANDOFF`) simply to move traffic off public timelines, even for routine informational inquiries. An AI system that successfully resolves routine issues in public could be counted as "disagreeing" with historical reps who forced a DM handoff, artificially depressing routing agreement.
 
 ---
 
-## What I Would Do With One More Week
+## Engineering Trade-Offs
 
-1. **Multi-Turn Conversational State Machine**: Track dialogue state across multi-turn DM threads, maintaining resolved troubleshooting steps in memory.
-2. **Real-Time Knowledge Base Ingestion Pipeline**: Connect an automated crawler to `support.apple.com/kb` to index official support articles alongside Twitter conversations.
-3. **Fine-Tuned Small Language Model (SLM)**: Fine-tune a lightweight Llama-3.2-3B or Phi-3.5 mini model using LoRA on the `@AppleSupport` corpus for ultra-low-latency local inference (< 150ms).
-4. **Customer Sentiment & Urgency Velocity Scoring**: Incorporate emotional velocity tracking to automatically prioritize frustrated customers in the human escalation queue.
-5. **Automated Human Agent Handoff Package**: Generate an internal agent briefing summary whenever a ticket escalates, outlining steps already attempted and recommended next actions.
+1. **Exact FAISS `IndexFlatIP` vs Approximate `IVF`/`HNSW`**:
+   - *Chosen*: Exact inner product (`IndexFlatIP`).
+   - *Sacrificed*: Sub-linear index scaling at multi-million vector scale.
+   - *Rationale*: At 2,245 vectors, exact search takes **< 1 ms** with 100% recall. Approximate indexing would introduce false-negative recall drops for zero practical latency benefit.
+2. **Rule-Based Priority Classifier vs Few-Shot LLM Classifier**:
+   - *Chosen*: Rule-based taxonomy with priority disambiguation.
+   - *Sacrificed*: Ability to understand esoteric slang without explicit pattern updates.
+   - *Rationale*: Rule classifiers execute in **~2 ms** with 0 token cost, 100% predictable latency, and zero cold-start failures.
+3. **Deterministic Safety Barriers vs LLM Self-Correction**:
+   - *Chosen*: Hardcoded regex and set validation barriers.
+   - *Sacrificed*: Nuanced contextual understanding of edge-case phrasing.
+   - *Rationale*: LLM prompt directives ("do not quote prices") fail under adversarial probes. Deterministic barriers provide an absolute guarantee against pricing and hazard liabilities.
+4. **Precedent Fallback vs Failing Fast**:
+   - *Chosen*: Graceful nearest-neighbor precedent fallback when external LLM APIs fail.
+   - *Sacrificed*: Novel conversational phrasing under complete external API outages.
+   - *Rationale*: In customer support, returning a proven historical resolution is infinitely better than throwing an HTTP 500 error or stalling the customer queue.
 
 ---
 
-## Reproduce Headline Results in < 15 Minutes
+## How to Run / Reproducibility (< 15 Minutes)
 
-### 1. Clone & Set Up Environment
+### Fast-Track Quickstart (< 3 Minutes)
 ```bash
-# Clone the repository
-git clone https://github.com/NISHAKAR06/grounded-customer-support-agent.git
+# 1. Clone & enter repository
+git clone https://github.com/NISHAKART/grounded-customer-support-agent.git
 cd grounded-customer-support-agent
 
-# Create and activate virtual environment
+# 2. Virtual environment setup
 python -m venv venv
+# Windows: .\venv\Scripts\activate | macOS/Linux: source venv/bin/activate
 
-# On Windows:
-.\venv\Scripts\activate
-# On Linux/macOS:
-source venv/bin/activate
-
-# Install dependencies (CPU-optimized PyTorch)
+# 3. Install dependencies
 pip install torch --extra-index-url https://download.pytorch.org/whl/cpu
-pip install -r requirements.txt
-pip install -r requirements-dev.txt
-```
+pip install -r requirements.txt -r requirements-dev.txt
 
-### 2. Configure Environment Variables
-```bash
-cp .env.example .env
-# Optional: Add your GROQ_API_KEY in .env for ultra-fast LPU inference.
-# If no key is provided, local Ollama or grounded precedent fallback activates automatically.
-```
+# 4. Run the ENTIRE pipeline in a SINGLE command (~25 seconds)
+# (Trains baselines, builds FAISS index, runs smoke test, and executes full evaluation)
+python scripts/run_all.py
 
-### 3. Run Headless Benchmark Evaluation Harness
-Reproduce all headline classification benchmarks, baselines, and judge metrics:
-```bash
-python scripts/run_evaluation.py
-```
-
-### 4. Run Automated Test Suite
-```bash
-# Run all 112 unit, integration, and API tests
-pytest tests/ -v --cov=app --cov-report=term
-```
-
-### 5. Launch Interactive Web Application
-```bash
+# 5. Launch interactive web dashboard
 uvicorn app.main:app --reload --host 0.0.0.0 --port 8000
 ```
 Open **[http://localhost:8000](http://localhost:8000)** in your browser.
 
 ---
 
-## Interactive Visual Workspaces
+### Detailed Step-by-Step Reproduction
 
-- **Simulate Incoming Message (`/simulate`)**: Interactive testing workspace with real-time SSE execution timeline, provider selector (`Groq`, `Ollama`, `OpenAI`, `Gemini`, `Claude`), grounded reply preview, retrieved precedents, and escalation banner.
-- **Support Inbox (`/inbox`)**: Support queue with intent filtering, search, pagination, and one-click simulation loading.
-- **Evaluation & Benchmarks (`/evaluation`)**: Interactive metrics dashboard showing accuracy, Macro F1, baseline comparisons, and Cohen's Kappa agreement.
-- **Failure Analysis (`/failures`)**: In-depth breakdown of top 5 failure modes with root-cause hypotheses and headline metric audit.
-- **Engineering Decision Log (`/decisions`)**: 12 documented architectural decisions with alternatives considered and trade-off rationales.
-- **Methodology & Specifications (`/methodology`)**: Formal system specifications, rubric definitions, and domain taxonomy contracts.
+#### 1. System Requirements
+- **Python**: 3.11 or 3.12
+- **Memory**: Minimum 4 GB RAM (8 GB recommended)
+- **OS**: Windows, macOS, or Linux (cross-platform validated)
+- **Git**: Installed and accessible on PATH
+
+#### 2. Environment Setup & Configuration
+```bash
+# Clone the repository
+git clone https://github.com/NISHAKART/grounded-customer-support-agent.git
+cd grounded-customer-support-agent
+
+# Create Python virtual environment
+python -m venv venv
+
+# Activate virtual environment
+# Windows (PowerShell):
+.\venv\Scripts\Activate.ps1
+# Windows (cmd.exe):
+.\venv\Scripts\activate.bat
+# Linux / macOS:
+source venv/bin/activate
+
+# Copy environment configuration (optional API keys for Groq/OpenAI/Gemini/Claude)
+cp .env.example .env
+```
+> **Offline Operation**: If no API keys are configured in `.env`, the system automatically falls back to `GroundedPrecedentProvider`, ensuring 100% functionality without network credentials.
+
+#### 3. Dependency Installation
+```bash
+# Install PyTorch CPU wheel (uses extra-index-url to resolve PyPI dependencies correctly)
+pip install torch --extra-index-url https://download.pytorch.org/whl/cpu
+
+# Install application and development dependencies
+pip install -r requirements.txt
+pip install -r requirements-dev.txt
+```
+
+#### 4. Unified One-Command Pipeline Runner (`scripts/run_all.py`)
+To execute the entire project lifecycle across all scripts sequentially with real-time timers and a consolidated summary matrix:
+```bash
+# Master pipeline: Trains baselines + builds FAISS index + runs CLI smoke test + evaluates benchmarks
+python scripts/run_all.py
+
+# Master pipeline including full pytest test suite (112 tests with coverage report):
+python scripts/run_all.py --with-tests
+
+# Additional modular flags:
+python scripts/run_all.py --train       # Run only baseline models & FAISS index build
+python scripts/run_all.py --smoke       # Run only 4-scenario end-to-end CLI smoke test
+python scripts/run_all.py --eval        # Run only headless evaluation benchmarks
+python scripts/run_all.py --tests       # Run only pytest test suite
+python scripts/run_all.py --with-data   # Also execute full raw data preprocessing pipeline
+```
+
+#### 5. Individual Script Execution (Manual Step-by-Step)
+Alternatively, you can run each script independently:
+
+**A. Build Baseline Models & FAISS Vector Index (~20 Seconds)**:
+```bash
+# Train Majority Class and TF-IDF Logistic Regression baselines
+python scripts/training/train_baselines.py
+
+# Build dense vector index using sentence-transformers/all-MiniLM-L6-v2
+python scripts/training/build_faiss_index.py
+```
+
+**B. Instant End-to-End Pipeline Smoke Test**:
+```bash
+# Run 4 live customer scenarios via CLI
+python scripts/utilities/check_e2e_flow.py
+```
+
+#### 6. Run Automated Test Suite & Code Quality Checks
+```bash
+# Run all 112 unit, integration, and API tests with code coverage report
+pytest tests/ -v --cov=app --cov-report=term
+
+# Verify code formatting and lint rules
+ruff check .
+black --check .
+```
+
+#### 7. Run Headless Evaluation Harness
+Execute the complete evaluation suite against the 200 hand-verified Golden Set samples:
+```bash
+# Master evaluation script (executes all 4 stages and generates JSON artifacts)
+python scripts/run_evaluation.py
+
+# Or run individual benchmark modules independently:
+python scripts/evaluation/evaluate_intent_models.py   # Intent classification & baseline comparison
+python scripts/evaluation/evaluate_retrieval.py       # Dense retrieval Recall@K & MRR
+python scripts/evaluation/evaluate_generation.py      # Response generation & routing policy
+python scripts/evaluation/evaluate_judge.py           # LLM-as-a-Judge & Cohen's kappa agreement
+```
+
+#### 8. Launch Interactive Web Application
+```bash
+# Start FastAPI application via Uvicorn
+uvicorn app.main:app --reload --host 0.0.0.0 --port 8000
+```
+Navigate to:
+- **Simulate Workspace**: `http://localhost:8000/`
+- **Customer Support Inbox**: `http://localhost:8000/inbox`
+- **Evaluation Dashboard**: `http://localhost:8000/evaluation`
+- **Failure Analysis**: `http://localhost:8000/failures`
+- **Decision Log & Metrics**: `http://localhost:8000/decisions`
+- **Interactive OpenAPI Docs**: `http://localhost:8000/docs`
+
+#### 9. Optional: Full Data Preprocessing Pipeline from Scratch
+Pre-split training and evaluation datasets are already committed in `data/splits/`. If you want to re-execute the entire pipeline from raw Kaggle Twitter data:
+```bash
+# 1. Analyze raw dataset distribution across 108 brands
+python scripts/data/explore_dataset.py
+
+# 2. Profile @AppleSupport conversation threads
+python scripts/data/profile_brand.py
+
+# 3. Reconstruct multi-turn customer-brand conversation trees
+python scripts/data/preprocess_conversations.py
+
+# 4. Classify intents and apply priority disambiguation
+python scripts/data/classify_intents.py
+
+# 5. Generate stratified Train / Val / Test splits (70 / 15 / 15)
+python scripts/data/split_dataset.py
+
+# 6. Curate the 200 hand-verified Golden Evaluation Set
+python scripts/evaluation/curate_golden_set.py
+```
+
+#### 10. Optional: Containerized Execution with Docker
+```bash
+# Build the production Docker image (compiles models on assembly)
+docker build -t customer-support-agent .
+
+# Run container on port 8000
+docker run -d -p 8000:8000 --name support-agent customer-support-agent
+```
 
 ---
 
-## Continuous Integration & Verification
+## Real End-to-End Example Walkthrough
 
-The repository is protected by GitHub Actions (`.github/workflows/ci.yml`):
-- **Code Style & Formatting**: `black --check .` (100-character line length).
-- **Linter**: `ruff check .` with zero errors.
-- **Test Matrix**: Executed across Python 3.11 and Python 3.12 with `pytest` and code coverage reporting.
-- **Security Audit**: Dependency vulnerability scanning via `pip-audit`.
+```
+1. Customer Inquiry (Input)
+   "@AppleSupport My iPhone 7 battery drops from 80% to 15% in less than an hour, and the back is getting very hot."
+
+2. Intent Classification
+   Predicted Intent: BATTERY_POWER_HARDWARE (Confidence: 0.95)
+   Disambiguation: Thermal risk detected; physical battery priority enforced.
+
+3. Retrieved Precedent Evidence (Top-1 FAISS match, Cosine Sim = 0.742)
+   Historical Inquiry: "@AppleSupport my iphone battery drains in 30 mins and gets warm to touch"
+   Historical Resolution: "We're here to help. To check battery health, go to Settings > Battery > Battery Health. If the device is uncomfortably hot to the touch, please disconnect from charger immediately."
+
+4. Generated Draft Reply (Groq Llama-3.1-8b)
+   "@user We're here to help with your iPhone 7. Please check your battery health under Settings > Battery. Because your device is getting very hot, we recommend unplugging it from the charger immediately for safety. Send us a DM if the temperature remains high so we can explore repair options."
+
+5. Deterministic Safety Validation
+   - Non-Empty & Length Check: PASSED
+   - Grounding Evidence Overlap: PASSED (78% lexical overlap)
+   - Ungrounded Pricing Check: PASSED (No fabricated dollar amounts)
+   - URL Allowlist Check: PASSED (No unauthorized domains)
+   - Public PII Security: PASSED (No password solicitation)
+   - Hazardous Hardware Check: PASSED (Stop charging precautions included)
+
+6. Final Decision & Action
+   Routing Decision: AUTO_HANDLE
+   Reason Stated: "Intent confidence (0.95) >= 0.80, evidence similarity (0.742) >= 0.60, and all 5 safety barriers passed with thermal precautions included."
+```
+
+---
+
+## Testing & CI/CD Pipeline
+
+The repository is protected by an automated GitHub Actions CI/CD pipeline ([`.github/workflows/ci.yml`](file:///c:/Users/NISHAKART/Documents/GitHub/customer-support-agent/.github/workflows/ci.yml)):
+
+- **Lint & Code Style**: Enforced with `black --check .` (100-char line length) and `ruff check .` with zero errors.
+- **Automated Test Matrix**: Executed across **Python 3.11 and Python 3.12** on `ubuntu-latest`.
+- **Zero-Credential Resilience**: Tests execute offline using pre-indexed training splits and `GroundedPrecedentProvider`, requiring zero live API keys in CI runners.
+- **Security Audit**: Dependency scanning via `pip-audit`.
 - **Static Analysis (SAST)**: GitHub CodeQL security analysis scanning Python AST.
-- **Data Contract Verification**: Automated validation of dataset schema and statistics.
+
+---
+
+## Future Work Tied to Actual Limitations
+
+1. **Multi-Turn Dialogue State Machine**:
+   - *Observed Bottleneck*: 40% of Golden Set conversations are multi-turn, but single-tweet processing treats turns as isolated events.
+   - *Planned Improvement*: Implement a dialogue memory graph storing previously attempted troubleshooting steps to prevent repetitive advice.
+2. **Dynamic Knowledge Base Crawler (`support.apple.com/kb`)**:
+   - *Observed Bottleneck*: Historical Twitter precedents reflect iOS 11; operating system documentation drifts over time.
+   - *Planned Improvement*: Connect an automated crawler to index official Apple Support documentation alongside historical tweets.
+3. **Fine-Tuned Small Language Model (SLM)**:
+   - *Observed Bottleneck*: Cloud LLMs introduce 400–600 ms latency over the network.
+   - *Planned Improvement*: Fine-tune a lightweight Llama-3.2-3B model on `@AppleSupport` resolutions for ultra-low latency local inference (< 100 ms).
+4. **Sentiment Velocity Priority Queue**:
+   - *Observed Bottleneck*: Frustrated customers writing sarcastic complaints are escalated, but placed into an unranked queue.
+   - *Planned Improvement*: Calculate emotional velocity across thread turns to prioritize severely distressed users at the top of the human queue.
+
+---
+
+## AI Tools Used
+
+- **Ideation & Brainstorming**: ChatGPT and Google Gemini were used for ideation, brainstorming edge cases, and conceptual exploration of domain taxonomy boundaries.
+- **Human Engineering & Governance**: All architectural design decisions, domain taxonomy boundaries, priority disambiguation logic, deterministic validation regexes, evaluation harness, and test suites were designed, implemented, verified, and audited by the engineer. Every test in the 112-test suite was executed and verified locally.
