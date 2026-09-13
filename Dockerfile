@@ -21,9 +21,8 @@ RUN pip install --no-cache-dir --upgrade pip && \
     pip install --no-cache-dir torch --extra-index-url https://download.pytorch.org/whl/cpu && \
     pip install --no-cache-dir -r requirements.txt
 
-# Copy application code, configurations, data splits, and static assets
+# Copy application code, data splits, models, templates, and scripts
 COPY app/ app/
-COPY config/ config/
 COPY data/ data/
 COPY models/ models/
 COPY templates/ templates/
