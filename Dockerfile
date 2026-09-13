@@ -36,12 +36,15 @@ COPY pyproject.toml .
 RUN python scripts/training/train_baselines.py && \
     python scripts/training/build_faiss_index.py
 
-# Expose web server port
+# Ensure read/write access for non-root containers (Hugging Face Spaces runs as uid 1000)
+RUN chmod -R 777 /app
+
+# Expose default web server port
 EXPOSE 8000
 
 # Healthcheck probe
 HEALTHCHECK --interval=30s --timeout=5s --start-period=10s --retries=3 \
-    CMD curl -f http://localhost:8000/health || exit 1
+    CMD curl -f http://localhost:${PORT:-8000}/health || exit 1
 
-# Launch production server
-CMD ["uvicorn", "app.main:app", "--host", "0.0.0.0", "--port", "8000"]
+# Launch production server with port fallback
+CMD ["sh", "-c", "uvicorn app.main:app --host 0.0.0.0 --port ${PORT:-8000}"]
