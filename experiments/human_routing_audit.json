@@ -1,0 +1,2021 @@
+{
+  "summary": {
+    "total_cases": 200,
+    "observed_agreement": 0.38,
+    "expected_agreement": 0.413,
+    "cohens_kappa": -0.0562,
+    "confusion_matrix": {
+      "AUTO_HANDLE": {
+        "AUTO_HANDLE": 24,
+        "HUMAN_ESCALATION": 18
+      },
+      "HUMAN_ESCALATION": {
+        "AUTO_HANDLE": 106,
+        "HUMAN_ESCALATION": 52
+      }
+    },
+    "human_escalation_system_autohandle_count": 106
+  },
+  "audit_records": [
+    {
+      "case_id": "gold_001",
+      "conversation_id": "conv_43370",
+      "customer_message": "why is my iphone (6s, recent update) showing symbols and stuff as i\ufe0f type when autocorrect is on? @AppleSupport",
+      "intent": "OPERATING_SYSTEM_UPDATES",
+      "human_routing": "HUMAN_ESCALATION",
+      "system_routing": "AUTO_HANDLE",
+      "system_reasons": "High intent confidence (0.95 >= 0.80); Sufficient historical evidence retrieved and verified; No human escalation triggers or risk keywords detected; All grounding and policy checks successfully passed",
+      "match": false
+    },
+    {
+      "case_id": "gold_002",
+      "conversation_id": "conv_145156",
+      "customer_message": "Well I have been facing a problem on @115858 store, which fails to load on my phone. Trying to play @148887 which asks for update after intervals, yet when I open the store, it fails to load. Game works sometimes, asks for update in the other. Please help, @AppleSupport.",
+      "intent": "OPERATING_SYSTEM_UPDATES",
+      "human_routing": "AUTO_HANDLE",
+      "system_routing": "HUMAN_ESCALATION",
+      "system_reasons": "Intent classification confidence (0.78) below threshold (0.80).",
+      "match": false
+    },
+    {
+      "case_id": "gold_003",
+      "conversation_id": "conv_181374",
+      "customer_message": "Hello, I\u2019m iPhone 6s user. Why I can\u2019t downgrade to iOS 10.3.3? I saw from ipsw.me that\u2019s still sign for iPhone 6s.",
+      "intent": "OPERATING_SYSTEM_UPDATES",
+      "human_routing": "AUTO_HANDLE",
+      "system_routing": "AUTO_HANDLE",
+      "system_reasons": "High intent confidence (0.95 >= 0.80); Sufficient historical evidence retrieved and verified; No human escalation triggers or risk keywords detected; All grounding and policy checks successfully passed",
+      "match": true
+    },
+    {
+      "case_id": "gold_004",
+      "conversation_id": "conv_265037",
+      "customer_message": "IOS 11 is a waste of time right now. Where does my keyboard keep going? And my apps keep crashing @AppleSupport what's going on?",
+      "intent": "OPERATING_SYSTEM_UPDATES",
+      "human_routing": "AUTO_HANDLE",
+      "system_routing": "AUTO_HANDLE",
+      "system_reasons": "High intent confidence (0.95 >= 0.80); Sufficient historical evidence retrieved and verified; No human escalation triggers or risk keywords detected; All grounding and policy checks successfully passed",
+      "match": true
+    },
+    {
+      "case_id": "gold_005",
+      "conversation_id": "conv_52189",
+      "customer_message": "why do I have to do a hard reset to download apps? Started with iOS 11",
+      "intent": "OPERATING_SYSTEM_UPDATES",
+      "human_routing": "HUMAN_ESCALATION",
+      "system_routing": "AUTO_HANDLE",
+      "system_reasons": "High intent confidence (0.95 >= 0.80); Sufficient historical evidence retrieved and verified; No human escalation triggers or risk keywords detected; All grounding and policy checks successfully passed",
+      "match": false
+    },
+    {
+      "case_id": "gold_006",
+      "conversation_id": "conv_151509",
+      "customer_message": "When do you think you might \"fix\" the glitch when using the pronoun \"I\" while texting, tweeting, etc.????",
+      "intent": "OPERATING_SYSTEM_UPDATES",
+      "human_routing": "AUTO_HANDLE",
+      "system_routing": "AUTO_HANDLE",
+      "system_reasons": "High intent confidence (0.85 >= 0.80); Sufficient historical evidence retrieved and verified; No human escalation triggers or risk keywords detected; All grounding and policy checks successfully passed",
+      "match": true
+    },
+    {
+      "case_id": "gold_007",
+      "conversation_id": "conv_42636",
+      "customer_message": "Ey @AppleSupport since I updating my iPhone 8 to iOS 11.1 does not stop restarting!! \ud83d\ude21\ud83d\ude1e\ud83d\ude2d #iOS11 #bug",
+      "intent": "OPERATING_SYSTEM_UPDATES",
+      "human_routing": "HUMAN_ESCALATION",
+      "system_routing": "AUTO_HANDLE",
+      "system_reasons": "High intent confidence (0.98 >= 0.80); Sufficient historical evidence retrieved and verified; No human escalation triggers or risk keywords detected; All grounding and policy checks successfully passed",
+      "match": false
+    },
+    {
+      "case_id": "gold_008",
+      "conversation_id": "conv_185535",
+      "customer_message": "Really love how my phone is glitching & exiting out & deleting the entire text I\u2019ve written @AppleSupport\ud83d\ude12 wishing I didn\u2019t update my phone\ud83d\ude43",
+      "intent": "OPERATING_SYSTEM_UPDATES",
+      "human_routing": "HUMAN_ESCALATION",
+      "system_routing": "HUMAN_ESCALATION",
+      "system_reasons": "Intent classification confidence (0.78) below threshold (0.80).",
+      "match": true
+    },
+    {
+      "case_id": "gold_009",
+      "conversation_id": "conv_87009",
+      "customer_message": "Hi, guess you guys need to hire efficient #iOS developers. My phone has been lagging ever since the #ios11 got its new update. @AppleSupport",
+      "intent": "OPERATING_SYSTEM_UPDATES",
+      "human_routing": "HUMAN_ESCALATION",
+      "system_routing": "AUTO_HANDLE",
+      "system_reasons": "High intent confidence (0.98 >= 0.80); Sufficient historical evidence retrieved and verified; No human escalation triggers or risk keywords detected; All grounding and policy checks successfully passed",
+      "match": false
+    },
+    {
+      "case_id": "gold_010",
+      "conversation_id": "conv_182261",
+      "customer_message": "iOS 11 very buggy, causing me much distress, please patch it",
+      "intent": "OPERATING_SYSTEM_UPDATES",
+      "human_routing": "HUMAN_ESCALATION",
+      "system_routing": "AUTO_HANDLE",
+      "system_reasons": "High intent confidence (0.95 >= 0.80); Sufficient historical evidence retrieved and verified; No human escalation triggers or risk keywords detected; All grounding and policy checks successfully passed",
+      "match": false
+    },
+    {
+      "case_id": "gold_011",
+      "conversation_id": "conv_286375",
+      "customer_message": "Ever since I updated my phone my apps have been freezing like crazy. What gives! @AppleSupport",
+      "intent": "OPERATING_SYSTEM_UPDATES",
+      "human_routing": "HUMAN_ESCALATION",
+      "system_routing": "HUMAN_ESCALATION",
+      "system_reasons": "Intent classification confidence (0.78) below threshold (0.80).",
+      "match": true
+    },
+    {
+      "case_id": "gold_012",
+      "conversation_id": "conv_112905",
+      "customer_message": "#iphone5s @115858 I want to go back to iOS 10. How? Battery draining can\u2019t withstand 12hrs.",
+      "intent": "OPERATING_SYSTEM_UPDATES",
+      "human_routing": "HUMAN_ESCALATION",
+      "system_routing": "AUTO_HANDLE",
+      "system_reasons": "High intent confidence (0.95 >= 0.80); Sufficient historical evidence retrieved and verified; No human escalation triggers or risk keywords detected; All grounding and policy checks successfully passed",
+      "match": false
+    },
+    {
+      "case_id": "gold_013",
+      "conversation_id": "conv_237591",
+      "customer_message": "hey whenever i try to download hearthstone it stops at 70% and says it failed its only with this app too. im on ios 11.0.2",
+      "intent": "OPERATING_SYSTEM_UPDATES",
+      "human_routing": "AUTO_HANDLE",
+      "system_routing": "AUTO_HANDLE",
+      "system_reasons": "High intent confidence (0.95 >= 0.80); Sufficient historical evidence retrieved and verified; No human escalation triggers or risk keywords detected; All grounding and policy checks successfully passed",
+      "match": true
+    },
+    {
+      "case_id": "gold_014",
+      "conversation_id": "conv_287471",
+      "customer_message": "iPhone 7, IOS 11.0.2 freezes on text input, temporary fix is to restart, freezes again after about an hour @115858 @AppleSupport help!",
+      "intent": "OPERATING_SYSTEM_UPDATES",
+      "human_routing": "HUMAN_ESCALATION",
+      "system_routing": "AUTO_HANDLE",
+      "system_reasons": "High intent confidence (0.95 >= 0.80); Sufficient historical evidence retrieved and verified; No human escalation triggers or risk keywords detected; All grounding and policy checks successfully passed",
+      "match": false
+    },
+    {
+      "case_id": "gold_015",
+      "conversation_id": "conv_146804",
+      "customer_message": "When did @115858 phones start lagging?\niPhone SE started lagging after latest iOS update. Intentional @AppleSupport ?\nSo that I upgrade my phone?",
+      "intent": "OPERATING_SYSTEM_UPDATES",
+      "human_routing": "AUTO_HANDLE",
+      "system_routing": "HUMAN_ESCALATION",
+      "system_reasons": "Intent classification confidence (0.78) below threshold (0.80).",
+      "match": false
+    },
+    {
+      "case_id": "gold_016",
+      "conversation_id": "conv_11648",
+      "customer_message": "Brand New Effect on #iOS11 @AppleSupport Beautiful! Great work! \ud83d\ude02 https://t.co/0INPNlWcvT",
+      "intent": "OPERATING_SYSTEM_UPDATES",
+      "human_routing": "HUMAN_ESCALATION",
+      "system_routing": "AUTO_HANDLE",
+      "system_reasons": "High intent confidence (0.95 >= 0.80); Sufficient historical evidence retrieved and verified; No human escalation triggers or risk keywords detected; All grounding and policy checks successfully passed",
+      "match": false
+    },
+    {
+      "case_id": "gold_017",
+      "conversation_id": "conv_154463",
+      "customer_message": "just upgraded to latest iPhone software / phone locks up several times per day - sometimes requires reboot - not good",
+      "intent": "OPERATING_SYSTEM_UPDATES",
+      "human_routing": "HUMAN_ESCALATION",
+      "system_routing": "AUTO_HANDLE",
+      "system_reasons": "High intent confidence (0.88 >= 0.80); Sufficient historical evidence retrieved and verified; No human escalation triggers or risk keywords detected; All grounding and policy checks successfully passed",
+      "match": false
+    },
+    {
+      "case_id": "gold_018",
+      "conversation_id": "conv_205189",
+      "customer_message": "I\u2019m running iOS 11.0.2 and my custom ringtone doesn\u2019t work? I\u2019ve followed these steps https://t.co/LKrJCb7DSd\u00a0& still no luck",
+      "intent": "OPERATING_SYSTEM_UPDATES",
+      "human_routing": "HUMAN_ESCALATION",
+      "system_routing": "AUTO_HANDLE",
+      "system_reasons": "High intent confidence (0.95 >= 0.80); Sufficient historical evidence retrieved and verified; No human escalation triggers or risk keywords detected; All grounding and policy checks successfully passed",
+      "match": false
+    },
+    {
+      "case_id": "gold_019",
+      "conversation_id": "conv_114509",
+      "customer_message": "After installing iOS 11.1.2 apple apps close such as Podcasts, while playing and also apps from other developers. iPhone also feels slow and it gets hot and battery is running lower than usual. @115858 @AppleSupport #ios1112",
+      "intent": "OPERATING_SYSTEM_UPDATES",
+      "human_routing": "HUMAN_ESCALATION",
+      "system_routing": "AUTO_HANDLE",
+      "system_reasons": "High intent confidence (0.95 >= 0.80); Sufficient historical evidence retrieved and verified; No human escalation triggers or risk keywords detected; All grounding and policy checks successfully passed",
+      "match": false
+    },
+    {
+      "case_id": "gold_020",
+      "conversation_id": "conv_288479",
+      "customer_message": "every reboot, i get this. even when i quit the installer as suggested https://t.co/kOhohSH6UZ",
+      "intent": "OPERATING_SYSTEM_UPDATES",
+      "human_routing": "AUTO_HANDLE",
+      "system_routing": "HUMAN_ESCALATION",
+      "system_reasons": "No historical resolved support cases found to ground response.; Response validation failed (hallucination or unverified claim check).",
+      "match": false
+    },
+    {
+      "case_id": "gold_021",
+      "conversation_id": "conv_46580",
+      "customer_message": "I got my songs back. IOS 11 affected my password somehow and wouldn\u2019t let me log in. Had to change password",
+      "intent": "OPERATING_SYSTEM_UPDATES",
+      "human_routing": "AUTO_HANDLE",
+      "system_routing": "AUTO_HANDLE",
+      "system_reasons": "High intent confidence (0.95 >= 0.80); Sufficient historical evidence retrieved and verified; No human escalation triggers or risk keywords detected; All grounding and policy checks successfully passed",
+      "match": true
+    },
+    {
+      "case_id": "gold_022",
+      "conversation_id": "conv_10671",
+      "customer_message": "So, since updating the latest iOS, Pages no longer lets me open any docs, all show, just don\u2019t open. Suggestions? Anyone?",
+      "intent": "OPERATING_SYSTEM_UPDATES",
+      "human_routing": "HUMAN_ESCALATION",
+      "system_routing": "HUMAN_ESCALATION",
+      "system_reasons": "Intent classification confidence (0.78) below threshold (0.80).",
+      "match": true
+    },
+    {
+      "case_id": "gold_023",
+      "conversation_id": "conv_50044",
+      "customer_message": "my phone\u2019s battery is draining faster after upgrading to ios 11.1. (I have iphone 6s). Please fix this issue asap.\ud83d\ude29",
+      "intent": "OPERATING_SYSTEM_UPDATES",
+      "human_routing": "HUMAN_ESCALATION",
+      "system_routing": "AUTO_HANDLE",
+      "system_reasons": "High intent confidence (0.95 >= 0.80); Sufficient historical evidence retrieved and verified; No human escalation triggers or risk keywords detected; All grounding and policy checks successfully passed",
+      "match": false
+    },
+    {
+      "case_id": "gold_024",
+      "conversation_id": "conv_222976",
+      "customer_message": "strobing updated app dot? #iOS11 https://t.co/r3iOUpQa61",
+      "intent": "OPERATING_SYSTEM_UPDATES",
+      "human_routing": "HUMAN_ESCALATION",
+      "system_routing": "AUTO_HANDLE",
+      "system_reasons": "High intent confidence (0.98 >= 0.80); Sufficient historical evidence retrieved and verified; No human escalation triggers or risk keywords detected; All grounding and policy checks successfully passed",
+      "match": false
+    },
+    {
+      "case_id": "gold_025",
+      "conversation_id": "conv_50082",
+      "customer_message": "iOS 11.1 on iPhone 6 Battery drain increased. You guys should retire gracefully if you can\u2019t solve simple problem @AppleSupport",
+      "intent": "OPERATING_SYSTEM_UPDATES",
+      "human_routing": "HUMAN_ESCALATION",
+      "system_routing": "AUTO_HANDLE",
+      "system_reasons": "High intent confidence (0.95 >= 0.80); Sufficient historical evidence retrieved and verified; No human escalation triggers or risk keywords detected; All grounding and policy checks successfully passed",
+      "match": false
+    },
+    {
+      "case_id": "gold_026",
+      "conversation_id": "conv_86983",
+      "customer_message": "It\u2019s unbelievable that @115858, @AppleSupport still haven\u2019t sorted out the battery issues on iOS 11. I almost don\u2019t want to use my phone because of how quickly it drains out. Unacceptable.",
+      "intent": "OPERATING_SYSTEM_UPDATES",
+      "human_routing": "HUMAN_ESCALATION",
+      "system_routing": "AUTO_HANDLE",
+      "system_reasons": "High intent confidence (0.95 >= 0.80); Sufficient historical evidence retrieved and verified; No human escalation triggers or risk keywords detected; All grounding and policy checks successfully passed",
+      "match": false
+    },
+    {
+      "case_id": "gold_027",
+      "conversation_id": "conv_12013",
+      "customer_message": "Excuse me @115858 @AppleSupport: when y\u2019all gonna address the fact that some glitch is turning Is into hieroglyphics?!",
+      "intent": "OPERATING_SYSTEM_UPDATES",
+      "human_routing": "HUMAN_ESCALATION",
+      "system_routing": "AUTO_HANDLE",
+      "system_reasons": "High intent confidence (0.85 >= 0.80); Sufficient historical evidence retrieved and verified; No human escalation triggers or risk keywords detected; All grounding and policy checks successfully passed",
+      "match": false
+    },
+    {
+      "case_id": "gold_028",
+      "conversation_id": "conv_8570",
+      "customer_message": "FYI, Folders no longer show Folder Names after update unless folder highlighted. https://t.co/1iiNNz9ZFk",
+      "intent": "OPERATING_SYSTEM_UPDATES",
+      "human_routing": "AUTO_HANDLE",
+      "system_routing": "HUMAN_ESCALATION",
+      "system_reasons": "Intent classification confidence (0.78) below threshold (0.80).; No historical resolved support cases found to ground response.; Response validation failed (hallucination or unverified claim check).",
+      "match": false
+    },
+    {
+      "case_id": "gold_029",
+      "conversation_id": "conv_272481",
+      "customer_message": "What\u2019s with the funny characters at the top left? IOS 11.03 @applesupport https://t.co/22m1mt9HDv",
+      "intent": "OPERATING_SYSTEM_UPDATES",
+      "human_routing": "HUMAN_ESCALATION",
+      "system_routing": "AUTO_HANDLE",
+      "system_reasons": "High intent confidence (0.95 >= 0.80); Sufficient historical evidence retrieved and verified; No human escalation triggers or risk keywords detected; All grounding and policy checks successfully passed",
+      "match": false
+    },
+    {
+      "case_id": "gold_030",
+      "conversation_id": "conv_101246",
+      "customer_message": "updated to iOS 11.1.2, phone crashes repeatedly at 32% battery life. Briefly flashes \u2018plug in graphic\u2019, the will restart and crash again within seconds. When drained past 30%, suddenly works fine. Something buggy with the low battery emergency shutdown trigger.",
+      "intent": "OPERATING_SYSTEM_UPDATES",
+      "human_routing": "AUTO_HANDLE",
+      "system_routing": "AUTO_HANDLE",
+      "system_reasons": "High intent confidence (0.98 >= 0.80); Sufficient historical evidence retrieved and verified; No human escalation triggers or risk keywords detected; All grounding and policy checks successfully passed",
+      "match": true
+    },
+    {
+      "case_id": "gold_031",
+      "conversation_id": "conv_151523",
+      "customer_message": "hey I just purchased this iPhone 8 Plus and I\u2019ve been trying to do this update for AGES to get it to turn on. It says verifying update for ages and then fails. Please help?!?!! https://t.co/RSLLhGZebH",
+      "intent": "OPERATING_SYSTEM_UPDATES",
+      "human_routing": "AUTO_HANDLE",
+      "system_routing": "AUTO_HANDLE",
+      "system_reasons": "High intent confidence (0.98 >= 0.80); Sufficient historical evidence retrieved and verified; No human escalation triggers or risk keywords detected; All grounding and policy checks successfully passed",
+      "match": true
+    },
+    {
+      "case_id": "gold_032",
+      "conversation_id": "conv_14328",
+      "customer_message": "why does this keep happening? Started prior to iOS 11.1 update. Still happens post update. https://t.co/OykRItEdQP",
+      "intent": "OPERATING_SYSTEM_UPDATES",
+      "human_routing": "HUMAN_ESCALATION",
+      "system_routing": "AUTO_HANDLE",
+      "system_reasons": "High intent confidence (0.98 >= 0.80); Sufficient historical evidence retrieved and verified; No human escalation triggers or risk keywords detected; All grounding and policy checks successfully passed",
+      "match": false
+    },
+    {
+      "case_id": "gold_033",
+      "conversation_id": "conv_62279",
+      "customer_message": "why isn\u2019t the weather\u2019s widget not working no more? (Even since iOS 11.1) https://t.co/XLQNCFXKDO",
+      "intent": "OPERATING_SYSTEM_UPDATES",
+      "human_routing": "HUMAN_ESCALATION",
+      "system_routing": "AUTO_HANDLE",
+      "system_reasons": "High intent confidence (0.95 >= 0.80); Sufficient historical evidence retrieved and verified; No human escalation triggers or risk keywords detected; All grounding and policy checks successfully passed",
+      "match": false
+    },
+    {
+      "case_id": "gold_034",
+      "conversation_id": "conv_235810",
+      "customer_message": "probleme de clavier ( tellement lent et decaler) depuis la migration vers IOS11 avec mon iphone 5S",
+      "intent": "OPERATING_SYSTEM_UPDATES",
+      "human_routing": "AUTO_HANDLE",
+      "system_routing": "AUTO_HANDLE",
+      "system_reasons": "High intent confidence (0.95 >= 0.80); Sufficient historical evidence retrieved and verified; No human escalation triggers or risk keywords detected; All grounding and policy checks successfully passed",
+      "match": true
+    },
+    {
+      "case_id": "gold_035",
+      "conversation_id": "conv_269525",
+      "customer_message": "How do I play music albums by year in iOS 11?",
+      "intent": "OPERATING_SYSTEM_UPDATES",
+      "human_routing": "AUTO_HANDLE",
+      "system_routing": "HUMAN_ESCALATION",
+      "system_reasons": "No historical resolved support cases found to ground response.; Response validation failed (hallucination or unverified claim check).",
+      "match": false
+    },
+    {
+      "case_id": "gold_036",
+      "conversation_id": "conv_50615",
+      "customer_message": "y\u2019all really bout to piss me off with this dumbass update. My phone keeps crashing and shutting off",
+      "intent": "OPERATING_SYSTEM_UPDATES",
+      "human_routing": "HUMAN_ESCALATION",
+      "system_routing": "HUMAN_ESCALATION",
+      "system_reasons": "Intent classification confidence (0.78) below threshold (0.80).",
+      "match": true
+    },
+    {
+      "case_id": "gold_037",
+      "conversation_id": "conv_223000",
+      "customer_message": "Someone help where did my dock go. iOS 11 is absolute trash. @AppleSupport https://t.co/XAjhEdgjbc",
+      "intent": "OPERATING_SYSTEM_UPDATES",
+      "human_routing": "HUMAN_ESCALATION",
+      "system_routing": "AUTO_HANDLE",
+      "system_reasons": "High intent confidence (0.95 >= 0.80); Sufficient historical evidence retrieved and verified; No human escalation triggers or risk keywords detected; All grounding and policy checks successfully passed",
+      "match": false
+    },
+    {
+      "case_id": "gold_038",
+      "conversation_id": "conv_172981",
+      "customer_message": "hey! I get a message on #macOS when I connect my #iPhoneX to #MacBookPro (15\", 2017) using USB-C to #Lightning cable - it says it draws too much power??!! Should I be concerned??",
+      "intent": "OPERATING_SYSTEM_UPDATES",
+      "human_routing": "HUMAN_ESCALATION",
+      "system_routing": "HUMAN_ESCALATION",
+      "system_reasons": "No historical resolved support cases found to ground response.; Response validation failed (hallucination or unverified claim check).",
+      "match": true
+    },
+    {
+      "case_id": "gold_039",
+      "conversation_id": "conv_252896",
+      "customer_message": "hey how can my phone not freeze every 5 mins with iOS11? Ideas??",
+      "intent": "OPERATING_SYSTEM_UPDATES",
+      "human_routing": "HUMAN_ESCALATION",
+      "system_routing": "AUTO_HANDLE",
+      "system_reasons": "High intent confidence (0.98 >= 0.80); Sufficient historical evidence retrieved and verified; No human escalation triggers or risk keywords detected; All grounding and policy checks successfully passed",
+      "match": false
+    },
+    {
+      "case_id": "gold_040",
+      "conversation_id": "conv_188571",
+      "customer_message": "congrats, with your new update i can't charge my iphone any more.",
+      "intent": "OPERATING_SYSTEM_UPDATES",
+      "human_routing": "AUTO_HANDLE",
+      "system_routing": "HUMAN_ESCALATION",
+      "system_reasons": "Intent classification confidence (0.78) below threshold (0.80).",
+      "match": false
+    },
+    {
+      "case_id": "gold_041",
+      "conversation_id": "conv_148181",
+      "customer_message": "my iPhone 6s seems to be losing battery VERY quickly. (Gone from 30% to 9% in about 20 mins) is it worth taking to a Genius Bar, can they check battery function?",
+      "intent": "BATTERY_POWER_HARDWARE",
+      "human_routing": "HUMAN_ESCALATION",
+      "system_routing": "AUTO_HANDLE",
+      "system_reasons": "High intent confidence (0.95 >= 0.80); Sufficient historical evidence retrieved and verified; No human escalation triggers or risk keywords detected; All grounding and policy checks successfully passed",
+      "match": false
+    },
+    {
+      "case_id": "gold_042",
+      "conversation_id": "conv_90575",
+      "customer_message": "why does my phone jump from 60% to 30% phone battery and then die before it reaches 20%? So annoying \ud83d\ude43\ud83d\ude43",
+      "intent": "BATTERY_POWER_HARDWARE",
+      "human_routing": "HUMAN_ESCALATION",
+      "system_routing": "AUTO_HANDLE",
+      "system_reasons": "High intent confidence (0.95 >= 0.80); Sufficient historical evidence retrieved and verified; No human escalation triggers or risk keywords detected; All grounding and policy checks successfully passed",
+      "match": false
+    },
+    {
+      "case_id": "gold_043",
+      "conversation_id": "conv_293409",
+      "customer_message": "please give either of the option : 1. Get your money back 2. iOS downgrade ! Fed up of draining battery post upgrade ! \ud83d\ude13",
+      "intent": "BATTERY_POWER_HARDWARE",
+      "human_routing": "HUMAN_ESCALATION",
+      "system_routing": "AUTO_HANDLE",
+      "system_reasons": "High intent confidence (0.95 >= 0.80); Sufficient historical evidence retrieved and verified; No human escalation triggers or risk keywords detected; All grounding and policy checks successfully passed",
+      "match": false
+    },
+    {
+      "case_id": "gold_044",
+      "conversation_id": "conv_255105",
+      "customer_message": "I have 2 Iphone 7+, but 1 runs out a battery super quick, how can I Test the battery to see if there a issue w. It?",
+      "intent": "BATTERY_POWER_HARDWARE",
+      "human_routing": "HUMAN_ESCALATION",
+      "system_routing": "AUTO_HANDLE",
+      "system_reasons": "High intent confidence (0.95 >= 0.80); Sufficient historical evidence retrieved and verified; No human escalation triggers or risk keywords detected; All grounding and policy checks successfully passed",
+      "match": false
+    },
+    {
+      "case_id": "gold_045",
+      "conversation_id": "conv_148183",
+      "customer_message": "Last @115858 iOS update sucks!!!! Slow down my #iPhone6 and the battery dies so fast. Is this the way you're trying to sell iPhones? @AppleSupport Mobiles shouldn't have #PlannedObsolescence #mobile #iPhone #iPhone6 #iPhoneUpdate #AppleLovers",
+      "intent": "BATTERY_POWER_HARDWARE",
+      "human_routing": "HUMAN_ESCALATION",
+      "system_routing": "AUTO_HANDLE",
+      "system_reasons": "High intent confidence (0.95 >= 0.80); Sufficient historical evidence retrieved and verified; No human escalation triggers or risk keywords detected; All grounding and policy checks successfully passed",
+      "match": false
+    },
+    {
+      "case_id": "gold_046",
+      "conversation_id": "conv_267748",
+      "customer_message": "upgraded to 11.02 and now that battery literally counts down before my eyes, and then stays on 1% for 20 mins b4 power off!",
+      "intent": "BATTERY_POWER_HARDWARE",
+      "human_routing": "HUMAN_ESCALATION",
+      "system_routing": "AUTO_HANDLE",
+      "system_reasons": "High intent confidence (0.95 >= 0.80); Sufficient historical evidence retrieved and verified; No human escalation triggers or risk keywords detected; All grounding and policy checks successfully passed",
+      "match": false
+    },
+    {
+      "case_id": "gold_047",
+      "conversation_id": "conv_236428",
+      "customer_message": "Hello\nI have a question whether the intermittent charging is better for the battery better than the full charge",
+      "intent": "BATTERY_POWER_HARDWARE",
+      "human_routing": "HUMAN_ESCALATION",
+      "system_routing": "HUMAN_ESCALATION",
+      "system_reasons": "No historical resolved support cases found to ground response.; Response validation failed (hallucination or unverified claim check).",
+      "match": true
+    },
+    {
+      "case_id": "gold_048",
+      "conversation_id": "conv_119534",
+      "customer_message": "Have to say I\u2019m unfortunately falling out of love with my @115858 IPhone this draining of the battery since the ISO update is wearing thin @AppleSupport #bloodyupdate I\u2019m sure updates are supposed to enhance not hinder",
+      "intent": "BATTERY_POWER_HARDWARE",
+      "human_routing": "HUMAN_ESCALATION",
+      "system_routing": "AUTO_HANDLE",
+      "system_reasons": "High intent confidence (0.95 >= 0.80); Sufficient historical evidence retrieved and verified; No human escalation triggers or risk keywords detected; All grounding and policy checks successfully passed",
+      "match": false
+    },
+    {
+      "case_id": "gold_049",
+      "conversation_id": "conv_284072",
+      "customer_message": "The battery life is bullshit since this update @115858 @AppleSupport",
+      "intent": "BATTERY_POWER_HARDWARE",
+      "human_routing": "HUMAN_ESCALATION",
+      "system_routing": "AUTO_HANDLE",
+      "system_reasons": "High intent confidence (0.95 >= 0.80); Sufficient historical evidence retrieved and verified; No human escalation triggers or risk keywords detected; All grounding and policy checks successfully passed",
+      "match": false
+    },
+    {
+      "case_id": "gold_050",
+      "conversation_id": "conv_292363",
+      "customer_message": "what a shitty update again from you #apple my phone once fixed, now agan battery fucked up. Shame on you. My last iphone\ud83d\ude21\ud83d\ude21\ud83d\ude21",
+      "intent": "BATTERY_POWER_HARDWARE",
+      "human_routing": "HUMAN_ESCALATION",
+      "system_routing": "AUTO_HANDLE",
+      "system_reasons": "High intent confidence (0.95 >= 0.80); Sufficient historical evidence retrieved and verified; No human escalation triggers or risk keywords detected; All grounding and policy checks successfully passed",
+      "match": false
+    },
+    {
+      "case_id": "gold_051",
+      "conversation_id": "conv_265026",
+      "customer_message": "Can I get the battery diagnostics tool, please?",
+      "intent": "BATTERY_POWER_HARDWARE",
+      "human_routing": "HUMAN_ESCALATION",
+      "system_routing": "AUTO_HANDLE",
+      "system_reasons": "High intent confidence (0.95 >= 0.80); Sufficient historical evidence retrieved and verified; No human escalation triggers or risk keywords detected; All grounding and policy checks successfully passed",
+      "match": false
+    },
+    {
+      "case_id": "gold_052",
+      "conversation_id": "conv_146628",
+      "customer_message": "how can i check the battery health on my iphone5? it often shuts down at 30% or so",
+      "intent": "BATTERY_POWER_HARDWARE",
+      "human_routing": "HUMAN_ESCALATION",
+      "system_routing": "AUTO_HANDLE",
+      "system_reasons": "High intent confidence (0.95 >= 0.80); Sufficient historical evidence retrieved and verified; No human escalation triggers or risk keywords detected; All grounding and policy checks successfully passed",
+      "match": false
+    },
+    {
+      "case_id": "gold_053",
+      "conversation_id": "conv_255803",
+      "customer_message": "you guys have killed the battery life on my 6S Plus. Thanks .",
+      "intent": "BATTERY_POWER_HARDWARE",
+      "human_routing": "HUMAN_ESCALATION",
+      "system_routing": "AUTO_HANDLE",
+      "system_reasons": "High intent confidence (0.95 >= 0.80); Sufficient historical evidence retrieved and verified; No human escalation triggers or risk keywords detected; All grounding and policy checks successfully passed",
+      "match": false
+    },
+    {
+      "case_id": "gold_054",
+      "conversation_id": "conv_284077",
+      "customer_message": "I need to understand why since the update my battery dead\u2019s in like 10mins and my phone continuously cuts off randomly.",
+      "intent": "BATTERY_POWER_HARDWARE",
+      "human_routing": "HUMAN_ESCALATION",
+      "system_routing": "AUTO_HANDLE",
+      "system_reasons": "High intent confidence (0.95 >= 0.80); Sufficient historical evidence retrieved and verified; No human escalation triggers or risk keywords detected; All grounding and policy checks successfully passed",
+      "match": false
+    },
+    {
+      "case_id": "gold_055",
+      "conversation_id": "conv_235807",
+      "customer_message": "Then the phone finally switches on (\"Battery 100%\" \ud83d\ude01) you start typing a Whatsapp reply and then we're back to this... \ud83d\ude20 @AppleSupport https://t.co/IwRFE850M4",
+      "intent": "BATTERY_POWER_HARDWARE",
+      "human_routing": "HUMAN_ESCALATION",
+      "system_routing": "AUTO_HANDLE",
+      "system_reasons": "High intent confidence (0.95 >= 0.80); Sufficient historical evidence retrieved and verified; No human escalation triggers or risk keywords detected; All grounding and policy checks successfully passed",
+      "match": false
+    },
+    {
+      "case_id": "gold_056",
+      "conversation_id": "conv_124415",
+      "customer_message": "When your IPhone charger breaks, starts leaking blue stuff and your phone is on 5% \ud83d\ude43\ud83d\ude43\ud83d\ude43 @AppleSupport",
+      "intent": "BATTERY_POWER_HARDWARE",
+      "human_routing": "HUMAN_ESCALATION",
+      "system_routing": "AUTO_HANDLE",
+      "system_reasons": "High intent confidence (0.92 >= 0.80); Sufficient historical evidence retrieved and verified; No human escalation triggers or risk keywords detected; All grounding and policy checks successfully passed",
+      "match": false
+    },
+    {
+      "case_id": "gold_057",
+      "conversation_id": "conv_265131",
+      "customer_message": ">>Battery drains, whatsapp &more apps freezing, spotify not working in lockscreen. GUI is awful, it looks like a cheap android",
+      "intent": "BATTERY_POWER_HARDWARE",
+      "human_routing": "HUMAN_ESCALATION",
+      "system_routing": "HUMAN_ESCALATION",
+      "system_reasons": "No historical resolved support cases found to ground response.; Response validation failed (hallucination or unverified claim check).",
+      "match": true
+    },
+    {
+      "case_id": "gold_058",
+      "conversation_id": "conv_59591",
+      "customer_message": "My home button won\u2019t go home but I can still double click to close out apps. HELP @AppleSupport",
+      "intent": "BATTERY_POWER_HARDWARE",
+      "human_routing": "HUMAN_ESCALATION",
+      "system_routing": "AUTO_HANDLE",
+      "system_reasons": "High intent confidence (0.90 >= 0.80); Sufficient historical evidence retrieved and verified; No human escalation triggers or risk keywords detected; All grounding and policy checks successfully passed",
+      "match": false
+    },
+    {
+      "case_id": "gold_059",
+      "conversation_id": "conv_92762",
+      "customer_message": "How do you activate the emergency sos with the X because hitting the power button continuously just brush up my Apple Pay @AppleSupport",
+      "intent": "BATTERY_POWER_HARDWARE",
+      "human_routing": "HUMAN_ESCALATION",
+      "system_routing": "HUMAN_ESCALATION",
+      "system_reasons": "No historical resolved support cases found to ground response.; Response validation failed (hallucination or unverified claim check).",
+      "match": true
+    },
+    {
+      "case_id": "gold_060",
+      "conversation_id": "conv_121561",
+      "customer_message": "I bought one of those chargers that are like 2 ft long a couple months ago and the cable is already ruined",
+      "intent": "BATTERY_POWER_HARDWARE",
+      "human_routing": "HUMAN_ESCALATION",
+      "system_routing": "AUTO_HANDLE",
+      "system_reasons": "High intent confidence (0.92 >= 0.80); Sufficient historical evidence retrieved and verified; No human escalation triggers or risk keywords detected; All grounding and policy checks successfully passed",
+      "match": false
+    },
+    {
+      "case_id": "gold_061",
+      "conversation_id": "conv_293405",
+      "customer_message": ".@AppleSupport iphone won't work. can't call u bc its frozen. cant get serial # bc frozen. lock or lock + home button won't shut it off HELP",
+      "intent": "BATTERY_POWER_HARDWARE",
+      "human_routing": "HUMAN_ESCALATION",
+      "system_routing": "AUTO_HANDLE",
+      "system_reasons": "High intent confidence (0.90 >= 0.80); Sufficient historical evidence retrieved and verified; No human escalation triggers or risk keywords detected; All grounding and policy checks successfully passed",
+      "match": false
+    },
+    {
+      "case_id": "gold_062",
+      "conversation_id": "conv_41645",
+      "customer_message": "iPhone battery went from 100 to 54 in just 40 minutes. I updated the iOS yesterday. What gives? @AppleSupport",
+      "intent": "BATTERY_POWER_HARDWARE",
+      "human_routing": "HUMAN_ESCALATION",
+      "system_routing": "AUTO_HANDLE",
+      "system_reasons": "High intent confidence (0.95 >= 0.80); Sufficient historical evidence retrieved and verified; No human escalation triggers or risk keywords detected; All grounding and policy checks successfully passed",
+      "match": false
+    },
+    {
+      "case_id": "gold_063",
+      "conversation_id": "conv_216143",
+      "customer_message": "Apparently 31% is the new 1%!!!! Thx @115858 @AppleSupport for making iPhone 6's battery complete ASS since the X came out!!!!",
+      "intent": "BATTERY_POWER_HARDWARE",
+      "human_routing": "HUMAN_ESCALATION",
+      "system_routing": "AUTO_HANDLE",
+      "system_reasons": "High intent confidence (0.95 >= 0.80); Sufficient historical evidence retrieved and verified; No human escalation triggers or risk keywords detected; All grounding and policy checks successfully passed",
+      "match": false
+    },
+    {
+      "case_id": "gold_064",
+      "conversation_id": "conv_290531",
+      "customer_message": "saben si existe alg\u00fan problema en la carga de bater\u00eda del celular ?? No he podido cargarlo",
+      "intent": "BATTERY_POWER_HARDWARE",
+      "human_routing": "HUMAN_ESCALATION",
+      "system_routing": "AUTO_HANDLE",
+      "system_reasons": "High intent confidence (0.95 >= 0.80); Sufficient historical evidence retrieved and verified; No human escalation triggers or risk keywords detected; All grounding and policy checks successfully passed",
+      "match": false
+    },
+    {
+      "case_id": "gold_065",
+      "conversation_id": "conv_195967",
+      "customer_message": "since 11.0 update my iPhone 7+ Bluetooth drops out within 1 song on Bluetooth speakers Sony XB2 - iPhone 5 works fine. Pls fix",
+      "intent": "BATTERY_POWER_HARDWARE",
+      "human_routing": "HUMAN_ESCALATION",
+      "system_routing": "AUTO_HANDLE",
+      "system_reasons": "High intent confidence (0.95 >= 0.80); Sufficient historical evidence retrieved and verified; No human escalation triggers or risk keywords detected; All grounding and policy checks successfully passed",
+      "match": false
+    },
+    {
+      "case_id": "gold_066",
+      "conversation_id": "conv_34667",
+      "customer_message": "- iPhone 6S Plus suddenly losing battery life since yesterday - % goes down by the second. Any ideas on what it might be?",
+      "intent": "BATTERY_POWER_HARDWARE",
+      "human_routing": "HUMAN_ESCALATION",
+      "system_routing": "AUTO_HANDLE",
+      "system_reasons": "High intent confidence (0.95 >= 0.80); Sufficient historical evidence retrieved and verified; No human escalation triggers or risk keywords detected; All grounding and policy checks successfully passed",
+      "match": false
+    },
+    {
+      "case_id": "gold_067",
+      "conversation_id": "conv_208610",
+      "customer_message": "real issues with making phone calls since the update. They can\u2019t hear me I can\u2019t hear them. Battery replaced, still going on!",
+      "intent": "BATTERY_POWER_HARDWARE",
+      "human_routing": "HUMAN_ESCALATION",
+      "system_routing": "AUTO_HANDLE",
+      "system_reasons": "High intent confidence (0.95 >= 0.80); Sufficient historical evidence retrieved and verified; No human escalation triggers or risk keywords detected; All grounding and policy checks successfully passed",
+      "match": false
+    },
+    {
+      "case_id": "gold_068",
+      "conversation_id": "conv_170360",
+      "customer_message": "my brothers iPhone 5 has stopped working. Connected to iTunes for update. As soon as it finished it switched off and won\u2019t turn back on even on the charger. Any help?",
+      "intent": "BATTERY_POWER_HARDWARE",
+      "human_routing": "HUMAN_ESCALATION",
+      "system_routing": "HUMAN_ESCALATION",
+      "system_reasons": "No historical resolved support cases found to ground response.; Response validation failed (hallucination or unverified claim check).",
+      "match": true
+    },
+    {
+      "case_id": "gold_069",
+      "conversation_id": "conv_164177",
+      "customer_message": ": the latest update is already causing iPhone 7 heat up and drain the charge in no time.",
+      "intent": "BATTERY_POWER_HARDWARE",
+      "human_routing": "HUMAN_ESCALATION",
+      "system_routing": "AUTO_HANDLE",
+      "system_reasons": "High intent confidence (0.95 >= 0.80); Sufficient historical evidence retrieved and verified; No human escalation triggers or risk keywords detected; All grounding and policy checks successfully passed",
+      "match": false
+    },
+    {
+      "case_id": "gold_070",
+      "conversation_id": "conv_215378",
+      "customer_message": "Hey @AppleSupport the new update is sucking my battery dry all day long. Help!",
+      "intent": "BATTERY_POWER_HARDWARE",
+      "human_routing": "HUMAN_ESCALATION",
+      "system_routing": "AUTO_HANDLE",
+      "system_reasons": "High intent confidence (0.95 >= 0.80); Sufficient historical evidence retrieved and verified; No human escalation triggers or risk keywords detected; All grounding and policy checks successfully passed",
+      "match": false
+    },
+    {
+      "case_id": "gold_071",
+      "conversation_id": "conv_90251",
+      "customer_message": "I\u2019m still having major battery issues since downloading 11.0.3 despite 3 trips to an Apple store and a complete reset done by the store. When is this software issue going to be resolved?",
+      "intent": "BATTERY_POWER_HARDWARE",
+      "human_routing": "HUMAN_ESCALATION",
+      "system_routing": "AUTO_HANDLE",
+      "system_reasons": "High intent confidence (0.95 >= 0.80); Sufficient historical evidence retrieved and verified; No human escalation triggers or risk keywords detected; All grounding and policy checks successfully passed",
+      "match": false
+    },
+    {
+      "case_id": "gold_072",
+      "conversation_id": "conv_41617",
+      "customer_message": "The new #IOS update is killing my battery. Why is this happening? @AppleSupport",
+      "intent": "BATTERY_POWER_HARDWARE",
+      "human_routing": "HUMAN_ESCALATION",
+      "system_routing": "AUTO_HANDLE",
+      "system_reasons": "High intent confidence (0.95 >= 0.80); Sufficient historical evidence retrieved and verified; No human escalation triggers or risk keywords detected; All grounding and policy checks successfully passed",
+      "match": false
+    },
+    {
+      "case_id": "gold_073",
+      "conversation_id": "conv_176010",
+      "customer_message": "Every time I turn my phone on Bluetooth randomly turns on and kills my battery @AppleSupport wyd?",
+      "intent": "BATTERY_POWER_HARDWARE",
+      "human_routing": "HUMAN_ESCALATION",
+      "system_routing": "AUTO_HANDLE",
+      "system_reasons": "High intent confidence (0.95 >= 0.80); Sufficient historical evidence retrieved and verified; No human escalation triggers or risk keywords detected; All grounding and policy checks successfully passed",
+      "match": false
+    },
+    {
+      "case_id": "gold_074",
+      "conversation_id": "conv_117940",
+      "customer_message": "Hi @AppleSupport, could you pls explain why, since I downloaded yr iOS update, my iPhone crashes at 10%, 20%, even 40% battery? Massively inconvenient at best.",
+      "intent": "BATTERY_POWER_HARDWARE",
+      "human_routing": "HUMAN_ESCALATION",
+      "system_routing": "AUTO_HANDLE",
+      "system_reasons": "High intent confidence (0.95 >= 0.80); Sufficient historical evidence retrieved and verified; No human escalation triggers or risk keywords detected; All grounding and policy checks successfully passed",
+      "match": false
+    },
+    {
+      "case_id": "gold_075",
+      "conversation_id": "conv_145256",
+      "customer_message": "Apple Watch 3 battery has been draining so quickly the past week - not used overnight but 40% battery drain",
+      "intent": "BATTERY_POWER_HARDWARE",
+      "human_routing": "HUMAN_ESCALATION",
+      "system_routing": "AUTO_HANDLE",
+      "system_reasons": "High intent confidence (0.95 >= 0.80); Sufficient historical evidence retrieved and verified; No human escalation triggers or risk keywords detected; All grounding and policy checks successfully passed",
+      "match": false
+    },
+    {
+      "case_id": "gold_076",
+      "conversation_id": "conv_143509",
+      "customer_message": "hello I\u2019ve been trying to get verification code for signing in to my apple ID but I didn\u2019t receive any code. Need help.",
+      "intent": "ACCOUNT_APPLE_ID",
+      "human_routing": "HUMAN_ESCALATION",
+      "system_routing": "AUTO_HANDLE",
+      "system_reasons": "High intent confidence (0.98 >= 0.80); Sufficient historical evidence retrieved and verified; No human escalation triggers or risk keywords detected; All grounding and policy checks successfully passed",
+      "match": false
+    },
+    {
+      "case_id": "gold_077",
+      "conversation_id": "conv_174936",
+      "customer_message": "I don\u2019t want to use your iCloud. I do I make it so you can\u2019t keep reminding me to sign in. If it keeps happening I\u2019ll just switch companies https://t.co/yYHXpJoSAN",
+      "intent": "ACCOUNT_APPLE_ID",
+      "human_routing": "HUMAN_ESCALATION",
+      "system_routing": "AUTO_HANDLE",
+      "system_reasons": "High intent confidence (0.95 >= 0.80); Sufficient historical evidence retrieved and verified; No human escalation triggers or risk keywords detected; All grounding and policy checks successfully passed",
+      "match": false
+    },
+    {
+      "case_id": "gold_078",
+      "conversation_id": "conv_211148",
+      "customer_message": "Please advise why, since updating the operating system, the iCloud icon is missing??? https://t.co/gVTQIDVgoj",
+      "intent": "ACCOUNT_APPLE_ID",
+      "human_routing": "HUMAN_ESCALATION",
+      "system_routing": "HUMAN_ESCALATION",
+      "system_reasons": "No historical resolved support cases found to ground response.; Response validation failed (hallucination or unverified claim check).",
+      "match": true
+    },
+    {
+      "case_id": "gold_079",
+      "conversation_id": "conv_150023",
+      "customer_message": "issue with my daughters iphone,its asking for apple id and password but shes forgotten the password,icloud has locked her out of her icloud account,when she tries to reset the password it will only send an email to icloud which cant be accessed can you help please",
+      "intent": "ACCOUNT_APPLE_ID",
+      "human_routing": "HUMAN_ESCALATION",
+      "system_routing": "AUTO_HANDLE",
+      "system_reasons": "High intent confidence (0.95 >= 0.80); Sufficient historical evidence retrieved and verified; No human escalation triggers or risk keywords detected; All grounding and policy checks successfully passed",
+      "match": false
+    },
+    {
+      "case_id": "gold_080",
+      "conversation_id": "conv_46576",
+      "customer_message": "I am from the US but I live in China. Is it possible to have my iPhone/Mac iCloud linked to my Chinese info (bank, address), and separate Apple ID linked to my U.S. info (bank, address)?..Want to keep my iCloud storage in China but use App Store/Apple music from US",
+      "intent": "ACCOUNT_APPLE_ID",
+      "human_routing": "HUMAN_ESCALATION",
+      "system_routing": "HUMAN_ESCALATION",
+      "system_reasons": "No historical resolved support cases found to ground response.; Response validation failed (hallucination or unverified claim check).",
+      "match": true
+    },
+    {
+      "case_id": "gold_081",
+      "conversation_id": "conv_188597",
+      "customer_message": "my \u2018Two factor authentication\u2019 isn\u2019t calling the number I have registered to my Apple ID with the code. Why is this?",
+      "intent": "ACCOUNT_APPLE_ID",
+      "human_routing": "HUMAN_ESCALATION",
+      "system_routing": "AUTO_HANDLE",
+      "system_reasons": "High intent confidence (0.95 >= 0.80); Sufficient historical evidence retrieved and verified; No human escalation triggers or risk keywords detected; All grounding and policy checks successfully passed",
+      "match": false
+    },
+    {
+      "case_id": "gold_082",
+      "conversation_id": "conv_1764",
+      "customer_message": "Hello, I need some help regarding the region change on my Apple ID",
+      "intent": "ACCOUNT_APPLE_ID",
+      "human_routing": "HUMAN_ESCALATION",
+      "system_routing": "AUTO_HANDLE",
+      "system_reasons": "High intent confidence (0.98 >= 0.80); Sufficient historical evidence retrieved and verified; No human escalation triggers or risk keywords detected; All grounding and policy checks successfully passed",
+      "match": false
+    },
+    {
+      "case_id": "gold_083",
+      "conversation_id": "conv_97072",
+      "customer_message": "Ever since I got my iPhone X I\u2019ve been prompted to sign in to iCloud every day at the same time. I\u2019ve tried completely signing out then back in, changing the password, nothing has worked so far. Any ideas?",
+      "intent": "ACCOUNT_APPLE_ID",
+      "human_routing": "HUMAN_ESCALATION",
+      "system_routing": "AUTO_HANDLE",
+      "system_reasons": "High intent confidence (0.95 >= 0.80); Sufficient historical evidence retrieved and verified; No human escalation triggers or risk keywords detected; All grounding and policy checks successfully passed",
+      "match": false
+    },
+    {
+      "case_id": "gold_084",
+      "conversation_id": "conv_15722",
+      "customer_message": "6 years later I still can\u2019t access Contacts on iCloud, what do we need to do to finally get this fixed, @AppleSupport? //cc @119462 https://t.co/EP9KWcig3M",
+      "intent": "ACCOUNT_APPLE_ID",
+      "human_routing": "HUMAN_ESCALATION",
+      "system_routing": "HUMAN_ESCALATION",
+      "system_reasons": "No historical resolved support cases found to ground response.; Response validation failed (hallucination or unverified claim check).",
+      "match": true
+    },
+    {
+      "case_id": "gold_085",
+      "conversation_id": "conv_260455",
+      "customer_message": "all I want to do is setup my new iPhone 8! Why is does my password keep getting locked out! Can\u2019t access cloud or apps \ud83d\ude21\ud83d\ude21\ud83d\ude21",
+      "intent": "ACCOUNT_APPLE_ID",
+      "human_routing": "HUMAN_ESCALATION",
+      "system_routing": "AUTO_HANDLE",
+      "system_reasons": "High intent confidence (0.95 >= 0.80); Sufficient historical evidence retrieved and verified; No human escalation triggers or risk keywords detected; All grounding and policy checks successfully passed",
+      "match": false
+    },
+    {
+      "case_id": "gold_086",
+      "conversation_id": "conv_242350",
+      "customer_message": "Grrr! Why won\u2019t the contacts from my phone back up to iCloud?? @AppleSupport #icloud",
+      "intent": "ACCOUNT_APPLE_ID",
+      "human_routing": "HUMAN_ESCALATION",
+      "system_routing": "HUMAN_ESCALATION",
+      "system_reasons": "No historical resolved support cases found to ground response.; Response validation failed (hallucination or unverified claim check).",
+      "match": true
+    },
+    {
+      "case_id": "gold_087",
+      "conversation_id": "conv_152916",
+      "customer_message": ".@AppleSupport So I can use the Python call os.utimes() to modify file timestamps anywhere EXCEPT files in my iCloud Drive Folder :-(",
+      "intent": "ACCOUNT_APPLE_ID",
+      "human_routing": "HUMAN_ESCALATION",
+      "system_routing": "HUMAN_ESCALATION",
+      "system_reasons": "No historical resolved support cases found to ground response.; Response validation failed (hallucination or unverified claim check).",
+      "match": true
+    },
+    {
+      "case_id": "gold_088",
+      "conversation_id": "conv_148136",
+      "customer_message": "ok i have $15 in my itunes account now how do i use that to pay for my icloud storage",
+      "intent": "ACCOUNT_APPLE_ID",
+      "human_routing": "HUMAN_ESCALATION",
+      "system_routing": "AUTO_HANDLE",
+      "system_reasons": "High intent confidence (0.98 >= 0.80); Sufficient historical evidence retrieved and verified; No human escalation triggers or risk keywords detected; All grounding and policy checks successfully passed",
+      "match": false
+    },
+    {
+      "case_id": "gold_089",
+      "conversation_id": "conv_177846",
+      "customer_message": "My iPhone won't backup to iCloud whenever I plug in. I've been trying all week and nothing will work. When I go to settings and click back up now, it never finishes. Would resetting all the settings fix things?",
+      "intent": "ACCOUNT_APPLE_ID",
+      "human_routing": "HUMAN_ESCALATION",
+      "system_routing": "AUTO_HANDLE",
+      "system_reasons": "High intent confidence (0.95 >= 0.80); Sufficient historical evidence retrieved and verified; No human escalation triggers or risk keywords detected; All grounding and policy checks successfully passed",
+      "match": false
+    },
+    {
+      "case_id": "gold_090",
+      "conversation_id": "conv_48044",
+      "customer_message": "Hi, I've just reset my phone and restored from icloud but none of my apps are downloading.",
+      "intent": "ACCOUNT_APPLE_ID",
+      "human_routing": "HUMAN_ESCALATION",
+      "system_routing": "AUTO_HANDLE",
+      "system_reasons": "High intent confidence (0.95 >= 0.80); Sufficient historical evidence retrieved and verified; No human escalation triggers or risk keywords detected; All grounding and policy checks successfully passed",
+      "match": false
+    },
+    {
+      "case_id": "gold_091",
+      "conversation_id": "conv_127143",
+      "customer_message": "my uncle upgraded to the iPhone X but is having tons of problems transferring over his photos from his iPhone 6. He bought extra iCloud storage but only 200 of 1700 photos transferred. He has plenty of iCloud storage",
+      "intent": "ACCOUNT_APPLE_ID",
+      "human_routing": "HUMAN_ESCALATION",
+      "system_routing": "HUMAN_ESCALATION",
+      "system_reasons": "No historical resolved support cases found to ground response.; Response validation failed (hallucination or unverified claim check).",
+      "match": true
+    },
+    {
+      "case_id": "gold_092",
+      "conversation_id": "conv_50023",
+      "customer_message": "Why does the method posted today on changing your Apple ID from a third party address to an iCloud address not work? https://t.co/7UC8DUYmvy",
+      "intent": "ACCOUNT_APPLE_ID",
+      "human_routing": "HUMAN_ESCALATION",
+      "system_routing": "AUTO_HANDLE",
+      "system_reasons": "High intent confidence (0.95 >= 0.80); Sufficient historical evidence retrieved and verified; No human escalation triggers or risk keywords detected; All grounding and policy checks successfully passed",
+      "match": false
+    },
+    {
+      "case_id": "gold_093",
+      "conversation_id": "conv_289118",
+      "customer_message": "I'm stuck with the old app store that don't support iCloud well. But I need to login with my iCloud to update to sierra.\n\n:( @AppleSupport",
+      "intent": "ACCOUNT_APPLE_ID",
+      "human_routing": "HUMAN_ESCALATION",
+      "system_routing": "AUTO_HANDLE",
+      "system_reasons": "High intent confidence (0.95 >= 0.80); Sufficient historical evidence retrieved and verified; No human escalation triggers or risk keywords detected; All grounding and policy checks successfully passed",
+      "match": false
+    },
+    {
+      "case_id": "gold_094",
+      "conversation_id": "conv_110950",
+      "customer_message": "I don't get this screen on my itunes for windows. Hence I cannot sync my ripped music to icloud, iphone and other i-devices. Home sharing isn't good enough! Help https://t.co/G3ctMEuLsA",
+      "intent": "ACCOUNT_APPLE_ID",
+      "human_routing": "HUMAN_ESCALATION",
+      "system_routing": "AUTO_HANDLE",
+      "system_reasons": "High intent confidence (0.95 >= 0.80); Sufficient historical evidence retrieved and verified; No human escalation triggers or risk keywords detected; All grounding and policy checks successfully passed",
+      "match": false
+    },
+    {
+      "case_id": "gold_095",
+      "conversation_id": "conv_97017",
+      "customer_message": "I was supposed to get an answer from Engineering as to why my iCloud drive isnt working. Grady has been an amazing help but my case isn't resolved one bit yet. Case number 100360325798",
+      "intent": "ACCOUNT_APPLE_ID",
+      "human_routing": "HUMAN_ESCALATION",
+      "system_routing": "HUMAN_ESCALATION",
+      "system_reasons": "No historical resolved support cases found to ground response.; Response validation failed (hallucination or unverified claim check).",
+      "match": true
+    },
+    {
+      "case_id": "gold_096",
+      "conversation_id": "conv_41650",
+      "customer_message": "Hey @AppleSupport my iCloud mail is getting hammered with spam. Did you turn off filters? Under attack? LMK.",
+      "intent": "ACCOUNT_APPLE_ID",
+      "human_routing": "HUMAN_ESCALATION",
+      "system_routing": "HUMAN_ESCALATION",
+      "system_reasons": "No historical resolved support cases found to ground response.; Response validation failed (hallucination or unverified claim check).",
+      "match": true
+    },
+    {
+      "case_id": "gold_097",
+      "conversation_id": "conv_150046",
+      "customer_message": "can you help me with my nan to find her email address for ICloud as she\u2019s lost all of her photos and she\u2019s really really upset about it \ud83d\ude2d",
+      "intent": "ACCOUNT_APPLE_ID",
+      "human_routing": "HUMAN_ESCALATION",
+      "system_routing": "HUMAN_ESCALATION",
+      "system_reasons": "No historical resolved support cases found to ground response.; Response validation failed (hallucination or unverified claim check).",
+      "match": true
+    },
+    {
+      "case_id": "gold_098",
+      "conversation_id": "conv_59606",
+      "customer_message": "Uhhhh @AppleSupport , this you? \ud83e\udd14 why is it saying my Apple ID will be disabled? https://t.co/onVhJjkYAU",
+      "intent": "ACCOUNT_APPLE_ID",
+      "human_routing": "HUMAN_ESCALATION",
+      "system_routing": "AUTO_HANDLE",
+      "system_reasons": "High intent confidence (0.95 >= 0.80); Sufficient historical evidence retrieved and verified; No human escalation triggers or risk keywords detected; All grounding and policy checks successfully passed",
+      "match": false
+    },
+    {
+      "case_id": "gold_099",
+      "conversation_id": "conv_246500",
+      "customer_message": "it comes from appleid email address first clue",
+      "intent": "ACCOUNT_APPLE_ID",
+      "human_routing": "HUMAN_ESCALATION",
+      "system_routing": "AUTO_HANDLE",
+      "system_reasons": "High intent confidence (0.95 >= 0.80); Sufficient historical evidence retrieved and verified; No human escalation triggers or risk keywords detected; All grounding and policy checks successfully passed",
+      "match": false
+    },
+    {
+      "case_id": "gold_100",
+      "conversation_id": "conv_172941",
+      "customer_message": "tried to create apple ID, entered the verification numbers, kept getting error reports. will have to cancel the order for the iPhone",
+      "intent": "ACCOUNT_APPLE_ID",
+      "human_routing": "HUMAN_ESCALATION",
+      "system_routing": "AUTO_HANDLE",
+      "system_reasons": "High intent confidence (0.95 >= 0.80); Sufficient historical evidence retrieved and verified; No human escalation triggers or risk keywords detected; All grounding and policy checks successfully passed",
+      "match": false
+    },
+    {
+      "case_id": "gold_101",
+      "conversation_id": "conv_259988",
+      "customer_message": "I keep getting prompts in iOS11 to set up 2FA, but when I tap on them they just disappear and nothing else happens.",
+      "intent": "ACCOUNT_APPLE_ID",
+      "human_routing": "HUMAN_ESCALATION",
+      "system_routing": "AUTO_HANDLE",
+      "system_reasons": "High intent confidence (0.96 >= 0.80); Sufficient historical evidence retrieved and verified; No human escalation triggers or risk keywords detected; All grounding and policy checks successfully passed",
+      "match": false
+    },
+    {
+      "case_id": "gold_102",
+      "conversation_id": "conv_112824",
+      "customer_message": "My phone got stolen but i can't change my apple id password because of the 2 step verification that requires my phone! Do you have a uk based email that i can contact about this?",
+      "intent": "ACCOUNT_APPLE_ID",
+      "human_routing": "HUMAN_ESCALATION",
+      "system_routing": "AUTO_HANDLE",
+      "system_reasons": "High intent confidence (0.95 >= 0.80); Sufficient historical evidence retrieved and verified; No human escalation triggers or risk keywords detected; All grounding and policy checks successfully passed",
+      "match": false
+    },
+    {
+      "case_id": "gold_103",
+      "conversation_id": "conv_43367",
+      "customer_message": "Can\u2019t change the Apple ID to @798.com Website stills shows it is not possible. I used this document: https://t.co/5tVOJEnCkg",
+      "intent": "ACCOUNT_APPLE_ID",
+      "human_routing": "HUMAN_ESCALATION",
+      "system_routing": "AUTO_HANDLE",
+      "system_reasons": "High intent confidence (0.95 >= 0.80); Sufficient historical evidence retrieved and verified; No human escalation triggers or risk keywords detected; All grounding and policy checks successfully passed",
+      "match": false
+    },
+    {
+      "case_id": "gold_104",
+      "conversation_id": "conv_146591",
+      "customer_message": "iCloud backup failed restoring my 190-some odd GB of videos and photos to my iPhone X.... time to factory reset and do another restore. Time to add a \u201ccontinue restore\u201d button @115858 @AppleSupport, the backup system is #rsync based...right?",
+      "intent": "ACCOUNT_APPLE_ID",
+      "human_routing": "HUMAN_ESCALATION",
+      "system_routing": "AUTO_HANDLE",
+      "system_reasons": "High intent confidence (0.98 >= 0.80); Sufficient historical evidence retrieved and verified; No human escalation triggers or risk keywords detected; All grounding and policy checks successfully passed",
+      "match": false
+    },
+    {
+      "case_id": "gold_105",
+      "conversation_id": "conv_81982",
+      "customer_message": "What is 'profile' and 'Secure' in iCloud? https://t.co/JqToSmfVv2",
+      "intent": "ACCOUNT_APPLE_ID",
+      "human_routing": "HUMAN_ESCALATION",
+      "system_routing": "HUMAN_ESCALATION",
+      "system_reasons": "No historical resolved support cases found to ground response.; Response validation failed (hallucination or unverified claim check).",
+      "match": true
+    },
+    {
+      "case_id": "gold_106",
+      "conversation_id": "conv_84163",
+      "customer_message": "Will the Apple 4k TV support HDMI 2.1? You sell the cables but will the cables work with the 4k Apple TV.",
+      "intent": "CONNECTIVITY_NETWORKING",
+      "human_routing": "AUTO_HANDLE",
+      "system_routing": "AUTO_HANDLE",
+      "system_reasons": "High intent confidence (0.92 >= 0.80); Sufficient historical evidence retrieved and verified; No human escalation triggers or risk keywords detected; All grounding and policy checks successfully passed",
+      "match": true
+    },
+    {
+      "case_id": "gold_107",
+      "conversation_id": "conv_250084",
+      "customer_message": "when I go to purchase Apple Music I put in my password and says I cannot connect to iTunes Store",
+      "intent": "CONNECTIVITY_NETWORKING",
+      "human_routing": "HUMAN_ESCALATION",
+      "system_routing": "AUTO_HANDLE",
+      "system_reasons": "High intent confidence (0.82 >= 0.80); Sufficient historical evidence retrieved and verified; No human escalation triggers or risk keywords detected; All grounding and policy checks successfully passed",
+      "match": false
+    },
+    {
+      "case_id": "gold_108",
+      "conversation_id": "conv_36028",
+      "customer_message": "Trying to access iTunes Connect and keep getting this when I click on artists. On two different computers (both IE and Chrome) https://t.co/SLcNN0jSkW",
+      "intent": "CONNECTIVITY_NETWORKING",
+      "human_routing": "HUMAN_ESCALATION",
+      "system_routing": "AUTO_HANDLE",
+      "system_reasons": "High intent confidence (0.82 >= 0.80); Sufficient historical evidence retrieved and verified; No human escalation triggers or risk keywords detected; All grounding and policy checks successfully passed",
+      "match": false
+    },
+    {
+      "case_id": "gold_109",
+      "conversation_id": "conv_143544",
+      "customer_message": "I am unable to pair devices with apple configurator, it's taking life time \"looking for devices\", once ii found, tried to pair, it asked for auth token from other device which i never received in other device. Can you please help.",
+      "intent": "CONNECTIVITY_NETWORKING",
+      "human_routing": "HUMAN_ESCALATION",
+      "system_routing": "HUMAN_ESCALATION",
+      "system_reasons": "No historical resolved support cases found to ground response.; Response validation failed (hallucination or unverified claim check).",
+      "match": true
+    },
+    {
+      "case_id": "gold_110",
+      "conversation_id": "conv_112818",
+      "customer_message": "Mr. Robot won\u2019t load on Apple TV. Getting an endless spinner. Everything else (all other shows and apps) loads fine. Tried restarting and our wifi is working fine. Can you help?",
+      "intent": "CONNECTIVITY_NETWORKING",
+      "human_routing": "AUTO_HANDLE",
+      "system_routing": "AUTO_HANDLE",
+      "system_reasons": "High intent confidence (0.98 >= 0.80); Sufficient historical evidence retrieved and verified; No human escalation triggers or risk keywords detected; All grounding and policy checks successfully passed",
+      "match": true
+    },
+    {
+      "case_id": "gold_111",
+      "conversation_id": "conv_211310",
+      "customer_message": "I can\u2019t connect my ipad to my school WiFi with iOS 11.",
+      "intent": "CONNECTIVITY_NETWORKING",
+      "human_routing": "AUTO_HANDLE",
+      "system_routing": "AUTO_HANDLE",
+      "system_reasons": "High intent confidence (0.98 >= 0.80); Sufficient historical evidence retrieved and verified; No human escalation triggers or risk keywords detected; All grounding and policy checks successfully passed",
+      "match": true
+    },
+    {
+      "case_id": "gold_112",
+      "conversation_id": "conv_284943",
+      "customer_message": "Excuse me but my cellular data isn\u2019t working & I still have plenty of gigabytes left. Restarting didn\u2019t work...",
+      "intent": "CONNECTIVITY_NETWORKING",
+      "human_routing": "HUMAN_ESCALATION",
+      "system_routing": "AUTO_HANDLE",
+      "system_reasons": "High intent confidence (0.94 >= 0.80); Sufficient historical evidence retrieved and verified; No human escalation triggers or risk keywords detected; All grounding and policy checks successfully passed",
+      "match": false
+    },
+    {
+      "case_id": "gold_113",
+      "conversation_id": "conv_123723",
+      "customer_message": "hey! how can I update my iphone using cellular data?",
+      "intent": "CONNECTIVITY_NETWORKING",
+      "human_routing": "HUMAN_ESCALATION",
+      "system_routing": "AUTO_HANDLE",
+      "system_reasons": "High intent confidence (0.94 >= 0.80); Sufficient historical evidence retrieved and verified; No human escalation triggers or risk keywords detected; All grounding and policy checks successfully passed",
+      "match": false
+    },
+    {
+      "case_id": "gold_114",
+      "conversation_id": "conv_148077",
+      "customer_message": "how do I stop my WiFi from automatically connecting to a network by itself?",
+      "intent": "CONNECTIVITY_NETWORKING",
+      "human_routing": "HUMAN_ESCALATION",
+      "system_routing": "HUMAN_ESCALATION",
+      "system_reasons": "No historical resolved support cases found to ground response.; Response validation failed (hallucination or unverified claim check).",
+      "match": true
+    },
+    {
+      "case_id": "gold_115",
+      "conversation_id": "conv_15318",
+      "customer_message": "streaming has always been an issue to appletv. Who gets this one? https://t.co/kVi5FjLvDU",
+      "intent": "CONNECTIVITY_NETWORKING",
+      "human_routing": "AUTO_HANDLE",
+      "system_routing": "AUTO_HANDLE",
+      "system_reasons": "High intent confidence (0.92 >= 0.80); Sufficient historical evidence retrieved and verified; No human escalation triggers or risk keywords detected; All grounding and policy checks successfully passed",
+      "match": true
+    },
+    {
+      "case_id": "gold_116",
+      "conversation_id": "conv_152951",
+      "customer_message": "Spent an hour waiting on hold with @AppleSupport this morning, only to have them disconnect the call before I could talk with anyone. Frustrating.",
+      "intent": "CONNECTIVITY_NETWORKING",
+      "human_routing": "HUMAN_ESCALATION",
+      "system_routing": "AUTO_HANDLE",
+      "system_reasons": "High intent confidence (0.82 >= 0.80); Sufficient historical evidence retrieved and verified; No human escalation triggers or risk keywords detected; All grounding and policy checks successfully passed",
+      "match": false
+    },
+    {
+      "case_id": "gold_117",
+      "conversation_id": "conv_248739",
+      "customer_message": "Why does my phone keep automatically turning on WiFi and Bluetooth even when I manually turn them off \ud83d\ude24 @AppleSupport",
+      "intent": "CONNECTIVITY_NETWORKING",
+      "human_routing": "AUTO_HANDLE",
+      "system_routing": "AUTO_HANDLE",
+      "system_reasons": "High intent confidence (0.98 >= 0.80); Sufficient historical evidence retrieved and verified; No human escalation triggers or risk keywords detected; All grounding and policy checks successfully passed",
+      "match": true
+    },
+    {
+      "case_id": "gold_118",
+      "conversation_id": "conv_289132",
+      "customer_message": "since the iOS update on my phone my WiFi keeps turning on without being asked. Is it a bug or can I stop it?",
+      "intent": "CONNECTIVITY_NETWORKING",
+      "human_routing": "HUMAN_ESCALATION",
+      "system_routing": "AUTO_HANDLE",
+      "system_reasons": "High intent confidence (0.95 >= 0.80); Sufficient historical evidence retrieved and verified; No human escalation triggers or risk keywords detected; All grounding and policy checks successfully passed",
+      "match": false
+    },
+    {
+      "case_id": "gold_119",
+      "conversation_id": "conv_270328",
+      "customer_message": "I can\u2019t access some websites through Safari on WiFi after upgrading to iOS 11.0.2. I can acces them on LTE though. Ideas?",
+      "intent": "CONNECTIVITY_NETWORKING",
+      "human_routing": "AUTO_HANDLE",
+      "system_routing": "AUTO_HANDLE",
+      "system_reasons": "High intent confidence (0.98 >= 0.80); Sufficient historical evidence retrieved and verified; No human escalation triggers or risk keywords detected; All grounding and policy checks successfully passed",
+      "match": true
+    },
+    {
+      "case_id": "gold_120",
+      "conversation_id": "conv_148295",
+      "customer_message": "hi, @AppleSupport how do i get rid of the syncing? symbol next to my wifi. it's been like this for months. https://t.co/9oZQ3nP7TH",
+      "intent": "CONNECTIVITY_NETWORKING",
+      "human_routing": "HUMAN_ESCALATION",
+      "system_routing": "HUMAN_ESCALATION",
+      "system_reasons": "No historical resolved support cases found to ground response.; Response validation failed (hallucination or unverified claim check).",
+      "match": true
+    },
+    {
+      "case_id": "gold_121",
+      "conversation_id": "conv_42628",
+      "customer_message": "You have a Homekit bug where some guest users can\u2019t connect to the hub. Support team has not been helpful thus far.",
+      "intent": "CONNECTIVITY_NETWORKING",
+      "human_routing": "HUMAN_ESCALATION",
+      "system_routing": "HUMAN_ESCALATION",
+      "system_reasons": "No historical resolved support cases found to ground response.; Response validation failed (hallucination or unverified claim check).",
+      "match": true
+    },
+    {
+      "case_id": "gold_122",
+      "conversation_id": "conv_269176",
+      "customer_message": "hi, I have some problems with my appletv 4, I can\u2019t download anything on App Store but have 10 mb of internet https://t.co/eUrhiU64bP",
+      "intent": "CONNECTIVITY_NETWORKING",
+      "human_routing": "AUTO_HANDLE",
+      "system_routing": "AUTO_HANDLE",
+      "system_reasons": "High intent confidence (0.92 >= 0.80); Sufficient historical evidence retrieved and verified; No human escalation triggers or risk keywords detected; All grounding and policy checks successfully passed",
+      "match": true
+    },
+    {
+      "case_id": "gold_123",
+      "conversation_id": "conv_284930",
+      "customer_message": "latest software 11.2 is good but thr is Sml problem dat wifi remains on even it\u2019s off at shortcut pls advise @AppleSupport @13965",
+      "intent": "CONNECTIVITY_NETWORKING",
+      "human_routing": "AUTO_HANDLE",
+      "system_routing": "AUTO_HANDLE",
+      "system_reasons": "High intent confidence (0.95 >= 0.80); Sufficient historical evidence retrieved and verified; No human escalation triggers or risk keywords detected; All grounding and policy checks successfully passed",
+      "match": true
+    },
+    {
+      "case_id": "gold_124",
+      "conversation_id": "conv_188298",
+      "customer_message": "i bought a new i phone6 and when I am activating it this following message appeared \"sim card not support \" what to do",
+      "intent": "CONNECTIVITY_NETWORKING",
+      "human_routing": "AUTO_HANDLE",
+      "system_routing": "AUTO_HANDLE",
+      "system_reasons": "High intent confidence (0.94 >= 0.80); Sufficient historical evidence retrieved and verified; No human escalation triggers or risk keywords detected; All grounding and policy checks successfully passed",
+      "match": true
+    },
+    {
+      "case_id": "gold_125",
+      "conversation_id": "conv_188282",
+      "customer_message": "Tiered of my wi-fi automatically disconnecting from my #iPhone when on standby & is locked. Unsure if its #iOS issue or nt? @AppleSupport",
+      "intent": "CONNECTIVITY_NETWORKING",
+      "human_routing": "HUMAN_ESCALATION",
+      "system_routing": "AUTO_HANDLE",
+      "system_reasons": "High intent confidence (0.98 >= 0.80); Sufficient historical evidence retrieved and verified; No human escalation triggers or risk keywords detected; All grounding and policy checks successfully passed",
+      "match": false
+    },
+    {
+      "case_id": "gold_126",
+      "conversation_id": "conv_291435",
+      "customer_message": "since update Bluetooth keeps turning back on and doesn\u2019t switch off via control panel. Why is this happening?",
+      "intent": "CONNECTIVITY_NETWORKING",
+      "human_routing": "AUTO_HANDLE",
+      "system_routing": "AUTO_HANDLE",
+      "system_reasons": "High intent confidence (0.92 >= 0.80); Sufficient historical evidence retrieved and verified; No human escalation triggers or risk keywords detected; All grounding and policy checks successfully passed",
+      "match": true
+    },
+    {
+      "case_id": "gold_127",
+      "conversation_id": "conv_234983",
+      "customer_message": "apple tv remote not working on my control center...how can i fix",
+      "intent": "CONNECTIVITY_NETWORKING",
+      "human_routing": "AUTO_HANDLE",
+      "system_routing": "AUTO_HANDLE",
+      "system_reasons": "High intent confidence (0.92 >= 0.80); Sufficient historical evidence retrieved and verified; No human escalation triggers or risk keywords detected; All grounding and policy checks successfully passed",
+      "match": true
+    },
+    {
+      "case_id": "gold_128",
+      "conversation_id": "conv_35259",
+      "customer_message": "Hi! Although I have full coverage, even with LTE, on my iPhone, I can\u2019t connect to the internet. Can you help me?",
+      "intent": "CONNECTIVITY_NETWORKING",
+      "human_routing": "HUMAN_ESCALATION",
+      "system_routing": "AUTO_HANDLE",
+      "system_reasons": "High intent confidence (0.97 >= 0.80); Sufficient historical evidence retrieved and verified; No human escalation triggers or risk keywords detected; All grounding and policy checks successfully passed",
+      "match": false
+    },
+    {
+      "case_id": "gold_129",
+      "conversation_id": "conv_229203",
+      "customer_message": "I just did the update and I can\u2019t find the AirDrop button anywhere. Where can I find it?",
+      "intent": "CONNECTIVITY_NETWORKING",
+      "human_routing": "AUTO_HANDLE",
+      "system_routing": "AUTO_HANDLE",
+      "system_reasons": "High intent confidence (0.92 >= 0.80); Sufficient historical evidence retrieved and verified; No human escalation triggers or risk keywords detected; All grounding and policy checks successfully passed",
+      "match": true
+    },
+    {
+      "case_id": "gold_130",
+      "conversation_id": "conv_248734",
+      "customer_message": "my phone keeps turning brightness up, wifi on, and bluetooth on. My phone died and wouldnt turn on for a while. ios 11 \ud83d\udc4e\ud83c\udffc",
+      "intent": "CONNECTIVITY_NETWORKING",
+      "human_routing": "AUTO_HANDLE",
+      "system_routing": "AUTO_HANDLE",
+      "system_reasons": "High intent confidence (0.98 >= 0.80); Sufficient historical evidence retrieved and verified; No human escalation triggers or risk keywords detected; All grounding and policy checks successfully passed",
+      "match": true
+    },
+    {
+      "case_id": "gold_131",
+      "conversation_id": "conv_285196",
+      "customer_message": "help my iphone doesn't pick up my earphones when i plug them in it continues to play the music out loud @AppleSupport",
+      "intent": "AUDIO_ACCESSORIES",
+      "human_routing": "HUMAN_ESCALATION",
+      "system_routing": "AUTO_HANDLE",
+      "system_reasons": "High intent confidence (0.94 >= 0.80); Sufficient historical evidence retrieved and verified; No human escalation triggers or risk keywords detected; All grounding and policy checks successfully passed",
+      "match": false
+    },
+    {
+      "case_id": "gold_132",
+      "conversation_id": "conv_257117",
+      "customer_message": "simple problem w airpods. phone/chat support not helpful (I know more than they do.) How do I speak with someone who can help?",
+      "intent": "AUDIO_ACCESSORIES",
+      "human_routing": "HUMAN_ESCALATION",
+      "system_routing": "HUMAN_ESCALATION",
+      "system_reasons": "No historical resolved support cases found to ground response.; Response validation failed (hallucination or unverified claim check).",
+      "match": true
+    },
+    {
+      "case_id": "gold_133",
+      "conversation_id": "conv_31962",
+      "customer_message": "AirPods are connected but don\u2019t play audio anymore any troubleshooting tips?",
+      "intent": "AUDIO_ACCESSORIES",
+      "human_routing": "HUMAN_ESCALATION",
+      "system_routing": "AUTO_HANDLE",
+      "system_reasons": "High intent confidence (0.96 >= 0.80); Sufficient historical evidence retrieved and verified; No human escalation triggers or risk keywords detected; All grounding and policy checks successfully passed",
+      "match": false
+    },
+    {
+      "case_id": "gold_134",
+      "conversation_id": "conv_105323",
+      "customer_message": "MY AIRPODS CASE WONT ChARGE WTF @AppleSupport",
+      "intent": "AUDIO_ACCESSORIES",
+      "human_routing": "AUTO_HANDLE",
+      "system_routing": "AUTO_HANDLE",
+      "system_reasons": "High intent confidence (0.96 >= 0.80); Sufficient historical evidence retrieved and verified; No human escalation triggers or risk keywords detected; All grounding and policy checks successfully passed",
+      "match": true
+    },
+    {
+      "case_id": "gold_135",
+      "conversation_id": "conv_211189",
+      "customer_message": "Why didn't my IPhone 7 come with a headset adapter?",
+      "intent": "AUDIO_ACCESSORIES",
+      "human_routing": "HUMAN_ESCALATION",
+      "system_routing": "AUTO_HANDLE",
+      "system_reasons": "High intent confidence (0.94 >= 0.80); Sufficient historical evidence retrieved and verified; No human escalation triggers or risk keywords detected; All grounding and policy checks successfully passed",
+      "match": false
+    },
+    {
+      "case_id": "gold_136",
+      "conversation_id": "conv_109007",
+      "customer_message": "Why do my earphones sound like they\u2019re only half as loud as they would be full volume?!!! @AppleSupport",
+      "intent": "AUDIO_ACCESSORIES",
+      "human_routing": "AUTO_HANDLE",
+      "system_routing": "HUMAN_ESCALATION",
+      "system_reasons": "No historical resolved support cases found to ground response.; Response validation failed (hallucination or unverified claim check).",
+      "match": false
+    },
+    {
+      "case_id": "gold_137",
+      "conversation_id": "conv_264813",
+      "customer_message": "i got my iphone 8 like 2 weeks ago and the headphones are already shorting in and out",
+      "intent": "AUDIO_ACCESSORIES",
+      "human_routing": "HUMAN_ESCALATION",
+      "system_routing": "AUTO_HANDLE",
+      "system_reasons": "High intent confidence (0.94 >= 0.80); Sufficient historical evidence retrieved and verified; No human escalation triggers or risk keywords detected; All grounding and policy checks successfully passed",
+      "match": false
+    },
+    {
+      "case_id": "gold_138",
+      "conversation_id": "conv_236780",
+      "customer_message": "hi the earphones i got with my iphone 7 have broken already and i\u2019ve only had them since marchv",
+      "intent": "AUDIO_ACCESSORIES",
+      "human_routing": "HUMAN_ESCALATION",
+      "system_routing": "AUTO_HANDLE",
+      "system_reasons": "High intent confidence (0.94 >= 0.80); Sufficient historical evidence retrieved and verified; No human escalation triggers or risk keywords detected; All grounding and policy checks successfully passed",
+      "match": false
+    },
+    {
+      "case_id": "gold_139",
+      "conversation_id": "conv_63165",
+      "customer_message": "got these brand new headphones, and they didn\u2019t even work right out of the box. where\u2019s the quality control? Smh https://t.co/HWtN2vkaTV",
+      "intent": "AUDIO_ACCESSORIES",
+      "human_routing": "HUMAN_ESCALATION",
+      "system_routing": "HUMAN_ESCALATION",
+      "system_reasons": "No historical resolved support cases found to ground response.; Response validation failed (hallucination or unverified claim check).",
+      "match": true
+    },
+    {
+      "case_id": "gold_140",
+      "conversation_id": "conv_110901",
+      "customer_message": "how to transfer my Apple Watch on my new iPhone ? and for AirPods too pls @AppleSupport",
+      "intent": "AUDIO_ACCESSORIES",
+      "human_routing": "HUMAN_ESCALATION",
+      "system_routing": "HUMAN_ESCALATION",
+      "system_reasons": "No historical resolved support cases found to ground response.; Response validation failed (hallucination or unverified claim check).",
+      "match": true
+    },
+    {
+      "case_id": "gold_141",
+      "conversation_id": "conv_41683",
+      "customer_message": "I updated my iOS last night but the Bluetooth connectivity is still not acceptable. My Bluetooth earbuds will not pair. Help!",
+      "intent": "AUDIO_ACCESSORIES",
+      "human_routing": "HUMAN_ESCALATION",
+      "system_routing": "AUTO_HANDLE",
+      "system_reasons": "High intent confidence (0.96 >= 0.80); Sufficient historical evidence retrieved and verified; No human escalation triggers or risk keywords detected; All grounding and policy checks successfully passed",
+      "match": false
+    },
+    {
+      "case_id": "gold_142",
+      "conversation_id": "conv_81811",
+      "customer_message": "i have bought 5s in march and my earphone is nt wrkng .service centre denying to replace .help pls rgds gurnam 9971269316",
+      "intent": "AUDIO_ACCESSORIES",
+      "human_routing": "HUMAN_ESCALATION",
+      "system_routing": "HUMAN_ESCALATION",
+      "system_reasons": "No historical resolved support cases found to ground response.; Response validation failed (hallucination or unverified claim check).",
+      "match": true
+    },
+    {
+      "case_id": "gold_143",
+      "conversation_id": "conv_261300",
+      "customer_message": "Updated my iPhone, its saying headphones are plugged in when they\u2019re not, sound only works when I plug headphones in. #help @AppleSupport",
+      "intent": "AUDIO_ACCESSORIES",
+      "human_routing": "AUTO_HANDLE",
+      "system_routing": "AUTO_HANDLE",
+      "system_reasons": "High intent confidence (0.94 >= 0.80); Sufficient historical evidence retrieved and verified; No human escalation triggers or risk keywords detected; All grounding and policy checks successfully passed",
+      "match": true
+    },
+    {
+      "case_id": "gold_144",
+      "conversation_id": "conv_14326",
+      "customer_message": "Updated my phone last night & now its stuck in headphone mode, cant hear anything on video, FaceTime & call sound goes in&out @AppleSupport",
+      "intent": "AUDIO_ACCESSORIES",
+      "human_routing": "HUMAN_ESCALATION",
+      "system_routing": "AUTO_HANDLE",
+      "system_reasons": "High intent confidence (0.94 >= 0.80); Sufficient historical evidence retrieved and verified; No human escalation triggers or risk keywords detected; All grounding and policy checks successfully passed",
+      "match": false
+    },
+    {
+      "case_id": "gold_145",
+      "conversation_id": "conv_98878",
+      "customer_message": "My iPhone 8+ has suddenly began acting up. It\u2019s randomly restarting by itself, no sound is working as in when I receive a text or call my phone doesn\u2019t make a sound. My touchscreen isn\u2019t responsive sometimes and I can\u2019t play videos in apps, like YouTube or Hayu.",
+      "intent": "AUDIO_ACCESSORIES",
+      "human_routing": "HUMAN_ESCALATION",
+      "system_routing": "AUTO_HANDLE",
+      "system_reasons": "High intent confidence (0.88 >= 0.80); Sufficient historical evidence retrieved and verified; No human escalation triggers or risk keywords detected; All grounding and policy checks successfully passed",
+      "match": false
+    },
+    {
+      "case_id": "gold_146",
+      "conversation_id": "conv_241578",
+      "customer_message": "Got AirPods today and love them. Took on a run with Apl Watch 3 and music cut out for 1 sec about every 20 secs. Any ideas?",
+      "intent": "AUDIO_ACCESSORIES",
+      "human_routing": "HUMAN_ESCALATION",
+      "system_routing": "AUTO_HANDLE",
+      "system_reasons": "High intent confidence (0.96 >= 0.80); Sufficient historical evidence retrieved and verified; No human escalation triggers or risk keywords detected; All grounding and policy checks successfully passed",
+      "match": false
+    },
+    {
+      "case_id": "gold_147",
+      "conversation_id": "conv_245378",
+      "customer_message": "My left AirPod seems to have died in the wake of 11.0.2. Restarting AirPods, re-pairing AirPods, and resetting network settings have done nothing. I bought these last week. Help!",
+      "intent": "AUDIO_ACCESSORIES",
+      "human_routing": "HUMAN_ESCALATION",
+      "system_routing": "AUTO_HANDLE",
+      "system_reasons": "High intent confidence (0.96 >= 0.80); Sufficient historical evidence retrieved and verified; No human escalation triggers or risk keywords detected; All grounding and policy checks successfully passed",
+      "match": false
+    },
+    {
+      "case_id": "gold_148",
+      "conversation_id": "conv_23122",
+      "customer_message": "you guys are terrible back in October you said you\u2019d send me something so I could send in my AirPods for repair since they didn\u2019t work when I bought them. You never sent them to me at fort sill. Thanks!",
+      "intent": "AUDIO_ACCESSORIES",
+      "human_routing": "HUMAN_ESCALATION",
+      "system_routing": "AUTO_HANDLE",
+      "system_reasons": "High intent confidence (0.96 >= 0.80); Sufficient historical evidence retrieved and verified; No human escalation triggers or risk keywords detected; All grounding and policy checks successfully passed",
+      "match": false
+    },
+    {
+      "case_id": "gold_149",
+      "conversation_id": "conv_187435",
+      "customer_message": "My beats solo 3 headphones are having the leather and rubber come apart from the plastic, what should I do?",
+      "intent": "AUDIO_ACCESSORIES",
+      "human_routing": "AUTO_HANDLE",
+      "system_routing": "HUMAN_ESCALATION",
+      "system_reasons": "No historical resolved support cases found to ground response.; Response validation failed (hallucination or unverified claim check).",
+      "match": false
+    },
+    {
+      "case_id": "gold_150",
+      "conversation_id": "conv_53588",
+      "customer_message": "Also, why do my AirPods suddenly stop playing music after being connected for awhile?",
+      "intent": "AUDIO_ACCESSORIES",
+      "human_routing": "AUTO_HANDLE",
+      "system_routing": "AUTO_HANDLE",
+      "system_reasons": "High intent confidence (0.96 >= 0.80); Sufficient historical evidence retrieved and verified; No human escalation triggers or risk keywords detected; All grounding and policy checks successfully passed",
+      "match": true
+    },
+    {
+      "case_id": "gold_151",
+      "conversation_id": "conv_159615",
+      "customer_message": "WHY AM I GETTING CHARGED $15 TWICE?! For NOTHING",
+      "intent": "SUBSCRIPTIONS_BILLING",
+      "human_routing": "HUMAN_ESCALATION",
+      "system_routing": "AUTO_HANDLE",
+      "system_reasons": "High intent confidence (0.95 >= 0.80); Sufficient historical evidence retrieved and verified; No human escalation triggers or risk keywords detected; All grounding and policy checks successfully passed",
+      "match": false
+    },
+    {
+      "case_id": "gold_152",
+      "conversation_id": "conv_236814",
+      "customer_message": "hi cancelled Apple Music about 2 months ago and I\u2019m still being charged for it",
+      "intent": "SUBSCRIPTIONS_BILLING",
+      "human_routing": "HUMAN_ESCALATION",
+      "system_routing": "AUTO_HANDLE",
+      "system_reasons": "High intent confidence (0.95 >= 0.80); Sufficient historical evidence retrieved and verified; No human escalation triggers or risk keywords detected; All grounding and policy checks successfully passed",
+      "match": false
+    },
+    {
+      "case_id": "gold_153",
+      "conversation_id": "conv_148173",
+      "customer_message": "So @115858 @AppleSupport instruct me to take up a consumer complaint with alternative dispute resolution in UK. BUT, they say \"apple has refused to cooperate with us!\" Anyone any bright ideas?",
+      "intent": "SUBSCRIPTIONS_BILLING",
+      "human_routing": "HUMAN_ESCALATION",
+      "system_routing": "AUTO_HANDLE",
+      "system_reasons": "High intent confidence (0.96 >= 0.80); Sufficient historical evidence retrieved and verified; No human escalation triggers or risk keywords detected; All grounding and policy checks successfully passed",
+      "match": false
+    },
+    {
+      "case_id": "gold_154",
+      "conversation_id": "conv_101304",
+      "customer_message": "how do I go about raising a high level complaint please? 4 senior techs couldn\u2019t help fix my problem, now my e mails are being unanswered, want a refund for a product that\u2019s not fit for purpose, have tried everything to fix, thanks.",
+      "intent": "SUBSCRIPTIONS_BILLING",
+      "human_routing": "HUMAN_ESCALATION",
+      "system_routing": "AUTO_HANDLE",
+      "system_reasons": "High intent confidence (0.96 >= 0.80); Sufficient historical evidence retrieved and verified; No human escalation triggers or risk keywords detected; All grounding and policy checks successfully passed",
+      "match": false
+    },
+    {
+      "case_id": "gold_155",
+      "conversation_id": "conv_188370",
+      "customer_message": "I was not using my iPad for many weeks now, after I charged it, no longer opens. It\u2019s not appearing on iTunes devices.",
+      "intent": "SUBSCRIPTIONS_BILLING",
+      "human_routing": "HUMAN_ESCALATION",
+      "system_routing": "AUTO_HANDLE",
+      "system_reasons": "High intent confidence (0.95 >= 0.80); Sufficient historical evidence retrieved and verified; No human escalation triggers or risk keywords detected; All grounding and policy checks successfully passed",
+      "match": false
+    },
+    {
+      "case_id": "gold_156",
+      "conversation_id": "conv_271280",
+      "customer_message": "Two apps that I did not purchase appeared on my iPhone. Also received notification of $1.99 weekly subscription to one. WTF? https://t.co/rKaebzabTu",
+      "intent": "SUBSCRIPTIONS_BILLING",
+      "human_routing": "HUMAN_ESCALATION",
+      "system_routing": "AUTO_HANDLE",
+      "system_reasons": "High intent confidence (0.95 >= 0.80); Sufficient historical evidence retrieved and verified; No human escalation triggers or risk keywords detected; All grounding and policy checks successfully passed",
+      "match": false
+    },
+    {
+      "case_id": "gold_157",
+      "conversation_id": "conv_61323",
+      "customer_message": "I accidentally bought something is there anyway I can get a refund",
+      "intent": "SUBSCRIPTIONS_BILLING",
+      "human_routing": "HUMAN_ESCALATION",
+      "system_routing": "HUMAN_ESCALATION",
+      "system_reasons": "No historical resolved support cases found to ground response.; Response validation failed (hallucination or unverified claim check).",
+      "match": true
+    },
+    {
+      "case_id": "gold_158",
+      "conversation_id": "conv_23100",
+      "customer_message": ", why do I keep getting charged over \u00a320 for anything I buy from iTunes? Bought an album for \u00a34.99 and got charged \u00a320.67. Same thing happened a couple of weeks ago to. Why?! https://t.co/0fIDOKovNP",
+      "intent": "SUBSCRIPTIONS_BILLING",
+      "human_routing": "HUMAN_ESCALATION",
+      "system_routing": "AUTO_HANDLE",
+      "system_reasons": "High intent confidence (0.95 >= 0.80); Sufficient historical evidence retrieved and verified; No human escalation triggers or risk keywords detected; All grounding and policy checks successfully passed",
+      "match": false
+    },
+    {
+      "case_id": "gold_159",
+      "conversation_id": "conv_151543",
+      "customer_message": "in addition to 11.1.2 burning through my battery, it appears to also be burning through my data. Now I\u2019m getting charged. Please address!",
+      "intent": "SUBSCRIPTIONS_BILLING",
+      "human_routing": "HUMAN_ESCALATION",
+      "system_routing": "AUTO_HANDLE",
+      "system_reasons": "High intent confidence (0.95 >= 0.80); Sufficient historical evidence retrieved and verified; No human escalation triggers or risk keywords detected; All grounding and policy checks successfully passed",
+      "match": false
+    },
+    {
+      "case_id": "gold_160",
+      "conversation_id": "conv_174160",
+      "customer_message": "My Apple Watch keeps turning off and on by itself and it\u2019s charged. What do I do?",
+      "intent": "SUBSCRIPTIONS_BILLING",
+      "human_routing": "HUMAN_ESCALATION",
+      "system_routing": "AUTO_HANDLE",
+      "system_reasons": "High intent confidence (0.95 >= 0.80); Sufficient historical evidence retrieved and verified; No human escalation triggers or risk keywords detected; All grounding and policy checks successfully passed",
+      "match": false
+    },
+    {
+      "case_id": "gold_161",
+      "conversation_id": "conv_177017",
+      "customer_message": "I accidentally clicked 1 button on a $10 in-app purchase and it went though before I could hit cancel. I do not want the purchase. Can I undo it?",
+      "intent": "SUBSCRIPTIONS_BILLING",
+      "human_routing": "HUMAN_ESCALATION",
+      "system_routing": "HUMAN_ESCALATION",
+      "system_reasons": "No historical resolved support cases found to ground response.; Response validation failed (hallucination or unverified claim check).",
+      "match": true
+    },
+    {
+      "case_id": "gold_162",
+      "conversation_id": "conv_272203",
+      "customer_message": "if i downloaded songs from apple music shouldn't they stay even after my subscription expired?",
+      "intent": "SUBSCRIPTIONS_BILLING",
+      "human_routing": "HUMAN_ESCALATION",
+      "system_routing": "AUTO_HANDLE",
+      "system_reasons": "High intent confidence (0.95 >= 0.80); Sufficient historical evidence retrieved and verified; No human escalation triggers or risk keywords detected; All grounding and policy checks successfully passed",
+      "match": false
+    },
+    {
+      "case_id": "gold_163",
+      "conversation_id": "conv_61344",
+      "customer_message": "I am trying to install a free app, and it keeps asking me for billing information, and it keeps declining my billion information. I need help",
+      "intent": "SUBSCRIPTIONS_BILLING",
+      "human_routing": "HUMAN_ESCALATION",
+      "system_routing": "HUMAN_ESCALATION",
+      "system_reasons": "No historical resolved support cases found to ground response.; Response validation failed (hallucination or unverified claim check).",
+      "match": true
+    },
+    {
+      "case_id": "gold_164",
+      "conversation_id": "conv_149947",
+      "customer_message": "You charged me for Apple Music but didn\u2019t even tell me my trial was over. I want a refund @AppleSupport",
+      "intent": "SUBSCRIPTIONS_BILLING",
+      "human_routing": "HUMAN_ESCALATION",
+      "system_routing": "AUTO_HANDLE",
+      "system_reasons": "High intent confidence (0.98 >= 0.80); Sufficient historical evidence retrieved and verified; No human escalation triggers or risk keywords detected; All grounding and policy checks successfully passed",
+      "match": false
+    },
+    {
+      "case_id": "gold_165",
+      "conversation_id": "conv_47995",
+      "customer_message": "hi there, I need to inquire something regarding he refund of an item",
+      "intent": "SUBSCRIPTIONS_BILLING",
+      "human_routing": "HUMAN_ESCALATION",
+      "system_routing": "HUMAN_ESCALATION",
+      "system_reasons": "No historical resolved support cases found to ground response.; Response validation failed (hallucination or unverified claim check).",
+      "match": true
+    },
+    {
+      "case_id": "gold_166",
+      "conversation_id": "conv_195920",
+      "customer_message": "Welp, iOS 11.0.2 has officially ruined my battery. Have charged my iPhone 7 three times today. @115858 @AppleSupport will 11.0.3 resolve?",
+      "intent": "SUBSCRIPTIONS_BILLING",
+      "human_routing": "HUMAN_ESCALATION",
+      "system_routing": "AUTO_HANDLE",
+      "system_reasons": "High intent confidence (0.95 >= 0.80); Sufficient historical evidence retrieved and verified; No human escalation triggers or risk keywords detected; All grounding and policy checks successfully passed",
+      "match": false
+    },
+    {
+      "case_id": "gold_167",
+      "conversation_id": "conv_107358",
+      "customer_message": "ok... woke up yesterday and my podcast app had changed AGAIN. My subscriptions disappeared, and when it restored all my new subs were gone. Also the Listen Now is in NO order whatsoever. How can I get my old app back? https://t.co/aemWLxGmmE",
+      "intent": "SUBSCRIPTIONS_BILLING",
+      "human_routing": "HUMAN_ESCALATION",
+      "system_routing": "AUTO_HANDLE",
+      "system_reasons": "High intent confidence (0.95 >= 0.80); Sufficient historical evidence retrieved and verified; No human escalation triggers or risk keywords detected; All grounding and policy checks successfully passed",
+      "match": false
+    },
+    {
+      "case_id": "gold_168",
+      "conversation_id": "conv_151426",
+      "customer_message": "try to buy a product from your page like I've always done. The address on my card is different than the one I need the invoice for. No can do in your system. Fix that ASAP please... What with all those locks....",
+      "intent": "SUBSCRIPTIONS_BILLING",
+      "human_routing": "HUMAN_ESCALATION",
+      "system_routing": "HUMAN_ESCALATION",
+      "system_reasons": "No historical resolved support cases found to ground response.; Response validation failed (hallucination or unverified claim check).",
+      "match": true
+    },
+    {
+      "case_id": "gold_169",
+      "conversation_id": "conv_145186",
+      "customer_message": "can i refund an album i bought 3 years ago? @118721 @115858 @AppleSupport",
+      "intent": "SUBSCRIPTIONS_BILLING",
+      "human_routing": "HUMAN_ESCALATION",
+      "system_routing": "AUTO_HANDLE",
+      "system_reasons": "High intent confidence (0.96 >= 0.80); Sufficient historical evidence retrieved and verified; No human escalation triggers or risk keywords detected; All grounding and policy checks successfully passed",
+      "match": false
+    },
+    {
+      "case_id": "gold_170",
+      "conversation_id": "conv_90654",
+      "customer_message": "excuse me,\nI'm got a refund confirmation email but nothing happened.\nDo I have to do anythings?",
+      "intent": "SUBSCRIPTIONS_BILLING",
+      "human_routing": "HUMAN_ESCALATION",
+      "system_routing": "AUTO_HANDLE",
+      "system_reasons": "High intent confidence (0.96 >= 0.80); Sufficient historical evidence retrieved and verified; No human escalation triggers or risk keywords detected; All grounding and policy checks successfully passed",
+      "match": false
+    },
+    {
+      "case_id": "gold_171",
+      "conversation_id": "conv_229185",
+      "customer_message": "I can\u2019t access my music through @115948 and I can\u2019t text anyone through iMessage. WHY IS THIS A CONSTANT PROBLEM?! @AppleSupport",
+      "intent": "GENERAL_INQUIRY",
+      "human_routing": "HUMAN_ESCALATION",
+      "system_routing": "HUMAN_ESCALATION",
+      "system_reasons": "Intent classification confidence (0.65) below threshold (0.80).",
+      "match": true
+    },
+    {
+      "case_id": "gold_172",
+      "conversation_id": "conv_119522",
+      "customer_message": "Why the website doesn\u2019t work?! @115858 @AppleSupport",
+      "intent": "GENERAL_INQUIRY",
+      "human_routing": "AUTO_HANDLE",
+      "system_routing": "HUMAN_ESCALATION",
+      "system_reasons": "Intent classification confidence (0.65) below threshold (0.80).",
+      "match": false
+    },
+    {
+      "case_id": "gold_173",
+      "conversation_id": "conv_112881",
+      "customer_message": "I want to trade in an iPhone for another one of the same model with larger storage capacity, will I have to buy another",
+      "intent": "GENERAL_INQUIRY",
+      "human_routing": "AUTO_HANDLE",
+      "system_routing": "HUMAN_ESCALATION",
+      "system_reasons": "Intent classification confidence (0.65) below threshold (0.80).",
+      "match": false
+    },
+    {
+      "case_id": "gold_174",
+      "conversation_id": "conv_41703",
+      "customer_message": "Now this crazy iPhone 8 is putting all sorts of emoji\u2018s in my writing. I\ufe0f hate emoji\u2019s! @AppleSupport fix the system!",
+      "intent": "GENERAL_INQUIRY",
+      "human_routing": "AUTO_HANDLE",
+      "system_routing": "HUMAN_ESCALATION",
+      "system_reasons": "Intent classification confidence (0.65) below threshold (0.80).",
+      "match": false
+    },
+    {
+      "case_id": "gold_175",
+      "conversation_id": "conv_174121",
+      "customer_message": "I have a problem with the batteries first my Appel watch and now my iPhone 5c \ud83d\ude14",
+      "intent": "GENERAL_INQUIRY",
+      "human_routing": "HUMAN_ESCALATION",
+      "system_routing": "HUMAN_ESCALATION",
+      "system_reasons": "Intent classification confidence (0.65) below threshold (0.80).",
+      "match": true
+    },
+    {
+      "case_id": "gold_176",
+      "conversation_id": "conv_148144",
+      "customer_message": "I can\u2019t seem to get full screen contact pictures anymore? Is this a known issue?",
+      "intent": "GENERAL_INQUIRY",
+      "human_routing": "HUMAN_ESCALATION",
+      "system_routing": "HUMAN_ESCALATION",
+      "system_reasons": "Intent classification confidence (0.65) below threshold (0.80).",
+      "match": true
+    },
+    {
+      "case_id": "gold_177",
+      "conversation_id": "conv_41566",
+      "customer_message": "why is \u201cI\ufe0f\u201d not working ?",
+      "intent": "GENERAL_INQUIRY",
+      "human_routing": "HUMAN_ESCALATION",
+      "system_routing": "HUMAN_ESCALATION",
+      "system_reasons": "Intent classification confidence (0.65) below threshold (0.80).",
+      "match": true
+    },
+    {
+      "case_id": "gold_178",
+      "conversation_id": "conv_92741",
+      "customer_message": "- security patch installed automatically on Mac this morning and now NO user password works. Mac is locked. Need help ASAP",
+      "intent": "GENERAL_INQUIRY",
+      "human_routing": "HUMAN_ESCALATION",
+      "system_routing": "HUMAN_ESCALATION",
+      "system_reasons": "Intent classification confidence (0.65) below threshold (0.80).",
+      "match": true
+    },
+    {
+      "case_id": "gold_179",
+      "conversation_id": "conv_219651",
+      "customer_message": "I want my podcast to continuously play my episodes without me doing it manually! @115858 #ios11sucks",
+      "intent": "GENERAL_INQUIRY",
+      "human_routing": "AUTO_HANDLE",
+      "system_routing": "HUMAN_ESCALATION",
+      "system_reasons": "Intent classification confidence (0.65) below threshold (0.80).",
+      "match": false
+    },
+    {
+      "case_id": "gold_180",
+      "conversation_id": "conv_263441",
+      "customer_message": "MINHA C\u00c2MERA S\u00d3 FICA ASSIM! https://t.co/AQ3h6somLv",
+      "intent": "GENERAL_INQUIRY",
+      "human_routing": "AUTO_HANDLE",
+      "system_routing": "HUMAN_ESCALATION",
+      "system_reasons": "Intent classification confidence (0.65) below threshold (0.80).; No historical resolved support cases found to ground response.; Response validation failed (hallucination or unverified claim check).",
+      "match": false
+    },
+    {
+      "case_id": "gold_181",
+      "conversation_id": "conv_97035",
+      "customer_message": "Messages on my iMac and my wife\u2019s MB have randomly stopped working. No changes, just can\u2019t send or receive anymore.",
+      "intent": "GENERAL_INQUIRY",
+      "human_routing": "HUMAN_ESCALATION",
+      "system_routing": "HUMAN_ESCALATION",
+      "system_reasons": "Intent classification confidence (0.65) below threshold (0.80).",
+      "match": true
+    },
+    {
+      "case_id": "gold_182",
+      "conversation_id": "conv_188609",
+      "customer_message": "So despite having insurance @AppleSupport in exeter won't replace the screen he cracked yesterday because of a 'moisture dot'...",
+      "intent": "GENERAL_INQUIRY",
+      "human_routing": "HUMAN_ESCALATION",
+      "system_routing": "HUMAN_ESCALATION",
+      "system_reasons": "Intent classification confidence (0.65) below threshold (0.80).; No historical resolved support cases found to ground response.; Response validation failed (hallucination or unverified claim check).",
+      "match": true
+    },
+    {
+      "case_id": "gold_183",
+      "conversation_id": "conv_211305",
+      "customer_message": "Hey @AppleSupport is it supposed to do that? https://t.co/wcZkVFdnDe",
+      "intent": "GENERAL_INQUIRY",
+      "human_routing": "HUMAN_ESCALATION",
+      "system_routing": "HUMAN_ESCALATION",
+      "system_reasons": "Intent classification confidence (0.65) below threshold (0.80).",
+      "match": true
+    },
+    {
+      "case_id": "gold_184",
+      "conversation_id": "conv_34646",
+      "customer_message": "My 6 month old IPhone 6 touch screen is unresponsive. @AppleSupport please help!",
+      "intent": "GENERAL_INQUIRY",
+      "human_routing": "HUMAN_ESCALATION",
+      "system_routing": "HUMAN_ESCALATION",
+      "system_reasons": "Intent classification confidence (0.65) below threshold (0.80).",
+      "match": true
+    },
+    {
+      "case_id": "gold_185",
+      "conversation_id": "conv_54447",
+      "customer_message": "fix the fucking letter \u201cI\ufe0f\u201d please!!!!!",
+      "intent": "GENERAL_INQUIRY",
+      "human_routing": "AUTO_HANDLE",
+      "system_routing": "HUMAN_ESCALATION",
+      "system_reasons": "Intent classification confidence (0.65) below threshold (0.80).",
+      "match": false
+    },
+    {
+      "case_id": "gold_186",
+      "conversation_id": "conv_295385",
+      "customer_message": "I received a questionable email yesterday. Can I email it to you for you to check if it's legit?",
+      "intent": "GENERAL_INQUIRY",
+      "human_routing": "AUTO_HANDLE",
+      "system_routing": "HUMAN_ESCALATION",
+      "system_reasons": "Intent classification confidence (0.65) below threshold (0.80).",
+      "match": false
+    },
+    {
+      "case_id": "gold_187",
+      "conversation_id": "conv_50829",
+      "customer_message": "Touchscreen OS 11.3 balky. Sometime have to press or hit the screen several times or even quit 2 get response. Keyboard off 2",
+      "intent": "GENERAL_INQUIRY",
+      "human_routing": "HUMAN_ESCALATION",
+      "system_routing": "HUMAN_ESCALATION",
+      "system_reasons": "Intent classification confidence (0.65) below threshold (0.80).; No historical resolved support cases found to ground response.; Response validation failed (hallucination or unverified claim check).",
+      "match": true
+    },
+    {
+      "case_id": "gold_188",
+      "conversation_id": "conv_109011",
+      "customer_message": "I guess I can\u2019t tweet a song from my music app anymore, why was that feature even added if it doesn\u2019t work @AppleSupport",
+      "intent": "GENERAL_INQUIRY",
+      "human_routing": "HUMAN_ESCALATION",
+      "system_routing": "HUMAN_ESCALATION",
+      "system_reasons": "Intent classification confidence (0.65) below threshold (0.80).",
+      "match": true
+    },
+    {
+      "case_id": "gold_189",
+      "conversation_id": "conv_92650",
+      "customer_message": "Since the last 2 updates my #128GBiPhone7 has #slowed to a crawl (15 seconds) unlocking & opening apps, mail etc. Something, somewhere has changed. And I don\u2019t like it one bit.",
+      "intent": "GENERAL_INQUIRY",
+      "human_routing": "HUMAN_ESCALATION",
+      "system_routing": "HUMAN_ESCALATION",
+      "system_reasons": "Intent classification confidence (0.65) below threshold (0.80).",
+      "match": true
+    },
+    {
+      "case_id": "gold_190",
+      "conversation_id": "conv_161315",
+      "customer_message": "I believe I have an email that is a scam. Where can I send this to be looked at?",
+      "intent": "GENERAL_INQUIRY",
+      "human_routing": "HUMAN_ESCALATION",
+      "system_routing": "HUMAN_ESCALATION",
+      "system_reasons": "Intent classification confidence (0.65) below threshold (0.80).",
+      "match": true
+    },
+    {
+      "case_id": "gold_191",
+      "conversation_id": "conv_4909",
+      "customer_message": "\u30b3\u30ec\u306f\u672c\u5f53\u306b\u56f0\u308b\u3001\u30b2\u30fc\u30e0\u3082\u51fa\u6765\u306a\u304f\u306a\u3063\u305f\u3057\u30a2\u30c3\u30d7\u30c7\u30fc\u30c8\u3057\u306a\u304d\u3083\u826f\u304b\u3063\u305f\u00b4\u0434` ;\n@AppleSupport @115858 \u2192 \u300c\u30d0\u30c3\u30c6\u30ea\u30fc\u306e\u6e1b\u308a\u304c\u6fc0\u3057\u3044\u300d\u3068\u3044\u3046\u554f\u984c\u306b\u95a2\u3057\u3066\u3082\u540c\u69d8\uff09\u3002 https://t.co/bGQly6cE2O",
+      "intent": "GENERAL_INQUIRY",
+      "human_routing": "AUTO_HANDLE",
+      "system_routing": "HUMAN_ESCALATION",
+      "system_reasons": "Intent classification confidence (0.65) below threshold (0.80).",
+      "match": false
+    },
+    {
+      "case_id": "gold_192",
+      "conversation_id": "conv_55956",
+      "customer_message": "yet another head phone adapter isn\u2019t working @116333",
+      "intent": "GENERAL_INQUIRY",
+      "human_routing": "HUMAN_ESCALATION",
+      "system_routing": "HUMAN_ESCALATION",
+      "system_reasons": "Intent classification confidence (0.65) below threshold (0.80).; No historical resolved support cases found to ground response.; Response validation failed (hallucination or unverified claim check).",
+      "match": true
+    },
+    {
+      "case_id": "gold_193",
+      "conversation_id": "conv_228430",
+      "customer_message": "Glad I searched 'iPhone freezing' and saw a million other people are having the same issues. @AppleSupport, https://t.co/RACSqIKcDm",
+      "intent": "GENERAL_INQUIRY",
+      "human_routing": "HUMAN_ESCALATION",
+      "system_routing": "HUMAN_ESCALATION",
+      "system_reasons": "Intent classification confidence (0.65) below threshold (0.80).",
+      "match": true
+    },
+    {
+      "case_id": "gold_194",
+      "conversation_id": "conv_40539",
+      "customer_message": "Hey! How do I permanently enable \u2018Explicit\u2019 content for Music? I have to manually enable it everytime. #AppleMusic",
+      "intent": "GENERAL_INQUIRY",
+      "human_routing": "HUMAN_ESCALATION",
+      "system_routing": "HUMAN_ESCALATION",
+      "system_reasons": "Intent classification confidence (0.65) below threshold (0.80).",
+      "match": true
+    },
+    {
+      "case_id": "gold_195",
+      "conversation_id": "conv_174119",
+      "customer_message": "is there anyone around I could talk to re: Apple renew?",
+      "intent": "GENERAL_INQUIRY",
+      "human_routing": "AUTO_HANDLE",
+      "system_routing": "HUMAN_ESCALATION",
+      "system_reasons": "Intent classification confidence (0.65) below threshold (0.80).",
+      "match": false
+    },
+    {
+      "case_id": "gold_196",
+      "conversation_id": "conv_236829",
+      "customer_message": "Hi - my iphone 6 is not connecting to certain networks. It connects properly to some but not others. Other phones working. SOS",
+      "intent": "GENERAL_INQUIRY",
+      "human_routing": "HUMAN_ESCALATION",
+      "system_routing": "HUMAN_ESCALATION",
+      "system_reasons": "Intent classification confidence (0.65) below threshold (0.80).; No historical resolved support cases found to ground response.; Response validation failed (hallucination or unverified claim check).",
+      "match": true
+    },
+    {
+      "case_id": "gold_197",
+      "conversation_id": "conv_48041",
+      "customer_message": "Hey @AppleSupport how does your operating system occupy almost 50% of my phone\u2019s storage? https://t.co/yM3WDFCMD1",
+      "intent": "GENERAL_INQUIRY",
+      "human_routing": "HUMAN_ESCALATION",
+      "system_routing": "HUMAN_ESCALATION",
+      "system_reasons": "Intent classification confidence (0.65) below threshold (0.80).",
+      "match": true
+    },
+    {
+      "case_id": "gold_198",
+      "conversation_id": "conv_152837",
+      "customer_message": "Hey @AppleSupport this seems like a bug in latest iOS. https://t.co/oYEGXNa9WA",
+      "intent": "GENERAL_INQUIRY",
+      "human_routing": "AUTO_HANDLE",
+      "system_routing": "HUMAN_ESCALATION",
+      "system_reasons": "Intent classification confidence (0.65) below threshold (0.80).",
+      "match": false
+    },
+    {
+      "case_id": "gold_199",
+      "conversation_id": "conv_97584",
+      "customer_message": "Erm\u2026 What even happened here, @AppleSupport ? https://t.co/SiXJQ8f73Y",
+      "intent": "GENERAL_INQUIRY",
+      "human_routing": "HUMAN_ESCALATION",
+      "system_routing": "HUMAN_ESCALATION",
+      "system_reasons": "Intent classification confidence (0.65) below threshold (0.80).",
+      "match": true
+    },
+    {
+      "case_id": "gold_200",
+      "conversation_id": "conv_181398",
+      "customer_message": "When do you expect to fix the lock screen bug? This is annoying to have the time and notifications disappearing! \ud83d\ude1e",
+      "intent": "GENERAL_INQUIRY",
+      "human_routing": "HUMAN_ESCALATION",
+      "system_routing": "HUMAN_ESCALATION",
+      "system_reasons": "Intent classification confidence (0.65) below threshold (0.80).",
+      "match": true
+    }
+  ]
+}

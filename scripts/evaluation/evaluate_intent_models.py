@@ -190,5 +190,7 @@ def run_evaluation():
     print(f"\nEmpirical results saved to: {OUTPUT_PATH}")
 
 
+run_all_intent_evaluations = run_evaluation
+
 if __name__ == "__main__":
     run_evaluation()

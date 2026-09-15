@@ -234,5 +234,7 @@ def main() -> None:
         print(f"Avg Sim:  {bm['mean_top1_similarity']:.4f}")
 
 
+evaluate_retrieval_pipeline = main
+
 if __name__ == "__main__":
     main()
