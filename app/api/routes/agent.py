@@ -29,6 +29,72 @@ def get_llm_providers() -> List[Dict[str, Any]]:
     return LLMProviderFactory.list_available_providers()
 
 
+def _persist_to_inbox(
+    result: AgentRunResult, message: str, customer_handle: Optional[str], brand: str
+) -> None:
+    """Save processed inquiry as an operational ticket in the Support Inbox database."""
+    try:
+        import time
+        import uuid
+
+        from app.repositories.conversation_repository import ConversationRepository
+
+        repo = ConversationRepository()
+        cid = (
+            result.metadata.conversation_id or f"conv_sim_{int(time.time())}_{uuid.uuid4().hex[:6]}"
+        )
+        ticket_id = f"TICK-SIM-{cid[-6:].upper()}"
+        h = (customer_handle or "@Customer").strip()
+        if not h.startswith("@"):
+            h = f"@{h}"
+        decision_str = result.routing.decision.value
+        status_str = "AI Ready" if decision_str == "AUTO_HANDLE" else "Needs Human"
+        now_str = time.strftime("%a %b %d %H:%M:%S +0000 %Y", time.gmtime())
+
+        rec = {
+            "conversation_id": cid,
+            "ticket_id": ticket_id,
+            "customer_id": h.replace("@", ""),
+            "brand": brand or "AppleSupport",
+            "root_tweet_id": str(int(time.time())),
+            "first_inquiry": message,
+            "latest_message": message,
+            "final_brand_response": result.generation.draft_reply,
+            "intent": result.intent.name,
+            "intent_code": result.intent.code,
+            "confidence": result.intent.confidence,
+            "decision": decision_str,
+            "turn_count": 2,
+            "turns": [
+                {
+                    "turn_id": 1,
+                    "author_id": h.replace("@", ""),
+                    "author_role": "CUSTOMER",
+                    "text": message,
+                    "created_at": now_str,
+                },
+                {
+                    "turn_id": 2,
+                    "author_id": brand or "AppleSupport",
+                    "author_role": "BRAND",
+                    "text": result.generation.draft_reply,
+                    "created_at": now_str,
+                },
+            ],
+            "has_dm": "DM" in result.generation.draft_reply,
+            "has_kb_link": "http" in result.generation.draft_reply,
+            "has_resolution": decision_str == "AUTO_HANDLE",
+            "status": status_str,
+            "created_at": now_str,
+            "timestamp": now_str,
+            "intent_confidence": result.intent.confidence,
+            "intent_signals": result.intent.signals,
+        }
+        repo.save_conversation(rec)
+    except Exception as e:
+        logger.warning(f"Failed to persist ticket to inbox DB: {e}")
+
+
 @router.post("/run", response_model=AgentRunResult)
 def run_agent(
     payload: SimulateRequest,
@@ -43,6 +109,7 @@ def run_agent(
             customer_handle=payload.customer_handle,
             provider=payload.provider,
         )
+        _persist_to_inbox(result, payload.customer_message, payload.customer_handle, payload.brand)
         return result
     except Exception as ex:
         logger.error(f"Agent execution failed: {ex}", exc_info=True)
@@ -79,6 +146,7 @@ async def stream_agent_execution(
                     event_callback=sync_event_callback,
                 ),
             )
+            _persist_to_inbox(result, customer_message, customer_handle, brand)
             # Serialize result cleanly for frontend consumption
             await queue.put(("RESULT", json.loads(result.model_dump_json())))
         except Exception as ex:

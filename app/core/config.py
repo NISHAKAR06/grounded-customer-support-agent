@@ -75,6 +75,9 @@ class Settings(BaseSettings):
     ESCALATION_MIN_CONFIDENCE: float = 0.80
     ESCALATION_MIN_RETRIEVAL_SCORE: float = 0.55
 
+    # Database Settings (PostgreSQL in production, fallback SQLite)
+    DATABASE_URL: Optional[str] = None
+
     model_config = SettingsConfigDict(
         env_file=".env",
         env_file_encoding="utf-8",
