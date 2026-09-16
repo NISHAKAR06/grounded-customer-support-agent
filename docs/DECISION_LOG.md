@@ -109,3 +109,12 @@ This log records the major architectural, algorithmic, and engineering decisions
 - **Choice**: Structured rubric scoring Groundedness (1–5), Helpfulness (1–5), Resolution Fit (1–5), and Unsupported Claims (Binary).
 - **Reason**: Enables automated aggregation, statistical correlation with human raters, and programmatic error analysis.
 - **Trade-off**: Requires strict JSON parsing and schema validation on judge outputs.
+
+---
+
+### Decision 13: Retaining Unfavorable Human Evaluation Results Without System Contamination
+- **Context**: Independent human evaluation revealed significant empirical divergence from automated metrics (human mean quality 3.21/5 vs LLM judge 4.24/5; human routing agreement 38.00% with 106 under-escalated cases).
+- **Alternatives Considered**: Discarding or filtering human ratings; tuning system escalation thresholds post-hoc on the golden set to inflate benchmark numbers; reporting only automated LLM judge scores.
+- **Choice**: Retain and prominently report all empirical human evaluation findings verbatim without post-hoc system tuning.
+- **Reason**: Human evaluation was treated as an audit of automated evaluation rather than a benchmark to optimize. We preserved unfavorable results because they expose genuine gaps between automated scoring and actual human judgment. Furthermore, we made the explicit methodological decision **NOT** to tune or re-calibrate the system after observing the human ratings, because doing so would contaminate the test set and invalidate the integrity of the evaluation study.
+- **Trade-off**: The headline numbers reflect realistic system limitations and calibration gaps rather than inflated synthetic success.

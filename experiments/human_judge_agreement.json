@@ -1,0 +1,51 @@
+{
+  "timestamp": "2026-09-15T08:48:16Z",
+  "status": "COMPLETED",
+  "sample_count": 100,
+  "methodology": "Independent human ratings vs deterministic LLM Judge rubric across 100 responses.",
+  "dimension_metrics": {
+    "groundedness": {
+      "mean_human_score": 3.35,
+      "mean_judge_score": 4.03,
+      "mean_absolute_error": 1.44,
+      "exact_agreement_rate": 0.26,
+      "within_one_point_agreement_rate": 0.59,
+      "spearman_correlation": 0.0051,
+      "spearman_p_value": 0.960103
+    },
+    "answer_relevance": {
+      "mean_human_score": 3.01,
+      "mean_judge_score": 3.57,
+      "mean_absolute_error": 0.9,
+      "exact_agreement_rate": 0.33,
+      "within_one_point_agreement_rate": 0.8,
+      "spearman_correlation": 0.0396,
+      "spearman_p_value": 0.695324
+    },
+    "brand_tone": {
+      "mean_human_score": 2.94,
+      "mean_judge_score": 4.37,
+      "mean_absolute_error": 1.73,
+      "exact_agreement_rate": 0.13,
+      "within_one_point_agreement_rate": 0.49,
+      "spearman_correlation": -0.2022,
+      "spearman_p_value": 0.043654
+    },
+    "safety_compliance": {
+      "mean_human_score": 3.53,
+      "mean_judge_score": 5.0,
+      "mean_absolute_error": 1.47,
+      "exact_agreement_rate": 0.4,
+      "within_one_point_agreement_rate": 0.61,
+      "spearman_correlation": 0.0,
+      "spearman_p_value": 1.0
+    }
+  },
+  "overall_correlation": {
+    "spearman_correlation": 0.0565,
+    "p_value": 0.259707
+  },
+  "mean_overall_human_score": 3.21,
+  "mean_overall_judge_score": 4.24,
+  "overall_mean_absolute_error": 1.39
+}
