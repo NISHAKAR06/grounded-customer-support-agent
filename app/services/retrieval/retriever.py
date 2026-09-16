@@ -7,7 +7,6 @@ from typing import Any, Dict, List, Optional
 
 import faiss
 import numpy as np
-from sentence_transformers import SentenceTransformer
 
 from app.core.config import get_settings
 from app.models.domain_models import HistoricalCase, ResolutionStatus
@@ -23,7 +22,7 @@ class Retriever:
     conversations. Never fabricates fake historical cases.
     """
 
-    _model: Optional[SentenceTransformer] = None
+    _model: Optional[Any] = None
 
     def __init__(
         self,
@@ -40,10 +39,12 @@ class Retriever:
         self._metadata: Optional[List[Dict[str, Any]]] = None
 
     @classmethod
-    def _get_embedding_model(cls, model_name: str) -> SentenceTransformer:
-        """Cached singleton embedding model."""
+    def _get_embedding_model(cls, model_name: str) -> Any:
+        """Cached singleton embedding model, loaded lazily upon first inference call."""
         if cls._model is None:
             logger.info("Loading retrieval embedding model: %s", model_name)
+            from sentence_transformers import SentenceTransformer
+
             cls._model = SentenceTransformer(model_name)
         return cls._model
 

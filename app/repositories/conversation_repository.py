@@ -64,16 +64,38 @@ class ConversationRepository:
             self._mem_conn = sqlite3.connect(":memory:", check_same_thread=False)
             self._mem_conn.row_factory = sqlite3.Row
 
+        # Lazy initialization state
+        self._is_initializing = False
+        self._sqlite_initialized = False
+
+    def _ensure_initialized(self) -> None:
+        """Ensure database tables and initial seed data exist before first query."""
+        if getattr(self, "_is_initializing", False):
+            return
+
         if self._is_postgres:
             if not ConversationRepository._pg_initialized:
-                self._init_db()
-                self._ensure_seeded()
-                ConversationRepository._pg_initialized = True
+                self._is_initializing = True
+                try:
+                    self._init_db()
+                    self._ensure_seeded()
+                    ConversationRepository._pg_initialized = True
+                finally:
+                    self._is_initializing = False
         else:
-            self._init_db()
-            self._ensure_seeded()
+            if not getattr(self, "_sqlite_initialized", False):
+                self._is_initializing = True
+                try:
+                    self._init_db()
+                    self._ensure_seeded()
+                    self._sqlite_initialized = True
+                finally:
+                    self._is_initializing = False
 
     def _get_connection(self):
+        if not getattr(self, "_is_initializing", False):
+            self._ensure_initialized()
+
         if self._is_postgres:
             import psycopg2
 

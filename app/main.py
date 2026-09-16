@@ -1,5 +1,21 @@
 """FastAPI application entrypoint for Grounded Customer Support Agent."""
 
+import os
+import sys
+import warnings
+
+# ---------------------------------------------------------------------------
+# Clean & Professional Terminal Configuration
+# Silence noisy third-party C++ runtime notices and upstream deprecations
+# ---------------------------------------------------------------------------
+os.environ["TF_CPP_MIN_LOG_LEVEL"] = "3"
+os.environ["TF_ENABLE_ONEDNN_OPTS"] = "0"
+os.environ["PYTHONWARNINGS"] = "ignore"
+warnings.filterwarnings("ignore")
+
+# flake8: noqa: E402
+# ruff: noqa: E402
+
 from fastapi import FastAPI, Request
 from fastapi.responses import HTMLResponse, RedirectResponse
 from fastapi.staticfiles import StaticFiles
@@ -47,9 +63,35 @@ _conversation_repo = ConversationRepository()
 _evaluation_service = EvaluationService()
 
 
-# ---------------------------------------------------------------------------
-# UI Page Routes (Rendered using Jinja2 templates)
-# ---------------------------------------------------------------------------
+@app.on_event("startup")
+def startup_banner():
+    """Display an elegant, professional startup summary in the console."""
+    db_status = (
+        "PostgreSQL (Neon Production Connected)"
+        if getattr(settings, "DATABASE_URL", None)
+        else "SQLite (data/inbox.db fallback)"
+    )
+    llm_info = f"{settings.LLM_PROVIDER.upper()} ({settings.GROQ_MODEL_NAME if settings.LLM_PROVIDER == 'groq' else getattr(settings, 'OPENAI_MODEL_NAME', 'default')})"
+
+    banner_lines = [
+        "",
+        "  +=====================================================================+",
+        f"  |   🎯 {settings.APP_NAME:<35} v{settings.APP_VERSION:<19} |",
+        "  +=====================================================================+",
+        "  |   • Status:     Active & Operational                                |",
+        f"  |   • LLM Engine: {llm_info:<51} |",
+        f"  |   • Storage:    {db_status:<51} |",
+        f"  |   • Brand:      {settings.TARGET_BRAND_NAME} ({settings.TARGET_BRAND_HANDLE}){' ' * (37 - len(settings.TARGET_BRAND_NAME) - len(settings.TARGET_BRAND_HANDLE))} |",
+        "  +---------------------------------------------------------------------+",
+        f"  |   • Workspace:  http://localhost:{settings.APP_PORT}/simulate{' ' * (25 - len(str(settings.APP_PORT)))} |",
+        f"  |   • Inbox:      http://localhost:{settings.APP_PORT}/inbox{' ' * (36 - len(str(settings.APP_PORT)))} |",
+        f"  |   • API Docs:   http://localhost:{settings.APP_PORT}/api/docs{' ' * (33 - len(str(settings.APP_PORT)))} |",
+        f"  |   • Health:     http://localhost:{settings.APP_PORT}/api/health{' ' * (31 - len(str(settings.APP_PORT)))} |",
+        "  +=====================================================================+",
+        "",
+    ]
+    sys.stdout.write("\n".join(banner_lines) + "\n")
+    sys.stdout.flush()
 
 
 @app.get("/", response_class=RedirectResponse)

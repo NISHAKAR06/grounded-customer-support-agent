@@ -15,11 +15,14 @@ from app.services.generation.provider_factory import LLMProviderFactory
 
 router = APIRouter(prefix="/agent", tags=["Agent"])
 
-# Global orchestrator dependency injection
-_orchestrator = AgentOrchestrator()
+# Global orchestrator dependency injection (lazily initialized)
+_orchestrator: Optional[AgentOrchestrator] = None
 
 
 def get_orchestrator() -> AgentOrchestrator:
+    global _orchestrator
+    if _orchestrator is None:
+        _orchestrator = AgentOrchestrator()
     return _orchestrator
 
 
@@ -40,16 +43,54 @@ def _persist_to_inbox(
         from app.repositories.conversation_repository import ConversationRepository
 
         repo = ConversationRepository()
+        meta = (
+            result.metadata
+            if isinstance(result.metadata, dict)
+            else getattr(result, "metadata", {})
+        )
         cid = (
-            result.metadata.conversation_id or f"conv_sim_{int(time.time())}_{uuid.uuid4().hex[:6]}"
+            (
+                meta.get("conversation_id")
+                if isinstance(meta, dict)
+                else getattr(meta, "conversation_id", None)
+            )
+            or getattr(result, "conversation_id", None)
+            or f"conv_sim_{int(time.time())}_{uuid.uuid4().hex[:6]}"
         )
         ticket_id = f"TICK-SIM-{cid[-6:].upper()}"
         h = (customer_handle or "@Customer").strip()
         if not h.startswith("@"):
             h = f"@{h}"
-        decision_str = result.routing.decision.value
+
+        routing = getattr(result, "routing", None)
+        decision_val = (
+            routing.decision.value
+            if hasattr(routing, "decision") and hasattr(routing.decision, "value")
+            else str(getattr(routing, "decision", "AUTO_HANDLE"))
+        )
+        decision_str = "HUMAN_ESCALATION" if "ESCALAT" in decision_val.upper() else "AUTO_HANDLE"
         status_str = "AI Ready" if decision_str == "AUTO_HANDLE" else "Needs Human"
         now_str = time.strftime("%a %b %d %H:%M:%S +0000 %Y", time.gmtime())
+
+        draft_reply = (
+            getattr(result.generation, "draft_reply", "") if hasattr(result, "generation") else ""
+        )
+        intent_name = (
+            getattr(result.intent, "name", "General Support")
+            if hasattr(result, "intent")
+            else "General Support"
+        )
+        intent_code = (
+            getattr(result.intent, "code", "general_inquiry")
+            if hasattr(result, "intent")
+            else "general_inquiry"
+        )
+        if hasattr(intent_code, "value"):
+            intent_code = intent_code.value
+        confidence = float(
+            getattr(result.intent, "confidence", 0.0) if hasattr(result, "intent") else 0.0
+        )
+        signals = getattr(result.intent, "signals", []) if hasattr(result, "intent") else []
 
         rec = {
             "conversation_id": cid,
@@ -59,10 +100,10 @@ def _persist_to_inbox(
             "root_tweet_id": str(int(time.time())),
             "first_inquiry": message,
             "latest_message": message,
-            "final_brand_response": result.generation.draft_reply,
-            "intent": result.intent.name,
-            "intent_code": result.intent.code,
-            "confidence": result.intent.confidence,
+            "final_brand_response": draft_reply,
+            "intent": intent_name,
+            "intent_code": str(intent_code),
+            "confidence": confidence,
             "decision": decision_str,
             "turn_count": 2,
             "turns": [
@@ -77,22 +118,23 @@ def _persist_to_inbox(
                     "turn_id": 2,
                     "author_id": brand or "AppleSupport",
                     "author_role": "BRAND",
-                    "text": result.generation.draft_reply,
+                    "text": draft_reply,
                     "created_at": now_str,
                 },
             ],
-            "has_dm": "DM" in result.generation.draft_reply,
-            "has_kb_link": "http" in result.generation.draft_reply,
+            "has_dm": "DM" in draft_reply,
+            "has_kb_link": "http" in draft_reply,
             "has_resolution": decision_str == "AUTO_HANDLE",
             "status": status_str,
             "created_at": now_str,
             "timestamp": now_str,
-            "intent_confidence": result.intent.confidence,
-            "intent_signals": result.intent.signals,
+            "intent_confidence": confidence,
+            "intent_signals": signals,
         }
         repo.save_conversation(rec)
+        logger.info(f"Successfully persisted simulated ticket {ticket_id} ({cid}) to database.")
     except Exception as e:
-        logger.warning(f"Failed to persist ticket to inbox DB: {e}")
+        logger.warning(f"Failed to persist ticket to inbox DB: {e}", exc_info=True)
 
 
 @router.post("/run", response_model=AgentRunResult)
